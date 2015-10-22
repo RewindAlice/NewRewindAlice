@@ -1,0 +1,13 @@
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\obj\Debug\UnityVS.Alice.CSharp.csprojResolveAssemblyReference.cache
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\obj\Debug\Assembly-CSharp.dll
+C:\Users\s132138\Desktop\Alice~刻の迷Q~\アリス修正版\Alice\obj\Debug\Assembly-CSharp.pdb

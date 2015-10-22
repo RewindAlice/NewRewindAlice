@@ -1,0 +1,158 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class GameMain : MonoBehaviour
+{
+    // カメラの回転関数ポインタ
+    public delegate void OnCameraMove();
+    public event OnCameraMove cameraTurnLeftEvent;  // カメラの左回転
+    public event OnCameraMove cameraTurnRightEvent; // カメラの右回転
+
+    public enum Action
+    {
+        NONE,       // 無し
+        NEXT,       // 進む
+        RETURN,     // 戻る
+    }
+
+    public enum Turn
+    {
+        NONE,       // 無し
+        PLAYER,     // プレイヤー
+        GIMMICK,    // ギミック
+    }
+
+    public PlayerCamera camera;
+    public Stage stage; // ステージ
+    public int turnNum; // ターン数
+
+    public Action action;           // 行動が何か判断する
+    public Turn turn;               // 誰のターンか判断する
+    public int turnCountPlayer;     // ターンの時間稼ぎ
+    public int turnCountGimmick;    // ターンの時間稼ぎ
+
+	// 初期化
+	void Start ()
+    {
+        GameSetting();  // ゲームの設定
+	}
+	
+	// 更新
+	void Update ()
+    {
+        if ((Input.GetKeyDown(KeyCode.LeftArrow)))
+        {
+            CameraTurnLeftMove();
+        }
+        // 矢印左を押したら(カメラ移動右回転)
+        if ((Input.GetKeyDown(KeyCode.RightArrow)))
+        {
+            CameraTurnRightMove();
+        }
+
+        // Ｚキーが押された時、行動が無しなら
+        if ((Input.GetKeyDown(KeyCode.Z)) && (action == Action.NONE))
+        {
+            action = Action.NEXT;   // 行動を進むに
+            turn = Turn.PLAYER;     // ターンをプレイヤーに
+            turnCountPlayer = 0;    // カウントを０に
+            turnCountGimmick = 0;   // カウントを０に
+        }
+
+        // Ｘキーが押された時、行動が無しなら
+        if ((Input.GetKeyDown(KeyCode.X)) && (action == Action.NONE))
+        {
+            action = Action.RETURN; // 行動を戻るに
+            turn = Turn.GIMMICK;    // ターンをギミックに
+            turnCountPlayer = 0;    // カウントを０に
+            turnCountGimmick = 0;   // カウントを０に
+        }
+
+        GameAction();   // 行動を行う
+	}
+
+    // ゲームの設定
+    void GameSetting()
+    {
+        action = Action.NONE;   // 行動に無しを設定
+        turn = Turn.NONE;       // ターンに無しを設定
+        turnCountPlayer = 0;    // カウントを０に
+        turnCountGimmick = 0;   // カウントを０に
+
+        stage.setSelectStage(1);            // 選択されたステージを設定
+        stage.CreateStage();                // ステージの生成
+        turnNum = stage.getStageTurnNum();  // ターン数の取得
+    }
+
+    // 行動
+    void GameAction()
+    {
+        // 現在の行動が
+        switch (action)
+        {
+            // 無しなら
+            case Action.NONE:
+                break;
+
+            // 進むなら
+            case Action.NEXT:
+                // ターンがプレイヤーなら
+                if (turn == Turn.PLAYER)
+                {
+                    turnCountPlayer++;  // カウントを増やす
+
+                    // カウントが６０になったら
+                    if (turnCountPlayer == 60)
+                    {
+                        turn = Turn.GIMMICK;    // ターンをギミックに
+                    }
+                }
+                // ターンがギミックなら
+                else if (turn == Turn.GIMMICK)
+                {
+                    turnCountGimmick++; // カウントを増やす
+
+                    // カウントが６０になったら
+                    if (turnCountGimmick == 60)
+                    {
+                        action = Action.NONE;   // 行動を無しに
+                        turn = Turn.NONE;       // ターンを無しに
+                    }
+                }
+                break;
+
+            // 戻るなら
+            case Action.RETURN:
+                // ターンがギミックなら
+                if (turn == Turn.GIMMICK)
+                {
+                    turnCountGimmick++; // カウントを増やす
+
+                    // カウントが６０になったら
+                    if (turnCountGimmick == 60)
+                    {
+                        turn = Turn.PLAYER; // ターンをプレイヤーに
+                    }
+                }
+                // ターンがプレイヤーなら
+                else if (turn == Turn.PLAYER)
+                {
+                    turnCountPlayer++;  // カウントを増やす
+
+                    // カウントが６０になったら
+                    if (turnCountPlayer == 60)
+                    {
+                        action = Action.NONE;   // 行動を無しに
+                        turn = Turn.NONE;       // ターンを無しに
+                    }
+                }
+                break;
+        }
+    }
+
+    // カメラの左回転
+    public void CameraTurnLeftMove() { cameraTurnLeftEvent(); }
+
+    // カメラの右回転
+    public void CameraTurnRightMove() { cameraTurnRightEvent(); }
+}

@@ -1,0 +1,225 @@
+fileFormatVersion: 2
+guid: 12acea74582e3bd4b92128d6ba01a6cf
+timeCreated: 1436404844
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bip001
+    100004: Bip001 Footsteps
+    100006: Bip001 Head
+    100008: Bip001 HeadNub
+    100010: Bip001 L Calf
+    100012: Bip001 L Clavicle
+    100014: Bip001 L Finger0
+    100016: Bip001 L Finger0Nub
+    100018: Bip001 L Foot
+    100020: Bip001 L Forearm
+    100022: Bip001 L Hand
+    100024: Bip001 L Thigh
+    100026: Bip001 L Toe0
+    100028: Bip001 L Toe01
+    100030: Bip001 L Toe02
+    100032: Bip001 L Toe0Nub
+    100034: Bip001 L UpperArm
+    100036: Bip001 Neck
+    100038: Bip001 Pelvis
+    100040: Bip001 R Calf
+    100042: Bip001 R Clavicle
+    100044: Bip001 R Finger0
+    100046: Bip001 R Finger0Nub
+    100048: Bip001 R Foot
+    100050: Bip001 R Forearm
+    100052: Bip001 R Hand
+    100054: Bip001 R Thigh
+    100056: Bip001 R Toe0
+    100058: Bip001 R Toe01
+    100060: Bip001 R Toe02
+    100062: Bip001 R Toe0Nub
+    100064: Bip001 R UpperArm
+    100066: Bip001 Spine
+    100068: Bone011
+    100070: Bone014
+    100072: Bone038
+    100074: Bone042
+    100076: Bone046
+    100078: Bone050
+    100080: Bone061
+    100082: Bone064
+    100084: Bone067
+    100086: Bone070
+    100088: Bone073
+    100090: hair1_1
+    100092: hair1_2
+    100094: hair2_1
+    100096: hair2_2
+    100098: hair3_1
+    100100: hair3_2
+    100102: hair4_1
+    100104: hair4_2
+    100106: hair5_1
+    100108: hair5_2
+    100110: hair6_1
+    100112: hair6_2
+    100114: hair7_1
+    100116: hair7_2
+    100118: obi1_1
+    100120: obi1_2
+    100122: obi1_3
+    100124: obi2_1
+    100126: obi2_2
+    100128: obi2_3
+    100130: skirt1_1
+    100132: skirt1_2
+    100134: skirt1_3
+    100136: skirt2_1
+    100138: skirt2_2
+    100140: skirt2_3
+    100142: skirt3_1
+    100144: skirt3_2
+    100146: skirt3_3
+    100148: skirt4_1
+    100150: skirt4_2
+    100152: skirt4_3
+    100154: "\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8002"
+    400000: //RootNode
+    400002: Bip001
+    400004: Bip001 Footsteps
+    400006: Bip001 Head
+    400008: Bip001 HeadNub
+    400010: Bip001 L Calf
+    400012: Bip001 L Clavicle
+    400014: Bip001 L Finger0
+    400016: Bip001 L Finger0Nub
+    400018: Bip001 L Foot
+    400020: Bip001 L Forearm
+    400022: Bip001 L Hand
+    400024: Bip001 L Thigh
+    400026: Bip001 L Toe0
+    400028: Bip001 L Toe01
+    400030: Bip001 L Toe02
+    400032: Bip001 L Toe0Nub
+    400034: Bip001 L UpperArm
+    400036: Bip001 Neck
+    400038: Bip001 Pelvis
+    400040: Bip001 R Calf
+    400042: Bip001 R Clavicle
+    400044: Bip001 R Finger0
+    400046: Bip001 R Finger0Nub
+    400048: Bip001 R Foot
+    400050: Bip001 R Forearm
+    400052: Bip001 R Hand
+    400054: Bip001 R Thigh
+    400056: Bip001 R Toe0
+    400058: Bip001 R Toe01
+    400060: Bip001 R Toe02
+    400062: Bip001 R Toe0Nub
+    400064: Bip001 R UpperArm
+    400066: Bip001 Spine
+    400068: Bone011
+    400070: Bone014
+    400072: Bone038
+    400074: Bone042
+    400076: Bone046
+    400078: Bone050
+    400080: Bone061
+    400082: Bone064
+    400084: Bone067
+    400086: Bone070
+    400088: Bone073
+    400090: hair1_1
+    400092: hair1_2
+    400094: hair2_1
+    400096: hair2_2
+    400098: hair3_1
+    400100: hair3_2
+    400102: hair4_1
+    400104: hair4_2
+    400106: hair5_1
+    400108: hair5_2
+    400110: hair6_1
+    400112: hair6_2
+    400114: hair7_1
+    400116: hair7_2
+    400118: obi1_1
+    400120: obi1_2
+    400122: obi1_3
+    400124: obi2_1
+    400126: obi2_2
+    400128: obi2_3
+    400130: skirt1_1
+    400132: skirt1_2
+    400134: skirt1_3
+    400136: skirt2_1
+    400138: skirt2_2
+    400140: skirt2_3
+    400142: skirt3_1
+    400144: skirt3_2
+    400146: skirt3_3
+    400148: skirt4_1
+    400150: skirt4_2
+    400152: skirt4_3
+    400154: "\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8002"
+    4300000: "\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8002"
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: "\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8002"
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
