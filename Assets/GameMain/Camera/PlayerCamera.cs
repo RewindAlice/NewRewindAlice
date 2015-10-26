@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // ★カメラの角度★
+    // ★カメラの角度★//////////////////
     const int CAMERA_FRONT = 150;   // 前
     const int CAMERA_BACK = 330;    // 後
     const int CAMERA_LEFT = 60;     // 左
@@ -18,7 +18,7 @@ public class PlayerCamera : MonoBehaviour
         RIGHT,  // 右
     }
 
-    // ★回転方向★
+    // ★回転方向★//////////
     public enum TurnDirection
     {
         NONE,   // 無し
@@ -26,7 +26,11 @@ public class PlayerCamera : MonoBehaviour
         RIGHT,  // 右方向
     }
 
-    public Camera mapCamera;        // 上視点カメラ
+    // ★マップカメラ★////////////////////////////////////////
+    public Camera mapCamera;        // マップカメラ
+    public bool mapCameraFlag;      // マップカメラの表示フラグ
+
+    // ★プレイヤーカメラ★//////////////////////////////////////
     public Player player;           // 追従対象
     public CameraAngle cameraAngle; // 追従対象に対してのアングル
     public int currentRotationY;    // 現在の角度
@@ -36,35 +40,13 @@ public class PlayerCamera : MonoBehaviour
     Vector3 offset;                 // カメラと対象の距離
     TurnDirection turnDirection;    // カメラの回転方向
 
-    // ★左回転時の方向設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    void RotationLeft()
-    {
-        // キー入力時の角度が
-        switch(inputKeyRotationY)
-        {
-            case CAMERA_BACK: cameraAngle = CameraAngle.LEFT; break;    // 後なら左を設定
-            case CAMERA_LEFT: cameraAngle = CameraAngle.FRONT; break;   // 左なら前を設定
-            case CAMERA_FRONT: cameraAngle = CameraAngle.RIGHT; break;  // 前なら右を設定
-            case CAMERA_RIGHT: cameraAngle = CameraAngle.BACK; break;   // 右なら後を設定
-        }
-    }
-
-    // ★右回転時の方向設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    void RotationRight()
-    {
-        // キー入力時の角度が
-        switch (inputKeyRotationY)
-        {
-            case CAMERA_BACK: cameraAngle = CameraAngle.RIGHT; break;   // 後なら右を設定
-            case CAMERA_LEFT: cameraAngle = CameraAngle.BACK; break;    // 左なら後を設定
-            case CAMERA_FRONT: cameraAngle = CameraAngle.LEFT; break;   // 前なら左を設定
-            case CAMERA_RIGHT: cameraAngle = CameraAngle.FRONT; break;  // 右なら前を設定
-        }
-    }
-
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+        // マップカメラの初期化////////////////////////////////////////
+        mapCameraFlag = true;   // マップカメラの初期表示フラグをＯＮに
+
+        // プレイヤーカメラの初期化////////////////////////////////////////////////////////////////////
         cameraAngle = CameraAngle.BACK;                                 // 初期アングルを後に
         currentRotationY = CAMERA_BACK;                                 // 初期カメラの角度を後に設定
         rotationFlag = false;                                           // カメラの回転フラグを偽に設定
@@ -77,6 +59,7 @@ public class PlayerCamera : MonoBehaviour
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update ()
     {
+        // プレイヤーカメラの更新////////////////////////////////////////////////////////////
         this.transform.position = player.transform.position + offset;   // カメラを追従させる
         CameraRotation();                                               // カメラの回転
 	}
@@ -96,51 +79,57 @@ public class PlayerCamera : MonoBehaviour
 
                 // 左方向なら
                 case TurnDirection.LEFT:
-
                     RotationLeft();     // カメラの回転
 
+                    // ▽現在のカメラの向きが
                     switch (cameraAngle)
                     {
+                        // ▼前なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.FRONT: targetRotationY = CAMERA_FRONT; break;  // 目的の角度に前を設定
+                        // ▼後なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.BACK: targetRotationY = CAMERA_BACK; break;    // 目的の角度に後を設定
+                        // ▼左なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.LEFT: targetRotationY = CAMERA_LEFT; break;    // 目的の角度に左を設定
+                        // ▼右なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.RIGHT: targetRotationY = CAMERA_RIGHT; break;  // 目的の角度に右を設定
                     }
 
+                    // 現在のカメラの角度が目的の角度と異なっていたら
                     if (currentRotationY != targetRotationY)
                     {
-                        currentRotationY++;
-                        mapCamera.transform.Rotate(0, 0, -1);
+                        currentRotationY++;                     // 現在の角度を増やす
+                        mapCamera.transform.Rotate(0, 0, -1);   // マップカメラを回転させる
 
-                        if (currentRotationY == 360)
-                        {
-                            currentRotationY = 0;
-                        }
+                        // 現在の角度が３６０度になったら角度を０に変える
+                        if (currentRotationY == 360){ currentRotationY = 0; }
                     }
                     break;
 
                 // 右方向なら
                 case TurnDirection.RIGHT:
-
                     RotationRight();    // カメラの回転
 
+                    // ▽現在のカメラの向きが
                     switch (cameraAngle)
                     {
+                        // ▼前なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.FRONT: targetRotationY = CAMERA_FRONT; break;  // 目的の角度に前を設定
+                        // ▼後なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.BACK: targetRotationY = CAMERA_BACK; break;    // 目的の角度に後を設定
+                        // ▼左なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.LEFT: targetRotationY = CAMERA_LEFT; break;    // 目的の角度に左を設定
+                        // ▼右なら////////////////////////////////////////////////////////////////////////////
                         case CameraAngle.RIGHT: targetRotationY = CAMERA_RIGHT; break;  // 目的の角度に右を設定
                     }
 
+                    // 現在の角度が目的の角度と異なっていたら
                     if (currentRotationY != targetRotationY)
                     {
-                        if (currentRotationY == 0)
-                        {
-                            currentRotationY = 360;
-                        }
+                        // 現在の角度が０度になったら角度を３６０に変える
+                        if (currentRotationY == 0){ currentRotationY = 360; }
 
-                        currentRotationY--;
-                        mapCamera.transform.Rotate(0, 0, 1);
+                        currentRotationY--;                     // 現在の角度を減らす
+                        mapCamera.transform.Rotate(0, 0, 1);    // マップカメラを回転させる
                     }
                     break;
             }
@@ -155,15 +144,49 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    // ★左回転時の方向設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    void RotationLeft()
+    {
+        // ▽キー入力時の角度が
+        switch (inputKeyRotationY)
+        {
+            // ▼前なら////////////////////////////////////////////////////////////
+            case CAMERA_FRONT: cameraAngle = CameraAngle.RIGHT; break;  // 右を設定
+            // ▼後なら////////////////////////////////////////////////////////////
+            case CAMERA_BACK: cameraAngle = CameraAngle.LEFT; break;    // 左を設定
+            // ▼左なら////////////////////////////////////////////////////////////
+            case CAMERA_LEFT: cameraAngle = CameraAngle.FRONT; break;   // 前を設定
+            // ▼右なら////////////////////////////////////////////////////////////
+            case CAMERA_RIGHT: cameraAngle = CameraAngle.BACK; break;   // 後を設定
+        }
+    }
+
+    // ★右回転時の方向設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    void RotationRight()
+    {
+        // ▽キー入力時の角度が
+        switch (inputKeyRotationY)
+        {
+            // ▼前なら////////////////////////////////////////////////////////////
+            case CAMERA_FRONT: cameraAngle = CameraAngle.LEFT; break;   // 左を設定
+            // ▼後なら////////////////////////////////////////////////////////////
+            case CAMERA_BACK: cameraAngle = CameraAngle.RIGHT; break;   // 右を設定
+            // ▼左なら////////////////////////////////////////////////////////////
+            case CAMERA_LEFT: cameraAngle = CameraAngle.BACK; break;    // 後を設定
+            // ▼右なら////////////////////////////////////////////////////////////
+            case CAMERA_RIGHT: cameraAngle = CameraAngle.FRONT; break;  // 前を設定
+        }
+    }
+
     // ★左回転★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void TurnLeft()
     {
         // 回転フラグが偽なら
         if(rotationFlag == false)
         {
-            rotationFlag = true;                    // 回転フラグを真に
-            turnDirection = TurnDirection.LEFT;     // 回転方向を左に
-            inputKeyRotationY = (int)transform.eulerAngles.y;
+            rotationFlag = true;                                // 回転フラグを真に
+            turnDirection = TurnDirection.LEFT;                 // 回転方向を左に
+            inputKeyRotationY = (int)transform.eulerAngles.y;   // キー入力時の角度に現在の角度を入れる
         }
     }
 
@@ -173,9 +196,25 @@ public class PlayerCamera : MonoBehaviour
         // 回転フラグが偽なら
         if (rotationFlag == false)
         {
-            rotationFlag = true;                    // 回転フラグを真に
-            turnDirection = TurnDirection.RIGHT;    // 回転方向を右に
-            inputKeyRotationY = (int)transform.eulerAngles.y;
+            rotationFlag = true;                                // 回転フラグを真に
+            turnDirection = TurnDirection.RIGHT;                // 回転方向を右に
+            inputKeyRotationY = (int)transform.eulerAngles.y;   // キー入力時の角度に現在の角度を入れる
+        }
+    }
+
+    // ★マップカメラの切り替え★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void SwitchingMapCamera()
+    {
+        // マップカメラがＯＮなら
+        if(mapCameraFlag)
+        {
+            mapCameraFlag = false;                              // マップカメラをＯＦＦに 
+            mapCamera.GetComponent<Camera>().enabled = false;   // マップカメラを非表示
+        }
+        else
+        {
+            mapCameraFlag = true;                               // マップカメラをＯＮに
+            mapCamera.GetComponent<Camera>().enabled = true;    // マップカメラを表示
         }
     }
 }

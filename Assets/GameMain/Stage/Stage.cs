@@ -18,11 +18,22 @@ public class Stage : MonoBehaviour
     const int BLOCK = 4;    // ブロック
     const int ENEMY = 5;    // 敵
 
+    // 蔦ギミック（仮）
+    const int IVY_BLOCK = 6;
+    const int IVY_FRONT = 7;
+    const int IVY_BACK = 8;
+    const int IVY_LEFT = 9;
+    const int IVY_RIGHT = 10;
+
+    public Player alice;
+
     public GameObject gimmickNone;  // 何も無い
     public GameObject gimmickStart; // スタート地点
     public GameObject gimmickGoal;  // ゴール地点
     public GameObject gimmickBlock; // ブロック
     public GameObject gimmickEnemy; // 敵（移動系配列）
+
+    public GameObject gimmickIVY;   // 蔦
 
     int gimmick = 0;            // 配列の数字
     int gimmickPattern = 0;     // ギミックの種類
@@ -83,31 +94,31 @@ public class Stage : MonoBehaviour
 
         switch (gimmickPattern)
         {
-            case NONE:  // 何も無い////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case NONE:  // ▼何も無い//////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickStartTurnArray[y, x, z] = gimmickStartTurn;
                 break;
-            case START: // スタート地点/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case START: // ▼スタート地点///////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickStart, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickStartTurnArray[y, x, z] = gimmickStartTurn;
                 break;
-            case GOAL:  // ゴール地点//////////////////////////////////////////////////////////////////////////////////////////////////////
+            case GOAL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickStartTurnArray[y, x, z] = gimmickStartTurn;
                 break;
-            case BLOCK: // ブロック/////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case BLOCK: // ▼ブロック///////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickStartTurnArray[y, x, z] = gimmickStartTurn;
                 break;
-            case ENEMY: // 敵//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case ENEMY: // ▼敵////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickStartTurnArray[y, x, z] = 1;
                 gimmickNumArray[y, x, z] = NONE;
@@ -115,6 +126,22 @@ public class Stage : MonoBehaviour
                 moveGimmickStartTurnList.Add(gimmickNumArray[y, x, z] % 100);
                 moveGimmickNumList.Add(ENEMY);
                 break;
+            case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickStartTurnArray[y, x, z] = gimmickStartTurn;
+                break;
+            case IVY_FRONT: // ▼蔦（前）///////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_BACK:  // ▼蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_LEFT:  // ▼蔦（左）///////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_RIGHT: // ▼蔦（右）///////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickStartTurnArray[y, x, z] = gimmickStartTurn;
+                break;
+
         }
     }
 
@@ -139,7 +166,7 @@ public class Stage : MonoBehaviour
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
                 {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
-                {  10101,  10401,  10401,  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
+                {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
                 {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
                 {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
                 {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10101},
@@ -151,13 +178,13 @@ public class Stage : MonoBehaviour
             {
                 // ２段目
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-                {  10101,  20201,  10101,  10401,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
+                {  10101,  10401,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
+                {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
+                {  10101,  10101,  11001,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
+                {  10101,  10701,  10601,  10801,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
+                {  10101,  10101,  10901,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-                {  10101,  10101,  10401,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-                {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-                {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-                {  10101,  10501,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10301,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
@@ -165,7 +192,7 @@ public class Stage : MonoBehaviour
             {
                 // ３段目
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-                {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
+                {  10101,  10201,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
                 {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
@@ -448,11 +475,15 @@ public class Stage : MonoBehaviour
             case NONE:      // 何も無い
             case START:     // スタート地点
             case GOAL:      // ゴール地点
+            case IVY_BLOCK: // 蔦ブロック
+            case IVY_FRONT: // 蔦（前）
+            case IVY_BACK:  // 蔦（後）
+            case IVY_LEFT:  // 蔦（左）
+            case IVY_RIGHT: // 蔦（右）
                 flag = true;
                 break;
 
-            // 移動できない
-            case BLOCK:     // ブロック
+            default:
                 flag = false;
                 break;
         }
@@ -485,6 +516,11 @@ public class Stage : MonoBehaviour
             case START:     // スタート地点
             case GOAL:      // ゴール地点
             case BLOCK:     // ブロック
+            case IVY_BLOCK: // 蔦ブロック
+            case IVY_FRONT: // 蔦（前）
+            case IVY_BACK:  // 蔦（後）
+            case IVY_LEFT:  // 蔦（左）
+            case IVY_RIGHT: // 蔦（右）
                 flag = true;
                 break;
         }
@@ -499,10 +535,24 @@ public class Stage : MonoBehaviour
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
+        alice.climbFlag = false;
+
         switch(gimmickNumArray[posY, posX, posZ])
         {
-            case GOAL:  // ゴール
+            case GOAL:      // ▼ゴール
                 GoalCheck();
+                break;
+            case IVY_FRONT: // 蔦（前）
+                Climb(Player.PlayerAngle.FRONT);
+                break;
+            case IVY_BACK:  // 蔦（後）
+                Climb(Player.PlayerAngle.BACK);
+                break;
+            case IVY_LEFT:  // 蔦（左）
+                Climb(Player.PlayerAngle.LEFT);
+                break;
+            case IVY_RIGHT: // 蔦（右）
+                Climb(Player.PlayerAngle.RIGHT);
                 break;
         }
     }
@@ -533,5 +583,32 @@ public class Stage : MonoBehaviour
     {
         print("ゴール到着");
         // ここにゴール処理を書く
+    }
+
+    // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void Climb(Player.PlayerAngle angle)
+    {
+        // 向きが
+        switch(angle)
+        {
+            case Player.PlayerAngle.FRONT:
+                alice.playerAngle = Player.PlayerAngle.FRONT;
+                alice.transform.localEulerAngles = new Vector3(0, 0, 0);    // 前方向の角度を指定
+                break;
+            case Player.PlayerAngle.BACK:
+                alice.playerAngle = Player.PlayerAngle.BACK;
+                alice.transform.localEulerAngles = new Vector3(0, 180, 0);  // 後方向の角度を指定
+                break;
+            case Player.PlayerAngle.LEFT:
+                alice.playerAngle = Player.PlayerAngle.LEFT;
+                alice.transform.localEulerAngles = new Vector3(0, 270, 0);  // 左方向の角度を指定
+                break;
+            case Player.PlayerAngle.RIGHT:
+                alice.playerAngle = Player.PlayerAngle.RIGHT;
+                alice.transform.localEulerAngles = new Vector3(0, 90, 0);   // 右方向の角度を指定
+                break;
+        }
+
+        alice.climbFlag = true;
     }
 }
