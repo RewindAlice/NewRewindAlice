@@ -233,7 +233,7 @@ public class GameMain : MonoBehaviour
                 if ((Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag))
                 {
                     // 登りフラグが真なら
-                    if(AliceClimbDicision(Player.MoveDirection.FRONT))
+                    if(AliceClimb1Dicision(Player.MoveDirection.FRONT))
                     {
                         action = PlayerAction.NEXT;     // 行動を進むに
                         turn = Turn.PLAYER;             // ターンをプレイヤーに
@@ -242,6 +242,16 @@ public class GameMain : MonoBehaviour
                         alice.moveDirection = Player.MoveDirection.UP;
                         alice.inputKeyFlag = true;
                         print("上移動");// デバッグ用コメント
+                    }
+                    else if(AliceClimb2Dicision(Player.MoveDirection.FRONT))
+                    {
+                        action = PlayerAction.NEXT;     // 行動を進むに
+                        turn = Turn.PLAYER;             // ターンをプレイヤーに
+                        turnCountGimmick = 0;           // カウントを０に
+
+                        alice.moveDirection = Player.MoveDirection.DOWN;
+                        alice.inputKeyFlag = true;
+                        print("下移動");// デバッグ用コメント
                     }
                     else
                     {
@@ -260,7 +270,7 @@ public class GameMain : MonoBehaviour
                 if ((Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag))
                 {
                     // 登りフラグが真なら
-                    if (AliceClimbDicision(Player.MoveDirection.BACK))
+                    if (AliceClimb1Dicision(Player.MoveDirection.BACK))
                     {
                         action = PlayerAction.NEXT;     // 行動を進むに
                         turn = Turn.PLAYER;             // ターンをプレイヤーに
@@ -269,6 +279,16 @@ public class GameMain : MonoBehaviour
                         alice.moveDirection = Player.MoveDirection.UP;
                         alice.inputKeyFlag = true;
                         print("上移動");// デバッグ用コメント
+                    }
+                    else if (AliceClimb2Dicision(Player.MoveDirection.BACK))
+                    {
+                        action = PlayerAction.NEXT;     // 行動を進むに
+                        turn = Turn.PLAYER;             // ターンをプレイヤーに
+                        turnCountGimmick = 0;           // カウントを０に
+
+                        alice.moveDirection = Player.MoveDirection.DOWN;
+                        alice.inputKeyFlag = true;
+                        print("下移動");// デバッグ用コメント
                     }
                     else
                     {
@@ -287,7 +307,7 @@ public class GameMain : MonoBehaviour
                 if ((Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag))
                 {
                     // 登りフラグが真なら
-                    if (AliceClimbDicision(Player.MoveDirection.LEFT))
+                    if (AliceClimb1Dicision(Player.MoveDirection.LEFT))
                     {
                         action = PlayerAction.NEXT;     // 行動を進むに
                         turn = Turn.PLAYER;             // ターンをプレイヤーに
@@ -296,6 +316,16 @@ public class GameMain : MonoBehaviour
                         alice.moveDirection = Player.MoveDirection.UP;
                         alice.inputKeyFlag = true;
                         print("上移動");// デバッグ用コメント
+                    }
+                    else if (AliceClimb2Dicision(Player.MoveDirection.LEFT))
+                    {
+                        action = PlayerAction.NEXT;     // 行動を進むに
+                        turn = Turn.PLAYER;             // ターンをプレイヤーに
+                        turnCountGimmick = 0;           // カウントを０に
+
+                        alice.moveDirection = Player.MoveDirection.DOWN;
+                        alice.inputKeyFlag = true;
+                        print("下移動");// デバッグ用コメント
                     }
                     else
                     {
@@ -314,7 +344,7 @@ public class GameMain : MonoBehaviour
                 if ((Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag))
                 {
                     // 登りフラグが真なら
-                    if (AliceClimbDicision(Player.MoveDirection.RIGHT))
+                    if (AliceClimb1Dicision(Player.MoveDirection.RIGHT))
                     {
                         action = PlayerAction.NEXT;     // 行動を進むに
                         turn = Turn.PLAYER;             // ターンをプレイヤーに
@@ -323,6 +353,16 @@ public class GameMain : MonoBehaviour
                         alice.moveDirection = Player.MoveDirection.UP;
                         alice.inputKeyFlag = true;
                         print("上移動");// デバッグ用コメント
+                    }
+                    else if (AliceClimb2Dicision(Player.MoveDirection.RIGHT))
+                    {
+                        action = PlayerAction.NEXT;     // 行動を進むに
+                        turn = Turn.PLAYER;             // ターンをプレイヤーに
+                        turnCountGimmick = 0;           // カウントを０に
+
+                        alice.moveDirection = Player.MoveDirection.DOWN;
+                        alice.inputKeyFlag = true;
+                        print("下移動");// デバッグ用コメント
                     }
                     else
                     {
@@ -390,11 +430,11 @@ public class GameMain : MonoBehaviour
     }
 
     // ★アリスの登り判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    bool AliceClimbDicision(Player.MoveDirection direction)
+    bool AliceClimb1Dicision(Player.MoveDirection direction)
     {
         bool flag = false;
 
-        if(alice.climbFlag)
+        if(alice.climb1Flag)
         {
             switch(direction)
             {
@@ -430,6 +470,57 @@ public class GameMain : MonoBehaviour
                         ((camera.cameraAngle == PlayerCamera.CameraAngle.BACK) && (alice.playerAngle == Player.PlayerAngle.RIGHT)) ||
                         ((camera.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (alice.playerAngle == Player.PlayerAngle.BACK)) ||
                         ((camera.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (alice.playerAngle == Player.PlayerAngle.FRONT)))
+                    {
+                        flag = true;
+                    }
+                    break;
+            }
+        }
+
+        return flag;
+    }
+
+    // ★アリスの登り判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    bool AliceClimb2Dicision(Player.MoveDirection direction)
+    {
+        bool flag = false;
+
+        if (alice.climb2Flag)
+        {
+            switch (direction)
+            {
+                case Player.MoveDirection.FRONT:
+                    if (((camera.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (alice.playerAngle == Player.PlayerAngle.FRONT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.BACK) && (alice.playerAngle == Player.PlayerAngle.BACK)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (alice.playerAngle == Player.PlayerAngle.LEFT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (alice.playerAngle == Player.PlayerAngle.RIGHT)))
+                    {
+                        flag = true;
+                    }
+                    break;
+                case Player.MoveDirection.BACK:
+                    if (((camera.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (alice.playerAngle == Player.PlayerAngle.BACK)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.BACK) && (alice.playerAngle == Player.PlayerAngle.FRONT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (alice.playerAngle == Player.PlayerAngle.RIGHT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (alice.playerAngle == Player.PlayerAngle.LEFT)))
+                    {
+                        flag = true;
+                    }
+                    break;
+                case Player.MoveDirection.LEFT:
+                    if (((camera.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (alice.playerAngle == Player.PlayerAngle.LEFT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.BACK) && (alice.playerAngle == Player.PlayerAngle.RIGHT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (alice.playerAngle == Player.PlayerAngle.BACK)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (alice.playerAngle == Player.PlayerAngle.FRONT)))
+                    {
+                        flag = true;
+                    }
+                    break;
+                case Player.MoveDirection.RIGHT:
+                    if (((camera.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (alice.playerAngle == Player.PlayerAngle.RIGHT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.BACK) && (alice.playerAngle == Player.PlayerAngle.LEFT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (alice.playerAngle == Player.PlayerAngle.FRONT)) ||
+                        ((camera.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (alice.playerAngle == Player.PlayerAngle.BACK)))
                     {
                         flag = true;
                     }

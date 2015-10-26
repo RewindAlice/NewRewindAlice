@@ -535,7 +535,7 @@ public class Stage : MonoBehaviour
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
-        alice.climbFlag = false;
+        alice.climb1Flag = false;
 
         switch(gimmickNumArray[posY, posX, posZ])
         {
@@ -543,16 +543,16 @@ public class Stage : MonoBehaviour
                 GoalCheck();
                 break;
             case IVY_FRONT: // 蔦（前）
-                Climb(Player.PlayerAngle.FRONT);
+                Climb1(Player.PlayerAngle.FRONT);
                 break;
             case IVY_BACK:  // 蔦（後）
-                Climb(Player.PlayerAngle.BACK);
+                Climb1(Player.PlayerAngle.BACK);
                 break;
             case IVY_LEFT:  // 蔦（左）
-                Climb(Player.PlayerAngle.LEFT);
+                Climb1(Player.PlayerAngle.LEFT);
                 break;
             case IVY_RIGHT: // 蔦（右）
-                Climb(Player.PlayerAngle.RIGHT);
+                Climb1(Player.PlayerAngle.RIGHT);
                 break;
         }
     }
@@ -564,6 +564,8 @@ public class Stage : MonoBehaviour
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
+        alice.climb2Flag = false;
+
         // アリスが地面についていないなら
         if(posY >= 1)
         {
@@ -573,6 +575,19 @@ public class Stage : MonoBehaviour
                 case NONE:
                     alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                     print("落下");
+                    break;
+
+                case IVY_FRONT: // 蔦（前）
+                    Climb2(Player.PlayerAngle.FRONT);
+                    break;
+                case IVY_BACK:  // 蔦（後）
+                    Climb2(Player.PlayerAngle.BACK);
+                    break;
+                case IVY_LEFT:  // 蔦（左）
+                    Climb2(Player.PlayerAngle.LEFT);
+                    break;
+                case IVY_RIGHT: // 蔦（右）
+                    Climb2(Player.PlayerAngle.RIGHT);
                     break;
             }
         }
@@ -586,7 +601,7 @@ public class Stage : MonoBehaviour
     }
 
     // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void Climb(Player.PlayerAngle angle)
+    public void Climb1(Player.PlayerAngle angle)
     {
         // 向きが
         switch(angle)
@@ -609,6 +624,33 @@ public class Stage : MonoBehaviour
                 break;
         }
 
-        alice.climbFlag = true;
+        alice.climb1Flag = true;
+    }
+
+    // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void Climb2(Player.PlayerAngle angle)
+    {
+        // 向きが
+        switch (angle)
+        {
+            case Player.PlayerAngle.FRONT:
+                alice.playerAngle = Player.PlayerAngle.FRONT;
+                alice.transform.localEulerAngles = new Vector3(0, 0, 0);    // 前方向の角度を指定
+                break;
+            case Player.PlayerAngle.BACK:
+                alice.playerAngle = Player.PlayerAngle.BACK;
+                alice.transform.localEulerAngles = new Vector3(0, 180, 0);  // 後方向の角度を指定
+                break;
+            case Player.PlayerAngle.LEFT:
+                alice.playerAngle = Player.PlayerAngle.LEFT;
+                alice.transform.localEulerAngles = new Vector3(0, 270, 0);  // 左方向の角度を指定
+                break;
+            case Player.PlayerAngle.RIGHT:
+                alice.playerAngle = Player.PlayerAngle.RIGHT;
+                alice.transform.localEulerAngles = new Vector3(0, 90, 0);   // 右方向の角度を指定
+                break;
+        }
+
+        alice.climb2Flag = true;
     }
 }
