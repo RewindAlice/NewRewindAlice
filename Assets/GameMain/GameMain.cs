@@ -97,7 +97,7 @@ public class GameMain : MonoBehaviour
         turn = Turn.NONE;           // ターンに無しを設定
         turnCountGimmick = 0;       // カウントを０に
 
-        stageNumber = 1;
+        stageNumber = 3;
         stage.setSelectStage(stageNumber);            // 選択されたステージを設定
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
