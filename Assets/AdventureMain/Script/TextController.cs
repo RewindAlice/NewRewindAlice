@@ -181,7 +181,9 @@ public class TextController : MonoBehaviour
                     (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
                     (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
                     (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
-                    (Input.GetKeyDown(KeyCode.Joystick1Button3)))
+                    (Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
+					(Input.GetKeyDown(KeyCode.W)) ||
+					(Input.GetKeyDown(KeyCode.Space)))
                 {
                     seManager.SEStop();
                     SetNextLine();
@@ -195,7 +197,9 @@ public class TextController : MonoBehaviour
             else
             {
                 // 完了してないなら文字をすべて表示する
-                if (Input.GetMouseButtonDown(0))
+                if ((Input.GetMouseButtonDown(0)) ||
+					(Input.GetKeyDown(KeyCode.W)) ||
+					(Input.GetKeyDown(KeyCode.Space)))
                 {
                     timeUntilDisplay = 0;
                 }

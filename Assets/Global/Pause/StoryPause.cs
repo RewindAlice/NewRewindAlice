@@ -148,6 +148,7 @@ public class StoryPause : MonoBehaviour
                     }
                     // 決定キーでメニューを選択
                     else if ((Input.GetKeyDown(KeyCode.Space)) ||
+								(Input.GetKeyDown(KeyCode.W)) ||
                                 (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
                                 (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
                                 (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
