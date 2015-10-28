@@ -57,37 +57,40 @@ public class GameMain : MonoBehaviour
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-	void Update ()
-    {
-        MapCamera();    // マップカメラ
-        CameraTurn();   // カメラの回転
-        PlayerMove();   // プレイヤーの移動
-        GameAction();   // 行動を行う
+	void Update()
+	{
+		MapCamera();    // マップカメラ
+		CameraTurn();   // カメラの回転
+		PlayerMove();   // プレイヤーの移動
+		GameAction();   // 行動を行う
+		if ((stageNumber == 1) ||
+			(stageNumber == 2))
+		{
+			if (tutorialImageFlag == true)
+			{
 
-        if (tutorialImageFlag == true)
-        {
+				if (tutorialCount < 11)
+					ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
 
-            if (tutorialCount < 11)
-                ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
+				if (tutorialCount < 60)
+				{
+					tutorialCount++;
+				}
+			}
+			else if (tutorialImageFlag == false)
+			{
+				ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+			}
 
-            if (tutorialCount < 60)
-            {
-                tutorialCount++;
-            }
-        }
-        else if (tutorialImageFlag == false)
-        {
-            ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-        }
-
-        if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
-        {
-            tutorialImageFlag = true;
-        }
-        else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
-        {
-            tutorialImageFlag = true;
-        }
+			if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
+			{
+				tutorialImageFlag = true;
+			}
+			else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+			{
+				tutorialImageFlag = true;
+			}
+		}
 	}
 
     // ★ゲームの設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -110,16 +113,16 @@ public class GameMain : MonoBehaviour
 
         //チュートリアルに必要な変数
         if (stageNumber == 1 || stageNumber == 2)
-        { }
-        tutorialFlag = true;      //チュートリアルか判断する
-        tutorialTurn = 0;       //チュートリアルのターン数
-        tutorialImageFlag = false;  //説明画像が出ているかどうか
-        tutorialCount = 0;      //チュートリアル中のカウント
+        {
+			tutorialFlag = true;      //チュートリアルか判断する
+			tutorialTurn = 0;       //チュートリアルのターン数
+			tutorialImageFlag = false;  //説明画像が出ているかどうか
+			tutorialCount = 0;      //チュートリアル中のカウント
+		}
         if (tutorialFlag == true)
         {
             ImageUI = GameObject.Find("EXImage");
             ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-
         }// アリスの移動数にステージのターン数を設定
     }
 
