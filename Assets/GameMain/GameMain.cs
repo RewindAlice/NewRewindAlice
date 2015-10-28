@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameMain : MonoBehaviour
@@ -40,6 +41,15 @@ public class GameMain : MonoBehaviour
     public Turn turn;               // 誰のターンか判断する
     public int turnCountGimmick;    // ターンの時間稼ぎ
 
+
+    public int stageNumber;
+    //チュートリアルに必要な変数
+    public bool tutorialFlag;      //チュートリアルか判断する
+    public int tutorialTurn;       //チュートリアルのターン数
+    public bool tutorialImageFlag;  //説明画像が出ているかどうか
+    public int tutorialCount;      //チュートリアル中のカウント
+    public GameObject ImageUI;
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -53,6 +63,31 @@ public class GameMain : MonoBehaviour
         CameraTurn();   // カメラの回転
         PlayerMove();   // プレイヤーの移動
         GameAction();   // 行動を行う
+
+        if (tutorialImageFlag == true)
+        {
+
+            if (tutorialCount < 11)
+                ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
+
+            if (tutorialCount < 60)
+            {
+                tutorialCount++;
+            }
+        }
+        else if (tutorialImageFlag == false)
+        {
+            ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        }
+
+        if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
+        {
+            tutorialImageFlag = true;
+        }
+        else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+        {
+            tutorialImageFlag = true;
+        }
 	}
 
     // ★ゲームの設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -62,7 +97,8 @@ public class GameMain : MonoBehaviour
         turn = Turn.NONE;           // ターンに無しを設定
         turnCountGimmick = 0;       // カウントを０に
 
-        stage.setSelectStage(1);            // 選択されたステージを設定
+        stageNumber = 1;
+        stage.setSelectStage(stageNumber);            // 選択されたステージを設定
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
 
@@ -70,7 +106,21 @@ public class GameMain : MonoBehaviour
         alice.arrayPosX = stage.getStartArrayPosition('x');     // アリスの配列上の座標Ｘを設定
         alice.arrayPosY = stage.getStartArrayPosition('y');     // アリスの配列上の座標Ｙを設定
         alice.arrayPosZ = stage.getStartArrayPosition('z');     // アリスの配列上の座標Ｚを設定
-        alice.moveCount = turnNum;                              // アリスの移動数にステージのターン数を設定
+        alice.moveCount = turnNum;
+
+        //チュートリアルに必要な変数
+        if (stageNumber == 1 || stageNumber == 2)
+        { }
+        tutorialFlag = true;      //チュートリアルか判断する
+        tutorialTurn = 0;       //チュートリアルのターン数
+        tutorialImageFlag = false;  //説明画像が出ているかどうか
+        tutorialCount = 0;      //チュートリアル中のカウント
+        if (tutorialFlag == true)
+        {
+            ImageUI = GameObject.Find("EXImage");
+            ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+        }// アリスの移動数にステージのターン数を設定
     }
 
     // ★行動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -117,6 +167,10 @@ public class GameMain : MonoBehaviour
                         turnNum--;
 
                         print("ターン終了");// デバッグ用コメント
+                        if (tutorialFlag == true)
+                        {
+                            tutorialTurn++;
+                        }
                     }
                 }
                 break;
@@ -153,6 +207,10 @@ public class GameMain : MonoBehaviour
                             turn = Turn.NONE;               // ターンを無しに
                             turnNum++;
 
+                            if (tutorialFlag == true)
+                            {
+                                tutorialTurn++;
+                            }
                             print("ターン終了");// デバッグ用コメント
                         }
                     }
@@ -176,17 +234,27 @@ public class GameMain : MonoBehaviour
     {
         if (turn == Turn.NONE)
         {
-            // 矢印左を押したら(カメラ移動左回転)
-            if ((Input.GetKeyDown(KeyCode.LeftArrow)))
+            if (tutorialFlag == false ||
+                (tutorialFlag == true && stageNumber == 1 && (tutorialTurn == 0 || tutorialTurn == 1)))
             {
-                CameraTurnLeftMove();
-                print("カメラ左回転");// デバッグ用コメント
+                // 矢印左を押したら(カメラ移動左回転)
+                if ((Input.GetKeyDown(KeyCode.LeftArrow)))
+                {
+                    CameraTurnLeftMove();
+                    print("カメラ左回転");// デバッグ用コメント
+                }
+
+
             }
-            // 矢印右を押したら(カメラ移動右回転)
-            if ((Input.GetKeyDown(KeyCode.RightArrow)))
+
+            if (tutorialFlag == false)
             {
-                CameraTurnRightMove();
-                print("カメラ右回転");// デバッグ用コメント
+                // 矢印右を押したら(カメラ移動右回転)
+                if ((Input.GetKeyDown(KeyCode.RightArrow)))
+                {
+                    CameraTurnRightMove();
+                    print("カメラ右回転");// デバッグ用コメント
+                }
             }
         }
     }
@@ -230,155 +298,222 @@ public class GameMain : MonoBehaviour
             {
                 // ▼画面奥方向移動処理
                 // Ｗキーが押された時、行動が無しなら////////////////////////////////////////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag))
+                if ((Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag)&&(tutorialFlag==false)||
+                    (Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) && 
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6||tutorialTurn == 7)||
+                    (Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10))
                 {
-                    // 登りフラグが真なら
-                    if(AliceClimb1Dicision(Player.MoveDirection.FRONT))
+                    if (tutorialImageFlag == true)
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
+                        if (tutorialCount == 60)
+                        {
+                            tutorialImageFlag = false;
+                            tutorialTurn++;
+                            tutorialCount = 0;
+                        }
 
-                        alice.moveDirection = Player.MoveDirection.UP;
-                        alice.inputKeyFlag = true;
-                        print("上移動");// デバッグ用コメント
-                    }
-                    else if(AliceClimb2Dicision(Player.MoveDirection.FRONT))
-                    {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.DOWN;
-                        alice.inputKeyFlag = true;
-                        print("下移動");// デバッグ用コメント
                     }
                     else
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
+                        // 登りフラグが真なら
+                        if (AliceClimb1Dicision(Player.MoveDirection.FRONT))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
 
-                        alice.moveDirection = Player.MoveDirection.FRONT;
-                        alice.inputKeyFlag = true;
-                        print("前移動");// デバッグ用コメント
+                            alice.moveDirection = Player.MoveDirection.UP;
+                            alice.inputKeyFlag = true;
+                            print("上移動");// デバッグ用コメント
+                        }
+                        else if (AliceClimb2Dicision(Player.MoveDirection.FRONT))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.DOWN;
+                            alice.inputKeyFlag = true;
+                            print("下移動");// デバッグ用コメント
+                        }
+                        else
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.FRONT;
+                            alice.inputKeyFlag = true;
+                            print("前移動");// デバッグ用コメント
+                        }
                     }
                 }
 
                 // ▼画面手前方向移動処理
                 // Ｓキーが押された時、行動が無しなら///////////////////////////////////////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag))
+                if ((Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false)||
+                    (Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) && 
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 5||tutorialTurn == 6||tutorialTurn == 7) ||
+                    (Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
-                    // 登りフラグが真なら
-                    if (AliceClimb1Dicision(Player.MoveDirection.BACK))
+                    if (tutorialImageFlag == true)
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.UP;
-                        alice.inputKeyFlag = true;
-                        print("上移動");// デバッグ用コメント
-                    }
-                    else if (AliceClimb2Dicision(Player.MoveDirection.BACK))
-                    {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.DOWN;
-                        alice.inputKeyFlag = true;
-                        print("下移動");// デバッグ用コメント
+                        if (tutorialCount == 60)
+                        {
+                            tutorialImageFlag = false;
+                            tutorialTurn++;
+                            tutorialCount = 0;
+                        }
                     }
                     else
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
+                        // 登りフラグが真なら
+                        if (AliceClimb1Dicision(Player.MoveDirection.BACK))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
 
-                        alice.moveDirection = Player.MoveDirection.BACK;
-                        alice.inputKeyFlag = true;
-                        print("後移動");// デバッグ用コメント
+                            alice.moveDirection = Player.MoveDirection.UP;
+                            alice.inputKeyFlag = true;
+                            print("上移動");// デバッグ用コメント
+                        }
+                        else if (AliceClimb2Dicision(Player.MoveDirection.BACK))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.DOWN;
+                            alice.inputKeyFlag = true;
+                            print("下移動");// デバッグ用コメント
+                        }
+                        else
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.BACK;
+                            alice.inputKeyFlag = true;
+                            print("後移動");// デバッグ用コメント
+                        }
                     }
                 }
 
-                // ▼画面左方向移動処理
+               // ▼画面左方向移動処理
                 // Ａキーが押された時、行動が無しなら///////////////////////////////////////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag))
+                if ((Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false)||
+                    (Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7 || tutorialTurn == 8)||
+                    (Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
-                    // 登りフラグが真なら
-                    if (AliceClimb1Dicision(Player.MoveDirection.LEFT))
+                    if (tutorialImageFlag == true)
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.UP;
-                        alice.inputKeyFlag = true;
-                        print("上移動");// デバッグ用コメント
-                    }
-                    else if (AliceClimb2Dicision(Player.MoveDirection.LEFT))
-                    {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.DOWN;
-                        alice.inputKeyFlag = true;
-                        print("下移動");// デバッグ用コメント
+                        if (tutorialCount == 60)
+                        {
+                            tutorialImageFlag = false;
+                            tutorialTurn++;
+                            tutorialCount = 0;
+                        }
                     }
                     else
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
+                        // 登りフラグが真なら
+                        if (AliceClimb1Dicision(Player.MoveDirection.LEFT))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
 
-                        alice.moveDirection = Player.MoveDirection.LEFT;
-                        alice.inputKeyFlag = true;
-                        print("左移動");// デバッグ用コメント
+                            alice.moveDirection = Player.MoveDirection.UP;
+                            alice.inputKeyFlag = true;
+                            print("上移動");// デバッグ用コメント
+                        }
+                        else if (AliceClimb2Dicision(Player.MoveDirection.LEFT))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.DOWN;
+                            alice.inputKeyFlag = true;
+                            print("下移動");// デバッグ用コメント
+                        }
+                        else
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.LEFT;
+                            alice.inputKeyFlag = true;
+                            print("左移動");// デバッグ用コメント
+                        }
                     }
                 }
 
-                // ▼画面右方向移動処理
+                 // ▼画面右方向移動処理
                 // Ｄキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag))
+                if ((Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false)||
+                     (Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7)||
+                    (Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
-                    // 登りフラグが真なら
-                    if (AliceClimb1Dicision(Player.MoveDirection.RIGHT))
+                    if (tutorialImageFlag == true)
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.UP;
-                        alice.inputKeyFlag = true;
-                        print("上移動");// デバッグ用コメント
-                    }
-                    else if (AliceClimb2Dicision(Player.MoveDirection.RIGHT))
-                    {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
-
-                        alice.moveDirection = Player.MoveDirection.DOWN;
-                        alice.inputKeyFlag = true;
-                        print("下移動");// デバッグ用コメント
+                        if (tutorialCount == 60)
+                        {
+                            tutorialImageFlag = false;
+                            tutorialTurn++;
+                            tutorialCount = 0;
+                        }
                     }
                     else
                     {
-                        action = PlayerAction.NEXT;     // 行動を進むに
-                        turn = Turn.PLAYER;             // ターンをプレイヤーに
-                        turnCountGimmick = 0;           // カウントを０に
+                        // 登りフラグが真なら
+                        if (AliceClimb1Dicision(Player.MoveDirection.RIGHT))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
 
-                        alice.moveDirection = Player.MoveDirection.RIGHT;
-                        alice.inputKeyFlag = true;
-                        print("右移動");// デバッグ用コメント
+                            alice.moveDirection = Player.MoveDirection.UP;
+                            alice.inputKeyFlag = true;
+                            print("上移動");// デバッグ用コメント
+                        }
+                        else if (AliceClimb2Dicision(Player.MoveDirection.RIGHT))
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.DOWN;
+                            alice.inputKeyFlag = true;
+                            print("下移動");// デバッグ用コメント
+                        }
+                        else
+                        {
+                            action = PlayerAction.NEXT;     // 行動を進むに
+                            turn = Turn.PLAYER;             // ターンをプレイヤーに
+                            turnCountGimmick = 0;           // カウントを０に
+
+                            alice.moveDirection = Player.MoveDirection.RIGHT;
+                            alice.inputKeyFlag = true;
+                            print("右移動");// デバッグ用コメント
+                        }
                     }
                 }
 
                 // ▼待機処理
                 // Ｘキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0))
+                if ((Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) ||
+                    (Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+                    (tutorialTurn == 0))
                 {
                     action = PlayerAction.NEXT;     // 行動を進むに
                     turn = Turn.PLAYER;             // ターンをプレイヤーに
@@ -391,7 +526,9 @@ public class GameMain : MonoBehaviour
 
                 // ▼巻き戻し処理
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.Q)) && (action == PlayerAction.NONE) && (alice.saveCount > 0))
+                if ((Input.GetKeyDown(KeyCode.Q)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+                    (Input.GetKeyDown(KeyCode.Q)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+                    (tutorialTurn == 5 || tutorialTurn == 7))
                 {
                     action = PlayerAction.RETURN;   // 行動を戻るに
                     turn = Turn.GIMMICK;            // ターンをギミックに

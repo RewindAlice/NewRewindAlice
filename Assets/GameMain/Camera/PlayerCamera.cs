@@ -140,6 +140,8 @@ public class PlayerCamera : MonoBehaviour
         // 目標の角度に到達したら
         if (currentRotationY == targetRotationY)
         {
+            GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn++;
+            targetRotationY = 0;
             rotationFlag = false;
         }
     }
