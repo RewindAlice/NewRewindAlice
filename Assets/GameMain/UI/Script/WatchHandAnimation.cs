@@ -8,7 +8,7 @@ public class WatchHandAnimation : MonoBehaviour {
 
     private float rotRimit;
 
-    private int rimitTime;
+    private int limitTime;
     private float rotNum;
     Vector3 LeftRot = new Vector3(0, 0, 1);
     Vector3 RightRot = new Vector3(0, 0, -1);
@@ -19,36 +19,23 @@ public class WatchHandAnimation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         count = 0;
-        rotRimit = 118.0f;
-        rimitTime = 50;
+        rotRimit = 120.0f;
+        limitTime = 0;
         gameMainClass = gameMain.GetComponent<GameMain>();
         //ターン数上限を取得
-        //rimitTime = gameMainClass.stageTurnNum; newRewindAliceの移行に従ってコメント化
+        limitTime = gameMainClass.limitTurn;
 
         //回転の限界を、ターン数で÷
-        rotNum = (float)rotRimit / (float)rimitTime;
+        rotNum = (float)rotRimit / (float)limitTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         //ターン数上限を取得
-        //rimitTime = 
-
-        ////回転の限界を、ターン数で÷
-        //rotNum = (float)rotRimit / (float)rimitTime;
-        //count++;
-        //ターン数上限を取得
-		//rimitTime = gameMainClass.stageTurnNum; newRewindAliceの移行に従ってコメント化
+        limitTime = gameMainClass.limitTurn; ;
 
         //回転の限界を、ターン数で÷
-        rotNum = (float)rotRimit / (float)rimitTime;
-
-        //if (count == 30)
-        //{
-        //    NextTurn();
-        //    count = 0;
-        //}
-
+        rotNum = (float)rotRimit / (float)limitTime;
 	}
 
     public void NextTurn()

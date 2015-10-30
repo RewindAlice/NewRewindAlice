@@ -117,17 +117,7 @@ public class StageSelect : MonoBehaviour
 	{
 		count++;
 
-		//デバッグステージ
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-
-			PlayerPrefs.SetInt("STAGE_SELECT_STAGE_NUM", 1);
-
-			PlayerPrefs.SetInt("STAGE_NUM", 0);
-			//CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
-            Application.LoadLevel("GameMainScene");
-		}
-
+		
 		if (count >= 50 && drawFlag == false)
 		{
 			drawFlag = true;
@@ -309,11 +299,11 @@ public class StageSelect : MonoBehaviour
 				switch (chapter)
 				{
 					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 11); break;
-					case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 1); break;
-					case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 2); break;
-					case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 3); break;
-					case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 4); break;
-					case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 5); break;
+                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 1); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 2); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 3); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 4); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 5); PlayerPrefs.SetInt("CHALLENGE", 0); break;
 					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 12); break;
 				}
 				break;
@@ -321,11 +311,11 @@ public class StageSelect : MonoBehaviour
 				switch (chapter)
 				{
 					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 21); break;
-					case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 6); break;
-					case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 7); break;
-					case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 8); break;
-					case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 9); break;
-					case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 10); break;
+                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 6); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 7); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 8); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 9); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 10); PlayerPrefs.SetInt("CHALLENGE", 0); break;
 					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 22); break;
 				}
 				break;
@@ -333,11 +323,11 @@ public class StageSelect : MonoBehaviour
 				switch (chapter)
 				{
 					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 31); break;
-					case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 11); break;
-					case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 12); break;
-					case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 13); break;
-					case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 14); break;
-					case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 15); break;
+                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 11); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 12); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 13); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 14); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 15); PlayerPrefs.SetInt("CHALLENGE", 0); break;
 					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 32); break;
 				}
 				break;
@@ -345,11 +335,11 @@ public class StageSelect : MonoBehaviour
 				switch (chapter)
 				{
 					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 41); break;
-					case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 16); break;
-					case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 17); break;
-					case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 18); break;
-					case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 19); break;
-					case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 20); break;
+                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 16); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 17); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 18); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 19); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 20); PlayerPrefs.SetInt("CHALLENGE", 0); break;
 					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 42); break;
 				}
 				break;
@@ -357,11 +347,11 @@ public class StageSelect : MonoBehaviour
 				switch (chapter)
 				{
 					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 51); break;
-					case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 21); break;
-					case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 22); break;
-					case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); break;
-					case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 24); break;
-					case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STORY_NUM", 52); break;
+                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 21); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 22); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 24); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STORY_NUM", 52); break;
 					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 53); break;
 				}
 				break;

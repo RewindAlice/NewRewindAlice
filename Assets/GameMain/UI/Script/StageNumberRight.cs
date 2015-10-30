@@ -5,6 +5,7 @@ using System.Collections;
 public class StageNumberRight : MonoBehaviour {
 
     private int stageNumber;
+    private int challengeFlag;
 
     public Sprite zeroSprite;
     public Sprite oneSprite;
@@ -23,157 +24,77 @@ public class StageNumberRight : MonoBehaviour {
         //イメージを取得
         image = gameObject.GetComponent<Image>();
 
-        //ステージナンバー取得(三ケタで、Story(1)かchalenge(2)か、左側の数字、右側の数字)
         stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
-        if(stageNumber == 1)
-        {
-            stageNumber = 111;
-        }
-        else if(stageNumber == 2)
-        {
-            stageNumber = 112;
-        }
-        else if (stageNumber == 3)
-        {
-            stageNumber = 113;
-        }
-        else if (stageNumber == 4)
-        {
-            stageNumber = 114;
-        }
-        else if (stageNumber == 5)
-        {
-            stageNumber = 115;
-        }
-        else if (stageNumber == 6)
-        {
-            stageNumber = 121;
-        }
-        else if (stageNumber == 7)
-        {
-            stageNumber = 122;
-        }
-        else if (stageNumber == 8)
-        {
-            stageNumber = 123;
-        }
-        else if (stageNumber == 9)
-        {
-            stageNumber = 124;
-        }
-        else if (stageNumber == 10)
-        {
-            stageNumber = 125;
-        }
-        else if (stageNumber == 11)
-        {
-            stageNumber = 131;
-        }
-        else if (stageNumber == 12)
-        {
-            stageNumber = 132;
-        }
-        else if (stageNumber == 13)
-        {
-            stageNumber = 133;
-        }
-        else if (stageNumber == 14)
-        {
-            stageNumber = 134;
-        }
-        else if (stageNumber == 15)
-        {
-            stageNumber = 135;
-        }
+        challengeFlag = PlayerPrefs.GetInt("CHALLENGE");
 
-        else if (stageNumber == 16)
+        if(challengeFlag == 0)
         {
-            stageNumber = 141;
+            if(stageNumber%5 == 1)
+            {
+                image.sprite = oneSprite;
+            }
+            else if(stageNumber%5 == 2)
+            {
+                image.sprite = twoSprite;
+            }
+            else if (stageNumber % 5 == 3)
+            {
+                image.sprite = threeSprite;
+            }
+            else if (stageNumber % 5 == 4)
+            {
+                image.sprite = fourSprite;
+            }
+            else if (stageNumber % 5 == 0)
+            {
+                image.sprite = fiveSprite;
+            }
         }
-        else if (stageNumber == 17)
+        else if(challengeFlag == 1)
         {
-            stageNumber = 142;
-        }
-        else if (stageNumber == 18)
-        {
-            stageNumber = 143;
-        }
-        else if (stageNumber == 19)
-        {
-            stageNumber = 144;
-        }
-        else if (stageNumber == 20)
-        {
-            stageNumber = 145;
-        }
-        else if (stageNumber == 21)
-        {
-            stageNumber = 151;
-        }
-        else if (stageNumber == 22)
-        {
-            stageNumber = 152;
-        }
-        else if (stageNumber == 23)
-        {
-            stageNumber = 153;
-        }
-        else if (stageNumber == 24)
-        {
-            stageNumber = 154;
-        }
-        else if (stageNumber == 25)
-        {
-            stageNumber = 201;
-        }
+            stageNumber = stageNumber % 10;
 
-
-
-
-
-
-        stageNumber = stageNumber % 10;
-
-        if (stageNumber == 0)
-        {
-            image.sprite = zeroSprite;
-        }
-        else if (stageNumber == 1)
-        {
-            image.sprite = oneSprite;
-        }
-        else if (stageNumber == 2)
-        {
-            image.sprite = twoSprite;
-        }
-        else if (stageNumber == 3)
-        {
-            image.sprite = threeSprite;
-        }
-        else if (stageNumber == 4)
-        {
-            image.sprite = fourSprite;
-        }
-        else if (stageNumber == 5)
-        {
-            image.sprite = fiveSprite;
-        }
-        else if (stageNumber == 6)
-        {
-            image.sprite = sixSprite;
-        }
-        else if (stageNumber == 7)
-        {
-            image.sprite = sevenSprite;
-        }
-        else if (stageNumber == 8)
-        {
-            image.sprite = eightSprite;
-        }
-        else if (stageNumber == 9)
-        {
-            image.sprite = nineSprite;
-        }
+            if (stageNumber == 0)
+            {
+                image.sprite = zeroSprite;
+            }
+            else if (stageNumber == 1)
+            {
+                image.sprite = oneSprite;
+            }
+            else if (stageNumber == 2)
+            {
+                image.sprite = twoSprite;
+            }
+            else if (stageNumber == 3)
+            {
+                image.sprite = threeSprite;
+            }
+            else if (stageNumber == 4)
+            {
+                image.sprite = fourSprite;
+            }
+            else if (stageNumber == 5)
+            {
+                image.sprite = fiveSprite;
+            }
+            else if (stageNumber == 6)
+            {
+                image.sprite = sixSprite;
+            }
+            else if (stageNumber == 7)
+            {
+                image.sprite = sevenSprite;
+            }
+            else if (stageNumber == 8)
+            {
+                image.sprite = eightSprite;
+            }
+            else if (stageNumber == 9)
+            {
+                image.sprite = nineSprite;
+            }
+        }       
 	}
 	
 	// Update is called once per frame

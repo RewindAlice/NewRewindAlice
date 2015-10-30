@@ -32,6 +32,8 @@ public class ChangeText : MonoBehaviour {
     private GameObject pause;
     private Pause pauseScript;
 
+    private int challengeFlag;
+
     //読み込み改善用
     //////////////////////////////////////////////////////////////////
     /// <summary>
@@ -77,264 +79,168 @@ public class ChangeText : MonoBehaviour {
         lineCount = 0;
         //ステージの番号を取得
         stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
+        challengeFlag = PlayerPrefs.GetInt("CHALLENGE");
 
-        if (stageNumber == 1)
+        if (challengeFlag == 0)
         {
-            stageNumber = 111;
-        }
-        else if (stageNumber == 2)
-        {
-            stageNumber = 112;
-        }
-        else if (stageNumber == 3)
-        {
-            stageNumber = 113;
-        }
-        else if (stageNumber == 4)
-        {
-            stageNumber = 114;
-        }
-        else if (stageNumber == 5)
-        {
-            stageNumber = 115;
-        }
-        else if (stageNumber == 6)
-        {
-            stageNumber = 121;
-        }
-        else if (stageNumber == 7)
-        {
-            stageNumber = 122;
-        }
-        else if (stageNumber == 8)
-        {
-            stageNumber = 123;
-        }
-        else if (stageNumber == 9)
-        {
-            stageNumber = 124;
-        }
-        else if (stageNumber == 10)
-        {
-            stageNumber = 125;
-        }
-        else if (stageNumber == 11)
-        {
-            stageNumber = 131;
-        }
-        else if (stageNumber == 12)
-        {
-            stageNumber = 132;
-        }
-        else if (stageNumber == 13)
-        {
-            stageNumber = 133;
-        }
-        else if (stageNumber == 14)
-        {
-            stageNumber = 134;
-        }
-        else if (stageNumber == 15)
-        {
-            stageNumber = 135;
-        }
-
-        else if (stageNumber == 16)
-        {
-            stageNumber = 141;
-        }
-        else if (stageNumber == 17)
-        {
-            stageNumber = 142;
-        }
-        else if (stageNumber == 18)
-        {
-            stageNumber = 143;
-        }
-        else if (stageNumber == 19)
-        {
-            stageNumber = 144;
-        }
-        else if (stageNumber == 20)
-        {
-            stageNumber = 145;
-        }
-        else if (stageNumber == 21)
-        {
-            stageNumber = 151;
-        }
-        else if (stageNumber == 22)
-        {
-            stageNumber = 152;
-        }
-        else if (stageNumber == 23)
-        {
-            stageNumber = 153;
-        }
-        else if (stageNumber == 24)
-        {
-            stageNumber = 154;
-        }
-        else if (stageNumber == 25)
-        {
-            stageNumber = 201;
-        }
-
-        //stageNumber = 111;
-       
             //ステージの番号によって、取得するパスの変更(Story用)
-            if (stageNumber == 111)
+            if (stageNumber == 1)
             {
                 limitTalk = 1;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
             }
-            else if (stageNumber == 112)
+            else if (stageNumber == 2)
             {
                 limitTalk = 2;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-2talk";
             }
-            else if (stageNumber == 113)
+            else if (stageNumber == 3)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-3talk";
             }
-            else if (stageNumber == 114)
+            else if (stageNumber == 4)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-4talk";
             }
-            else if (stageNumber == 115)
+            else if (stageNumber == 5)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-5talk";
             }
-            else if (stageNumber == 121)
+            else if (stageNumber == 6)
             {
                 limitTalk = 2;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage2-1talk";
             }
-            else if (stageNumber == 122)
+            else if (stageNumber == 7)
             {
                 limitTalk = 2;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage2-2talk";
             }
-            else if (stageNumber == 123)
+            else if (stageNumber == 8)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage2-3talk";
             }
-            else if (stageNumber == 124)
+            else if (stageNumber == 9)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage2-4talk";
             }
-            else if (stageNumber == 125)
+            else if (stageNumber == 10)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage2-5talk";
             }
-            else if (stageNumber == 131)
+            else if (stageNumber == 11)
             {
                 limitTalk = 2;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage3-1talk";
             }
-            else if (stageNumber == 132)
+            else if (stageNumber == 12)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage3-2talk";
             }
-            else if (stageNumber == 133)
+            else if (stageNumber == 13)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage3-3talk";
             }
-            else if (stageNumber == 134)
+            else if (stageNumber == 14)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage3-4talk";
             }
-            else if (stageNumber == 135)
+            else if (stageNumber == 15)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage3-5talk";
             }
-            else if (stageNumber == 141)
+            else if (stageNumber == 16)
             {
                 limitTalk = 2;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage4-1talk";
             }
-            else if (stageNumber == 142)
+            else if (stageNumber == 17)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage4-2talk";
             }
-            else if (stageNumber == 143)
+            else if (stageNumber == 18)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage4-3talk";
             }
-            else if (stageNumber == 144)
+            else if (stageNumber == 19)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage4-4talk";
             }
-            else if (stageNumber == 145)
+            else if (stageNumber == 20)
             {
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage4-5talk";
             }
-            else if (stageNumber == 151)
+            else if (stageNumber == 21)
             {
                 limitTalk = 2;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage5-1talk";
             }
-            else if (stageNumber == 152)
+            else if (stageNumber == 22)
             {
                 limitTalk = 3;
                 talkNumber = 0;
-                filepath = "UI/IntoGame/CharacterTalk/stage5-2talk"; 
+                filepath = "UI/IntoGame/CharacterTalk/stage5-2talk";
             }
-            else if (stageNumber == 153)
+            else if (stageNumber == 23)
             {
                 limitTalk = 3;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage5-3talk";
             }
-            else if (stageNumber == 154)
+            else if (stageNumber == 24)
             {
 
                 limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage5-4talk";
             }
-
-            if (stageNumber == 201)
+        }
+        else if (challengeFlag == 1)
+        {
+            if (stageNumber == 1)
             {
                 limitTalk = 6;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
             }
+        }       
+        
+            
 
 
 
@@ -354,16 +260,11 @@ public class ChangeText : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(pauseScript.pauseFlag == true)
-        {
-
-        }
-        else
+        if(pauseScript.pauseFlag != true)
         {
             timeCount++;
         }
-            //Debug.Log("hoge");
-            //Debug.Log( flagManager.sentenceEndFlag );  
+        
         if (timeCount % talkSpeed == 0)
         {
             if (lineCount == limitTalk)
@@ -372,8 +273,6 @@ public class ChangeText : MonoBehaviour {
             }
             SetNextLine(lineCount);
             lineCount++;
-            
-           
 
         }
 

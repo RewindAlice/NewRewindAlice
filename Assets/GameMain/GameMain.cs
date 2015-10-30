@@ -50,6 +50,9 @@ public class GameMain : MonoBehaviour
     public int tutorialCount;      //チュートリアル中のカウント
     public GameObject ImageUI;
 
+    public WatchHandAnimation watchHand;
+    public int limitTurn;
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -104,7 +107,7 @@ public class GameMain : MonoBehaviour
         stage.setSelectStage(stageNumber);            // 選択されたステージを設定
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
-
+        limitTurn = stage.getStageTurnNum();
         alice.transform.position = stage.getStartPosition();    // アリスの座標を設定
         alice.arrayPosX = stage.getStartArrayPosition('x');     // アリスの配列上の座標Ｘを設定
         alice.arrayPosY = stage.getStartArrayPosition('y');     // アリスの配列上の座標Ｙを設定
@@ -168,10 +171,11 @@ public class GameMain : MonoBehaviour
                         action = PlayerAction.NONE;   // 行動を無しに
                         turn = Turn.NONE;       // ターンを無しに
                         turnNum--;
-
+                        watchHand.NextTurn();
                         print("ターン終了");// デバッグ用コメント
                         if (tutorialFlag == true)
                         {
+
                             tutorialTurn++;
                         }
                     }
@@ -209,7 +213,7 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NONE;     // 行動を無しに
                             turn = Turn.NONE;               // ターンを無しに
                             turnNum++;
-
+                            watchHand.BackTurn();
                             if (tutorialFlag == true)
                             {
                                 tutorialTurn++;
