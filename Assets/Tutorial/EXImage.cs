@@ -30,18 +30,18 @@ public class EXImage : MonoBehaviour {
                 switch(GameMain.GetComponent<GameMain>().tutorialTurn)
                 {
                     case 2:
-                        GetComponent<Image>().sprite = exSprite_one;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_one;
                         break;
                     case 4:
-                        GetComponent<Image>().sprite = exSprite_two;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_two;
                         break;
                     case 6:
 
-                        GetComponent<Image>().sprite = exSprite_three;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_three;
                         break;
                     case 7:
 
-                        GetComponent<Image>().sprite = exSprite_four;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_four;
                         break;
                 }
             }
@@ -51,18 +51,18 @@ public class EXImage : MonoBehaviour {
                 {
                     case 1:
 
-                        GetComponent<Image>().sprite = exSprite_five;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_five;
                         break;
                     case 3:
-                        GetComponent<Image>().sprite = exSprite_six;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_six;
                         break;
                     case 4:
 
-                        GetComponent<Image>().sprite = exSprite_seven;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_seven;
                         break;
                     case 6:
 
-                        GetComponent<Image>().sprite = exSprite_eight;
+                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_eight;
                         break;
                 }
             }
