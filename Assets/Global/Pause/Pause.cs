@@ -9,6 +9,7 @@ public class Pause : MonoBehaviour
     public bool keyFlag;
     public int selectMode = 0;
     public int timer = 0;
+	public int startTimer = 0;
     public int selectTimer = 0;
     public bool menuSelectFlag = false;
 
@@ -91,14 +92,14 @@ public class Pause : MonoBehaviour
                             //EscapePause();
                             EscapePause();
                             Application.LoadLevel("GameMainScene");
-                            //CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
                             break;
                         case RETURN_SELECT:
                             //EscapePause();
                             EscapePause();
                             Application.LoadLevel("StageSelectScene");
-                            // CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-                            // CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
                             break;
                         default:
@@ -149,16 +150,23 @@ public class Pause : MonoBehaviour
         }
         else
         {
-            if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
-            {
-                pauseImageManager1.GetComponent<Image>().enabled = true;
-                pauseImageManager2.GetComponent<Image>().enabled = true;
-                pauseImageManager3.GetComponent<Image>().enabled = true;
-                pauseImageManager4.GetComponent<Image>().enabled = true;
-                pauseImageManager5.GetComponent<Image>().enabled = true;
-                pauseImageManager6.GetComponent<Image>().enabled = true;
-                Initialize();
-            }
+			if (startTimer >= 60)
+			{
+				if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
+				{
+					pauseImageManager1.GetComponent<Image>().enabled = true;
+					pauseImageManager2.GetComponent<Image>().enabled = true;
+					pauseImageManager3.GetComponent<Image>().enabled = true;
+					pauseImageManager4.GetComponent<Image>().enabled = true;
+					pauseImageManager5.GetComponent<Image>().enabled = true;
+					pauseImageManager6.GetComponent<Image>().enabled = true;
+					Initialize();
+				}
+			}
+			else
+			{
+				startTimer++;
+			}
 
         }
 

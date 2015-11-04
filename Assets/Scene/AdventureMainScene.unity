@@ -392,6 +392,7 @@ MonoBehaviour:
   keyFlag: 0
   selectMode: 0
   timer: 0
+  startTimer: 0
   selectTimer: 0
   menuSelectFlag: 0
   backGorund: {fileID: 768865436}
@@ -400,7 +401,7 @@ MonoBehaviour:
   character: {fileID: 915511374}
   selecticon: {fileID: 2111787903}
   textController: {fileID: 0}
-  nameTextController: {fileID: 1556066022}
+  nameTextController: {fileID: 62577342}
 --- !u!114 &270288900
 MonoBehaviour:
   m_ObjectHideFlags: 0

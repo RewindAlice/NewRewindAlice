@@ -85,7 +85,7 @@ public class StageSelect : MonoBehaviour
 	{
 		selectFlag = false;
 		keyFlag = false;
-//		CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
+		CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
 
 		switch (PlayerPrefs.GetInt("STAGE_SELECT_STAGE_NUM"))
 		{
@@ -363,7 +363,7 @@ public class StageSelect : MonoBehaviour
 			case Chapter.CHAPTER_1:
 			case Chapter.CHAPTER_7:
 				JumpScene();
-				//CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
+				CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
                 Application.LoadLevel("AdventureMainScene");
 				break;
 
@@ -376,13 +376,13 @@ public class StageSelect : MonoBehaviour
 				if ((stage == STAGE.STAGE_5) && (chapter == Chapter.CHAPTER_6))
 				{
 					JumpScene();
-					//CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
+					CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
                     Application.LoadLevel("AdventureMainScene");
 				}
 				else
 				{
 					JumpScene();
-					//CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+					CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
                     Application.LoadLevel("GameMainScene");
 				}
 				break;

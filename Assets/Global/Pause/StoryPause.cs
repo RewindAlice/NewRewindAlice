@@ -9,6 +9,7 @@ public class StoryPause : MonoBehaviour
     public bool keyFlag;
     public int selectMode = 0;
     public int timer = 0;
+	public int startTimer = 0;
     public int selectTimer = 0;
     public bool menuSelectFlag = false;
 
@@ -112,8 +113,8 @@ public class StoryPause : MonoBehaviour
                             //EscapePause();
                             EscapePause();
                             Application.LoadLevel("StageSelectScene");
-                            // CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-                            // CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
                             break;
                         default:
@@ -164,18 +165,25 @@ public class StoryPause : MonoBehaviour
         }
         else
         {
-            if (((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7))))
-            {
-                text.stopText = true;//ストーリーのテキストを止める
-                name.stopText = true;//名前のテキストを止める
-                pauseImageManager1.GetComponent<Image>().enabled = true;
-                pauseImageManager2.GetComponent<Image>().enabled = true;
-                //pauseImageManager3.GetComponent<Image>().enabled = true;
-                pauseImageManager4.GetComponent<Image>().enabled = true;
-                pauseImageManager5.GetComponent<Image>().enabled = true;
-                pauseImageManager6.GetComponent<Image>().enabled = true;
-                Initialize();
-            }
+			if (startTimer >= 60)
+			{
+				if (((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7))))
+				{
+					text.stopText = true;//ストーリーのテキストを止める
+					name.stopText = true;//名前のテキストを止める
+					pauseImageManager1.GetComponent<Image>().enabled = true;
+					pauseImageManager2.GetComponent<Image>().enabled = true;
+					//pauseImageManager3.GetComponent<Image>().enabled = true;
+					pauseImageManager4.GetComponent<Image>().enabled = true;
+					pauseImageManager5.GetComponent<Image>().enabled = true;
+					pauseImageManager6.GetComponent<Image>().enabled = true;
+					Initialize();
+				}
+			}
+			else
+			{
+				startTimer++;
+			}
 
         }
 

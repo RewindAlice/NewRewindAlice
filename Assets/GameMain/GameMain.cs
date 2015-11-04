@@ -99,6 +99,8 @@ public class GameMain : MonoBehaviour
     // ★ゲームの設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     void GameSetting()
     {
+		CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
+
         action = PlayerAction.NONE; // 行動に無しを設定
         turn = Turn.NONE;           // ターンに無しを設定
         turnCountGimmick = 0;       // カウントを０に

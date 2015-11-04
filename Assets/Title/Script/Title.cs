@@ -6,7 +6,7 @@ public class Title : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        //CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
+        CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
 	
     }
 	

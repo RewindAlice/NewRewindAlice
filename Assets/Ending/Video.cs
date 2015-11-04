@@ -11,7 +11,7 @@ public class Video : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
+        CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
         renderer = GetComponent<Renderer>();
         renderer.material.mainTexture = movie as MovieTexture;
         movie.Play();
@@ -26,7 +26,7 @@ public class Video : MonoBehaviour {
         {
             flag = true;
             movie.Stop();
-            //CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
             Application.LoadLevel("StageSelectScene");
         }
     }

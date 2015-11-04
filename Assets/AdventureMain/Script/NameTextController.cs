@@ -38,7 +38,7 @@ public class NameTextController : MonoBehaviour
 
         funcFlag = false;
         stopText = false;
-        //CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
+        CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
 
         int num = PlayerPrefs.GetInt("STORY_NUM");
 
