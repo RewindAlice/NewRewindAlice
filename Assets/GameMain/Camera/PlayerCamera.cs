@@ -40,6 +40,20 @@ public class PlayerCamera : MonoBehaviour
     Vector3 offset;                 // カメラと対象の距離
     TurnDirection turnDirection;    // カメラの回転方向
 
+    //リザルトの追加部分
+    public bool clearFlag;//ゲームクリアしたら
+    public bool onceInputFlag;//クリア時に一回だけ通すフラグ
+    public bool endRolling;//回転終了フラグ
+    public int  clearY;//リザルト開始時点の座標のY軸
+    public int  clearTY;//クリアした後に実際にカメラを動かす軸
+    public int  timer;  //時間制御  
+    public float cameraXZ;
+    public float cameraY;
+    public float cameraRX;
+    public GameObject camera;
+
+ 
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -54,7 +68,18 @@ public class PlayerCamera : MonoBehaviour
         offset = this.transform.position - player.transform.position;   // カメラと対象の距離を設定
         targetRotationY = 0;                                            // 目的の角度を０に
         inputKeyRotationY = 0;                                          // キー入力時の角度を０に
-	}
+        //リザルトでの追加
+        camera = GameObject.Find("Main Camera");
+        clearFlag = false;
+        onceInputFlag = false;
+        endRolling = false;
+        cameraXZ = -4;
+        cameraY = 2;
+        timer = 0;
+        cameraRX = 15;
+        clearY = 0;
+        clearTY = 0;
+    }
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update ()
@@ -62,7 +87,12 @@ public class PlayerCamera : MonoBehaviour
         // プレイヤーカメラの更新////////////////////////////////////////////////////////////
         this.transform.position = player.transform.position + offset;   // カメラを追従させる
         CameraRotation();                                               // カメラの回転
-	}
+        //ゲームクリアしたら
+        if(clearFlag)
+        {
+            ResultCameraMove();
+        }
+    }
 
     // ★カメラの回転★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     void CameraRotation()
@@ -219,4 +249,182 @@ public class PlayerCamera : MonoBehaviour
             mapCamera.GetComponent<Camera>().enabled = true;    // マップカメラを表示
         }
     }
+
+    public void ResultCameraMove()
+    {
+            if (onceInputFlag == false)
+            {
+                clearY = (int)transform.eulerAngles.y;
+                clearTY = clearY;
+                onceInputFlag = true;
+            }
+            //アリスの向きを取得
+            int direction = player.GetDirection();
+            
+           //アリスの向きによって回転させる
+            switch (direction)
+            {
+                case 1:
+                    if (clearY < 136 || clearY > 314)
+                    {
+                        if (clearTY != 135)
+                        {
+                            clearTY += 2;
+                        }
+
+                        if (clearTY == 360)
+                        {
+                            clearTY = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (clearTY != 135)
+                        {
+                            clearTY -= 2;
+                        }
+
+                        if (clearTY == 0)
+                        {
+                            clearTY = 359;
+                        }
+                    }
+                    if(clearTY == 135)
+                    {
+                        endRolling = true;
+                    }
+
+
+                    break;
+
+                case 2:
+
+                    if (clearY < 45 || clearY > 224)
+                    {
+                        if (clearTY != 225)
+                        {
+                            clearTY -= 2;
+                        }
+
+                        if (clearTY == 0)
+                        {
+                            clearTY = 359;
+                        }
+                    }
+                    else
+                    {
+                        if (clearTY != 225)
+                        {
+                            clearTY += 2;
+                        }
+
+                        if (clearTY == 360)
+                        {
+                            clearTY = 1;
+                        }
+                    }
+                    if (clearTY == 225)
+                    {
+                        endRolling = true;
+                    }
+                    break;
+
+                case 3:
+                    if (clearY < 136 || clearY > 314)
+                    {
+                        if (clearTY != 315)
+                        {
+                            clearTY -= 2;
+                        }
+
+                        if (clearTY == 0)
+                        {
+                            clearTY = 359;
+                        }
+                    }
+                    else
+                    {
+                        if (clearTY != 315)
+                        {
+                            clearTY += 2;
+                        }
+
+                        if (clearTY == 360)
+                        {
+                            clearTY = 1;
+                        }
+                    }
+                    if (clearTY == 315)
+                    {
+                        endRolling = true;
+                    }
+                    break;
+                case 4:
+                    if (clearY < 45 || clearY > 224)
+                    {
+                        if (clearTY != 45)
+                        {
+                            clearTY += 2;
+                        }
+
+                        if (clearTY == 360)
+                        {
+                            clearTY = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (clearTY != 45)
+                        {
+                            clearTY -= 2;
+                        }
+
+                        if (clearTY == 0)
+                        {
+                            clearTY = 359;
+                        }
+                    }
+                    if (clearTY == 45)
+                    {
+                       endRolling = true;
+                    }
+                    break;
+            }
+          
+            //カメラを近づける
+            if(timer < 60)
+            {
+                cameraXZ += 0.05f;
+
+                cameraRX -= 0.25f;
+
+                if(timer<50)
+                {
+                    cameraY -= 0.025f;
+                }
+                else
+                {
+                    cameraY -= 0.035f;
+                }
+                timer++;
+                
+            }
+            
+            transform.eulerAngles = new Vector3(0, clearTY, 0);    // カメラの角度に現在の角度を設定
+
+            //ズーム
+            camera.transform.localPosition = new Vector3(cameraXZ, cameraY, cameraXZ);     // 座標を変更
+            camera.transform.localEulerAngles = new Vector3(cameraRX, 45.0f, 0.0f);
+        
+    }
+    //リザルト用のカメラ移動が終わった時を送る
+    public bool EndCameraMove()
+    {
+        if (endRolling)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
