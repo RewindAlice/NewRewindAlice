@@ -52,6 +52,8 @@ public class GameMain : MonoBehaviour
 
     public WatchHandAnimation watchHand;
     public int limitTurn;
+    public int waitingTime;
+    public GameObject CharacterTaklText;
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -66,34 +68,46 @@ public class GameMain : MonoBehaviour
 		CameraTurn();   // カメラの回転
 		PlayerMove();   // プレイヤーの移動
 		GameAction();   // 行動を行う
-		if ((stageNumber == 1) ||
-			(stageNumber == 2))
-		{
-			if (tutorialImageFlag == true)
-			{
+        if ((stageNumber == 1) ||
+            (stageNumber == 2))
+        {
+            waitingTime++;
+            if (tutorialImageFlag == true)
+            {
+                if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 140) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
+                    stageNumber == 2 & (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+                {
+                    if (tutorialCount > 1 && tutorialCount < 11)
+                        ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
 
-				if (tutorialCount < 11)
-					ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
+                    if (tutorialCount < 60)
+                    {
+                        tutorialCount++;
+                    }
+                }
 
-				if (tutorialCount < 60)
-				{
-					tutorialCount++;
-				}
-			}
-			else if (tutorialImageFlag == false)
-			{
-				ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-			}
+            }
+            else if (tutorialImageFlag == false)
+            {
+                ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
-			if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
-			{
-				tutorialImageFlag = true;
-			}
-			else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
-			{
-				tutorialImageFlag = true;
-			}
-		}
+                camera.GetComponent<PlayerCamera>().mapCameraFlag = true;
+                camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+            }
+
+            if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
+            {
+                tutorialImageFlag = true;
+                camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
+                camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+            }
+            else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+            {
+                tutorialImageFlag = true;
+                camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
+                camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+            }
+        }
 	}
 
     // ★ゲームの設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -105,7 +119,7 @@ public class GameMain : MonoBehaviour
         turn = Turn.NONE;           // ターンに無しを設定
         turnCountGimmick = 0;       // カウントを０に
 
-        stageNumber = 3;
+        stageNumber = 2;
         stage.setSelectStage(stageNumber);            // 選択されたステージを設定
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
@@ -114,21 +128,23 @@ public class GameMain : MonoBehaviour
         alice.arrayPosX = stage.getStartArrayPosition('x');     // アリスの配列上の座標Ｘを設定
         alice.arrayPosY = stage.getStartArrayPosition('y');     // アリスの配列上の座標Ｙを設定
         alice.arrayPosZ = stage.getStartArrayPosition('z');     // アリスの配列上の座標Ｚを設定
-        alice.moveCount = turnNum;
+        alice.moveCount = turnNum;// アリスの移動数にステージのターン数を設定
 
         //チュートリアルに必要な変数
         if (stageNumber == 1 || stageNumber == 2)
         {
-			tutorialFlag = true;      //チュートリアルか判断する
-			tutorialTurn = 0;       //チュートリアルのターン数
-			tutorialImageFlag = false;  //説明画像が出ているかどうか
-			tutorialCount = 0;      //チュートリアル中のカウント
-		}
+            waitingTime = 0;
+            tutorialFlag = true;      //チュートリアルか判断する
+            tutorialTurn = 0;       //チュートリアルのターン数
+            tutorialImageFlag = false;  //説明画像が出ているかどうか
+            tutorialCount = 0;      //チュートリアル中のカウント
+        }
         if (tutorialFlag == true)
         {
             ImageUI = GameObject.Find("EXImage");
+            CharacterTaklText = GameObject.Find("CharacterTaklText");
             ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        }// アリスの移動数にステージのターン数を設定
+        }
     }
 
     // ★行動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -177,7 +193,7 @@ public class GameMain : MonoBehaviour
                         print("ターン終了");// デバッグ用コメント
                         if (tutorialFlag == true)
                         {
-
+                            waitingTime = 0;
                             tutorialTurn++;
                         }
                     }
@@ -218,7 +234,13 @@ public class GameMain : MonoBehaviour
                             watchHand.BackTurn();
                             if (tutorialFlag == true)
                             {
+                                waitingTime = 0;
                                 tutorialTurn++;
+
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
+                                }
                             }
                             print("ターン終了");// デバッグ用コメント
                         }
@@ -318,8 +340,32 @@ public class GameMain : MonoBehaviour
                         if (tutorialCount == 60)
                         {
                             tutorialImageFlag = false;
+                            waitingTime = 0;
                             tutorialTurn++;
                             tutorialCount = 0;
+                            if (stageNumber == 1)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 5)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(5);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(7);
+                                }
+                            }
+                            else if (stageNumber == 2)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(1);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 4)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(2);
+                                }
+                            }
+
                         }
 
                     }
@@ -351,7 +397,7 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
+                            waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.FRONT;
                             alice.inputKeyFlag = true;
                             print("前移動");// デバッグ用コメント
@@ -372,8 +418,31 @@ public class GameMain : MonoBehaviour
                         if (tutorialCount == 60)
                         {
                             tutorialImageFlag = false;
+                            waitingTime = 0;
                             tutorialTurn++;
                             tutorialCount = 0;
+                            if (stageNumber == 1)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 5)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(5);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(7);
+                                }
+                            }
+                            else if (stageNumber == 2)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(1);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 4)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(2);
+                                }
+                            }
                         }
                     }
                     else
@@ -404,7 +473,7 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
+                            waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.BACK;
                             alice.inputKeyFlag = true;
                             print("後移動");// デバッグ用コメント
@@ -425,8 +494,31 @@ public class GameMain : MonoBehaviour
                         if (tutorialCount == 60)
                         {
                             tutorialImageFlag = false;
+                            waitingTime = 0;
                             tutorialTurn++;
                             tutorialCount = 0;
+                            if (stageNumber == 1)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 5)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(5);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(7);
+                                }
+                            }
+                            else if (stageNumber == 2)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(1);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 4)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(2);
+                                }
+                            }
                         }
                     }
                     else
@@ -457,7 +549,7 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
+                            waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.LEFT;
                             alice.inputKeyFlag = true;
                             print("左移動");// デバッグ用コメント
@@ -478,8 +570,31 @@ public class GameMain : MonoBehaviour
                         if (tutorialCount == 60)
                         {
                             tutorialImageFlag = false;
+                            waitingTime = 0;
                             tutorialTurn++;
                             tutorialCount = 0;
+                            if (stageNumber == 1)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 5)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(5);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(7);
+                                }
+                            }
+                            else if (stageNumber == 2)
+                            {
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(1);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 4)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(2);
+                                }
+                            }
                         }
                     }
                     else
@@ -510,7 +625,7 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
+                            waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.RIGHT;
                             alice.inputKeyFlag = true;
                             print("右移動");// デバッグ用コメント

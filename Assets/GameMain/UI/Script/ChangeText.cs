@@ -46,6 +46,9 @@ public class ChangeText : MonoBehaviour {
     public string stageData;
     //////////////////////////////////////////////////////////////
 
+    public GameObject gameMain;
+    public int tutorialCount;
+
     // 文字の表示が完了しているかどうか
     public bool IsCompleteDisplayText
     {
@@ -78,7 +81,7 @@ public class ChangeText : MonoBehaviour {
         timeCount = 0;
         lineCount = 0;
         //ステージの番号を取得
-        stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
+        stageNumber = 2;//PlayerPrefs.GetInt("STAGE_NUM");
         challengeFlag = PlayerPrefs.GetInt("CHALLENGE");
 
         if (challengeFlag == 0)
@@ -86,13 +89,13 @@ public class ChangeText : MonoBehaviour {
             //ステージの番号によって、取得するパスの変更(Story用)
             if (stageNumber == 1)
             {
-                limitTalk = 1;
+                limitTalk = 8;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
             }
             else if (stageNumber == 2)
             {
-                limitTalk = 2;
+                limitTalk = 4;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-2talk";
             }
@@ -238,21 +241,21 @@ public class ChangeText : MonoBehaviour {
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
             }
-        }       
+        }
+
+
+
+        gameMain = GameObject.Find("GameMain");
+
+        talkSpeed = 300;
+
         
-            
-
-
-
-          
-        
-
-        talkSpeed = 600;
         ReadTextData();
        //this.read();
 
         this.SetNextLine(lineCount);
         lineCount++;
+        tutorialCount = 1;
         
 	
 	}
@@ -260,24 +263,88 @@ public class ChangeText : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(pauseScript.pauseFlag != true)
+        if (pauseScript.pauseFlag != true)
         {
-            timeCount++;
-        }
-        
-        if (timeCount % talkSpeed == 0)
-        {
-            if (lineCount == limitTalk)
+            if (gameMain.GetComponent<GameMain>().tutorialFlag)
             {
-                lineCount = talkNumber;
+                if (gameMain.GetComponent<GameMain>().stageNumber == 1)
+                {
+                    ChangeSpeed();
+                    if (tutorialCount == 3 || tutorialCount == 5 || tutorialCount == 7 || tutorialCount == 8 || tutorialCount == 9)
+                    {
+
+                    }
+                    else
+                    {
+                        timeCount++;
+                    }
+                }
+                else if (gameMain.GetComponent<GameMain>().stageNumber == 2)
+                {
+                    if (tutorialCount == 1 || tutorialCount == 2 || tutorialCount == 3||tutorialCount == 4 ||tutorialCount == 5)
+                    {
+
+                    }
+                    else
+                    {
+                        timeCount++;
+                    }
+                }
             }
-            SetNextLine(lineCount);
-            lineCount++;
+            else
+            {
+                timeCount++;
+            }
+        }
+
+        if (gameMain.GetComponent<GameMain>().tutorialFlag)
+        {
+            if (timeCount == talkSpeed)
+            {
+
+                SetNextLine(tutorialCount);
+                timeCount = 0;
+                tutorialCount++;
+            }
+        }
+        else
+        {
+            if (timeCount % talkSpeed == 0)
+            {
+                if (lineCount == limitTalk)
+                {
+                    lineCount = talkNumber;
+                }
+
+                SetNextLine(lineCount);
+                lineCount++;
+
+            }
 
         }
 
-        int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
 
+        ////過去正規版
+        //if (pauseScript.pauseFlag != true)
+        //{
+        //    timeCount++;
+        //}
+        
+        //if (timeCount % talkSpeed == 0)
+        //{
+        //    if (lineCount == limitTalk)
+        //    {
+        //        lineCount = talkNumber;
+        //    }
+
+        //    SetNextLine(lineCount);
+        //    lineCount++;
+
+        //}
+       
+
+        //テキスト更新処理
+        int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
         if (displayCharacterCount != lastUpdateCharacter)
         {
             uiText.text = currentText.Substring(0, displayCharacterCount);
@@ -304,5 +371,50 @@ public class ChangeText : MonoBehaviour {
         // 文字列を代入
         stageData = stageTextAsset.text;
         scenarios = stageData.Split("\n"[0]);
+    }
+
+    public void TutorialNext()
+    {
+        SetNextLine(tutorialCount);
+        tutorialCount++;
+        timeCount = 0;
+    }
+    
+    public void TutorialNextNumber(int number)
+    {
+        SetNextLine(number);
+        tutorialCount = number+1;
+        timeCount = 0;
+    }
+
+    public void ChangeSpeed()
+    {
+        if (gameMain.GetComponent<GameMain>().stageNumber == 1)
+        {
+         if(tutorialCount == 1)
+         {
+             talkSpeed = 270;
+
+         }
+         else if (tutorialCount == 2)
+         {
+             talkSpeed = 220;
+
+         }
+         else if (tutorialCount == 4)
+         {
+             talkSpeed = 270;
+         }
+         else if (tutorialCount == 6)
+         {
+             talkSpeed = 240;
+
+         }
+         else if (tutorialCount == 7)
+         {
+             talkSpeed = 180;
+
+         }
+        }
     }
 }

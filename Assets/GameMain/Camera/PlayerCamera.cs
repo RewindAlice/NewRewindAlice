@@ -170,7 +170,12 @@ public class PlayerCamera : MonoBehaviour
         // 目標の角度に到達したら
         if (currentRotationY == targetRotationY)
         {
+            GameObject.Find("GameMain").GetComponent<GameMain>().waitingTime = 0;
             GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn++;
+            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+            {
+                GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
+            }
             targetRotationY = 0;
             rotationFlag = false;
         }
@@ -240,13 +245,13 @@ public class PlayerCamera : MonoBehaviour
         // マップカメラがＯＮなら
         if(mapCameraFlag)
         {
-            mapCameraFlag = false;                              // マップカメラをＯＦＦに 
-            mapCamera.GetComponent<Camera>().enabled = false;   // マップカメラを非表示
+            mapCameraFlag = true;                              // マップカメラをＯＦＦに 
+            mapCamera.GetComponent<Camera>().enabled = true;   // マップカメラを非表示
         }
         else
         {
-            mapCameraFlag = true;                               // マップカメラをＯＮに
-            mapCamera.GetComponent<Camera>().enabled = true;    // マップカメラを表示
+            mapCameraFlag = false;                               // マップカメラをＯＮに
+            mapCamera.GetComponent<Camera>().enabled = false;    // マップカメラを表示
         }
     }
 

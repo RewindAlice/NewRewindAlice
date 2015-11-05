@@ -25,6 +25,80 @@ public class Stage : MonoBehaviour
     const int IVY_LEFT = 9;
     const int IVY_RIGHT = 10;
 
+
+    //新配列番号
+    const int NONE_BLOCK = 0;
+    const int START_POINT = 1;
+    const int STAGE_GOOL = 2;
+    const int WATER = 3;    // 水
+
+    const int FOREST_BLOCK_GROUND = 4;         // 森ステージの足場ブロック（1段目）
+    const int FOREST_BLOCK_GRASS = 5;          // 森ステージの足場ブロック（2段目）
+    const int FOREST_BLOCK_ALLGRASS = 6;       // 森ステージの足場ブロック（3段目以降）
+
+    const int ROOM_BLOCK_FLOOR = 7;            // 家ステージの足場ブロック（1段目）
+    const int ROOM_BLOCK_BOOKSHELF = 8;        // 家ステージの足場ブロック（2段目）
+
+    const int REDFOREST_BLOCK_GROUND = 9;      // 森ステージの足場ブロック（1段目）
+    const int REDFOREST_BLOCK_GRASS = 10;      // 森ステージの足場ブロック（2段目）
+    const int REDFOREST_BLOCK_ALLGRASS = 11;   // 森ステージの足場ブロック（3段目以降）
+
+    const int DARKFOREST_BLOCK_GROUND = 12;    // 暗い森ステージの足場ブロック（前段）
+
+    const int GARDEN_BLOCK_GROUND = 13;        // 暗い森ステージの足場ブロック（1段目）
+    const int GARDEN_BLOCK_FLOWER = 14;        // 暗い森ステージの足場ブロック（2段目以降）
+
+    const int STEP_ONE_TREE = 21;   // 高さ1の木
+    const int STEP_TWO_TREE = 22;   // 高さ2の木
+
+    //const int IVY_BLOCK = 23;       // 蔦ブロック
+    const int IVY_GIMMCIK = 24;     // 蔦ギミック
+
+    const int LADDER_BLOCK = 25;    // 梯子ブロック
+    const int LADDER_GIMMCIK = 26;  // 梯子ギミック
+
+    const int MUSHROOM_SMALL = 27;  // キノコ（小さくなる）
+    const int MUSHROOM_BIG = 28;    // キノコ（大きくなる）
+    const int POTION_SMALL = 29;    // 薬（小さくなる）
+    const int POTION_BIG = 30;      // 薬（大きくなる）
+
+    const int DOOR_RED_KEY = 31;    // 赤扉（鍵）
+    const int DOOR_RED = 32;        // 赤扉
+
+    const int DOOR_BLUE_KEY = 33;   // 青扉（鍵）
+    const int DOOR_BLUE = 34;       // 青扉
+
+    const int DOOR_YELLOW_KEY = 35; // 黄扉（鍵）
+    const int DOOR_YELLOW = 36;     // 黄扉
+
+    const int DOOR_GREEN_KEY = 37;  // 緑扉（鍵）
+    const int DOOR_GREEN = 38;      // 緑扉
+
+    const int WARP_HOLE_ONE = 41;   // 穴１
+    const int WARP_HOLE_TWO = 42;   // 穴２
+    const int WARP_HOLE_TRHEE = 43; // 穴３
+    const int WARP_HOLE_FOUR = 44;  // 穴４
+    const int WARP_HOLE_FIVE = 45;  // 穴５
+
+    const int RED_FLOWER = 46;      // 花１
+    const int BLUE_FLOWER = 47;     // 花２
+    const int PURPLE_FLOWER = 48;   // 花３
+    const int CHESHIRE_CAT = 49;    // チェシャ猫
+    const int BRAMBLE = 50;         // 茨
+   
+    const int TWEEDLEDUM = 51;           //トゥイードルダム
+    const int TWEEDLEDEE = 52;           //トゥイードルディ
+    const int SOLDIER_HEART_RIGHT = 53;  //ハート兵右回り
+//    const int SOLDIER_HEART_LEFT = 54;　 //ハート兵左回り
+//    const int SOLDIER_SPADE_RIGHT = 55;　//スペード兵右回り
+//    const int SOLDIER_SPADE_LEFT = 56;　 //スペード兵左回り
+ //   const int SOLDIER_SPADE_BAF = 57;　　//スペード兵行ったり来たり
+    const int ROCK = 58;                 //岩
+    const int HAMPTYDUMPTY = 59;         //ハンプティダンプティ
+
+
+
+
     public Player alice;
 
     public GameObject gimmickNone;  // 何も無い
@@ -345,7 +419,7 @@ public class Stage : MonoBehaviour
 	// ★ステージ3★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Stage3()
 	{
-		int stageTurnNum = 30;
+		int stageTurnNum = 3;
 
 		int[, ,] stage = new int[,,]
         {
