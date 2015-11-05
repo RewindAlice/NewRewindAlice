@@ -32,6 +32,8 @@ public class GameMain : MonoBehaviour
         GIMMICK,    // ギミック
     }
 
+    public AliceActionNotifer aliceActionNotifer;   // ギミックホルダー
+
     public PlayerCamera camera; // カメラ
     public Player alice;        // プレイヤー
     public Stage stage;         // ステージ
@@ -119,11 +121,15 @@ public class GameMain : MonoBehaviour
         turn = Turn.NONE;           // ターンに無しを設定
         turnCountGimmick = 0;       // カウントを０に
 
-        stageNumber = 2;
-        stage.setSelectStage(stageNumber);            // 選択されたステージを設定
+        stageNumber = 3;
+        stage.setSelectStage(stageNumber);  // 選択されたステージを設定
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
         limitTurn = stage.getStageTurnNum();
+
+        aliceActionNotifer = new AliceActionNotifer();
+        aliceActionNotifer.GimmickArray = GameObject.FindGameObjectsWithTag("Gimmick");
+
         alice.transform.position = stage.getStartPosition();    // アリスの座標を設定
         alice.arrayPosX = stage.getStartArrayPosition('x');     // アリスの配列上の座標Ｘを設定
         alice.arrayPosY = stage.getStartArrayPosition('y');     // アリスの配列上の座標Ｙを設定
@@ -150,14 +156,14 @@ public class GameMain : MonoBehaviour
     // ★行動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     void GameAction()
     {
-        // 現在の行動が
+        // ▽現在の行動が
         switch (action)
         {
-            // 無しなら
+            // ▼無しなら
             case PlayerAction.NONE:
                 break;
 
-            // 進むなら
+            // ▼進むなら
             case PlayerAction.NEXT:
                 // ターンがプレイヤーなら
                 if (turn == Turn.PLAYER)
@@ -174,7 +180,8 @@ public class GameMain : MonoBehaviour
 
                         if(!alice.autoMoveFlag)
                         {
-                            turn = Turn.GIMMICK;            // ターンをギミックに
+                            turn = Turn.GIMMICK;                                // ターンをギミックに
+                            aliceActionNotifer.NotiferNext(alice.turnCount);    // ギミックを次の段階へ
                         }
                     }
                 }
@@ -200,11 +207,16 @@ public class GameMain : MonoBehaviour
                 }
                 break;
 
-            // 戻るなら
+            // ▼戻るなら
             case PlayerAction.RETURN:
                 // ターンがギミックなら
                 if (turn == Turn.GIMMICK)
                 {
+                    if (turnCountGimmick == 0)
+                    {
+                        aliceActionNotifer.NotiferReturn(alice.turnCount);
+                    }
+
                     turnCountGimmick++; // カウントを増やす
 
                     // カウントが６０になったら

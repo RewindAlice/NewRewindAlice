@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
         // ▼キー入力によるプレイヤーの移動////////////////////////////////////
         gameMain.inputPlayerMoveEvent += alice.MoveStart;       // 移動開始処理
-        gameMain.inputPlayerMoveEvent += alice.SaveMove;        // 移動保存処理
 
         // ▼キー入力によるプレイヤーの巻き戻し////////////////////////////////
         gameMain.inputPlayerMoveReturnEvent += alice.MoveStart; // 移動開始処理
@@ -28,7 +27,6 @@ public class GameManager : MonoBehaviour
 
         // ▼自動移動処理//////////////////////////////////////////////////
         gameMain.autoPlayerMoveEvent += alice.MoveStart;    // 移動開始処理
-        gameMain.autoPlayerMoveEvent += alice.SaveMove;     // 移動保存処理
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

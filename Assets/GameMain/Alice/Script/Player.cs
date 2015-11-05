@@ -4,10 +4,14 @@ using System.Collections.Generic;   // listを使用するため
 
 public class Player : MonoBehaviour
 {
+    // ★移動情報保存///////////////////////////////////
     const int SAVE_NUM = 50;        // 移動保存数
+
+    // ★プレイヤー移動/////////////////////////////////
     const float SPEED_W = 0.02f;    // 移動速度（横方向）
     const float SPEED_H = 0.02f;    // 移動速度（縦方向）
 
+    // ★プレイヤーの向きに対応した角度//////////////////
     const int ANGLE_FRONT = 0;   // プレイヤーの向き（前）
     const int ANGLE_BACK = 180;  // プレイヤーの向き（後）
     const int ANGLE_LEFT = 270;  // プレイヤーの向き（左）
@@ -19,6 +23,14 @@ public class Player : MonoBehaviour
         NONE,       // 無し
         NEXT,       // 進む
         RETURN,     // 戻る
+    }
+
+    // ★アリスの状態★
+    public enum PlayerMode
+    {
+        NOMAL,  // 通常
+        SMALL,  // 小さい
+        BIG,    // 大きい
     }
 
     // ★プレイヤーの向き★
@@ -56,6 +68,7 @@ public class Player : MonoBehaviour
         MINUS_Z,    // Zを減らす
     }
 
+    // ★配列上の座標///////////////////////////
     public int arrayPosX = 0;   // 配列上の座標X
     public int arrayPosY = 0;   // 配列上の座標Y
     public int arrayPosZ = 0;   // 配列上の座標Z
@@ -69,13 +82,15 @@ public class Player : MonoBehaviour
     public PlayerCamera camera;                     // カメラ
     public PlayerCamera.CameraAngle cameraAngle;    // カメラの向き
 
-    public PlayerAngle playerAngle;     // アリスの向き
     public PlayerAction playerAction;   // アリスの行動
+    public PlayerMode playerMode;       // アリスの状態
+    public PlayerAngle playerAngle;     // アリスの向き
     public MoveDirection moveDirection; // 移動方向
 
     public int stopCount;               // 待機時のカウント
 
     // 移動情報の保存
+    public PlayerMode[] saveMovePlayerMode = new PlayerMode[SAVE_NUM];      // 保存用配列（アリスの状態）
     public PlayerAngle[] saveMovePlayerAngle = new PlayerAngle[SAVE_NUM];   // 保存用配列（アリスの向き）
     public MoveDirection[] saveMoveDirection = new MoveDirection[SAVE_NUM]; // 保存用配列（移動方向）
     public bool[] saveMoveInput = new bool[SAVE_NUM];                       // 保存用配列（キー入力）
@@ -90,10 +105,12 @@ public class Player : MonoBehaviour
     public bool moveRightPossibleFlag;  // 右移動可能フラグ
 
     public bool autoMoveFlag;           // 自動移動フラグ
-    public MoveDirection autoMove;      // 自動移動の方向
 
     public bool climb1Flag; // 登り１フラグ
     public bool climb2Flag; // 登り２フラグ
+
+    public int countBig;    // 大きくなっているターン数
+    public int countSmall;  // 小さくなっているターン数
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -105,13 +122,18 @@ public class Player : MonoBehaviour
         inputKeyFlag = false;
         stopCount = 0;
 
+        playerMode = PlayerMode.NOMAL;      // アリスの初期の状態を通常に
         playerAngle = PlayerAngle.FRONT;    // アリスの初期の向きを前に
 
         autoMoveFlag = false;
-        autoMove = MoveDirection.NONE;
 
         climb1Flag = false;
         climb2Flag = false;
+
+        countBig = 0;       // 大きくなっているターン数を０に
+        countSmall = 0;     // 小さくなっているターン数を０に
+
+        ModeChange();
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -124,59 +146,80 @@ public class Player : MonoBehaviour
     // ★カメラに対応した移動方向に変更★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void ChangeDirection(MoveDirection direction)
     {
+        // ▽移動方向が
         switch (direction)
         {
-            // 前なら
+            // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////
             case MoveDirection.FRONT:
+                // ▽カメラの向きが
                 switch (cameraAngle)
                 {
-                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.BACK; break;
-                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.FRONT; break;
-                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.RIGHT; break;
-                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.LEFT; break;
+                    // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.BACK; break;     // 移動方向を後に変更
+                    // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.FRONT; break;     // 移動方向を前に変更
+                    // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.RIGHT; break;     // 移動方向を右に変更
+                    // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.LEFT; break;     // 移動方向を左に変更
                 }
                 break;
-            // 後なら
+            // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////
             case MoveDirection.BACK:
+                // ▽カメラの向きが
                 switch (cameraAngle)
                 {
-                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.FRONT; break;
-                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.BACK; break;
-                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.LEFT; break;
-                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.RIGHT; break;
+                    // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.FRONT; break;    // 移動方向を前に変更
+                    // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.BACK; break;      // 移動方向を後に変更
+                    // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.LEFT; break;      // 移動方向を左に変更
+                    // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.RIGHT; break;    // 移動方向を右に変更
                 }
                 break;
-            // 左なら
+            // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////
             case MoveDirection.LEFT:
+                // ▽カメラの向きが
                 switch (cameraAngle)
                 {
-                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.RIGHT; break;
-                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.LEFT; break;
-                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.FRONT; break;
-                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.BACK; break;
+                    // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.RIGHT; break;    // 移動方向を右に変更
+                    // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.LEFT; break;      // 移動方向を左に変更
+                    // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.FRONT; break;     // 移動方向を前に変更
+                    // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.BACK; break;     // 移動方向を後に変更
                 }
                 break;
-            // 右なら
+            // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////
             case MoveDirection.RIGHT:
+                // ▽カメラの向きが
                 switch (cameraAngle)
                 {
-                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.LEFT; break;
-                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.RIGHT; break;
-                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.BACK; break;
-                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.FRONT; break;
+                    // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.FRONT: moveDirection = MoveDirection.LEFT; break;     // 移動方向を左に変更
+                    // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.BACK: moveDirection = MoveDirection.RIGHT; break;     // 移動方向を右に変更
+                    // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.LEFT: moveDirection = MoveDirection.BACK; break;      // 移動方向を後に変更
+                    // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////
+                    case PlayerCamera.CameraAngle.RIGHT: moveDirection = MoveDirection.FRONT; break;    // 移動方向を前に変更
                 }
                 break;
-            // 上なら
+            // ▼上なら//////////////////////////////////////////////
             case MoveDirection.UP:
-                moveDirection = MoveDirection.UP;
+                moveDirection = MoveDirection.UP;   // 移動方向を上に
                 break;
-            // 下なら
+            // ▼下なら//////////////////////////////////////////////
             case MoveDirection.DOWN:
-                moveDirection = MoveDirection.DOWN;
+                moveDirection = MoveDirection.DOWN; // 移動方向を下に
                 break;
-            // 待機なら
+            // ▼待機なら////////////////////////////////////
             case MoveDirection.STOP:
-                moveDirection = MoveDirection.STOP;
+                moveDirection = MoveDirection.STOP; // 待機に
                 break;
         }
     }
@@ -184,30 +227,30 @@ public class Player : MonoBehaviour
     // ★向きを変更★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void ChangeAngle()
     {
-        // 移動方向が
+        // ▽移動方向が
         switch (moveDirection)
         {
-            // 前なら
+            // ▼前なら//////////////////////////////////////////////////////////////////////////////
             case MoveDirection.FRONT:
                 playerAngle = PlayerAngle.FRONT;                                // アリスの向きを前に
                 transform.localEulerAngles = new Vector3(0, ANGLE_FRONT, 0);    // 前方向の角度を指定
                 break;
-            // 後なら
+            // ▼後なら//////////////////////////////////////////////////////////////////////////////
             case MoveDirection.BACK:
                 playerAngle = PlayerAngle.BACK;                                 // アリスの向きを後に
                 transform.localEulerAngles = new Vector3(0, ANGLE_BACK, 0);     // 後方向の角度を指定
                 break;
-            // 左なら
+            // ▼左なら//////////////////////////////////////////////////////////////////////////////
             case MoveDirection.LEFT:
                 playerAngle = PlayerAngle.LEFT;                                 // アリスの向きを左に
                 transform.localEulerAngles = new Vector3(0, ANGLE_LEFT, 0);     // 左方向の角度を指定
                 break;
-            // 右なら
+            // ▼右なら//////////////////////////////////////////////////////////////////////////////
             case MoveDirection.RIGHT:
                 playerAngle = PlayerAngle.RIGHT;                                // アリスの向きを右に
                 transform.localEulerAngles = new Vector3(0, ANGLE_RIGHT, 0);    // 右方向の角度を指定
                 break;
-            // それ以外
+            // ▼それ以外
             default:
                 break;
         }
@@ -216,18 +259,18 @@ public class Player : MonoBehaviour
     // ★移動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void Move()
     {
-        // アリスの行動が
-        switch(playerAction)
+        // ▽アリスの行動が
+        switch (playerAction)
         {
-            // 何も無しなら
+            // ▼何も無しなら
             case PlayerAction.NONE:
                 break;
-            // 進めるなら
+            // ▼進めるなら//////////////////////////////////////////////
             case PlayerAction.NEXT:
                 MoveNextPosition();                 // アリスを進める処理
                 MoveFinishDecision(playerAction);   // 移動完了判定
                 break;
-            // 戻るなら
+            // ▼戻るなら//////////////////////////////////////////////
             case PlayerAction.RETURN:
                 MoveReturnPosition();               // アリスを戻す処理
                 MoveFinishDecision(playerAction);   // 移動完了判定
@@ -238,27 +281,30 @@ public class Player : MonoBehaviour
     // ★プレイヤーを進める★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void MoveNextPosition()
     {
-        // 移動方向が
-        switch(moveDirection)
+        // ▽移動方向が
+        switch (moveDirection)
         {
-            // 移動なら
+            // ▼前なら////////////////////////////////////////////////////////////
             case MoveDirection.FRONT:
+            // ▼後なら////////////////////////////////////////////////////////////
             case MoveDirection.BACK:
+            // ▼左なら////////////////////////////////////////////////////////////
             case MoveDirection.LEFT:
+            // ▼右なら////////////////////////////////////////////////////////////
             case MoveDirection.RIGHT:
-                transform.Translate(Vector3.forward * SPEED_W);
+                transform.Translate(Vector3.forward * SPEED_W); // プレイヤーを移動
                 break;
-            // 上移動なら
+            // ▼上なら////////////////////////////////////////////////////////////
             case MoveDirection.UP:
-                transform.Translate(Vector3.up * SPEED_H);
+                transform.Translate(Vector3.up * SPEED_H);      // プレイヤーを移動
                 break;
-            // 下移動なら
+            // ▼下なら////////////////////////////////////////////////////////////
             case MoveDirection.DOWN:
-                transform.Translate(Vector3.down * SPEED_H);
+                transform.Translate(Vector3.down * SPEED_H);    // プレイヤーを移動
                 break;
-            // 待機なら
+            // ▼待機なら//////////////////////////////////////
             case MoveDirection.STOP:
-                stopCount++;
+                stopCount++;            // 待機カウントを増やす
                 break;
         }
     }
@@ -266,27 +312,30 @@ public class Player : MonoBehaviour
     // ★プレイヤーを戻す★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void MoveReturnPosition()
     {
-        // 移動方向が
+        // ▽移動方向が
         switch (moveDirection)
         {
-            // 移動なら
+            // ▼前なら////////////////////////////////////////////////////////////
             case MoveDirection.FRONT:
+            // ▼後なら////////////////////////////////////////////////////////////
             case MoveDirection.BACK:
+            // ▼左なら////////////////////////////////////////////////////////////
             case MoveDirection.LEFT:
+            // ▼右なら////////////////////////////////////////////////////////////
             case MoveDirection.RIGHT:
-                transform.Translate(Vector3.back * SPEED_W);
+                transform.Translate(Vector3.back * SPEED_W);    // プレイヤーを移動
                 break;
-            // 上移動なら
+            // ▼上なら////////////////////////////////////////////////////////////
             case MoveDirection.UP:
-                transform.Translate(Vector3.up * SPEED_H);
+                transform.Translate(Vector3.up * SPEED_H);      // プレイヤーを移動
                 break;
-            // 下移動なら
+            // ▼下なら////////////////////////////////////////////////////////////
             case MoveDirection.DOWN:
-                transform.Translate(Vector3.down * SPEED_H);
+                transform.Translate(Vector3.down * SPEED_H);    // プレイヤーを移動
                 break;
-            // 待機なら
+            // ▼待機なら//////////////////////////////////////
             case MoveDirection.STOP:
-                stopCount++;
+                stopCount++;            // 待機カウントを増やす
                 break;
         }
     }
@@ -295,12 +344,12 @@ public class Player : MonoBehaviour
     public void MoveStart()
     {
         // 巻き戻しフラグが偽なら
-        if(!moveReturnFlag)
+        if (!moveReturnFlag)
         {
             // 早送りフラグが偽なら
-            if(!moveNextFlag)
+            if (!moveNextFlag)
             {
-                // 通常の移動開始処理//////////////////////////////////////////////////////////////
+                // ◆通常移動開始処理//////////////////////////////////////////////////////////////
                 moveFlag = true;                            // 移動フラグを真に
                 moveBeforePosition = transform.position;    // 移動前の座標に現在の座標を入れる
                 ChangeDirection(moveDirection);             // カメラの向きに対応した移動方向に変更
@@ -309,37 +358,51 @@ public class Player : MonoBehaviour
             }
             else
             {
-                // 早送りの移動開始処理////////////////////////////////////////////////////////////////
+                // ◆早送り移動開始処理////////////////////////////////////////////////////////////////
                 moveFlag = true;                                    // 移動フラグを真に
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
+                playerMode = saveMovePlayerMode[saveCount];         // 保存されている状態を設定
                 playerAngle = saveMovePlayerAngle[saveCount];       // 保存されている向きを設定
                 moveDirection = saveMoveDirection[saveCount];       // 保存されている移動方向を設定
+                inputKeyFlag = saveMoveInput[saveCount];            // １つ前の入力を設定
                 ChangeAngle();                                      // アリスの向きを変更
                 playerAction = PlayerAction.NEXT;                   // アリスの行動を進めるに
             }
         }
+        // ◆巻き戻し移動開始処理///////////////////////////////////////////////////////////////////////
         else
         {
             // 保存数が０より大きい（保存されている移動があれば）
-            if(saveCount > 0)
+            if (saveCount > 0)
             {
                 // 巻き戻しの移動開始処理//////////////////////////////////////////////////////////////
                 moveFlag = true;                                    // 移動フラグを真に
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
+                playerMode = saveMovePlayerMode[saveCount - 1];     // １つ前の状態を設定
                 playerAngle = saveMovePlayerAngle[saveCount - 1];   // １つ前の向きを設定
                 moveDirection = saveMoveDirection[saveCount - 1];   // １つ前の移動方向を設定
+                inputKeyFlag = saveMoveInput[saveCount - 1];        // １つ前の入力を設定
                 ChangeAngle();                                      // アリスの向きを変更
+                ModeChange();                                       // 状態の切り替え
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
 
-                // 移動方向が上下の場合は反転する
-                switch(moveDirection)
+                // プレイヤーの状態が通常なら////////////////////////////
+                if (playerMode == PlayerMode.NOMAL)
                 {
-                    case MoveDirection.UP: moveDirection = MoveDirection.DOWN; break;
-                    case MoveDirection.DOWN: moveDirection = MoveDirection.UP; break;
+                    countBig = 0;       // 大きくなっているカウントを０に
+                    countSmall = 0;     // 小さくなっているカウントを０に
                 }
 
-                saveCount--;
-                print("保存場所を前に");
+                // ▽移動方向が
+                switch (moveDirection)
+                {
+                    // ▼上なら//////////////////////////////////////////////////////////////////////////////
+                    case MoveDirection.UP: moveDirection = MoveDirection.DOWN; break;   // 移動方向を下に変更
+                    // ▼下なら//////////////////////////////////////////////////////////////////////////////
+                    case MoveDirection.DOWN: moveDirection = MoveDirection.UP; break;   // 移動方向を上に変更
+                }
+
+                saveCount--;    // 保存場所を１つ前に
             }
         }
     }
@@ -347,139 +410,153 @@ public class Player : MonoBehaviour
     // ★移動完了判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void MoveFinishDecision(PlayerAction action)
     {
-        // 行動が
-        switch(action)
+        // ▽行動が
+        switch (action)
         {
-            // 何も無しなら
+            // ▼何も無しなら//////
             case PlayerAction.NONE:
                 break;
-            // 進むなら
+            // ▼進むなら////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case PlayerAction.NEXT:
-                // 移動方向が
-                switch(moveDirection)
+                // ▽移動方向が
+                switch (moveDirection)
                 {
-                    // 前なら
+                    // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.FRONT:
-                        if(transform.localPosition.z >= moveBeforePosition.z + 1)
+                        // アリスの座標Ｚが移動前から１増えているなら
+                        if (transform.localPosition.z >= moveBeforePosition.z + 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z + 1);
-                            MoveFinish(position, ArrayMove.PLUS_Z);
+                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z + 1); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Z);                                                                         // 移動完了処理
                         }
                         break;
-                    // 後なら
+                    // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.BACK:
+                        // アリスの座標Ｚが移動前から１減っているなら
                         if (transform.localPosition.z <= moveBeforePosition.z - 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z - 1);
-                            MoveFinish(position, ArrayMove.MINUS_Z);
+                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z - 1); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Z);                                                                        // 移動完了処理
                         }
                         break;
-                    // 左なら
+                    // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.LEFT:
+                        // アリスの座標Ｘが移動前から１減っているなら
                         if (transform.localPosition.x <= moveBeforePosition.x - 1)
                         {
-                            Vector3 position = new Vector3(moveBeforePosition.x - 1, transform.localPosition.y, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.MINUS_X);
+                            Vector3 position = new Vector3(moveBeforePosition.x - 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_X);                                                                        // 移動完了処理
                         }
                         break;
-                    // 右なら
+                    // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.RIGHT:
+                        // アリスの座標Ｘが移動前から１増えているなら
                         if (transform.localPosition.x >= moveBeforePosition.x + 1)
                         {
-                            Vector3 position = new Vector3(moveBeforePosition.x + 1, transform.localPosition.y, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.PLUS_X);
+                            Vector3 position = new Vector3(moveBeforePosition.x + 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_X);                                                                         // 移動完了処理
                         }
                         break;
-                    // 上なら
+                    // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
+                        // アリスの座標Ｙが移動前から１増えているなら
                         if (transform.localPosition.y >= moveBeforePosition.y + 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.PLUS_Y);
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
                         }
                         break;
-                    // 下なら
+                    // ▼下なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.DOWN:
+                        // アリスの座標Ｙが移動前から１減っているなら
                         if (transform.localPosition.y <= moveBeforePosition.y - 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 1, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.MINUS_Y);
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 1, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Y);                                                                        // 移動完了処理
                         }
                         break;
-                    // 待機なら
+                    // ▼待機なら//////////////////////////////////////////////////////////////////
                     case MoveDirection.STOP:
-                        if(stopCount == 50)
+                        // 待機カウントが５０になったら
+                        if (stopCount == 50)
                         {
-                            MoveFinish(transform.localPosition, ArrayMove.NONE);
+                            MoveFinish(transform.localPosition, ArrayMove.NONE);    // 移動完了処理
                         }
                         break;
                 }
                 break;
-            // 戻るなら
+            // ▼戻るなら////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case PlayerAction.RETURN:
-                // 移動方向が
+                // ▽移動方向が
                 switch (moveDirection)
                 {
-                    // 前なら
+                    // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.FRONT:
+                        // アリスの座標Ｚが移動前から１減っているなら
                         if (transform.localPosition.z <= moveBeforePosition.z - 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z - 1);
-                            MoveFinish(position, ArrayMove.MINUS_Z);
-                            MoveAgain();
+                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z - 1); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Z);                                                                        // 移動完了処理
+                            MoveAgain();                                                                                                    // 再移動
                         }
                         break;
-                    // 後なら
+                    // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.BACK:
+                        // アリスの座標Ｚが移動前から１増えているなら
                         if (transform.localPosition.z >= moveBeforePosition.z + 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z + 1);
-                            MoveFinish(position, ArrayMove.PLUS_Z);
-                            MoveAgain();
+                            Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z + 1); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Z);                                                                         // 移動完了処理
+                            MoveAgain();                                                                                                    // 再移動
                         }
                         break;
-                    // 左なら
+                    // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.LEFT:
+                        // アリスの座標Ｘが移動前から１増えているなら
                         if (transform.localPosition.x >= moveBeforePosition.x + 1)
                         {
-                            Vector3 position = new Vector3(moveBeforePosition.x + 1, transform.localPosition.y, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.PLUS_X);
-                            MoveAgain();
+                            Vector3 position = new Vector3(moveBeforePosition.x + 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_X);                                                                         // 移動完了処理
+                            MoveAgain();                                                                                                    // 再移動
                         }
                         break;
-                    // 右なら
+                    // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.RIGHT:
+                        // アリスの座標Ｘが移動前から１減っているなら
                         if (transform.localPosition.x <= moveBeforePosition.x - 1)
                         {
-                            Vector3 position = new Vector3(moveBeforePosition.x - 1, transform.localPosition.y, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.MINUS_X);
-                            MoveAgain();
+                            Vector3 position = new Vector3(moveBeforePosition.x - 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_X);                                                                        // 移動完了処理
+                            MoveAgain();                                                                                                    // 再移動
                         }
                         break;
-                    // 上なら
+                    // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
+                        // アリスの座標Ｙが移動前から１増えているなら
                         if (transform.localPosition.y >= moveBeforePosition.y + 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.PLUS_Y);
-                            MoveAgain();
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
+                            MoveAgain();                                                                                                    // 再移動
                         }
                         break;
-                    // 下なら
+                    // ▼下なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.DOWN:
+                        // アリスの座標Ｙが移動前から１減っているなら
                         if (transform.localPosition.y <= moveBeforePosition.y - 1)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 1, transform.localPosition.z);
-                            MoveFinish(position, ArrayMove.MINUS_Y);
-                            MoveAgain();
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 1, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Y);                                                                        // 移動完了処理
+                            MoveAgain();                                                                                                    // 再移動
                         }
                         break;
-                    // 待機なら
+                    // ▼待機なら//////////////////////////////////////////////////////////////////
                     case MoveDirection.STOP:
+                        // 待機カウントが５０になったら
                         if (stopCount == 50)
                         {
-                            MoveFinish(transform.localPosition, ArrayMove.NONE);
-                            MoveAgain();
+                            MoveFinish(transform.localPosition, ArrayMove.NONE);    // 移動完了処理
+                            MoveAgain();                                            // 再移動
                         }
                         break;
                 }
@@ -490,6 +567,65 @@ public class Player : MonoBehaviour
     // ★移動完了処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void MoveFinish(Vector3 position, ArrayMove arrayMove)
     {
+        SaveMove();     // 移動の保存
+
+        // プレイヤーの行動が進めるなら
+        if (playerAction == PlayerAction.NEXT && inputKeyFlag == true)
+        {
+            MoveCountDown();    // 移動数を減らす
+            turnCount++;
+
+            // アリスが大きくなっていたら
+            if (playerMode == PlayerMode.BIG)
+            {
+                countBig--; // 大きくなっているカウントを減らす
+
+                // 大きくなっている
+                if (countBig == 0)
+                {
+                    playerMode = PlayerMode.NOMAL;
+                }
+            }
+
+            if (playerMode == PlayerMode.SMALL)
+            {
+                countSmall--;
+
+                if (countSmall == 0)
+                {
+                    playerMode = PlayerMode.NOMAL;
+                }
+            }
+        }
+        // プレイヤーの行動が戻るなら////////////////////////////////////////
+        else if (playerAction == PlayerAction.RETURN && inputKeyFlag == true)
+        {
+            MoveCountUp();
+            turnCount--;
+
+            if (playerMode == PlayerMode.BIG)
+            {
+                if (countBig == 3)
+                {
+                    playerMode = PlayerMode.NOMAL;
+                }
+
+                countBig++;
+            }
+
+            if (playerMode == PlayerMode.SMALL)
+            {
+                if (countSmall == 3)
+                {
+                    playerMode = PlayerMode.NOMAL;
+                }
+
+                countSmall++;
+            }
+        }
+
+        ModeChange();   // 状態の切り替え
+
         moveFlag = false;                   // 移動フラグを偽に
         moveFinishFlag = true;              // 移動完了フラグを偽に
         moveReturnFlag = false;             // 巻き戻しフラグを偽に
@@ -499,19 +635,8 @@ public class Player : MonoBehaviour
         transform.position = position;      // 座標を変更
         ChangeArrayPosition(arrayMove);     // 配列上の位置を変更
 
-        // プレイヤーの行動が進めるなら
-        if (playerAction == PlayerAction.NEXT)
-        {
-            MoveCountDown();
-        }
-        // プレイヤーの行動が戻るなら
-        else if (playerAction == PlayerAction.RETURN)
-        {
-            MoveCountUp();
-        }
-
         // 保存数が０なら初期の向きに直す
-        if(saveCount == 0){ transform.localEulerAngles = new Vector3(0, 0, 0); }
+        if (saveCount == 0) { transform.localEulerAngles = new Vector3(0, 0, 0); }
 
         playerAction = PlayerAction.NONE;   // アリスの行動を無しに
         stopCount = 0;                      // 待機時のカウントを０に
@@ -520,27 +645,31 @@ public class Player : MonoBehaviour
     // ★移動情報の保存★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void SaveMove()
     {
+        // 巻き戻し以外の場合
         if (!moveReturnFlag)
         {
-            // 早送りの時はリセットしない
-            if (!moveNextFlag)
+            // 早送り、自動移動以外の場合は移動情報をリセット
+            if (!moveNextFlag && !autoMoveFlag)
             {
                 for (int num = saveCount; num < SAVE_NUM; num++)
                 {
-                    saveMovePlayerAngle[num] = PlayerAngle.NONE;
-                    saveMoveDirection[num] = MoveDirection.NONE;
+                    // 保存されている情報をリセット//////////////////////////////////////////////////
+                    saveMovePlayerMode[num] = PlayerMode.NOMAL;     // プレイヤーの状態をリセット
+                    saveMovePlayerAngle[num] = PlayerAngle.NONE;    // プレイヤーの向きをリセット
+                    saveMoveDirection[num] = MoveDirection.NONE;    // プレイヤーの移動方向をリセット
                     saveMoveInput[num] = false;
                 }
             }
 
+            // 情報の保存////////////////////////////////////////////////////////////////
+            saveMovePlayerMode[saveCount] = playerMode;     // プレイヤーの状態を保存
             saveMovePlayerAngle[saveCount] = playerAngle;   // プレイヤーの向きを保存
-            saveMoveDirection[saveCount] = moveDirection;   // 移動情報を保存
+            saveMoveDirection[saveCount] = moveDirection;   // プレイヤーの移動方向を保存
 
             if (inputKeyFlag) { saveMoveInput[saveCount] = true; }
             else { saveMoveInput[saveCount] = false; }
 
             saveCount++;                                    // 最後の保存場所を変更
-            print("保存場所を次に");
         }
     }
 
@@ -594,6 +723,18 @@ public class Player : MonoBehaviour
                 moveReturnFlag = true;
             }
         }
+    }
+
+    // ★状態の切り替え★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void ModeChange()
+    {
+        switch (playerMode)
+        {
+            case PlayerMode.NOMAL: transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); break;
+            case PlayerMode.BIG: transform.localScale = new Vector3(1.5f, 1.5f, 1.5f); break;
+            case PlayerMode.SMALL: transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); break;
+        }
+
     }
 
     public int GetDirection()
