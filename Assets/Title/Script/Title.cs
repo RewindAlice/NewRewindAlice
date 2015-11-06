@@ -7,7 +7,6 @@ public class Title : MonoBehaviour
 	void Start ()
     {
         CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
-	
     }
 	
 	// Update is called once per frame

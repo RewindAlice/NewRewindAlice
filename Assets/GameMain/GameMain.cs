@@ -43,8 +43,8 @@ public class GameMain : MonoBehaviour
     public Turn turn;               // 誰のターンか判断する
     public int turnCountGimmick;    // ターンの時間稼ぎ
 
-
     public int stageNumber;
+	public GameObject pause; // ポーズ
     //チュートリアルに必要な変数
     public bool tutorialFlag;      //チュートリアルか判断する
     public int tutorialTurn;       //チュートリアルのターン数
@@ -60,56 +60,60 @@ public class GameMain : MonoBehaviour
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
-		MapCamera();    // マップカメラ
-		CameraTurn();   // カメラの回転
-		PlayerMove();   // プレイヤーの移動
-		GameAction();   // 行動を行う
-        if ((stageNumber == 1) ||
-            (stageNumber == 2))
-        {
-            waitingTime++;
-            if (tutorialImageFlag == true)
-            {
-                if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 140) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
-                    stageNumber == 2 & (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
-                {
-                    if (tutorialCount > 1 && tutorialCount < 11)
-                        ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
+		if (pause.GetComponent<Pause>().pauseFlag == false)
+		{
+			MapCamera();    // マップカメラ
+			CameraTurn();   // カメラの回転
+			PlayerMove();   // プレイヤーの移動
+			GameAction();   // 行動を行う
+			if ((stageNumber == 1) ||
+				(stageNumber == 2))
+			{
+				waitingTime++;
+				if (tutorialImageFlag == true)
+				{
+					if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 140) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
+						stageNumber == 2 & (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+					{
+						if (tutorialCount > 1 && tutorialCount < 11)
+							ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
 
-                    if (tutorialCount < 60)
-                    {
-                        tutorialCount++;
-                    }
-                }
+						if (tutorialCount < 60)
+						{
+							tutorialCount++;
+						}
+					}
 
-            }
-            else if (tutorialImageFlag == false)
-            {
-                ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+				}
+				else if (tutorialImageFlag == false)
+				{
+					ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
-                camera.GetComponent<PlayerCamera>().mapCameraFlag = true;
-                camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
-            }
+					camera.GetComponent<PlayerCamera>().mapCameraFlag = true;
+					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+				}
 
-            if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
-            {
-                tutorialImageFlag = true;
-                camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
-                camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
-            }
-            else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
-            {
-                tutorialImageFlag = true;
-                camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
-                camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
-            }
-        }
+				if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
+				{
+					tutorialImageFlag = true;
+					camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
+					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+				}
+				else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+				{
+					tutorialImageFlag = true;
+					camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
+					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+				}
+			}
+		}
 	}
 
     // ★ゲームの設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -126,7 +130,7 @@ public class GameMain : MonoBehaviour
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
         limitTurn = stage.getStageTurnNum();
-
+		pause = GameObject.Find("Pause");
         aliceActionNotifer = new AliceActionNotifer();
         aliceActionNotifer.GimmickArray = GameObject.FindGameObjectsWithTag("Gimmick");
 

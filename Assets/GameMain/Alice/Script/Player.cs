@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
     public MoveDirection moveDirection; // 移動方向
 
     public int stopCount;               // 待機時のカウント
+	public GameObject pause; // ポーズ
 
     // 移動情報の保存
     public PlayerMode[] saveMovePlayerMode = new PlayerMode[SAVE_NUM];      // 保存用配列（アリスの状態）
@@ -124,7 +125,7 @@ public class Player : MonoBehaviour
 
         playerMode = PlayerMode.NOMAL;      // アリスの初期の状態を通常に
         playerAngle = PlayerAngle.FRONT;    // アリスの初期の向きを前に
-
+		pause = GameObject.Find("Pause");
         autoMoveFlag = false;
 
         climb1Flag = false;
@@ -139,8 +140,11 @@ public class Player : MonoBehaviour
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update ()
     {
-        cameraAngle = camera.cameraAngle;   // カメラの向きを取得
-        Move();                             // 移動
+		if (pause.GetComponent<Pause>().pauseFlag == false)
+		{
+			cameraAngle = camera.cameraAngle;   // カメラの向きを取得
+			Move();                             // 移動
+		}
 	}
 
     // ★カメラに対応した移動方向に変更★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

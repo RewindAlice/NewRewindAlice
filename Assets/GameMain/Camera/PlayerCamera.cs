@@ -52,6 +52,7 @@ public class PlayerCamera : MonoBehaviour
     public float cameraRX;
     public GameObject camera;
 
+	public GameObject pause; // ポーズ
  
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -79,19 +80,24 @@ public class PlayerCamera : MonoBehaviour
         cameraRX = 15;
         clearY = 0;
         clearTY = 0;
+
+		pause = GameObject.Find("Pause");
     }
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update ()
     {
-        // プレイヤーカメラの更新////////////////////////////////////////////////////////////
-        this.transform.position = player.transform.position + offset;   // カメラを追従させる
-        CameraRotation();                                               // カメラの回転
-        //ゲームクリアしたら
-        if(clearFlag)
-        {
-            ResultCameraMove();
-        }
+		if (pause.GetComponent<Pause>().pauseFlag == false)
+		{
+			// プレイヤーカメラの更新////////////////////////////////////////////////////////////
+			this.transform.position = player.transform.position + offset;   // カメラを追従させる
+			CameraRotation();                                               // カメラの回転
+			//ゲームクリアしたら
+			if (clearFlag)
+			{
+				ResultCameraMove();
+			}
+		}
     }
 
     // ★カメラの回転★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

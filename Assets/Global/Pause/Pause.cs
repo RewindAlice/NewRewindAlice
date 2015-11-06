@@ -49,8 +49,7 @@ public class Pause : MonoBehaviour
     void Update()
     {
         float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
-
-        float VerticalKeyInput = Input.GetAxis("VerticalKey");
+		float VerticalKeyInput = Input.GetAxis("VerticalKey");
         if (pauseFlag)
         {
             if (menuSelectFlag == false)
@@ -71,7 +70,6 @@ public class Pause : MonoBehaviour
             // メニューが選択されている場合
             else if (menuSelectFlag)
             {
-
                 // 一定の時間が経過しているなら、選択中のメニューを返す
                 if (selectTimer > 15)
                 {
@@ -89,18 +87,15 @@ public class Pause : MonoBehaviour
                             pauseFlag = false;
                             break;
                         case RESTART:
-                            //EscapePause();
                             EscapePause();
                             Application.LoadLevel("GameMainScene");
                             CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
                             break;
                         case RETURN_SELECT:
-                            //EscapePause();
                             EscapePause();
                             Application.LoadLevel("StageSelectScene");
                             CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                             CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-
                             break;
                         default:
                             break;
@@ -150,7 +145,7 @@ public class Pause : MonoBehaviour
         }
         else
         {
-			if (startTimer >= 60)
+			if (startTimer >= 80)
 			{
 				if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
 				{
