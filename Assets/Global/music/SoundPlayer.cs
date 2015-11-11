@@ -44,9 +44,9 @@ public class SoundPlayer
         audioClips.Add("se003", new AudioClipInfo("music/se3", "se003"));
         audioClips.Add("se004", new AudioClipInfo("music/se4", "se004"));
         audioClips.Add("se005", new AudioClipInfo("music/se5", "se005"));
-        audioClips.Add("se001", new AudioClipInfo("music/se6", "se006"));
-        audioClips.Add("se001", new AudioClipInfo("music/se7", "se007"));
-        audioClips.Add("Gbgm01", new AudioClipInfo("music/toy", "Gbgm01"));
+        audioClips.Add("se006", new AudioClipInfo("music/se6", "se006"));
+        audioClips.Add("se007", new AudioClipInfo("music/se7", "se007"));
+        audioClips.Add("Gbgm01", new AudioClipInfo("music/toys", "Gbgm01"));
 
     }
     public bool PlaySE(string seName)
