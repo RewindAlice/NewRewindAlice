@@ -92,9 +92,6 @@ public class Stage : MonoBehaviour
     const int ROCK = 62;                 //岩
     const int HAMPTYDUMPTY = 64;         //ハンプティダンプティ
 
-
-
-
     public Player alice;
 
     public GameObject gimmickNone;  // 何も無い
@@ -106,13 +103,25 @@ public class Stage : MonoBehaviour
     public GameObject gimmickIVY;   // 蔦
     public GameObject gimmickTree;  // 木
 
+    //------------------------------------
+    //松村脩平追加部分
+    //------------------------------------
+    //ハートのトランプ兵のモデル
+    public GameObject gimmickSoldierHeartLeft;
+    public GameObject gimmickSoldierHeartRight;
+    //スペードのトランプ兵のモデル
+    public GameObject gimmickSoldierSpadeLeft;
+    public GameObject gimmickSoldierSpadeRight;
+    public GameObject gimmickSoldierSpadeBAF;
+    //------------------------------------
+
     int gimmick = 0;            // 配列の数字
     int gimmickPattern = 0;     // ギミックの種類
     int gimmickDirection = 0;   // ギミックの向き
     int gimmickStartTurn = 0;   // ギミックの開始ターン
 
     int[, ,] gimmickArray = new int[STAGE_Y, STAGE_X, STAGE_Z];                     // ステージの配置（数字）
-    int[, ,] gimmickNumArray = new int[STAGE_Y, STAGE_X, STAGE_Z];                  // ステージの配置（ギミック番号）
+    public int[, ,] gimmickNumArray = new int[STAGE_Y, STAGE_X, STAGE_Z];                  // ステージの配置（ギミック番号）
     List<int> moveGimmickNumList = new List<int>();                                 // 移動系ギミック（数字）
     GameObject[, ,] gimmickObjectArray = new GameObject[STAGE_Y, STAGE_X, STAGE_Z]; // ステージの配置（オブジェクト）
     List<GameObject> moveGimmickObjectList = new List<GameObject>();                // 移動系ギミック（オブジェクト）
@@ -134,7 +143,7 @@ public class Stage : MonoBehaviour
 
     void ReadFile()
     {
-        FileInfo fi = new FileInfo("Assets/stage.txt");
+        FileInfo fi = new FileInfo("Assets/GameMain/Stage/StageData/"+PlayerPrefs.GetString("Text"));
 
         StreamReader sr = new StreamReader(fi.OpenRead(), Encoding.UTF8);
 
@@ -234,6 +243,48 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z].GetComponent<Tree>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
                 break;
 
+
+            //------------------------------------
+            //松村脩平追加部分
+            //------------------------------------
+
+            case SOLDIER_HEART_RIGHT:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartRight, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+
+            case SOLDIER_HEART_LEFT:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartLeft, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+
+            case SOLDIER_SPADE_RIGHT:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeRight, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
+                break;
+
+            case SOLDIER_SPADE_LEFT:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeLeft, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
+                break;
+
+            case SOLDIER_SPADE_BAF:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeBAF, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierBackAndForth>().Initialize(gimmickDirection, x, y, z);
+                break;
+            //-----------------------------------------------------------------
+
         }
     }
 
@@ -245,6 +296,31 @@ public class Stage : MonoBehaviour
             case 1: Stage1(); break;    // ステージ１を設定
             case 2: Stage2(); break;    // ステージ２を設定
 			case 3: Stage3(); break;    // ステージ３を設定
+
+            //------------------------------
+            //松村脩平追加部分
+            case 4: Stage3(); break;    
+            case 5: Stage3(); break;    
+            case 6: Stage3(); break;    
+            case 7: Stage3(); break;    
+            case 8: Stage3(); break;    
+            case 9: Stage3(); break;    
+            case 10: Stage3(); break;   
+            case 11: Stage3(); break;   
+            case 12: Stage3(); break;   
+            case 13: Stage3(); break;   
+            case 14: Stage3(); break;   
+            case 15: Stage3(); break;   
+            case 16: Stage3(); break;   
+            case 17: Stage3(); break;   
+            case 18: Stage3(); break;   
+            case 19: Stage3(); break;   
+            case 20: Stage3(); break;   
+            case 21: Stage3(); break;   
+            case 22: Stage3(); break;   
+            case 23: Stage3(); break;   
+            case 24: Stage3(); break;   
+            //--------------------------------
         }
     }
 
@@ -437,94 +513,6 @@ public class Stage : MonoBehaviour
 	// ★ステージ3★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Stage3()
 	{
-        //int stageTurnNum = 30;
-
-        //int[, ,] stage = new int[,,]
-        //{
-        //    {
-        //        // １段目
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401,  10401},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //    },
-        //    {
-        //        // ２段目
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10201,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  12101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  11001,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10701,  10601,  10801,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10901,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //    },
-        //    {
-        //        // ３段目
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //    },
-        //    {
-        //        // ４段目
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //    },
-        //    {
-        //        // ５段目
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //        {  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101,  10101},
-        //    },
-        //};
-
-        //turnNum = stageTurnNum;
-
-        //for (int x = 0; x < STAGE_X; x++)
-        //{
-        //    for (int y = 0; y < STAGE_Y; y++)
-        //    {
-        //        for (int z = 0; z < STAGE_Z; z++)
-        //        {
-        //            gimmickArray[y, x, z] = stage[y, x, z];
-        //        }
-        //    }
-        //}
         ReadFile();
 	}
 
@@ -781,7 +769,7 @@ public class Stage : MonoBehaviour
             // 配列の中にギミックがある場合
             if(moveGimmickNumList[num] != NONE_BLOCK)
             {
-                if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)moveGimmickObjectList[num].transform.position.y) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
+                if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)(moveGimmickObjectList[num].transform.position.y+0.5f)) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
                 {
                     flag = false;
                 }
@@ -982,4 +970,144 @@ public class Stage : MonoBehaviour
             }
         }
     }
+
+
+    //----------------------------------------------------------------------------
+    //松村脩平追加部分
+    //移動系ギミック横判定////////////////////////////////////////////////////////
+    public bool BesideDecision(int posX, int posY, int posZ)
+    {
+        bool flag = false;
+
+        if ((posY == -1) ||
+            (posX == -1) || (posX == 11) ||
+            (posZ == -1) || (posZ == 11))
+            return false;
+
+        switch (gimmickNumArray[posY, posX, posZ])
+        {
+            //横にあるとき通れるオブジェクト
+            case NONE_BLOCK:      // 何も無し
+            case START_POINT:     // スタート地点
+            case STAGE_GOOL:      // ゴール地点
+            case IVY_FRONT:
+            case IVY_BACK:
+            case IVY_LEFT:
+            case IVY_RIGHT:
+            case LADDER_FRONT:
+            case LADDER_BACK:
+            case LADDER_LEFT:
+            case LADDER_RIGHT:
+                flag = true;
+                break;
+
+            //横にあるとき通れないオブジェクト
+            case FOREST_BLOCK_GROUND:
+            case FOREST_BLOCK_GRASS:
+            case FOREST_BLOCK_ALLGRASS:
+
+            case ROOM_BLOCK_FLOOR:
+            case ROOM_BLOCK_BOOKSHELF:
+
+            case REDFOREST_BLOCK_GROUND:
+            case REDFOREST_BLOCK_GRASS:
+            case REDFOREST_BLOCK_ALLGRASS:
+
+            case DARKFOREST_BLOCK_GROUND:
+
+            case GARDEN_BLOCK_GROUND:
+            case GARDEN_BLOCK_FLOWER:
+
+            case WATER:             // 水
+
+            case IVY_BLOCK:         // 蔦ブロック
+            case LADDER_BLOCK:      // 梯子ブロック
+                flag = false;
+                break;
+
+            case TREE:
+            case DUMMY_TREE:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().movePossibleFlag == true) { flag = true; }
+                else { flag = false; }
+                break;
+
+        }
+
+        //アリス
+        if ((posX == alice.arrayPosX) &&
+            (posY == alice.arrayPosY) &&
+            (posZ == alice.arrayPosZ))
+            flag = false;
+        return flag;
+    }
+
+    // 移動系ギミック横下判定//////////////////////////////////////////////////////////
+    public bool BesideDownDecision(int posX, int posY, int posZ)
+    {
+        bool flag = false;
+      
+        switch (gimmickNumArray[posY - 1, posX, posZ])
+        {
+
+            //進行方向下にあるとき通れないオブジェクト
+            case FOREST_BLOCK_GROUND:
+            case FOREST_BLOCK_GRASS:
+            case FOREST_BLOCK_ALLGRASS:
+
+            case ROOM_BLOCK_FLOOR:
+            case ROOM_BLOCK_BOOKSHELF:
+
+            case REDFOREST_BLOCK_GROUND:
+            case REDFOREST_BLOCK_GRASS:
+            case REDFOREST_BLOCK_ALLGRASS:
+
+            case DARKFOREST_BLOCK_GROUND:
+
+            case GARDEN_BLOCK_GROUND:
+            case GARDEN_BLOCK_FLOWER:
+
+            case WATER:             // 水
+
+            case START_POINT:             // スタート地点
+            case STAGE_GOOL:              // ゴール地点
+            case IVY_BLOCK:
+            case IVY_FRONT:
+            case IVY_BACK:
+            case IVY_LEFT:
+            case IVY_RIGHT:
+            case LADDER_BLOCK:
+            case LADDER_FRONT:
+            case LADDER_BACK:
+            case LADDER_LEFT:
+            case LADDER_RIGHT:
+
+
+                flag = true;
+                break;
+            // 木
+            case TREE:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount <= 2)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                }
+                break;
+
+            //case NONE:              // 何も無し
+            //case WATER:             // 水
+            //case HOLE1:
+            //case HOLE2:
+            //case HOLE3:
+            //case HOLE4:
+            //case HOLE5:
+            //    flag = false;
+            //    break;
+        }
+        return flag;
+    }
+
+    //----------------------------------------------------------------------------
 }

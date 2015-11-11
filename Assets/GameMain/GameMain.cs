@@ -43,6 +43,7 @@ public class GameMain : MonoBehaviour
     public Turn turn;               // 誰のターンか判断する
     public int turnCountGimmick;    // ターンの時間稼ぎ
 
+    public int beforeStageNumber; //デバッグ用変数
     public int stageNumber;
 	public GameObject pause; // ポーズ
     //チュートリアルに必要な変数
@@ -62,11 +63,26 @@ public class GameMain : MonoBehaviour
     {
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
+
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
+        //-----------------------------------------------------
+        //松村脩平変更点
+        //デバッグ機能(ステージ番号を変更後、ステージ変更される)
+        if(beforeStageNumber != stageNumber)
+        {
+            ChangeTextName();
+            PlayerPrefs.SetInt("Debug",1);
+            PlayerPrefs.SetInt("StageNumber", stageNumber);
+            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+            beforeStageNumber = stageNumber;
+        }
+        //-----------------------------------------------------
+
+
 		if (pause.GetComponent<Pause>().pauseFlag == false)
 		{
 			MapCamera();    // マップカメラ
@@ -125,7 +141,21 @@ public class GameMain : MonoBehaviour
         turn = Turn.NONE;           // ターンに無しを設定
         turnCountGimmick = 0;       // カウントを０に
 
-        stageNumber = 3;
+        //--------------------------------------
+        //松村脩平変更点
+        //デバッグ用ステージ変更
+        if(PlayerPrefs.GetInt("Debug") == 1)
+        {
+            stageNumber = PlayerPrefs.GetInt("StageNumber");
+            PlayerPrefs.SetInt("Debug", 0);
+        }
+        else
+        {
+            stageNumber = 3;
+        }
+        ChangeTextName();
+        beforeStageNumber = stageNumber;
+        //---------------------------------------
         stage.setSelectStage(stageNumber);  // 選択されたステージを設定
         stage.CreateStage();                // ステージの生成
         turnNum = stage.getStageTurnNum();  // ターン数の取得
@@ -825,4 +855,108 @@ public class GameMain : MonoBehaviour
 
     // ★自動移動によるプレイヤーの移動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void AutoPlayerMove() { autoPlayerMoveEvent(); }
+
+    //---------------------------------------------------
+    //松村脩平追加部分
+    //デバッグ用TextName変換
+    public void ChangeTextName()
+    {
+        if(stageNumber == 1)
+        {
+            PlayerPrefs.SetString("Text", "stage01.txt");
+        }
+        else if (stageNumber == 2)
+        {
+            PlayerPrefs.SetString("Text", "stage02.txt");
+        }
+        else if (stageNumber == 3)
+        {
+            PlayerPrefs.SetString("Text", "stage03.txt");
+        }
+        else if (stageNumber == 4)
+        {
+            PlayerPrefs.SetString("Text", "stage04.txt");
+        }
+        else if (stageNumber == 5)
+        {
+            PlayerPrefs.SetString("Text", "stage05.txt");
+        }
+        else if (stageNumber == 6)
+        {
+            PlayerPrefs.SetString("Text", "stage06.txt");
+        }
+        else if (stageNumber == 7)
+        {
+            PlayerPrefs.SetString("Text", "stage07.txt");
+        }
+        else if (stageNumber == 8)
+        {
+            PlayerPrefs.SetString("Text", "stage08.txt");
+        }
+        else if (stageNumber == 9)
+        {
+            PlayerPrefs.SetString("Text", "stage09.txt");
+        }
+        else if (stageNumber == 10)
+        {
+            PlayerPrefs.SetString("Text", "stage10.txt");
+        }
+        else if (stageNumber == 11)
+        {
+            PlayerPrefs.SetString("Text", "stage11.txt");
+        }
+        else if (stageNumber == 12)
+        {
+            PlayerPrefs.SetString("Text", "stage12.txt");
+        }
+        else if (stageNumber == 13)
+        {
+            PlayerPrefs.SetString("Text", "stage13.txt");
+        }
+        else if (stageNumber == 14)
+        {
+            PlayerPrefs.SetString("Text", "stage14.txt");
+        }
+        else if (stageNumber == 15)
+        {
+            PlayerPrefs.SetString("Text", "stage15.txt");
+        }
+        else if (stageNumber == 16)
+        {
+            PlayerPrefs.SetString("Text", "stage16.txt");
+        }
+        else if (stageNumber == 17)
+        {
+            PlayerPrefs.SetString("Text", "stage17.txt");
+        }
+        else if (stageNumber == 18)
+        {
+            PlayerPrefs.SetString("Text", "stage18.txt");
+        }
+        else if (stageNumber == 19)
+        {
+            PlayerPrefs.SetString("Text", "stage19.txt");
+        }
+        else if (stageNumber == 20)
+        {
+            PlayerPrefs.SetString("Text", "stage20.txt");
+        }
+        else if (stageNumber == 21)
+        {
+            PlayerPrefs.SetString("Text", "stage21.txt");
+        }
+        else if (stageNumber == 22)
+        {
+            PlayerPrefs.SetString("Text", "stage22.txt");
+        }
+        else if (stageNumber == 23)
+        {
+            PlayerPrefs.SetString("Text", "stage23.txt");
+        }
+        else if (stageNumber == 24)
+        {
+            PlayerPrefs.SetString("Text", "stage24.txt");
+        }
+    }
+    //---------------------------------------------------
 }

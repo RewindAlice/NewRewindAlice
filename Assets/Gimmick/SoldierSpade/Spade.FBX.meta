@@ -1,0 +1,157 @@
+fileFormatVersion: 2
+guid: 0d438cf51f8a99e47abda3de4f9eca75
+timeCreated: 1447220137
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Bip00
+    100002: Bip001 Footsteps001
+    100004: Bip001 Head001
+    100006: Bip001 HeadNub001
+    100008: Bip001 L Calf001
+    100010: Bip001 L Clavicle001
+    100012: Bip001 L Foot001
+    100014: Bip001 L Forearm001
+    100016: Bip001 L Hand001
+    100018: Bip001 L Thigh001
+    100020: Bip001 L Toe003
+    100022: Bip001 L Toe004
+    100024: Bip001 L Toe005
+    100026: Bip001 L Toe0Nub001
+    100028: Bip001 L UpperArm001
+    100030: Bip001 Neck001
+    100032: Bip001 Pelvis001
+    100034: Bip001 R Calf001
+    100036: Bip001 R Clavicle001
+    100038: Bip001 R Foot001
+    100040: Bip001 R Forearm001
+    100042: Bip001 R Hand001
+    100044: Bip001 R Thigh001
+    100046: Bip001 R Toe003
+    100048: Bip001 R Toe004
+    100050: Bip001 R Toe005
+    100052: Bip001 R Toe0Nub001
+    100054: Bip001 R UpperArm001
+    100056: Bip001 Spine002
+    100058: Bip001 Spine003
+    100060: Bone006
+    100062: Bone009
+    100064: Bone012
+    100066: Bone013
+    100068: Box006
+    100070: card1_1
+    100072: card1_2
+    100074: card2_1
+    100076: card2_2
+    100078: card3_1
+    100080: card3_2
+    100082: card4_1
+    100084: card4_2
+    100086: //RootNode
+    400000: Bip00
+    400002: Bip001 Footsteps001
+    400004: Bip001 Head001
+    400006: Bip001 HeadNub001
+    400008: Bip001 L Calf001
+    400010: Bip001 L Clavicle001
+    400012: Bip001 L Foot001
+    400014: Bip001 L Forearm001
+    400016: Bip001 L Hand001
+    400018: Bip001 L Thigh001
+    400020: Bip001 L Toe003
+    400022: Bip001 L Toe004
+    400024: Bip001 L Toe005
+    400026: Bip001 L Toe0Nub001
+    400028: Bip001 L UpperArm001
+    400030: Bip001 Neck001
+    400032: Bip001 Pelvis001
+    400034: Bip001 R Calf001
+    400036: Bip001 R Clavicle001
+    400038: Bip001 R Foot001
+    400040: Bip001 R Forearm001
+    400042: Bip001 R Hand001
+    400044: Bip001 R Thigh001
+    400046: Bip001 R Toe003
+    400048: Bip001 R Toe004
+    400050: Bip001 R Toe005
+    400052: Bip001 R Toe0Nub001
+    400054: Bip001 R UpperArm001
+    400056: Bip001 Spine002
+    400058: Bip001 Spine003
+    400060: Bone006
+    400062: Bone009
+    400064: Bone012
+    400066: Bone013
+    400068: Box006
+    400070: card1_1
+    400072: card1_2
+    400074: card2_1
+    400076: card2_2
+    400078: card3_1
+    400080: card3_2
+    400082: card4_1
+    400084: card4_2
+    400086: //RootNode
+    4300000: Box006
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Box006
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

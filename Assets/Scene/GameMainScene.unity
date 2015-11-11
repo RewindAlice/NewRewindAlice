@@ -135,6 +135,8 @@ MonoBehaviour:
   climb2Flag: 0
   countBig: 0
   countSmall: 0
+  invisibleFlag: 0
+  gameOverFlag: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,6 +898,16 @@ MonoBehaviour:
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickIVY: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickTree: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
+  gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
+    type: 2}
+  gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,
+    type: 2}
+  gimmickSoldierSpadeLeft: {fileID: 163446, guid: bea912331daa03c4aaabba1046fd9f6f,
+    type: 2}
+  gimmickSoldierSpadeRight: {fileID: 147770, guid: aa684cc5d3a648546ad13cb4e6f4d17c,
+    type: 2}
+  gimmickSoldierSpadeBAF: {fileID: 154258, guid: 6f793ef4412d7cb4a9c1dd5b3de08648,
+    type: 2}
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
@@ -987,7 +999,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 478074, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 432274, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2353,6 +2365,7 @@ MonoBehaviour:
   action: 0
   turn: 0
   turnCountGimmick: 0
+  beforeStageNumber: 0
   stageNumber: 0
   pause: {fileID: 0}
   tutorialFlag: 0

@@ -112,6 +112,14 @@ public class Player : MonoBehaviour
 
     public int countBig;    // 大きくなっているターン数
     public int countSmall;  // 小さくなっているターン数
+    //------------------------
+    //松村脩平追加部分
+    //------------------------
+    public bool invisibleFlag;
+
+    //ためし用(後々消す)
+    public bool gameOverFlag;
+    //------------------------
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -135,6 +143,14 @@ public class Player : MonoBehaviour
         countSmall = 0;     // 小さくなっているターン数を０に
 
         ModeChange();
+
+        //------------------------
+        //松村脩平追加部分
+        //------------------------
+        invisibleFlag = false;
+        //ためし用(後々消す)
+        gameOverFlag = false;
+        //------------------------
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -753,4 +769,22 @@ public class Player : MonoBehaviour
         }
         return sentDirection;
     }
+
+    //----------------------------
+    //松村脩平追加部分
+    //----------------------------
+    //アリスの配列座標の取得
+    public Vector3 GetArray()
+    {
+        return new Vector3(arrayPosX, arrayPosY, arrayPosZ);
+    }
+    
+    //アリスが透明であるか取得
+    public bool GetInvisible()
+    {
+        return invisibleFlag;
+    }
+    //------------------------------------------------------
+
+
 }

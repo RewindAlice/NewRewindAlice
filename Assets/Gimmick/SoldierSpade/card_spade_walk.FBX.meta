@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: c4e636ec0e905564bbabb5b9e531c87f
+timeCreated: 1447220138
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Bip00
+    100002: Bip001 Head001
+    100004: Bip001 HeadNub001
+    100006: Bip001 L Calf001
+    100008: Bip001 L Clavicle001
+    100010: Bip001 L Foot001
+    100012: Bip001 L Forearm001
+    100014: Bip001 L Hand001
+    100016: Bip001 L Thigh001
+    100018: Bip001 L Toe003
+    100020: Bip001 L Toe0Nub001
+    100022: Bip001 L UpperArm001
+    100024: Bip001 Neck001
+    100026: Bip001 Pelvis001
+    100028: Bip001 R Calf001
+    100030: Bip001 R Clavicle001
+    100032: Bip001 R Foot001
+    100034: Bip001 R Forearm001
+    100036: Bip001 R Hand001
+    100038: Bip001 R Thigh001
+    100040: Bip001 R Toe003
+    100042: Bip001 R Toe0Nub001
+    100044: Bip001 R UpperArm001
+    100046: Bip001 Spine002
+    100048: Bip001 Spine003
+    100050: Bone006
+    100052: Bone009
+    100054: Bone012
+    100056: Bone013
+    100058: Box006
+    100060: card1_1
+    100062: card1_2
+    100064: card2_1
+    100066: card2_2
+    100068: card3_1
+    100070: card3_2
+    100072: card4_1
+    100074: card4_2
+    100076: //RootNode
+    100078: Shape001
+    100080: Shape002
+    100082: Shape003
+    100084: Shape004
+    400000: Bip00
+    400002: Bip001 Head001
+    400004: Bip001 HeadNub001
+    400006: Bip001 L Calf001
+    400008: Bip001 L Clavicle001
+    400010: Bip001 L Foot001
+    400012: Bip001 L Forearm001
+    400014: Bip001 L Hand001
+    400016: Bip001 L Thigh001
+    400018: Bip001 L Toe003
+    400020: Bip001 L Toe0Nub001
+    400022: Bip001 L UpperArm001
+    400024: Bip001 Neck001
+    400026: Bip001 Pelvis001
+    400028: Bip001 R Calf001
+    400030: Bip001 R Clavicle001
+    400032: Bip001 R Foot001
+    400034: Bip001 R Forearm001
+    400036: Bip001 R Hand001
+    400038: Bip001 R Thigh001
+    400040: Bip001 R Toe003
+    400042: Bip001 R Toe0Nub001
+    400044: Bip001 R UpperArm001
+    400046: Bip001 Spine002
+    400048: Bip001 Spine003
+    400050: Bone006
+    400052: Bone009
+    400054: Bone012
+    400056: Bone013
+    400058: Box006
+    400060: card1_1
+    400062: card1_2
+    400064: card2_1
+    400066: card2_2
+    400068: card3_1
+    400070: card3_2
+    400072: card4_1
+    400074: card4_2
+    400076: //RootNode
+    400078: Shape001
+    400080: Shape002
+    400082: Shape003
+    400084: Shape004
+    4300000: Box006
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Box006
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
