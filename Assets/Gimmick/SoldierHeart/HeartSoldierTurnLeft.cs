@@ -77,7 +77,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
     public override void OnAliceMoveNext(int aliceMoveTime)
     {
         //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
-        if (timeCount <= aliceMoveTime)
+        if (timeCount < aliceMoveTime)
         {
             //アリスを見つけたかのフラグ
             bool flag;
