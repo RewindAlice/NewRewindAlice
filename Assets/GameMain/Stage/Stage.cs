@@ -12,21 +12,6 @@ public class Stage : MonoBehaviour
     const int STAGE_Y = 5;  // ステージの高さ
     const int STAGE_Z = 11; // ステージの奥行
 
-    // ステージギミック番号
-    const int NONE = 1;     // 何も無い
-    const int START = 2;    // スタート地点
-    const int GOAL = 3;     // ゴール地点
-    const int BLOCK = 4;    // ブロック
-    const int ENEMY = 5;    // 敵
-
-    // 蔦ギミック（仮）
-    const int IVY_BLOCK = 6;
-    const int IVY_FRONT = 7;
-    const int IVY_BACK = 8;
-    const int IVY_LEFT = 9;
-    const int IVY_RIGHT = 10;
-
-
     //新配列番号
     const int NONE_BLOCK = 0;
     const int START_POINT = 1;
@@ -44,58 +29,68 @@ public class Stage : MonoBehaviour
     const int REDFOREST_BLOCK_GRASS = 10;      // 森ステージの足場ブロック（2段目）
     const int REDFOREST_BLOCK_ALLGRASS = 11;   // 森ステージの足場ブロック（3段目以降）
 
-    const int DARKFOREST_BLOCK_GROUND = 12;    // 暗い森ステージの足場ブロック（前段）
+    const int DARKFOREST_BLOCK_GROUND = 12;    // 暗い森ステージの足場ブロック（全段）
 
-    const int GARDEN_BLOCK_GROUND = 13;        // 暗い森ステージの足場ブロック（1段目）
-    const int GARDEN_BLOCK_FLOWER = 14;        // 暗い森ステージの足場ブロック（2段目以降）
+    const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
+    const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
 
-    const int STEP_ONE_TREE = 21;   // 高さ1の木
-    const int STEP_TWO_TREE = 22;   // 高さ2の木
 
-    //const int IVY_BLOCK = 23;       // 蔦ブロック
-    const int IVY_GIMMCIK = 24;     // 蔦ギミック
 
-    const int LADDER_BLOCK = 25;    // 梯子ブロック
-    const int LADDER_GIMMCIK = 26;  // 梯子ギミック
+    //// 蔦ギミック（仮）
+    const int IVY_BLOCK = 21;
+    const int IVY_FRONT = 22;
+    const int IVY_BACK = 23;
+    const int IVY_LEFT = 24;
+    const int IVY_RIGHT = 25;
 
-    const int MUSHROOM_SMALL = 27;  // キノコ（小さくなる）
-    const int MUSHROOM_BIG = 28;    // キノコ（大きくなる）
-    const int POTION_SMALL = 29;    // 薬（小さくなる）
-    const int POTION_BIG = 30;      // 薬（大きくなる）
+    //梯子
+    const int LADDER_BLOCK = 26;
+    const int LADDER_FRONT = 27;
+    const int LADDER_BACK = 28;
+    const int LADDER_LEFT = 29;
+    const int LADDER_RIGHT = 30;
 
-    const int DOOR_RED_KEY = 31;    // 赤扉（鍵）
-    const int DOOR_RED = 32;        // 赤扉
+    const int TREE = 31;   // 高さ1の木
+    const int DUMMY_TREE = 32;   // 高さ2の木
 
-    const int DOOR_BLUE_KEY = 33;   // 青扉（鍵）
-    const int DOOR_BLUE = 34;       // 青扉
+    const int MUSHROOM_SMALL = 33;  // キノコ（小さくなる）
+    const int MUSHROOM_BIG = 34;    // キノコ（大きくなる）
+    const int POTION_SMALL = 35;    // 薬（小さくなる）
+    const int POTION_BIG = 36;      // 薬（大きくなる）
 
-    const int DOOR_YELLOW_KEY = 35; // 黄扉（鍵）
-    const int DOOR_YELLOW = 36;     // 黄扉
+    const int DOOR_RED_KEY = 37;    // 赤扉（鍵）
+    const int DOOR_RED = 38;        // 赤扉
 
-    const int DOOR_GREEN_KEY = 37;  // 緑扉（鍵）
-    const int DOOR_GREEN = 38;      // 緑扉
+    const int DOOR_BLUE_KEY = 39;   // 青扉（鍵）
+    const int DOOR_BLUE = 40;       // 青扉
 
-    const int WARP_HOLE_ONE = 41;   // 穴１
-    const int WARP_HOLE_TWO = 42;   // 穴２
-    const int WARP_HOLE_TRHEE = 43; // 穴３
-    const int WARP_HOLE_FOUR = 44;  // 穴４
-    const int WARP_HOLE_FIVE = 45;  // 穴５
+    const int DOOR_YELLOW_KEY = 41; // 黄扉（鍵）
+    const int DOOR_YELLOW = 42;     // 黄扉
 
-    const int RED_FLOWER = 46;      // 花１
-    const int BLUE_FLOWER = 47;     // 花２
-    const int PURPLE_FLOWER = 48;   // 花３
-    const int CHESHIRE_CAT = 49;    // チェシャ猫
+    const int DOOR_GREEN_KEY = 43;  // 緑扉（鍵）
+    const int DOOR_GREEN = 44;      // 緑扉
+
+    const int WARP_HOLE_ONE = 45;   // 穴１
+    const int WARP_HOLE_TWO = 46;   // 穴２
+    const int WARP_HOLE_TRHEE = 47; // 穴３
+    const int WARP_HOLE_FOUR = 48;  // 穴４
+    const int WARP_HOLE_FIVE = 49;  // 穴５
+
     const int BRAMBLE = 50;         // 茨
-   
-    const int TWEEDLEDUM = 51;           //トゥイードルダム
-    const int TWEEDLEDEE = 52;           //トゥイードルディ
-    const int SOLDIER_HEART_RIGHT = 53;  //ハート兵右回り
-//    const int SOLDIER_HEART_LEFT = 54;　 //ハート兵左回り
-//    const int SOLDIER_SPADE_RIGHT = 55;　//スペード兵右回り
-//    const int SOLDIER_SPADE_LEFT = 56;　 //スペード兵左回り
- //   const int SOLDIER_SPADE_BAF = 57;　　//スペード兵行ったり来たり
-    const int ROCK = 58;                 //岩
-    const int HAMPTYDUMPTY = 59;         //ハンプティダンプティ
+    const int RED_FLOWER = 51;      // 花１
+    const int BLUE_FLOWER = 52;     // 花２
+    const int PURPLE_FLOWER = 53;   // 花３
+    const int CHESHIRE_CAT = 54;    // チェシャ猫  
+ 
+    const int TWEEDLEDUM = 55;           //トゥイードルダム
+    const int TWEEDLEDEE = 56;           //トゥイードルディ
+    const int SOLDIER_HEART_RIGHT = 57;  //ハート兵右回り
+    const int SOLDIER_HEART_LEFT = 58;//ハート兵左回り
+    const int SOLDIER_SPADE_RIGHT = 59;//スペード兵右回り
+    const int SOLDIER_SPADE_LEFT = 60;//スペード兵左回り
+    const int SOLDIER_SPADE_BAF = 61;//スペード兵行ったり来たり
+    const int ROCK = 62;                 //岩
+    const int HAMPTYDUMPTY = 64;         //ハンプティダンプティ
 
 
 
@@ -193,32 +188,32 @@ public class Stage : MonoBehaviour
 
         switch (gimmickPattern)
         {
-            case NONE:  // ▼何も無い//////////////////////////////////////////////////////////////////////////////////////////////////////
+            case NONE_BLOCK:  // ▼何も無い//////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case START: // ▼スタート地点///////////////////////////////////////////////////////////////////////////////////////////////////
+            case START_POINT: // ▼スタート地点///////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickStart, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case GOAL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+            case STAGE_GOOL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case BLOCK: // ▼ブロック///////////////////////////////////////////////////////////////////////////////////////////////////////
+            case FOREST_BLOCK_GROUND: // ▼ブロック///////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case ENEMY: // ▼敵////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = NONE;
-                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickEnemy, new Vector3(x, y, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(ENEMY);
-                break;
+            //case ENEMY: // ▼敵////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //    gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+            //    gimmickNumArray[y, x, z] = NONE_BLOCK;
+            //    moveGimmickObjectList.Add(GameObject.Instantiate(gimmickEnemy, new Vector3(x, y, z), Quaternion.identity) as GameObject);
+            //    moveGimmickNumList.Add(ENEMY);
+            //    break;
             case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
@@ -232,12 +227,13 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case STEP_ONE_TREE: // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case TREE: // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickTree, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
                 gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
                 gimmickObjectArray[y, x, z].GetComponent<Tree>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
                 break;
+
         }
     }
 
@@ -549,7 +545,7 @@ public class Stage : MonoBehaviour
             {
                 for (int z = 0; z < STAGE_Z; z++)
                 {
-                    if (gimmickNumArray[y, x, z] == START)
+                    if (gimmickNumArray[y, x, z] == START_POINT)
                     {
                         startPosition = new Vector3(x, y - 0.5f, z);
                     }
@@ -570,7 +566,7 @@ public class Stage : MonoBehaviour
             {
                 for (int z = 0; z < STAGE_Z; z++)
                 {
-                    if (gimmickNumArray[y, x, z] == START)
+                    if (gimmickNumArray[y, x, z] == START_POINT)
                     {
                         switch (c)
                         {
@@ -757,9 +753,9 @@ public class Stage : MonoBehaviour
         switch(gimmick)
         {
             // 移動できる
-            case NONE:      // 何も無い
-            case START:     // スタート地点
-            case GOAL:      // ゴール地点
+            case NONE_BLOCK:      // 何も無い
+            case START_POINT:     // スタート地点
+            case STAGE_GOOL:      // ゴール地点
             case IVY_BLOCK: // 蔦ブロック
             case IVY_FRONT: // 蔦（前）
             case IVY_BACK:  // 蔦（後）
@@ -769,7 +765,7 @@ public class Stage : MonoBehaviour
                 break;
 
             // 特定の条件の時は移動可能
-            case STEP_ONE_TREE:
+            case TREE:
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().movePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
@@ -783,7 +779,7 @@ public class Stage : MonoBehaviour
         for (int num = 0; num < moveGimmickObjectList.Count; num++)
         {
             // 配列の中にギミックがある場合
-            if(moveGimmickNumList[num] != NONE)
+            if(moveGimmickNumList[num] != NONE_BLOCK)
             {
                 if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)moveGimmickObjectList[num].transform.position.y) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
                 {
@@ -803,10 +799,10 @@ public class Stage : MonoBehaviour
         switch (gimmick)
         {
             // 移動できる
-            case NONE:      // 何も無い
-            case START:     // スタート地点
-            case GOAL:      // ゴール地点
-            case BLOCK:     // ブロック
+            case NONE_BLOCK:      // 何も無い
+            case START_POINT:     // スタート地点
+            case STAGE_GOOL:      // ゴール地点
+            case FOREST_BLOCK_GROUND:     // ブロック
             case IVY_BLOCK: // 蔦ブロック
             case IVY_FRONT: // 蔦（前）
             case IVY_BACK:  // 蔦（後）
@@ -816,10 +812,12 @@ public class Stage : MonoBehaviour
                 break;
 
             // 特定の条件の時は移動可能
-            case STEP_ONE_TREE:
+            case TREE:
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount <= 2) { flag = true; }
                 else { flag = false; }
                 break;
+
+
         }
 
         return flag;
@@ -836,7 +834,7 @@ public class Stage : MonoBehaviour
 
         switch(gimmickNumArray[posY, posX, posZ])
         {
-            case GOAL:      // ▼ゴール
+            case STAGE_GOOL:      // ▼ゴール
                 GoalCheck();
                 break;
             case IVY_FRONT: // 蔦（前）
@@ -851,13 +849,15 @@ public class Stage : MonoBehaviour
             case IVY_RIGHT: // 蔦（右）
                 Climb1(Player.PlayerAngle.RIGHT);
                 break;
-            case STEP_ONE_TREE:
+            case TREE:
                 if(gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
                 {
                     alice.AutoMoveSetting(Player.MoveDirection.UP);
                     print("木の成長");
                 }
                 break;
+
+
         }
     }
 
@@ -876,7 +876,7 @@ public class Stage : MonoBehaviour
             switch(gimmickNumArray[posY - 1, posX, posZ])
             {
                 // 落下するもの
-                case NONE:
+                case NONE_BLOCK:
                     alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                     print("落下");
                     break;
@@ -971,11 +971,11 @@ public class Stage : MonoBehaviour
                     switch(gimmickNumArray[y, x, z])
                     {
                         // ▼木（成長段階１）なら
-                        case STEP_ONE_TREE:
+                        case TREE:
                             // 成長段階が２以下なら１つ上の配列を変更
-                            if(gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount <= 1){ gimmickNumArray[y + 1, x, z] = NONE; }
+                            if(gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount <= 1){ gimmickNumArray[y + 1, x, z] = NONE_BLOCK; }
                             // 成長段階が３なら１つ上の配列を変更
-                            else if(gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 2){ gimmickNumArray[y + 1, x, z] = STEP_TWO_TREE; }
+                            else if(gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 2){ gimmickNumArray[y + 1, x, z] = DUMMY_TREE; }
                             break;
                     }
                 }

@@ -113,10 +113,13 @@ MonoBehaviour:
   moveBeforePosition: {x: 0, y: 0, z: 0}
   camera: {fileID: 713608515}
   cameraAngle: 0
-  playerAngle: 0
   playerAction: 0
+  playerMode: 0
+  playerAngle: 0
   moveDirection: 0
   stopCount: 0
+  pause: {fileID: 976129163}
+  saveMovePlayerMode: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   saveMovePlayerAngle: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   saveMoveDirection: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   saveMoveInput: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -128,9 +131,10 @@ MonoBehaviour:
   moveLeftPossibleFlag: 0
   moveRightPossibleFlag: 0
   autoMoveFlag: 0
-  autoMove: 0
   climb1Flag: 0
   climb2Flag: 0
+  countBig: 0
+  countSmall: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,9 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3add6ddc3ab97f4ca11b602cad5bcad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alice_On: {fileID: 21300000, guid: c3f196044bcf99c47aabae550d35b07b, type: 3}
-  aliceSmile_On: {fileID: 21300000, guid: 85653c8e0c169094c939029791dee633, type: 3}
-  aliceAmazing_On: {fileID: 21300000, guid: 5a8bcf93d97f23f4c9ff2bb136568866, type: 3}
+  alice_On: {fileID: 0}
+  aliceSmile_On: {fileID: 0}
+  aliceAmazing_On: {fileID: 0}
   image: {fileID: 0}
 --- !u!114 &134013362
 MonoBehaviour:
@@ -570,7 +574,7 @@ MonoBehaviour:
   peke: {fileID: 21300000, guid: 35a7b1bfae398fa48a00c7bf94175f32, type: 3}
   image: {fileID: 0}
   endFlag: 0
-  alice: {fileID: 0}
+  alice: {fileID: 99142189}
   player: {fileID: 0}
 --- !u!114 &603801860
 MonoBehaviour:
@@ -833,6 +837,17 @@ MonoBehaviour:
   targetRotationY: 0
   inputKeyRotationY: 0
   rotationFlag: 0
+  clearFlag: 0
+  onceInputFlag: 0
+  endRolling: 0
+  clearY: 0
+  clearTY: 0
+  timer: 0
+  cameraXZ: 0
+  cameraY: 0
+  cameraRX: 0
+  camera: {fileID: 0}
+  pause: {fileID: 0}
 --- !u!4 &713608516
 Transform:
   m_ObjectHideFlags: 0
@@ -878,8 +893,9 @@ MonoBehaviour:
   gimmickStart: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickGoal: {fileID: 123082, guid: aa867b8345c2256429fe7bbc3e46cd81, type: 2}
   gimmickBlock: {fileID: 123082, guid: aa867b8345c2256429fe7bbc3e46cd81, type: 2}
-  gimmickEnemy: {fileID: 188888, guid: 5ba7054c9528504428f0d84a4f2db0f7, type: 2}
-  gimmickIVY: {fileID: 123082, guid: aa867b8345c2256429fe7bbc3e46cd81, type: 2}
+  gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
+  gimmickIVY: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
+  gimmickTree: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
@@ -1060,6 +1076,7 @@ MonoBehaviour:
   keyFlag: 0
   selectMode: 0
   timer: 0
+  startTimer: 0
   selectTimer: 0
   menuSelectFlag: 0
   backGorund: {fileID: 1947259364}
@@ -1351,7 +1368,7 @@ MonoBehaviour:
   queenOfHeart: {fileID: 21300000, guid: c06164db1a42dd942ba48d03ba9e7632, type: 3}
   sisterAlice: {fileID: 21300000, guid: 716aed2256fce9b419011deb8d507942, type: 3}
   scenarios: []
-  image: {fileID: 1360012142}
+  image: {fileID: 0}
   charaCount: 0
   stageTextAsset: {fileID: 0}
   stageData: 
@@ -2173,61 +2190,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62aec5fbd395ec4abd33213b51d15d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenarios:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  scenarios: []
   uiText: {fileID: 1972864572}
   intervalForCharacterDisplay: .0500000007
   stageTextAsset: {fileID: 0}
   stageData: 
+  gameMain: {fileID: 2060863229}
+  tutorialCount: 0
 --- !u!114 &1972864572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2385,6 +2354,7 @@ MonoBehaviour:
   turn: 0
   turnCountGimmick: 0
   stageNumber: 0
+  pause: {fileID: 0}
   tutorialFlag: 0
   tutorialTurn: 0
   tutorialImageFlag: 0
@@ -2392,6 +2362,8 @@ MonoBehaviour:
   ImageUI: {fileID: 0}
   watchHand: {fileID: 694149570}
   limitTurn: 0
+  waitingTime: 0
+  CharacterTaklText: {fileID: 1972864569}
 --- !u!4 &2060863231
 Transform:
   m_ObjectHideFlags: 0
