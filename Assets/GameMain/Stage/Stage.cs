@@ -124,6 +124,37 @@ public class Stage : MonoBehaviour
     public GameObject fieldStage3;  // ステージ３の天球
     public GameObject fieldStage4;  // ステージ４の天球
     public GameObject fieldStage5;  // ステージ５の天球
+
+
+
+    //----------------------------
+   
+
+    //const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
+    //const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
+
+    public GameObject forestBlockGround;           // 森ステージの足場ブロック（１段目）
+    public GameObject forestBlockGrass;                // 森ステージの足場ブロック（２段目）
+    public GameObject forestBlockAllGrass;                // 森ステージの足場ブロック（３段目）
+    
+    public GameObject roomBlockFloorBlack;                 // 家ステージの足場ブロック（黒）
+    public GameObject roomBlockFloorWhite;                 // 家ステージの足場ブロック（白）
+    public GameObject roomBlockBookShelf;                  // 家ステージの足場ブロック（本棚）
+
+    public GameObject redForestBlockGround;     // 森(ステージ4)ステージの足場ブロック（１段目）
+    public GameObject redForestBlockGrass;          // 森(ステージ4)ステージの足場ブロック（２段目）
+    public GameObject redForestBlockAllGrass;          // 森(ステージ4)ステージの足場ブロック（３段目）
+    
+    public GameObject darkForestBlockRedGround;               // 暗い森ステージの足場ブロック（茶）
+    public GameObject darkForestBlockGreenGround;               // 暗い森ステージの足場ブロック（青）
+
+    public GameObject darkForestBlockRedAllGrass;       // 暗い森ステージの足場ブロック（青）（２段目以降）
+    public GameObject darkForestBlockGreenAllGrass;        // 暗い森ステージの足場ブロック（赤）（２段目以降）
+ 
+    public GameObject gardenBlockGrass;           // 庭園ステージの足場ブロック（一段目）
+    public GameObject gardenBlockRoseRed;         // 庭園ステージの足場ブロック（赤）（２段目以降）
+    public GameObject gardenBlockRoseWhite;       // 庭園ステージの足場ブロック（白）（２段目以降）
+    //----------------------------
     //------------------------------------
 
     int gimmick = 0;            // 配列の数字
@@ -239,11 +270,9 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case FOREST_BLOCK_GROUND: // ▼ブロック///////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                break;
+            
+
+
             //case ENEMY: // ▼敵////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //    gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
             //    gimmickNumArray[y, x, z] = NONE_BLOCK;
@@ -274,6 +303,128 @@ public class Stage : MonoBehaviour
             //------------------------------------
             //松村脩平追加部分
             //------------------------------------
+            case FOREST_BLOCK_GROUND: // 森ステージの足場ブロック（1段目）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockGround, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case FOREST_BLOCK_GRASS:          // 森ステージの足場ブロック（2段目）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case FOREST_BLOCK_ALLGRASS:       // 森ステージの足場ブロック（3段目以降）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case ROOM_BLOCK_FLOOR:           // 家ステージの足場ブロック（1段目）
+                 switch (x)
+                {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 9:
+                        if (z % 2 == 0)
+                        {
+                            // 家ステージの足場ブロック（黒）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        else
+                        {
+                            // 家ステージの足場ブロック（白）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        break;
+                    case 2:
+                    case 4:
+                    case 6:
+                    case 8:
+                    case 10:
+                        if (z % 2 == 1)
+                        {
+                            // 家ステージの足場ブロック（黒）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        else
+                        {
+                            // 家ステージの足場ブロック（白）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        break;
+                }
+                break;
+
+            case ROOM_BLOCK_BOOKSHELF:        // 家ステージの足場ブロック（2段目）
+                // 家ステージの足場ブロック（白）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+
+            case REDFOREST_BLOCK_GROUND:      // 森ステージの足場ブロック（1段目）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockGround, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case REDFOREST_BLOCK_GRASS:      // 森ステージの足場ブロック（2段目）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case REDFOREST_BLOCK_ALLGRASS:   // 森ステージの足場ブロック（3段目以降）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case DARKFOREST_BLOCK_GROUND:    // 暗い森ステージの足場ブロック（全段）
+                switch (UnityEngine.Random.Range(0, 2))
+                {
+                    case 0:
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(darkForestBlockRedAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                    case 1:
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(darkForestBlockGreenAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                    //case 2:
+                    //    gimmickObjectArray[y, x, z] = GameObject.Instantiate(blockInsect3, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                    //    gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                    //    gimmickNumArray[y, x, z] = gimmickPattern;
+                        //break;
+                }
+                break;
+
+            case GARDEN_BLOCK_GROUND:        // ガーデンステージの足場ブロック（1段目）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                break;
+
+            case GARDEN_BLOCK_FLOWER:        // ガーデンテージの足場ブロック（2段目以降）
+                switch (UnityEngine.Random.Range(0, 2))
+                {
+                    case 0:
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockRoseRed, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                        break;
+                    case 1:
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockRoseWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                        break;
+                }
+                break;
 
             case SOLDIER_HEART_RIGHT:
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartRight, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;

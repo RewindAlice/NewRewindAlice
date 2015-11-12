@@ -908,6 +908,33 @@ MonoBehaviour:
     type: 2}
   gimmickSoldierSpadeBAF: {fileID: 154258, guid: 6f793ef4412d7cb4a9c1dd5b3de08648,
     type: 2}
+  field: 0
+  fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
+  fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}
+  fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
+  fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
+  fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
+  forestBlockGround: {fileID: 157210, guid: 6baee3df0e4340c418b01aa90da46ab3, type: 2}
+  forestBlockGrass: {fileID: 159890, guid: 6db1146b62843ab4980120197f2e492a, type: 2}
+  forestBlockAllGrass: {fileID: 115526, guid: e9435cbc6995aed4d88e51f7f3912b38, type: 2}
+  roomBlockFloorBlack: {fileID: 124062, guid: 9dd01e264b33fdb4aadd672a9f179e8c, type: 2}
+  roomBlockFloorWhite: {fileID: 121928, guid: 63bed0f0f409fc04d9c6982eeabcacea, type: 2}
+  roomBlockBookShelf: {fileID: 174646, guid: ac9555ae235ee124397abc9f87986790, type: 2}
+  redForestBlockGround: {fileID: 164854, guid: fe5ccffe000e8034da5db00003657c92, type: 2}
+  redForestBlockGrass: {fileID: 103864, guid: 99f9c6526b5c32a4a854e3e6c6d776c6, type: 2}
+  redForestBlockAllGrass: {fileID: 171354, guid: 714e0b70372d5b64cbf7d9410d543aa9,
+    type: 2}
+  darkForestBlockRedGround: {fileID: 163664, guid: d112dbe69897b1149b7affedb6e4d0d5,
+    type: 2}
+  darkForestBlockGreenGround: {fileID: 196864, guid: 3c7b1723262c7e34e8051bd2ac60e788,
+    type: 2}
+  darkForestBlockRedAllGrass: {fileID: 185628, guid: eabc04b5bea7f3d42913033bf7b03da5,
+    type: 2}
+  darkForestBlockGreenAllGrass: {fileID: 135572, guid: 342680f38dba00749a08a75f25c306b8,
+    type: 2}
+  gardenBlockGrass: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
+  gardenBlockRoseRed: {fileID: 189268, guid: 2c2781dbbd871694898ac80944816021, type: 2}
+  gardenBlockRoseWhite: {fileID: 129964, guid: 009ea351b5f64e44b9e12eb586177cdd, type: 2}
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
@@ -2041,8 +2068,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868171887}
-  m_LocalRotation: {x: .120590493, y: .379409552, z: -.0499502234, w: .91597563}
-  m_LocalPosition: {x: -4, y: 2, z: -4}
+  m_LocalRotation: {x: .160430029, y: .376869649, z: -.066452302, w: .909843743}
+  m_LocalPosition: {x: -2.5, y: 2, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 713608516}
