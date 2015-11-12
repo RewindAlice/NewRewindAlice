@@ -113,17 +113,6 @@ public class Stage : MonoBehaviour
     public GameObject gimmickSoldierSpadeLeft;
     public GameObject gimmickSoldierSpadeRight;
     public GameObject gimmickSoldierSpadeBAF;
-
-    
-    public int field;
-    GameObject fieldObject;                                                     // ステージ天球のオブジェクト
-    
-
-    public GameObject fieldStage1;  // ステージ１の天球
-    public GameObject fieldStage2;  // ステージ２の天球
-    public GameObject fieldStage3;  // ステージ３の天球
-    public GameObject fieldStage4;  // ステージ４の天球
-    public GameObject fieldStage5;  // ステージ５の天球
     //------------------------------------
 
     int gimmick = 0;            // 配列の数字
@@ -160,8 +149,6 @@ public class Stage : MonoBehaviour
 
         guitxt = sr.ReadLine();
         turnNum = Int32.Parse(guitxt);
-        guitxt = sr.ReadLine();
-        field = Int32.Parse(guitxt);
 
         for(int i = 0; i< 5;i++)
         {
@@ -180,20 +167,6 @@ public class Stage : MonoBehaviour
     // ★ステージの生成★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void CreateStage()
     {
-        //----------------------------------------------
-        //松村脩平追加部分
-        Vector3 fieldPosition = new Vector3(5, -0.5f, 5);
-
-        switch (field)
-        {
-            case 1: fieldObject = GameObject.Instantiate(fieldStage1, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 2: fieldObject = GameObject.Instantiate(fieldStage2, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 3: fieldObject = GameObject.Instantiate(fieldStage3, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 4: fieldObject = GameObject.Instantiate(fieldStage4, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 5: fieldObject = GameObject.Instantiate(fieldStage5, fieldPosition, Quaternion.identity) as GameObject; break;
-        }
-        //----------------------------------------------
-
         for(int x = 0; x < STAGE_X; x++)
         {
             for(int y = 0; y < STAGE_Y; y++)
