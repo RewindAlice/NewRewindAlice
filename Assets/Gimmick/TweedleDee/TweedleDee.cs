@@ -1,41 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpadeSoldierTurnRight : BaseGimmick {
+public class TweedleDee :BaseGimmick
+{
+    //ステージオブジェクト
+    public GameObject stage;
+    public Stage stageScript;
+
+    // 移動方向
+    public enum MoveDirection
+    {
+        NONE,
+        FRONT,  // 前
+        BACK,   // 後
+        LEFT,   // 左
+        RIGHT,  // 右
+        UP,     // 上
+        DOWN,   // 下
+        STOP,   // 止
+    }
 
     const float MOVE_SPEED = 1.0f;    // 移動速度
     const float SPEED = 0.05f;        // 移動速度
 
-    //移動可能フラグ
-    public bool moveFlag;
-    //ターンが戻ったか
-    public bool returnFlag;
+    public bool moveFlag;             //動くかどうか
+    public bool returnFlag;           //ターン数が戻るかどうか
 
-    //オブジェクト
-    public GameObject alice;
-    private Player moveScript;
-    public GameObject stage;
-    private Stage stageScript;
-    private GameObject pause;
-    private Pause pauseScript;
-
-    //追加
+    //キャラクターの向き
     public int direction;
-    //トランプ兵の歩数計算
+    //キャラの歩数計算
     public int timeCount;
 
-    //回転の初期値
     Vector3 enemyAngle1;
     Vector3 enemyAngle2;
     Vector3 enemyAngle3;
     Vector3 enemyAngle4;
-
-    //過去の向きを保存
-    public int[] beforeDirection;
-    //動いてないターン保存
-    public int[] notMoveTrun;
-    //回転しただけのターン保存
-    public int[] TrunTime;
 
     public enum ArrayMove
     {
@@ -47,31 +46,25 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         MINUS_Z,    // Z方向にマイナス
     }
 
-    public int arrayPosX;                // 配列上での座標Ｘ
-    public int arrayPosY;                // 配列上での座標Ｙ
-    public int arrayPosZ;                // 配列上での座標Ｚ
-
-
-    public int BeforeArrayPosX;                // 配列上での座標Ｘ
-    public int BeforeArrayPosY;                // 配列上での座標Ｙ
-    public int BeforeArrayPosZ;                // 配列上での座標Ｚ
-
+    public int arrayPosX;                           // 配列上での座標Ｘ
+    public int arrayPosY;                           // 配列上での座標Ｙ
+    public int arrayPosZ;                           // 配列上での座標Ｚ
     public Vector3 buttonInputPosition;  // ボタン入力時の座標
+
+    //過去の向きを保存
+    public int[] beforeDirection;
+    public int[] notMoveTrun;
 
     //------------------------
     //初期化関数
     //------------------------
-    void Start()
+	void Start () 
     {
         //オブジェクトの検索
-        pause = GameObject.Find("Pause");
-        pauseScript = pause.GetComponent<Pause>();
-        alice = GameObject.Find("Alice");
-        moveScript = alice.GetComponent<Player>();
         stage = GameObject.Find("Stage");
         stageScript = stage.GetComponent<Stage>();
-        
-        //トランプ兵の回転処理
+
+        //キャラの回転処理
         enemyAngle1 = new Vector3(0, 0, 0);
         enemyAngle2 = new Vector3(0, 90, 0);
         enemyAngle3 = new Vector3(0, 180, 0);
@@ -79,7 +72,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
 
         //ボタン入力時のオブジェクトの位置
         buttonInputPosition = new Vector3(0, 0, 0);
-        
+
         //経過したターン数
         timeCount = 0;
 
@@ -87,7 +80,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         moveFlag = false;
         //時を戻したときの挙動かどうか
         returnFlag = false;
-
+        
         //過去の向きの保存用変数の初期化
         beforeDirection = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -96,26 +89,11 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         notMoveTrun = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-
-        TrunTime = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
                            
         //初期の向きを代入
         beforeDirection[0] = direction;
         ChangeDirection();
 	}
-
-
-    //-----------------
-    //アップデート関数
-    //-----------------
-    void Update()
-    {
-        //動かす
-        Move();
-    }
 
     //------------------------
     //座標・向きの初期化関数
@@ -124,137 +102,91 @@ public class SpadeSoldierTurnRight : BaseGimmick {
     {
         //向きの初期化
         this.direction = direction;
-        
+        ChangeDirection();
         //座標の初期化
         arrayPosX = x;
         arrayPosY = y;
         arrayPosZ = z;
-
-        ChangeDirection();
     }
-
-
 
     //---------------------------------
     //アリスが動いたときに呼ばれる関数
     //---------------------------------
     public override void OnAliceMoveNext(int aliceMoveTime)
     {
-        //アリスを発見したかどうかのフラグ
-        bool discoveryFlag;
+        //リターンフラグの初期化
+        returnFlag = false;
 
-        //向きを保存
-        beforeDirection[timeCount] = direction;
-        
-        //アリスが前にいるか判定
-        discoveryFlag = CaptureDecision();
-
-        //アリスが見つかっていなければ
-        if(discoveryFlag == false)
-        {
-            returnFlag = false;
-
-            //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
-            if (timeCount < aliceMoveTime)
+        //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
+        if (timeCount < aliceMoveTime)
+        {     
+            int roopMax = 4;
+            for (int i = 0; i < roopMax; i++)
             {
-                int roopMax = 4;
-                for (int i = 0; i < roopMax; i++)
+                switch (direction)
                 {
-                    discoveryFlag = false;
-
-                    //前に進めるか判定
-                    switch (direction)
-                    {
-                        case 1:
-                            if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, false)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
-                            {
-                                discoveryFlag = CaptureDecision();
-                                if (discoveryFlag == false)
-                                {
-                                    moveFlag = true;
-                                }
-                            }
-                            break;
-                        case 3:
-                            if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, false)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
-                            {
-                                discoveryFlag = CaptureDecision();
-                                if (discoveryFlag == false)
-                                {
-                                    moveFlag = true;
-                                }
-                            }
-                            break;
-                        case 4:
-                            if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, false)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
-                            {
-                                discoveryFlag = CaptureDecision();
-                                if (discoveryFlag == false)
-                                {
-                                    moveFlag = true;
-                                }
-                            }
-                            break;
-                        case 2:
-                            if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, false)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
-                            {
-                                discoveryFlag = CaptureDecision();
-                                if (discoveryFlag == false)
-                                {
-                                    moveFlag = true;
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-
-                    //もし動くフラグがtrueなら
-                    if (moveFlag == true)
-                    {
+                    case 1:
+                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
+                        {
+                            moveFlag = true;
+                        }
                         break;
-                    }
-                    else
-                    {
-                        
-                        //左回転させる
-                        direction++;
-                        
-                        //向きが一周したら最初の向きに戻す
-                        if (direction == 5)
-                        {
-                            direction = 1;
+                    case 3:
+                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
+                        {    
+                            moveFlag = true;
                         }
-                        
-                        //もし動けなかったら
-                        if (i == 4)
+                        break;
+                    case 4:
+                        if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
-                            notMoveTrun[timeCount] = 1;
+                            moveFlag = true;
                         }
-                        //向きの変更
-                        ChangeDirection();
-
-                        //アリスが前にいるか判定
-                        discoveryFlag = CaptureDecision();
-
-                        //アリスが回転しただけなら
-                        if(discoveryFlag && (i==0 || i==1 || i==2))
-                        {
-                            TrunTime[timeCount] = 1;
-
-                            i = 4;
+                        break;
+                    case 2:
+                        if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
+                        { 
+                            moveFlag = true;
                         }
-                    }                    
+                        break;
+                    default:
+                        break;
                 }
 
-                //現在座標を保存
-                buttonInputPosition = this.transform.localPosition;
-  
-                //向きの変更
-                ChangeDirection();
+                //もし動くフラグがtrueなら
+                if (moveFlag == true)
+                {
+                    break;
+                }
+                else
+                {
+                    //左回転させる
+                    direction--;
 
-                timeCount++;                
+                    //向きが一周したら最初の向きに戻す
+                    if (direction == 0)
+                    {
+                        direction = 4;
+                    }
+
+                    //もし動けなかったら
+                    if(i == 3)
+                    {
+                        notMoveTrun[timeCount + 1] = 1;
+                    }
+                }
             }
+
+            //現在座標を保存
+            buttonInputPosition = this.transform.localPosition;
+
+            //ターン数を進める
+            timeCount++;
+
+            //向きを保存
+            beforeDirection[timeCount] = direction;
+            //向きの変更
+            ChangeDirection();
         }
     }
 
@@ -265,35 +197,33 @@ public class SpadeSoldierTurnRight : BaseGimmick {
     {
 
         returnFlag = true;
-
+    
         if (timeCount >= aliceMoveTime)
         {
-            if (notMoveTrun[timeCount - 1] == 0)
-            {
-                moveFlag = true;
-            }
+           if(notMoveTrun[timeCount] == 0)
+           {
+               moveFlag = true;
+           }
 
-            //カウントを戻す
-            timeCount -= 1;
-        }
-
-       
-        if (TrunTime[timeCount] == 1)
-        {
-            moveFlag = false;
-            //向きを保存
-            direction = beforeDirection[timeCount];
-            //向きの変更
-            ChangeDirection();
+           //カウントを戻す
+           timeCount -= 1;
+        
         }
 
         //待機フラグを初期化
         notMoveTrun[timeCount] = 0;
 
-        TrunTime[timeCount] = 0; 
-
         //仮の保存座標に現在座標に入れる
         buttonInputPosition = this.transform.localPosition;
+    }
+
+    //-----------------
+	//アップデート関数
+    //-----------------
+	void Update () 
+    {
+        //動かす
+        Move();
 	}
 
     //---------------
@@ -309,7 +239,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                 {
                     //動くスピードを設定
                     transform.Translate(Vector3.forward * SPEED);
-
+                    
                     //以下停止コード
                     switch (direction)
                     {
@@ -366,7 +296,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
 
             //ターン数が戻るとき
             case true:
-
+                       
                 if (moveFlag)
                 {
                     //動くスピードを設定
@@ -383,7 +313,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_Z);
-
+                              
                             }
                             break;
                         case 3:
@@ -394,7 +324,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z + 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.PLUS_Z);
-
+                           
                             }
                             break;
 
@@ -417,7 +347,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                                 Vector3 position = new Vector3(buttonInputPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_X);
-
+                            
                             }
                             break;
                     }
@@ -426,12 +356,11 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                 {
                     moveFlag = false;
                 }
-
+                      
                 break;
         }
-
+   
     }
-
 
     //-------------------
     //移動完了時呼ぶ関数
@@ -443,22 +372,20 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         //stageScript.DumGimmickDecision(arrayPosX, arrayPosY, arrayPosZ);
 
         //ターン数が戻った時の処理なら
-        if (returnFlag == true)
+        if(returnFlag == true)
         {
             //前回の向きの取得
             direction = beforeDirection[timeCount];
-
+            
             //向きの変更
             ChangeDirection();
-
-
+            
+           
         }
         //リターンフラグの初期化
         returnFlag = false;
         //動きを止める
         moveFlag = false;
-
-        CaptureDecision();
     }
 
     //---------------------------
@@ -477,62 +404,12 @@ public class SpadeSoldierTurnRight : BaseGimmick {
             case ArrayMove.PLUS_Z: arrayPosZ++; break;      // 配列上の座標Zに１プラス
             case ArrayMove.MINUS_Z: arrayPosZ--; break;     // 配列上の座標Zに１マイナス
         }
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 59;
+        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
 
     }
-
     //---------------------------
-    //アリスが前にいるか判定処理
+    //配列上の位置を変更する関数
     //---------------------------
-    public bool CaptureDecision()
-    {
-        //アリスの位置を取得
-        Vector3 playerArray = moveScript.GetArray();
-
-        if (moveScript.GetInvisible() == false)
-        {
-            //アリスが前にいるか判定
-            switch (direction)
-            {
-                case 1:
-                    if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ + 1))
-                    {
-                        moveScript.gameOverFlag = true;
-                        return true;
-                    }
-                    break;
-                case 2:
-                    if ((playerArray.x == arrayPosX + 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
-                    {
-                        moveScript.gameOverFlag = true;
-                        return true;
-                    }
-                    break;
-
-                case 3:
-                    if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ - 1))
-                    {
-                        moveScript.gameOverFlag = true;
-                        return true;
-                    }
-                    break;
-
-                case 4:
-                    if ((playerArray.x == arrayPosX - 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
-                    {
-                        moveScript.gameOverFlag = true;
-                        return true;
-                    }
-                    break;
-            }
-        }
-
-        return false;
-    }
-
-    //---------------------
-    //向きの変更をする関数
-    //---------------------
     public void ChangeDirection()
     {
         //変数に応じて回転を代入する
@@ -553,4 +430,5 @@ public class SpadeSoldierTurnRight : BaseGimmick {
             this.transform.localEulerAngles = enemyAngle4;
         }
     }
+
 }

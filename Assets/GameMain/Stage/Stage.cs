@@ -113,7 +113,9 @@ public class Stage : MonoBehaviour
     public GameObject gimmickSoldierSpadeLeft;
     public GameObject gimmickSoldierSpadeRight;
     public GameObject gimmickSoldierSpadeBAF;
-
+    
+    public GameObject gimmickTweedleDum;
+    public GameObject gimmickTweedleDee;
     
     public int field;
     GameObject fieldObject;                                                     // ステージ天球のオブジェクト
@@ -460,6 +462,21 @@ public class Stage : MonoBehaviour
                 moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeBAF, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
                 moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
                 moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierBackAndForth>().Initialize(gimmickDirection, x, y, z);
+                break;
+
+            case TWEEDLEDUM:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDum, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDum>().Initialize(gimmickDirection, x, y, z);
+                break;
+            case TWEEDLEDEE:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDee, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDee>().Initialize(gimmickDirection, x, y, z);
                 break;
             //-----------------------------------------------------------------
 
@@ -1153,7 +1170,7 @@ public class Stage : MonoBehaviour
     //----------------------------------------------------------------------------
     //松村脩平追加部分
     //移動系ギミック横判定////////////////////////////////////////////////////////
-    public bool BesideDecision(int posX, int posY, int posZ)
+    public bool BesideDecision(int posX, int posY, int posZ, bool twins)
     {
         bool flag = false;
 
@@ -1211,11 +1228,15 @@ public class Stage : MonoBehaviour
 
         }
 
+        
         //アリス
         if ((posX == alice.arrayPosX) &&
             (posY == alice.arrayPosY) &&
             (posZ == alice.arrayPosZ))
-            flag = false;
+        {
+             flag = twins;
+        }
+            
         return flag;
     }
 

@@ -162,7 +162,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                     switch (direction)
                     {
                         case 1:
-                            if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
+                            if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1,false)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                             {
                                 discoveryFlag = CaptureDecision();
                                 if (discoveryFlag == false)
@@ -172,7 +172,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             }
                             break;
                         case 3:
-                            if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
+                            if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, false)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                             {
                                 discoveryFlag = CaptureDecision();
                                 if (discoveryFlag == false)
@@ -182,7 +182,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             }
                             break;
                         case 4:
-                            if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
+                            if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ,false)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                             {
                                 discoveryFlag = CaptureDecision();
                                 if (discoveryFlag == false)
@@ -192,7 +192,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             }
                             break;
                         case 2:
-                            if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
+                            if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ,false)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                             {
                                 discoveryFlag = CaptureDecision();
                                 if (discoveryFlag == false)
