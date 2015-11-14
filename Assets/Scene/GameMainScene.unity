@@ -849,6 +849,7 @@ MonoBehaviour:
   cameraY: 0
   cameraRX: 0
   camera: {fileID: 0}
+  resultCounter: 0
   pause: {fileID: 0}
 --- !u!4 &713608516
 Transform:
@@ -893,8 +894,8 @@ MonoBehaviour:
   alice: {fileID: 99142192}
   gimmickNone: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickStart: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickGoal: {fileID: 123082, guid: aa867b8345c2256429fe7bbc3e46cd81, type: 2}
-  gimmickBlock: {fileID: 123082, guid: aa867b8345c2256429fe7bbc3e46cd81, type: 2}
+  gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
+  gimmickBlock: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickIVY: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}

@@ -268,7 +268,7 @@ public class Stage : MonoBehaviour
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
             case STAGE_GOOL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
@@ -290,7 +290,7 @@ public class Stage : MonoBehaviour
             case IVY_BACK:  // ▼蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_LEFT:  // ▼蔦（左）///////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_RIGHT: // ▼蔦（右）///////////////////////////////////////////////////////////////////////////////////////////////////
-                switch(gimmickPattern)
+                switch (gimmickPattern)
                 {
                     case IVY_FRONT:
                         Vector3 ivyFrontPosition = new Vector3(x, y - 0.4f, z + 0.5f);
@@ -309,11 +309,10 @@ public class Stage : MonoBehaviour
                         break;
                     case IVY_RIGHT:
                         Vector3 ivyRightPosition = new Vector3(x + 0.5f, y - 0.4f, z);
-                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyRightPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyRightPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 270, 0);
                         break;
                 }
-                gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
             case TREE: // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickTree, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
@@ -965,7 +964,31 @@ public class Stage : MonoBehaviour
             case IVY_BACK:  // 蔦（後）
             case IVY_LEFT:  // 蔦（左）
             case IVY_RIGHT: // 蔦（右）
+            case MUSHROOM_SMALL:  // キノコ（小さくなる）
+            case MUSHROOM_BIG:    // キノコ（大きくなる）
+            case POTION_SMALL:    // 薬（小さくなる）
+            case POTION_BIG:      // 薬（大きくなる）
+            case DOOR_RED_KEY:    // 赤扉（鍵）
+            case DOOR_BLUE_KEY:   // 青扉（鍵）
+            case DOOR_YELLOW_KEY: // 黄扉（鍵）
+            case DOOR_GREEN_KEY:  // 緑扉（鍵）
+            case WARP_HOLE_ONE:   // 穴１
+            case WARP_HOLE_TWO:   // 穴２
+            case WARP_HOLE_TRHEE: // 穴３
+            case WARP_HOLE_FOUR:  // 穴４
+            case WARP_HOLE_FIVE:  // 穴５
+            case BRAMBLE:     
+            case CHESHIRE_CAT:
                 flag = true;
+                break;
+
+            case DOOR_BLUE:       // 青扉
+            case DOOR_YELLOW:     // 黄扉
+            case DOOR_GREEN:      // 緑扉
+            case DOOR_RED:        // 赤扉
+                
+                break;
+            case ROCK:
                 break;
 
             // 特定の条件の時は移動可能
@@ -1007,11 +1030,31 @@ public class Stage : MonoBehaviour
             case START_POINT:     // スタート地点
             case STAGE_GOOL:      // ゴール地点
             case FOREST_BLOCK_GROUND:     // ブロック
+            case FOREST_BLOCK_GRASS:          // 森ステージの足場ブロック（2段目）
+            case FOREST_BLOCK_ALLGRASS:       // 森ステージの足場ブロック（3段目以降）
+         
+            case ROOM_BLOCK_FLOOR:            // 家ステージの足場ブロック（1段目）
+            case ROOM_BLOCK_BOOKSHELF:        // 家ステージの足場ブロック（2段目）
+           
+            case REDFOREST_BLOCK_GROUND:      // 森ステージの足場ブロック（1段目）
+            case REDFOREST_BLOCK_GRASS:      // 森ステージの足場ブロック（2段目）
+            case REDFOREST_BLOCK_ALLGRASS:   // 森ステージの足場ブロック（3段目以降）
+          
+            case DARKFOREST_BLOCK_GROUND:    // 暗い森ステージの足場ブロック（全段）
+            
+            case GARDEN_BLOCK_GROUND:        // ガーデンステージの足場ブロック（1段目）
+            case GARDEN_BLOCK_FLOWER:        // ガーデンテージの足場ブロック（2段目以降）
             case IVY_BLOCK: // 蔦ブロック
             case IVY_FRONT: // 蔦（前）
             case IVY_BACK:  // 蔦（後）
             case IVY_LEFT:  // 蔦（左）
             case IVY_RIGHT: // 蔦（右）
+
+            case LADDER_BLOCK: // 蔦ブロック
+            case LADDER_FRONT: // 蔦（前）
+            case LADDER_BACK:  // 蔦（後）
+            case LADDER_LEFT:  // 蔦（左）
+            case LADDER_RIGHT: // 蔦（右）
                 flag = true;
                 break;
 
@@ -1106,6 +1149,37 @@ public class Stage : MonoBehaviour
     {
         print("ゴール到着");
         // ここにゴール処理を書く
+
+        GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
+        //switch (PlayerPrefs.GetInt("STAGE_NUM"))
+        //{
+        //    case 1: PlayerPrefs.SetInt("STAMP_NUM", 2); break;
+        //    case 2: PlayerPrefs.SetInt("STAMP_NUM", 3); break;
+        //    case 3: PlayerPrefs.SetInt("STAMP_NUM", 4); break;
+        //    case 4: PlayerPrefs.SetInt("STAMP_NUM", 5); break;
+        //    case 5: PlayerPrefs.SetInt("STAMP_NUM", 6); break;
+        //    case 6: PlayerPrefs.SetInt("STAMP_NUM", 9); break;
+        //    case 7: PlayerPrefs.SetInt("STAMP_NUM", 10); break;
+        //    case 8: PlayerPrefs.SetInt("STAMP_NUM", 11); break;
+        //    case 9: PlayerPrefs.SetInt("STAMP_NUM", 12); break;
+        //    case 10: PlayerPrefs.SetInt("STAMP_NUM", 13); break;
+        //    case 11: PlayerPrefs.SetInt("STAMP_NUM", 16); break;
+        //    case 12: PlayerPrefs.SetInt("STAMP_NUM", 17); break;
+        //    case 13: PlayerPrefs.SetInt("STAMP_NUM", 18); break;
+        //    case 14: PlayerPrefs.SetInt("STAMP_NUM", 19); break;
+        //    case 15: PlayerPrefs.SetInt("STAMP_NUM", 20); break;
+        //    case 16: PlayerPrefs.SetInt("STAMP_NUM", 23); break;
+        //    case 17: PlayerPrefs.SetInt("STAMP_NUM", 24); break;
+        //    case 18: PlayerPrefs.SetInt("STAMP_NUM", 25); break;
+        //    case 19: PlayerPrefs.SetInt("STAMP_NUM", 26); break;
+        //    case 20: PlayerPrefs.SetInt("STAMP_NUM", 27); break;
+        //    case 21: PlayerPrefs.SetInt("STAMP_NUM", 30); break;
+        //    case 22: PlayerPrefs.SetInt("STAMP_NUM", 31); break;
+        //    case 23: PlayerPrefs.SetInt("STAMP_NUM", 32); break;
+        //    case 24: PlayerPrefs.SetInt("STAMP_NUM", 33); break;
+        //}
+        //CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                
     }
 
     // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
