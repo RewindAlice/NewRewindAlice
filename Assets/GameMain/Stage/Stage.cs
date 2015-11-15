@@ -116,6 +116,10 @@ public class Stage : MonoBehaviour
     
     public GameObject gimmickTweedleDum;
     public GameObject gimmickTweedleDee;
+
+    public GameObject gimmickBramble;
+      
+   
     
     public int field;
     GameObject fieldObject;                                                     // ステージ天球のオブジェクト
@@ -497,6 +501,14 @@ public class Stage : MonoBehaviour
                 moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDee, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
                 moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
                 moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDee>().Initialize(gimmickDirection, x, y, z);
+                break;
+
+
+            case BRAMBLE:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBramble, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                
                 break;
             //-----------------------------------------------------------------
 
@@ -964,6 +976,10 @@ public class Stage : MonoBehaviour
             case IVY_BACK:  // 蔦（後）
             case IVY_LEFT:  // 蔦（左）
             case IVY_RIGHT: // 蔦（右）
+            case LADDER_FRONT: // 蔦（前）
+            case LADDER_BACK:  // 蔦（後）
+            case LADDER_LEFT:  // 蔦（左）
+            case LADDER_RIGHT: // 蔦（右）
             case MUSHROOM_SMALL:  // キノコ（小さくなる）
             case MUSHROOM_BIG:    // キノコ（大きくなる）
             case POTION_SMALL:    // 薬（小さくなる）
@@ -1102,6 +1118,12 @@ public class Stage : MonoBehaviour
                     alice.AutoMoveSetting(Player.MoveDirection.UP);
                     print("木の成長");
                 }
+                break;
+
+            // 茨
+            case BRAMBLE:
+                gimmickObjectArray[posY, posX, posZ].GetComponent<Bramble>().trapFlag = true;
+                alice.gameOverFlag = true;
                 break;
 
 
