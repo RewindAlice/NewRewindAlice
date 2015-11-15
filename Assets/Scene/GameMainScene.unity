@@ -911,13 +911,14 @@ MonoBehaviour:
     type: 2}
   gimmickTweedleDum: {fileID: 101880, guid: d9885d370ee96f84895ed0f26b0019d9, type: 2}
   gimmickTweedleDee: {fileID: 149168, guid: 7bac3a7153b44f345a10d3afd4c2d6e3, type: 2}
-  gimmickBramble: {fileID: 170746, guid: e45a173367e4ec74484db47b3249c89c, type: 2}
+  gimmickBramble: {fileID: 194816, guid: e45a173367e4ec74484db47b3249c89c, type: 2}
   field: 0
   fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
   fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}
   fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
   fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
   fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
+  waterBlock: {fileID: 123806, guid: 0e1445392dcdb71449c1e30071fa6681, type: 2}
   forestBlockGround: {fileID: 157210, guid: 6baee3df0e4340c418b01aa90da46ab3, type: 2}
   forestBlockGrass: {fileID: 159890, guid: 6db1146b62843ab4980120197f2e492a, type: 2}
   forestBlockAllGrass: {fileID: 115526, guid: e9435cbc6995aed4d88e51f7f3912b38, type: 2}

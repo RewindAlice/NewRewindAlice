@@ -139,6 +139,7 @@ public class Stage : MonoBehaviour
     //const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
     //const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
 
+    public GameObject waterBlock;
     public GameObject forestBlockGround;           // 森ステージの足場ブロック（１段目）
     public GameObject forestBlockGrass;                // 森ステージの足場ブロック（２段目）
     public GameObject forestBlockAllGrass;                // 森ステージの足場ブロック（３段目）
@@ -329,6 +330,11 @@ public class Stage : MonoBehaviour
             //------------------------------------
             //松村脩平追加部分
             //------------------------------------
+            case WATER: // 森ステージの足場ブロック（1段目）
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(waterBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
             case FOREST_BLOCK_GROUND: // 森ステージの足場ブロック（1段目）
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockGround, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
