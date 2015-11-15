@@ -899,6 +899,9 @@ MonoBehaviour:
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickIVY: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
+  gimmickRedFlower: {fileID: 157810, guid: 833e424a39ad07e4c9f81ca888ec62bd, type: 2}
+  gimmickBuleFlower: {fileID: 167362, guid: 8e9a6f8752d0044479b9ffd9fbf59d31, type: 2}
+  gimmickPurpleFlower: {fileID: 141160, guid: 5a10e8d83bb955f448547d7082e00a66, type: 2}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
   gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,

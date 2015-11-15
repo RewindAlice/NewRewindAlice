@@ -208,6 +208,7 @@ public class GameMain : MonoBehaviour
                     // プレイヤーの移動が完了したら
                     if (alice.moveFinishFlag == true)
                     {
+                        
                         stage.GimmickDecision(alice);   // ギミックとの判定
                         stage.FootDecision(alice);      // 足元との判定
                         alice.moveFinishFlag = false;   // 移動完了フラグを偽に
@@ -227,6 +228,7 @@ public class GameMain : MonoBehaviour
                     // カウントが６０になったら
                     if (turnCountGimmick == 60)
                     {
+                        stage.FlowerDecision(alice);      // 足元との判定
                         action = PlayerAction.NONE;   // 行動を無しに
                         turn = Turn.NONE;       // ターンを無しに
                         turnNum--;

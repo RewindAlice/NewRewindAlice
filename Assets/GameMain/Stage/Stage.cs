@@ -103,6 +103,9 @@ public class Stage : MonoBehaviour
     public GameObject gimmickIVY;   // 蔦
     public GameObject gimmickTree;  // 木
 
+    public GameObject gimmickRedFlower;
+    public GameObject gimmickBuleFlower;
+    public GameObject gimmickPurpleFlower;
     //------------------------------------
     //松村脩平追加部分
     //------------------------------------
@@ -529,8 +532,21 @@ public class Stage : MonoBehaviour
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
 
-
-
+            case RED_FLOWER:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickRedFlower, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case BLUE_FLOWER:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBuleFlower, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            case PURPLE_FLOWER:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPurpleFlower, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
             //-----------------------------------------------------------------
 
         }
@@ -1106,6 +1122,20 @@ public class Stage : MonoBehaviour
                 else { flag = false; }
                 break;
 
+            // 花
+            case RED_FLOWER:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower3>().movePossibleFlag == true) { flag = true; }
+                else { flag = false; }
+                break;
+            case BLUE_FLOWER:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower2>().movePossibleFlag == true) { flag = true; }
+                else { flag = false; }
+                break;
+            case PURPLE_FLOWER:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower1>().movePossibleFlag == true) { flag = true; }
+                else { flag = false; }
+                break;
+
 
         }
 
@@ -1272,6 +1302,37 @@ public class Stage : MonoBehaviour
                             }
                         }
                     }
+                    break;
+
+            }
+        }
+    }
+
+
+    public void FlowerDecision(Player alice)
+    {
+        int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
+        int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
+        int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
+
+ 
+        // アリスが地面についていないなら
+        if (posY >= 1)
+        {
+            switch (gimmickNumArray[posY - 1, posX, posZ])
+            {
+
+                case RED_FLOWER:
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower3>().GetMovePossible() == false)
+                        alice.gameOverFlag = true;
+                    break;
+                case BLUE_FLOWER:
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower2>().GetMovePossible() == false)
+                        alice.gameOverFlag = true;
+                    break;
+                case PURPLE_FLOWER:
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower1>().GetMovePossible() == false)
+                        alice.gameOverFlag = true;
                     break;
             }
         }
