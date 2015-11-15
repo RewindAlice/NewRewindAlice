@@ -268,10 +268,22 @@ public class GameMain : MonoBehaviour
                     // プレイヤーの巻き戻しが完了したら
                     if (alice.moveFinishFlag == true)
                     {
-                        stage.GimmickDecision(alice);   // ギミックとの判定
-                        stage.FootDecision(alice);      // 足元との判定
-                        alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+                        //巻き戻し移動後、アリスの下が穴であったとき、
+                        if (stage.GetFootHole(alice) == true && PlayerAction.RETURN == action)
+                        {
+                            //処理しないでフラグを戻す
+                           
+                            alice.moveFinishFlag = false;
+                           // alice.arrowDrawFlag = false;
+                        }
+                        else
+                        {
+                            stage.GimmickDecision(alice);   // ギミックとの判定
+                            stage.FootDecision(alice);      // 足元との判定
+                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
+                        }
+                       
                         if (!alice.autoMoveFlag)
                         {
                             action = PlayerAction.NONE;     // 行動を無しに
@@ -700,6 +712,12 @@ public class GameMain : MonoBehaviour
                     (Input.GetKeyDown(KeyCode.Q)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 5 || tutorialTurn == 7))
                 {
+                    //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
+                    if (alice.saveMoveDirection[alice.saveCount] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
+                    {
+                        stage.FootDecision(alice);
+                    }
+
                     action = PlayerAction.RETURN;   // 行動を戻るに
                     turn = Turn.GIMMICK;            // ターンをギミックに
                     turnCountGimmick = 0;           // カウントを０に

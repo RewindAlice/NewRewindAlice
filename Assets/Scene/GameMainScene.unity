@@ -918,6 +918,7 @@ MonoBehaviour:
   fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
   fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
   fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
+  gimmickHole: {fileID: 166266, guid: cf94db206c6fb1b42a764632ead6f470, type: 2}
   waterBlock: {fileID: 123806, guid: 0e1445392dcdb71449c1e30071fa6681, type: 2}
   forestBlockGround: {fileID: 157210, guid: 6baee3df0e4340c418b01aa90da46ab3, type: 2}
   forestBlockGrass: {fileID: 159890, guid: 6db1146b62843ab4980120197f2e492a, type: 2}
