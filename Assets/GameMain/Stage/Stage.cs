@@ -106,6 +106,7 @@ public class Stage : MonoBehaviour
     public GameObject gimmickRedFlower;
     public GameObject gimmickBuleFlower;
     public GameObject gimmickPurpleFlower;
+    public GameObject gimmickLadder;
     //------------------------------------
     //松村脩平追加部分
     //------------------------------------
@@ -622,6 +623,49 @@ public class Stage : MonoBehaviour
 				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
 				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
 				break;
+
+            //梯子ブロック
+            case LADDER_BLOCK:
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            //梯子
+            case LADDER_FRONT:
+            case LADDER_BACK:
+            case LADDER_LEFT:
+            case LADDER_RIGHT:
+                switch (gimmickPattern)
+                {
+                    case LADDER_FRONT:
+                        Vector3 LadderFrontPosition = new Vector3(x - 0.9f, y - 0.5f, z + 0.45f);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderFrontPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 180, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+
+                    case LADDER_BACK:
+                        Vector3 LadderBackPosition = new Vector3(x + 0.9f, y - 0.5f, z - 0.45f);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderBackPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+
+                    case LADDER_LEFT:
+                        Vector3 LadderLeftPosition = new Vector3(x - 0.45f, y - 0.5f, z - 0.9f);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderLeftPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 90, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+
+                    case LADDER_RIGHT:
+                        Vector3 LadderRightPosition = new Vector3(x + 0.45f, y - 0.5f, z + 0.9f);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderRightPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 270, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                }
+                break;
         }
     }
 
@@ -1086,6 +1130,7 @@ public class Stage : MonoBehaviour
             case IVY_BACK:  // 蔦（後）
             case IVY_LEFT:  // 蔦（左）
             case IVY_RIGHT: // 蔦（右）
+            case LADDER_BLOCK://梯子
             case LADDER_FRONT: // 蔦（前）
             case LADDER_BACK:  // 蔦（後）
             case LADDER_LEFT:  // 蔦（左）
@@ -1253,16 +1298,19 @@ public class Stage : MonoBehaviour
                 GoalCheck();
                 break;
             case IVY_FRONT: // 蔦（前）
+            case LADDER_FRONT:
                 Climb1(Player.PlayerAngle.FRONT);
                 break;
             case IVY_BACK:  // 蔦（後）
+            case LADDER_BACK:
                 Climb1(Player.PlayerAngle.BACK);
                 break;
             case IVY_LEFT:  // 蔦（左）
+            case LADDER_LEFT:
                 Climb1(Player.PlayerAngle.LEFT);
                 break;
             case IVY_RIGHT: // 蔦（右）
-                Climb1(Player.PlayerAngle.RIGHT);
+            case LADDER_RIGHT://               Climb1(Player.PlayerAngle.RIGHT);
                 break;
             case TREE:
                 if(gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
