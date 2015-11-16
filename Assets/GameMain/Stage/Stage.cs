@@ -291,8 +291,8 @@ public class Stage : MonoBehaviour
             //    moveGimmickNumList.Add(ENEMY);
             //    break;
             case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
             case IVY_FRONT: // ▼蔦（前）///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -305,21 +305,25 @@ public class Stage : MonoBehaviour
                         Vector3 ivyFrontPosition = new Vector3(x, y - 0.4f, z + 0.5f);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyFrontPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 180, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;       
                         break;
                     case IVY_BACK:
                         Vector3 ivyBackPosition = new Vector3(x, y - 0.4f, z - 0.5f);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyBackPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;       
                         break;
                     case IVY_LEFT:
                         Vector3 ivyLeftPosition = new Vector3(x - 0.5f, y - 0.4f, z);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyLeftPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 90, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;       
                         break;
                     case IVY_RIGHT:
                         Vector3 ivyRightPosition = new Vector3(x + 0.5f, y - 0.4f, z);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyRightPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 270, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;       
                         break;
                 }
                 break;

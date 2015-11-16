@@ -5,7 +5,7 @@ public class Ivy : BaseGimmick
 {
 
     public int growCount;           // 成長段階
-    public bool movePossibleFlag;   // 移動可能フラグ
+    //public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
 
 

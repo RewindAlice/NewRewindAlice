@@ -895,9 +895,9 @@ MonoBehaviour:
   gimmickNone: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickStart: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
-  gimmickBlock: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
+  gimmickBlock: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickIVY: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
+  gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
   gimmickRedFlower: {fileID: 157810, guid: 833e424a39ad07e4c9f81ca888ec62bd, type: 2}
   gimmickBuleFlower: {fileID: 167362, guid: 8e9a6f8752d0044479b9ffd9fbf59d31, type: 2}

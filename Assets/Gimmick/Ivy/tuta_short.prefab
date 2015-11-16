@@ -178,10 +178,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 130352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b009e6f178c61d24b90084e777280d2f, type: 3}
+  m_Script: {fileID: 11500000, guid: fcefda594f3a0934687ae39818b6b6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: fd4a071c959dc1d46b1602fd13a34b70, type: 2}
 --- !u!114 &11467920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,10 +190,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 137672}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b009e6f178c61d24b90084e777280d2f, type: 3}
+  m_Script: {fileID: 11500000, guid: fcefda594f3a0934687ae39818b6b6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: a3dc86035b3b32144ba13698f1f7b181, type: 2}
 --- !u!114 &11499532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -202,13 +202,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 171974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b01f148759db0b54b9fd80be4b8a060a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e0263e453dbcb84fbe030dcd1513ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startActionTurn: 0
   movePossibleFlag: 0
   growCount: 0
-  movePossibleFlag: 0
   moveCount: 0
   Ivychild_one: {fileID: 137672}
   Ivychild_two: {fileID: 130352}

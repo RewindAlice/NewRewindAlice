@@ -787,6 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startActionTurn: 0
+  movePossibleFlag: 0
   stage: {fileID: 0}
   stageScript: {fileID: 0}
   moveFlag: 0
