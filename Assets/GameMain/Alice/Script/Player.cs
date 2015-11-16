@@ -68,6 +68,16 @@ public class Player : MonoBehaviour
         MINUS_Z,    // Zを減らす
     }
 
+	// ★入手した鍵の色★
+	public enum GetKeyColor
+	{
+		NONE,
+		RED,		// 赤
+		BLUE,		// 青
+		YELLOW,	// 黄
+		GREEN,	// 緑
+	}
+
     // ★配列上の座標///////////////////////////
     public int arrayPosX = 0;   // 配列上の座標X
     public int arrayPosY = 0;   // 配列上の座標Y
@@ -116,6 +126,21 @@ public class Player : MonoBehaviour
     //松村脩平追加部分
     //------------------------
     public bool invisibleFlag;
+
+	//------------------------
+	// 西尾竜太郎追加部分
+	//------------------------
+	// 所持している鍵の色
+	public bool getKeyColor_Red = false;		// 赤
+	public bool getKeyColor_Blue = false;	// 青
+	public bool getKeyColor_Yellow = false;	// 黄
+	public bool getKeyColor_Green = false;	// 緑
+
+	// 鍵を入手してからのターン数
+	public int gettingKeyTurn_Red = 0;	// 赤
+	public int gettingKeyTurn_Blue = 0;	// 青
+	public int gettingKeyTurn_Yellow = 0;	// 黄
+	public int gettingKeyTurn_Green = 0;	// 緑
 
     //ためし用(後々消す)
     public bool gameOverFlag;
@@ -654,6 +679,7 @@ public class Player : MonoBehaviour
         autoMoveFlag = false;               // 自動移動フラグを偽に
         transform.position = position;      // 座標を変更
         ChangeArrayPosition(arrayMove);     // 配列上の位置を変更
+		KeyTurnChange(); // 鍵所持ターンカウントの変動
 
         // 保存数が０なら初期の向きに直す
         if (saveCount == 0) { transform.localEulerAngles = new Vector3(0, 0, 0); }
@@ -785,6 +811,74 @@ public class Player : MonoBehaviour
         return invisibleFlag;
     }
     //------------------------------------------------------
+
+	// ★鍵の取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void GetKey(GetKeyColor color)
+	{
+		int keyTurnAdjuster;
+		switch (playerAction)
+		{
+			case PlayerAction.NEXT:
+				keyTurnAdjuster = -1;
+				break;
+			case PlayerAction.RETURN:
+				keyTurnAdjuster = 1;
+				break;
+			default:
+				keyTurnAdjuster = 0;
+				break;
+		}
+
+		if (color == GetKeyColor.RED)
+		{
+			getKeyColor_Red = true;
+			gettingKeyTurn_Red = keyTurnAdjuster;
+		}
+		else if (color == GetKeyColor.BLUE)
+		{
+			getKeyColor_Blue = true;
+			gettingKeyTurn_Blue = keyTurnAdjuster;
+		}
+		else if (color == GetKeyColor.YELLOW)
+		{
+			getKeyColor_Yellow = true;
+			gettingKeyTurn_Yellow = keyTurnAdjuster;
+		}
+		else if (color == GetKeyColor.GREEN)
+		{
+			getKeyColor_Green = true;
+			gettingKeyTurn_Green = keyTurnAdjuster;
+		}
+	}
+
+	// ★鍵所持ターンカウントの変動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void KeyTurnChange()
+	{
+		switch (playerAction)
+		{
+			case PlayerAction.NONE:
+			case PlayerAction.NEXT:
+				if (getKeyColor_Red) { gettingKeyTurn_Red++; }
+				if (getKeyColor_Blue) { gettingKeyTurn_Blue++; }
+				if (getKeyColor_Yellow) { gettingKeyTurn_Yellow++; }
+				if (getKeyColor_Green) { gettingKeyTurn_Green++; }
+				break;
+			case PlayerAction.RETURN:
+				if (getKeyColor_Red) { gettingKeyTurn_Red--; }
+				if (getKeyColor_Blue) { gettingKeyTurn_Blue--; }
+				if (getKeyColor_Yellow) { gettingKeyTurn_Yellow--; }
+				if (getKeyColor_Green) { gettingKeyTurn_Green--; }
+				break;
+			default:
+				break;
+		}
+
+		// 所持ターンがマイナスになったら、鍵所持状態を解除する
+		if (gettingKeyTurn_Red < 0) { getKeyColor_Red = false; }
+		if (gettingKeyTurn_Blue < 0) { getKeyColor_Blue = false; }
+		if (gettingKeyTurn_Yellow < 0) { getKeyColor_Yellow = false; }
+		if (gettingKeyTurn_Green < 0) { getKeyColor_Green = false; }
+	}
 
 
 }

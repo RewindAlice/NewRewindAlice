@@ -136,6 +136,14 @@ MonoBehaviour:
   countBig: 0
   countSmall: 0
   invisibleFlag: 0
+  getKeyColor_Red: 0
+  getKeyColor_Blue: 0
+  getKeyColor_Yellow: 0
+  getKeyColor_Green: 0
+  gettingKeyTurn_Red: 0
+  gettingKeyTurn_Blue: 0
+  gettingKeyTurn_Yellow: 0
+  gettingKeyTurn_Green: 0
   gameOverFlag: 0
 --- !u!1 &134013359
 GameObject:
@@ -915,6 +923,14 @@ MonoBehaviour:
   gimmickTweedleDum: {fileID: 101880, guid: d9885d370ee96f84895ed0f26b0019d9, type: 2}
   gimmickTweedleDee: {fileID: 149168, guid: 7bac3a7153b44f345a10d3afd4c2d6e3, type: 2}
   gimmickBramble: {fileID: 194816, guid: e45a173367e4ec74484db47b3249c89c, type: 2}
+  gimmickDoor_Red: {fileID: 159322, guid: b0bb8567a5334df4b9d4f24e26110b6f, type: 2}
+  gimmickKey_Red: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Blue: {fileID: 181444, guid: b7a9b39cbdaa17445a9484dd91a76fc4, type: 2}
+  gimmickKey_Blue: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Yellow: {fileID: 152608, guid: 443f4abc9c6552d4fbc7a038b8d973aa, type: 2}
+  gimmickKey_Yellow: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
+  gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   field: 0
   fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
   fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}

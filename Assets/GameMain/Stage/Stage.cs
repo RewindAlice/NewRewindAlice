@@ -121,6 +121,21 @@ public class Stage : MonoBehaviour
     public GameObject gimmickTweedleDee;
 
     public GameObject gimmickBramble;
+
+	//------------------------------------
+	//西尾竜太郎追加部分
+	//------------------------------------
+	public GameObject gimmickDoor_Red; // 赤扉
+	public GameObject gimmickKey_Red; // 赤鍵
+
+	public GameObject gimmickDoor_Blue; // 青扉
+	public GameObject gimmickKey_Blue; // 青鍵
+
+	public GameObject gimmickDoor_Yellow; // 黄扉
+	public GameObject gimmickKey_Yellow; // 黄鍵
+
+	public GameObject gimmickDoor_Green; // 緑扉
+	public GameObject gimmickKey_Green; // 緑鍵
       
    
     
@@ -553,6 +568,60 @@ public class Stage : MonoBehaviour
                 break;
             //-----------------------------------------------------------------
 
+			//------------------------------------
+            //西尾竜太郎追加部分
+            //------------------------------------
+				case DOOR_RED:  // ▼赤扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Red, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
+                gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+                gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+			case DOOR_RED_KEY:  // ▼赤鍵//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Red, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);		         // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+
+			case DOOR_BLUE:  // ▼青扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Blue, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);          // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+			case DOOR_BLUE_KEY:  // ▼青鍵//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Blue, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);		                 // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+
+			case DOOR_YELLOW:  // ▼黄扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Yellow, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+			case DOOR_YELLOW_KEY:  // ▼黄鍵//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Yellow, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);                                     // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+
+			case DOOR_GREEN:  // ▼緑扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Green, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+			case DOOR_GREEN_KEY:  // ▼緑鍵////////////////////////////////////////////////////////////////////////////////////////////ll//////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Green, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);                                     // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
         }
     }
 
@@ -1034,15 +1103,9 @@ public class Stage : MonoBehaviour
             case WARP_HOLE_TRHEE: // 穴３
             case WARP_HOLE_FOUR:  // 穴４
             case WARP_HOLE_FIVE:  // 穴５
-            case BRAMBLE:     
+            case BRAMBLE:
             case CHESHIRE_CAT:
                 flag = true;
-                break;
-
-            case DOOR_BLUE:       // 青扉
-            case DOOR_YELLOW:     // 黄扉
-            case DOOR_GREEN:      // 緑扉
-            case DOOR_RED:        // 赤扉
                 
                 break;
             case ROCK:
@@ -1053,6 +1116,27 @@ public class Stage : MonoBehaviour
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().movePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
+
+			// 扉
+			case DOOR_RED: // 扉（赤）
+				if (alice.getKeyColor_Red) { flag = true; }
+				else { flag = false; }
+				break;
+
+			case DOOR_BLUE: // 扉（青）
+				if (alice.getKeyColor_Blue) { flag = true; }
+				else { flag = false; }
+				break;
+
+			case DOOR_YELLOW: // 扉（黄）
+				if (alice.getKeyColor_Yellow) { flag = true; }
+				else { flag = false; }
+				break;
+
+			case DOOR_GREEN: // 扉（緑）
+				if (alice.getKeyColor_Green) { flag = true; }
+				else { flag = false; }
+				break;
 
             default:
                 flag = false;
@@ -1117,6 +1201,14 @@ public class Stage : MonoBehaviour
             case WARP_HOLE_TRHEE:
             case WARP_HOLE_FOUR:
             case WARP_HOLE_FIVE:
+			case DOOR_RED: // 扉（赤）
+			case DOOR_BLUE: // 扉（青）
+			case DOOR_YELLOW: // 扉（黄）
+			case DOOR_GREEN: // 扉（緑）
+			case DOOR_RED_KEY: // 鍵（赤）
+			case DOOR_BLUE_KEY: // 鍵（青）
+			case DOOR_YELLOW_KEY: // 鍵（黄）
+			case DOOR_GREEN_KEY: // 鍵（緑）
                 flag = true;
                 break;
 
@@ -1186,6 +1278,19 @@ public class Stage : MonoBehaviour
                 alice.gameOverFlag = true;
                 break;
 
+			case DOOR_RED_KEY: // 鍵（赤）
+				alice.GetKey(Player.GetKeyColor.RED);
+				break;
+			case DOOR_BLUE_KEY: // 鍵（青）
+				alice.GetKey(Player.GetKeyColor.BLUE);
+				break;
+			case DOOR_YELLOW_KEY: // 鍵（黄）
+				alice.GetKey(Player.GetKeyColor.YELLOW);
+				break;
+			case DOOR_GREEN_KEY: // 鍵（緑）
+				alice.GetKey(Player.GetKeyColor.GREEN);
+				break;
+
 
         }
     }
@@ -1206,6 +1311,10 @@ public class Stage : MonoBehaviour
             {
                 // 落下するもの
                 case NONE_BLOCK:
+				case DOOR_RED_KEY: // 鍵（赤）
+				case DOOR_BLUE_KEY: // 鍵（青）
+				case DOOR_YELLOW_KEY: // 鍵（黄）
+				case DOOR_GREEN_KEY: // 鍵（緑）
                     alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                     print("落下");
                     break;
