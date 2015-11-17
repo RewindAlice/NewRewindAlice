@@ -137,8 +137,9 @@ public class Stage : MonoBehaviour
 
 	public GameObject gimmickDoor_Green; // 緑扉
 	public GameObject gimmickKey_Green; // 緑鍵
-      
-   
+
+	public GameObject cheshire; // チェシャ
+
     
     public int field;
     GameObject fieldObject;                                                     // ステージ天球のオブジェクト
@@ -623,6 +624,15 @@ public class Stage : MonoBehaviour
 				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
 				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
 				break;
+
+			case CHESHIRE_CAT:  // ▼チェシャ////////////////////////////////////////////////////////////////////////////////////////////ll//////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(cheshire, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                           // ギミックを指定された向きに変更
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Cheshire>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				break;
+
+
 
             //梯子ブロック
             case LADDER_BLOCK:
@@ -1148,8 +1158,8 @@ public class Stage : MonoBehaviour
             case WARP_HOLE_TRHEE: // 穴３
             case WARP_HOLE_FOUR:  // 穴４
             case WARP_HOLE_FIVE:  // 穴５
-            case BRAMBLE:
-            case CHESHIRE_CAT:
+            case BRAMBLE: //茨
+            case CHESHIRE_CAT: // チェシャ
                 flag = true;
                 
                 break;
@@ -1254,6 +1264,7 @@ public class Stage : MonoBehaviour
 			case DOOR_BLUE_KEY: // 鍵（青）
 			case DOOR_YELLOW_KEY: // 鍵（黄）
 			case DOOR_GREEN_KEY: // 鍵（緑）
+			case CHESHIRE_CAT: // チェシャ
                 flag = true;
                 break;
 
@@ -1339,7 +1350,9 @@ public class Stage : MonoBehaviour
 				alice.GetKey(Player.GetKeyColor.GREEN);
 				break;
 
-
+			case CHESHIRE_CAT: // チェシャ
+				alice.TouchCheshire();
+				break;
         }
     }
 
@@ -1363,6 +1376,7 @@ public class Stage : MonoBehaviour
 				case DOOR_BLUE_KEY: // 鍵（青）
 				case DOOR_YELLOW_KEY: // 鍵（黄）
 				case DOOR_GREEN_KEY: // 鍵（緑）
+				case CHESHIRE_CAT: // チェシャ
                     alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                     print("落下");
                     break;

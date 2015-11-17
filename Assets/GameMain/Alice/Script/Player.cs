@@ -78,6 +78,8 @@ public class Player : MonoBehaviour
 		GREEN,	// 緑
 	}
 
+	const int InvisibleLimit = 3; // 透明化のターン数
+
     // ★配列上の座標///////////////////////////
     public int arrayPosX = 0;   // 配列上の座標X
     public int arrayPosY = 0;   // 配列上の座標Y
@@ -142,6 +144,12 @@ public class Player : MonoBehaviour
 	public int gettingKeyTurn_Yellow = 0;	// 黄
 	public int gettingKeyTurn_Green = 0;	// 緑
 
+	//public bool invisibleFlag = false; // 透明化フラグ
+	public bool invisibleMemory = false; // 透明化になったことがあるか
+	public int invisibleTurn = 0; // 透明化のターン
+
+	private Renderer renderer;
+
     //ためし用(後々消す)
     public bool gameOverFlag;
     //------------------------
@@ -176,6 +184,11 @@ public class Player : MonoBehaviour
         //ためし用(後々消す)
         gameOverFlag = false;
         //------------------------
+
+		//------------------------
+		//西尾竜太郎追加部分
+		//------------------------
+		renderer = GetComponentInChildren<Renderer>();
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -680,6 +693,7 @@ public class Player : MonoBehaviour
         transform.position = position;      // 座標を変更
         ChangeArrayPosition(arrayMove);     // 配列上の位置を変更
 		KeyTurnChange(); // 鍵所持ターンカウントの変動
+		InvisibleTurnChange(); // 透明化ターンカウントの変動
 
         // 保存数が０なら初期の向きに直す
         if (saveCount == 0) { transform.localEulerAngles = new Vector3(0, 0, 0); }
@@ -880,5 +894,66 @@ public class Player : MonoBehaviour
 		if (gettingKeyTurn_Green < 0) { getKeyColor_Green = false; }
 	}
 
+	// ★チェシャに触れて透明化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void TouchCheshire()
+	{
+		int keyTurnAdjuster;
+		switch (playerAction)
+		{
+			case PlayerAction.NEXT:
+				keyTurnAdjuster = -1;
+				break;
+			case PlayerAction.RETURN:
+				keyTurnAdjuster = 1;
+				break;
+			default:
+				keyTurnAdjuster = 0;
+				break;
+		}
+		invisibleFlag = true;
+		invisibleMemory = true;
+		invisibleTurn = keyTurnAdjuster;
+	}
+
+	// ★透明化ターンカウントの変動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void InvisibleTurnChange()
+	{
+		if (invisibleMemory)
+		{
+			switch (playerAction)
+			{
+				case PlayerAction.NONE:
+				case PlayerAction.NEXT:
+					invisibleTurn++;
+					break;
+				case PlayerAction.RETURN:
+					invisibleTurn--;
+					break;
+				default:
+					break;
+			}
+		}
+
+		// 透明化ターンがマイナスになったら、透明化状態を完全に解除する
+		if (invisibleTurn < 0)
+		{
+			invisibleFlag = false;
+			invisibleMemory = false;
+		}
+
+		// 透明化ターンが規定ターンを超えたら透明化状態を解除する
+		else if (invisibleTurn > InvisibleLimit) 
+			invisibleFlag = false;
+
+		// 透明化ターンが0以上規定ターン以内になったら再透明化する
+		else if ((invisibleTurn >= 0) || (invisibleTurn < InvisibleLimit)) 
+			invisibleFlag = true;
+
+		// 透明の場合、描画をしない
+		if(invisibleFlag)
+			renderer.enabled = false;    // 描画しない
+		else
+			renderer.enabled = true;    // 描画する
+	}
 
 }

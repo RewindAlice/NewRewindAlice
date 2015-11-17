@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Key : BaseGimmick
+public class Cheshire : BaseGimmick
 {
 	// ★BaseGimmickで宣言した変数
 	//protected bool gimmickFlag;     // ギミックフラグ
@@ -26,7 +26,7 @@ public class Key : BaseGimmick
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public override void OnAliceMoveNext(int aliceMove)
 	{
-		print("Key");  // デバッグ用コメント
+		print("Cheshire");  // デバッグ用コメント
 
 		// ギミックの開始ターンとアリスの移動数が同じになったら
 		if (startActionTurn == aliceMove)

@@ -144,6 +144,8 @@ MonoBehaviour:
   gettingKeyTurn_Blue: 0
   gettingKeyTurn_Yellow: 0
   gettingKeyTurn_Green: 0
+  invisibleMemory: 0
+  invisibleTurn: 0
   gameOverFlag: 0
 --- !u!1 &134013359
 GameObject:
@@ -910,6 +912,7 @@ MonoBehaviour:
   gimmickRedFlower: {fileID: 157810, guid: 833e424a39ad07e4c9f81ca888ec62bd, type: 2}
   gimmickBuleFlower: {fileID: 167362, guid: 8e9a6f8752d0044479b9ffd9fbf59d31, type: 2}
   gimmickPurpleFlower: {fileID: 141160, guid: 5a10e8d83bb955f448547d7082e00a66, type: 2}
+  gimmickLadder: {fileID: 0}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
   gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,
@@ -931,6 +934,7 @@ MonoBehaviour:
   gimmickKey_Yellow: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
   gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  cheshire: {fileID: 153752, guid: 24f396f694c557c48938b343fa43ff7d, type: 2}
   field: 0
   fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
   fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}
