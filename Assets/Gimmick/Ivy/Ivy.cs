@@ -4,6 +4,13 @@ using System.Collections;
 public class Ivy : BaseGimmick
 {
 
+    // ★BaseGimmickで宣言した変数
+    //protected bool gimmickFlag;                       // ギミックフラグ
+    //public int startActionTurn;                       // ギミック開始ターン
+    //protected int gimmickCount;                       // ギミック開始後のターン数
+    //public bool besideDicisionMovePossibleFlag;       // 横判定用移動可能フラグ
+    //public bool besideDownDicisionMovePossibleFlag;   // 横下判定用移動可能フラグ
+
     public int growCount;           // 成長段階
     //public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
@@ -29,7 +36,7 @@ public class Ivy : BaseGimmick
         startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
         growCount = 0;              // 初期の成長段階
-        movePossibleFlag = true;    // 移動可能フラグを真に
+        besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
         moveCount = 0;
     }
 
@@ -51,14 +58,14 @@ public class Ivy : BaseGimmick
         {
             Ivy_one.changeMaterialBrown();
             Ivy_two.changeMaterialBrown();
-            movePossibleFlag = false;    // 移動可能フラグを偽に
+            besideDicisionMovePossibleFlag = false;    // 移動可能フラグを偽に
         }
         else
         {
             Ivy_one.changeMaterialOrizinal();
             Ivy_two.changeMaterialOrizinal();
 
-            movePossibleFlag = true;    // 移動可能フラグを真に
+            besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
         }
     }
 
@@ -70,13 +77,13 @@ public class Ivy : BaseGimmick
         {
             Ivy_one.changeMaterialOrizinal();
             Ivy_two.changeMaterialOrizinal();
-            movePossibleFlag = true;    // 移動可能フラグを真に
+            besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
         }
         else
         {
             Ivy_one.changeMaterialBrown();
             Ivy_two.changeMaterialBrown();
-            movePossibleFlag = false;    // 移動可能フラグを偽　に
+            besideDicisionMovePossibleFlag = false;    // 移動可能フラグを偽　に
         }
 
         moveCount--;

@@ -1145,10 +1145,10 @@ public class Stage : MonoBehaviour
             case LADDER_BACK:  // 蔦（後）
             case LADDER_LEFT:  // 蔦（左）
             case LADDER_RIGHT: // 蔦（右）
-            case MUSHROOM_SMALL:  // キノコ（小さくなる）
-            case MUSHROOM_BIG:    // キノコ（大きくなる）
-            case POTION_SMALL:    // 薬（小さくなる）
-            case POTION_BIG:      // 薬（大きくなる）
+            case MUSHROOM_BIG:      // ▼キノコ（大きくなる）
+            case MUSHROOM_SMALL:    // ▼キノコ（小さくなる）
+            case POTION_BIG:        // ▼薬（大きくなる）
+            case POTION_SMALL:      // ▼薬（小さくなる）
             case DOOR_RED_KEY:    // 赤扉（鍵）
             case DOOR_BLUE_KEY:   // 青扉（鍵）
             case DOOR_YELLOW_KEY: // 黄扉（鍵）
@@ -1167,9 +1167,8 @@ public class Stage : MonoBehaviour
                 break;
 
             // 特定の条件の時は移動可能
-            case TREE:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().movePossibleFlag == true) { flag = true; }
-                else { flag = false; }
+            case TREE:  // ▼木////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
                 break;
 
 			// 扉
@@ -1265,26 +1264,30 @@ public class Stage : MonoBehaviour
 			case DOOR_YELLOW_KEY: // 鍵（黄）
 			case DOOR_GREEN_KEY: // 鍵（緑）
 			case CHESHIRE_CAT: // チェシャ
+            case DUMMY_TREE:        // ▼木（ダミー）
+            case MUSHROOM_BIG:      // ▼キノコ（大きくなる）
+            case MUSHROOM_SMALL:    // ▼キノコ（小さくなる）
+            case POTION_BIG:        // ▼薬（大きくなる）
+            case POTION_SMALL:      // ▼薬（小さくなる）
                 flag = true;
                 break;
 
             // 特定の条件の時は移動可能
-            case TREE:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount <= 2) { flag = true; }
-                else { flag = false; }
+            case TREE:  // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDownDicisionMovePossibleFlag();   // 木の横下判定用移動可能フラグを取得
                 break;
 
             // 花
             case RED_FLOWER:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower3>().movePossibleFlag == true) { flag = true; }
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower3>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
             case BLUE_FLOWER:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower2>().movePossibleFlag == true) { flag = true; }
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower2>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
             case PURPLE_FLOWER:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower1>().movePossibleFlag == true) { flag = true; }
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower1>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
 
@@ -1323,14 +1326,36 @@ public class Stage : MonoBehaviour
             case IVY_RIGHT: // 蔦（右）
             case LADDER_RIGHT://               Climb1(Player.PlayerAngle.RIGHT);
                 break;
-            case TREE:
-                if(gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
+            case TREE:  // ▼木//////////////////////////////////////////////////////////////
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
                 {
                     alice.AutoMoveSetting(Player.MoveDirection.UP);
-                    print("木の成長");
                 }
                 break;
-
+            case MUSHROOM_BIG:  // ▼キノコ（大きくなる）////////////////////////////////////////////////////////////////////////////////////
+            case POTION_BIG:    // ▼薬（大きくなる）////////////////////////////////////////////////////////////////////////////////////////
+                // ギミックフラグが真なら
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().GetGimmickFlag())
+                {
+                    alice.playerMode = Player.PlayerMode.BIG;                                               // 状態を大きいに
+                    alice.countBig = 3;                                                                     // 大きくなっているカウントを３に
+                    alice.ModeChange();                                                                     // 状態の切り替え
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().drawFlag = false;       // 描画フラグを偽に
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().SetGimmickFlag(false);  // ギミックフラグを偽に
+                }
+                break;
+            case MUSHROOM_SMALL:    // ▼キノコ（小さくなる）////////////////////////////////////////////////////////////////////////////////
+            case POTION_SMALL:      // ▼薬（小さくなる）////////////////////////////////////////////////////////////////////////////////////
+                // ギミックフラグが真なら
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().GetGimmickFlag())
+                {
+                    alice.playerMode = Player.PlayerMode.SMALL;                                             // 状態を小さいに
+                    alice.countSmall = 3;                                                                   // 小さくなっているカウントを３に
+                    alice.ModeChange();                                                                     // 状態の切り替え
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().drawFlag = false;       // 描画フラグを偽に
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().SetGimmickFlag(false);  // ギミックフラグを偽に
+                }
+                break;
             // 茨
             case BRAMBLE:
                 gimmickObjectArray[posY, posX, posZ].GetComponent<Bramble>().trapFlag = true;
@@ -1393,7 +1418,13 @@ public class Stage : MonoBehaviour
                 case IVY_RIGHT: // 蔦（右）
                     Climb2(Player.PlayerAngle.RIGHT);
                     break;
-
+                case TREE:  // ▼木//////////////////////////////////////////////////////////////////
+                    // 木の成長段階が１以下なら
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
+                    {
+                        alice.AutoMoveSetting(Player.MoveDirection.UP);
+                    }
+                    break;
                 case WARP_HOLE_ONE:
                 case WARP_HOLE_TWO:
                 case WARP_HOLE_TRHEE:
@@ -1498,15 +1529,15 @@ public class Stage : MonoBehaviour
             {
 
                 case RED_FLOWER:
-                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower3>().GetMovePossible() == false)
+                    if (!gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower3>().GetBesideDicisionMovePossibleFlag())
                         alice.gameOverFlag = true;
                     break;
                 case BLUE_FLOWER:
-                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower2>().GetMovePossible() == false)
+                    if (!gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower2>().GetBesideDicisionMovePossibleFlag())
                         alice.gameOverFlag = true;
                     break;
                 case PURPLE_FLOWER:
-                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower1>().GetMovePossible() == false)
+                    if (!gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower1>().GetBesideDicisionMovePossibleFlag())
                         alice.gameOverFlag = true;
                     break;
             }
@@ -1605,24 +1636,56 @@ public class Stage : MonoBehaviour
         alice.climb2Flag = true;
     }
 
-    // ★一部ギミックの配列上の位置を変更★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void ChangeArrayGimmick()
+    // ★一部ギミックの配列上の位置を変更（進める）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void ChangeArrayGimmickNext()
     {
-        for(int x = 0; x < STAGE_X; x++)
+        for (int x = 0; x < STAGE_X; x++)
         {
-            for(int y = 0; y < STAGE_Y; y++)
+            for (int y = 0; y < STAGE_Y; y++)
             {
-                for(int z = 0; z < STAGE_Z; z++)
+                for (int z = 0; z < STAGE_Z; z++)
                 {
                     // ▽ギミックが
-                    switch(gimmickNumArray[y, x, z])
+                    switch (gimmickNumArray[y, x, z])
                     {
-                        // ▼木（成長段階１）なら
+                        // ▼木なら
                         case TREE:
                             // 成長段階が２以下なら１つ上の配列を変更
-                            if(gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount <= 1){ gimmickNumArray[y + 1, x, z] = NONE_BLOCK; }
+                            if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount <= 1)
+                            {
+                                gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
+                            }
                             // 成長段階が３なら１つ上の配列を変更
-                            else if(gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 2){ gimmickNumArray[y + 1, x, z] = DUMMY_TREE; }
+                            else if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 2)
+                            {
+                                gimmickNumArray[y + 1, x, z] = DUMMY_TREE;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    // ★一部ギミックの配列上の位置を変更（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void ChangeArrayGimmickReturn()
+    {
+        for (int x = 0; x < STAGE_X; x++)
+        {
+            for (int y = 0; y < STAGE_Y; y++)
+            {
+                for (int z = 0; z < STAGE_Z; z++)
+                {
+                    // ▽ギミックが
+                    switch (gimmickNumArray[y, x, z])
+                    {
+                        // ▼木なら
+                        case TREE:
+                            // 成長段階が２以下なら１つ上の配列を変更
+                            if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 3)
+                            {
+                                gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
+                            }
                             break;
                     }
                 }
@@ -1686,8 +1749,7 @@ public class Stage : MonoBehaviour
 
             case TREE:
             case DUMMY_TREE:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().movePossibleFlag == true) { flag = true; }
-                else { flag = false; }
+                flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
                 break;
 
         }

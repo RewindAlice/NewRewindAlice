@@ -907,12 +907,12 @@ MonoBehaviour:
   gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
   gimmickBlock: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
+  gimmickIVY: {fileID: 171974, guid: c9f72f25b0e4cfe46ada6f22defffc69, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
-  gimmickRedFlower: {fileID: 157810, guid: 833e424a39ad07e4c9f81ca888ec62bd, type: 2}
-  gimmickBuleFlower: {fileID: 167362, guid: 8e9a6f8752d0044479b9ffd9fbf59d31, type: 2}
-  gimmickPurpleFlower: {fileID: 141160, guid: 5a10e8d83bb955f448547d7082e00a66, type: 2}
-  gimmickLadder: {fileID: 0}
+  gimmickRedFlower: {fileID: 157810, guid: 14a57de58f3dc124c80b31997c91e008, type: 2}
+  gimmickBuleFlower: {fileID: 167362, guid: 3007904ab7a94804e8a492b574371fc4, type: 2}
+  gimmickPurpleFlower: {fileID: 141160, guid: e5a721636093b71499afbf048d7cfe95, type: 2}
+  gimmickLadder: {fileID: 145392, guid: df8f90f9078c4bf4aa7974a7f61877f0, type: 2}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
   gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,
@@ -925,7 +925,7 @@ MonoBehaviour:
     type: 2}
   gimmickTweedleDum: {fileID: 101880, guid: d9885d370ee96f84895ed0f26b0019d9, type: 2}
   gimmickTweedleDee: {fileID: 149168, guid: 7bac3a7153b44f345a10d3afd4c2d6e3, type: 2}
-  gimmickBramble: {fileID: 194816, guid: e45a173367e4ec74484db47b3249c89c, type: 2}
+  gimmickBramble: {fileID: 194816, guid: 059ed2bb35cb4a740a48b6d581421cb9, type: 2}
   gimmickDoor_Red: {fileID: 159322, guid: b0bb8567a5334df4b9d4f24e26110b6f, type: 2}
   gimmickKey_Red: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   gimmickDoor_Blue: {fileID: 181444, guid: b7a9b39cbdaa17445a9484dd91a76fc4, type: 2}
@@ -941,8 +941,8 @@ MonoBehaviour:
   fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
   fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
   fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
-  gimmickHole: {fileID: 166266, guid: cf94db206c6fb1b42a764632ead6f470, type: 2}
-  waterBlock: {fileID: 123806, guid: 0e1445392dcdb71449c1e30071fa6681, type: 2}
+  gimmickHole: {fileID: 166266, guid: b1b60b1ff955f784ba70ecec41be10ba, type: 2}
+  waterBlock: {fileID: 130044, guid: 23ce9c915cac81a46b7e73c8e2e9233f, type: 2}
   forestBlockGround: {fileID: 157210, guid: 6baee3df0e4340c418b01aa90da46ab3, type: 2}
   forestBlockGrass: {fileID: 159890, guid: 6db1146b62843ab4980120197f2e492a, type: 2}
   forestBlockAllGrass: {fileID: 115526, guid: e9435cbc6995aed4d88e51f7f3912b38, type: 2}

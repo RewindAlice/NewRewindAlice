@@ -202,15 +202,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 171974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0263e453dbcb84fbe030dcd1513ec8, type: 3}
+  m_Script: {fileID: 11500000, guid: 730d207da0502aa4aa79be78fc9237d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startActionTurn: 0
-  movePossibleFlag: 0
+  besideDicisionMovePossibleFlag: 0
+  besideDownDicisionMovePossibleFlag: 0
   growCount: 0
   moveCount: 0
-  Ivychild_one: {fileID: 137672}
-  Ivychild_two: {fileID: 130352}
+  Ivychild_one: {fileID: 0}
+  Ivychild_two: {fileID: 0}
   Ivy_one: {fileID: 0}
   Ivy_two: {fileID: 0}
 --- !u!1001 &100100000

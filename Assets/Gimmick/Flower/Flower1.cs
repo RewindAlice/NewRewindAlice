@@ -3,11 +3,13 @@ using System.Collections;
 
 public class Flower1 : BaseGimmick
 {
-    //public bool gimmickFlag;      // ギミックが有効か判断するフラグ
-    //public int startActionTurn;   // ギミックを動かし始めるターン数
-    //public int gimmickCount;      // ギミックが有効になってからのターン数
+    // ★BaseGimmickで宣言した変数
+    //protected bool gimmickFlag;                       // ギミックフラグ
+    //public int startActionTurn;                       // ギミック開始ターン
+    //protected int gimmickCount;                       // ギミック開始後のターン数
+    //public bool besideDicisionMovePossibleFlag;       // 横判定用移動可能フラグ
+    //public bool besideDownDicisionMovePossibleFlag;   // 横下判定用移動可能フラグ
 
-    //public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
     public int motionCount;
     private GameObject pause;
@@ -20,7 +22,7 @@ public class Flower1 : BaseGimmick
         gimmickFlag = true;         // ギミックが有効か判断するフラグに真を保存
         startActionTurn = 1;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
-        movePossibleFlag = true;    // 移動可能フラグを真に
+        besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
         moveCount = 0;
         motionCount = 0;
         GetComponent<Animator>().SetInteger("MotionCount", motionCount);
@@ -46,13 +48,13 @@ public class Flower1 : BaseGimmick
             switch (motionCount % 3)
             {
                 case 0:
-                    movePossibleFlag = true;    // 移動可能フラグを真に
+                    besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
                     break;
                 case 1:
-                    movePossibleFlag = false;   // 移動可能フラグを偽に
+                    besideDicisionMovePossibleFlag = false;   // 移動可能フラグを偽に
                     break;
                 case 2:
-                    movePossibleFlag = true;    // 移動可能フラグを真に
+                    besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
                     break;
             }
             GetComponent<Animator>().SetInteger("MotionCount", motionCount % 3);
@@ -73,27 +75,17 @@ public class Flower1 : BaseGimmick
             switch (motionCount % 3)
             {
                 case 0:
-                    movePossibleFlag = true;    // 移動可能フラグを真に
+                    besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
                     break;
                 case 1:
-                    movePossibleFlag = false;   // 移動可能フラグを偽に
+                    besideDicisionMovePossibleFlag = false;   // 移動可能フラグを偽に
                     break;
                 case 2:
-                    movePossibleFlag = true;    // 移動可能フラグを真に
+                    besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
                     break;
             }
             GetComponent<Animator>().SetInteger("MotionCount", motionCount % 3);
             moveCount--;
         }
-    }
-
-    public bool GetMovePossible()
-    {
-        return movePossibleFlag;
-    }
-
-    public void SetMovePossible(bool flag)
-    {
-        movePossibleFlag = flag;
     }
 }

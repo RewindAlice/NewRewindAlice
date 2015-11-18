@@ -175,12 +175,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 151554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 881bfb424273c4c499444bd9422042b5, type: 3}
+  m_Script: {fileID: 11500000, guid: f41e7f989ce49e341bdd629616344f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startActionTurn: 0
-  gimmickActionCount: 0
-  gimmickDrawFlag: 0
+  besideDicisionMovePossibleFlag: 0
+  besideDownDicisionMovePossibleFlag: 0
   moveCount: 0
 --- !u!198 &19820296
 ParticleSystem:

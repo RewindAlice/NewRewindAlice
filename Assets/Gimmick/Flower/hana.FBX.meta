@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: 3a8fbb76e204e2b48af4fdae87800c1f
+timeCreated: 1447654866
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Bone081
+    100002: Bone082
+    100004: Bone083
+    100006: Bone084
+    100008: Bone085
+    100010: Bone086
+    100012: Bone087
+    100014: Bone088
+    100016: Bone089
+    100018: Bone090
+    100020: Bone091
+    100022: Bone092
+    100024: Bone093
+    100026: Bone094
+    100028: Bone095
+    100030: Bone096
+    100032: Bone097
+    100034: Bone098
+    100036: Bone099
+    100038: Bone100
+    100040: Bone101
+    100042: Bone102
+    100044: Bone103
+    100046: Bone104
+    100048: Bone105
+    100050: Bone106
+    100052: Bone107
+    100054: Bone108
+    100056: Bone109
+    100058: Bone110
+    100060: Bone111
+    100062: Bone112
+    100064: Bone113
+    100066: Bone114
+    100068: Bone115
+    100070: Bone116
+    100072: Bone117
+    100074: Bone118
+    100076: //RootNode
+    100078: hanabira
+    100080: hanabira001
+    100082: hanabira002
+    100084: hanabira003
+    100086: hanabira004
+    100088: hanabira005
+    100090: hanabira006
+    100092: hanabira007
+    100094: Sphere001
+    400000: Bone081
+    400002: Bone082
+    400004: Bone083
+    400006: Bone084
+    400008: Bone085
+    400010: Bone086
+    400012: Bone087
+    400014: Bone088
+    400016: Bone089
+    400018: Bone090
+    400020: Bone091
+    400022: Bone092
+    400024: Bone093
+    400026: Bone094
+    400028: Bone095
+    400030: Bone096
+    400032: Bone097
+    400034: Bone098
+    400036: Bone099
+    400038: Bone100
+    400040: Bone101
+    400042: Bone102
+    400044: Bone103
+    400046: Bone104
+    400048: Bone105
+    400050: Bone106
+    400052: Bone107
+    400054: Bone108
+    400056: Bone109
+    400058: Bone110
+    400060: Bone111
+    400062: Bone112
+    400064: Bone113
+    400066: Bone114
+    400068: Bone115
+    400070: Bone116
+    400072: Bone117
+    400074: Bone118
+    400076: //RootNode
+    400078: hanabira
+    400080: hanabira001
+    400082: hanabira002
+    400084: hanabira003
+    400086: hanabira004
+    400088: hanabira005
+    400090: hanabira006
+    400092: hanabira007
+    400094: Sphere001
+    4300000: hanabira
+    4300002: Sphere001
+    4300004: hanabira001
+    4300006: hanabira002
+    4300008: hanabira003
+    4300010: hanabira004
+    4300012: hanabira005
+    4300014: hanabira006
+    4300016: hanabira007
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: hanabira
+    13700002: hanabira001
+    13700004: hanabira002
+    13700006: hanabira003
+    13700008: hanabira004
+    13700010: hanabira005
+    13700012: hanabira006
+    13700014: hanabira007
+    13700016: Sphere001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

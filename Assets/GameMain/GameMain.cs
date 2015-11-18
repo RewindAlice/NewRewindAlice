@@ -248,8 +248,9 @@ public class GameMain : MonoBehaviour
                 // ターンがギミックなら
                 if (turn == Turn.GIMMICK)
                 {
-                    if (turnCountGimmick == 0)
+                    if (turnCountGimmick == 0 && !alice.autoMoveFlag)
                     {
+                        stage.ChangeArrayGimmickReturn();     // 一部ギミックの配列上の位置を変更
                         aliceActionNotifer.NotiferReturn(alice.turnCount);
                     }
 
@@ -280,8 +281,6 @@ public class GameMain : MonoBehaviour
                         }
                         else
                         {
-                            stage.GimmickDecision(alice);   // ギミックとの判定
-                            stage.FootDecision(alice);      // 足元との判定
                             alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
                         }
