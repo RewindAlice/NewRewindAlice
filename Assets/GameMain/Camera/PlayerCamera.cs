@@ -97,6 +97,7 @@ public class PlayerCamera : MonoBehaviour
 			if (clearFlag)
 			{
 				ResultCameraMove();
+                Singleton<SoundPlayer>.instance.BGMPlayerDelete();
 
                 if(endRolling == true)
                 {
@@ -342,6 +343,7 @@ public class PlayerCamera : MonoBehaviour
                             clearTY = 359;
                         }
                     }
+                    if (clearTY == 136) { clearTY = 135; }
                     if(clearTY == 135)
                     {
                         endRolling = true;
@@ -376,6 +378,7 @@ public class PlayerCamera : MonoBehaviour
                             clearTY = 1;
                         }
                     }
+                    if (clearTY == 226) { clearTY = 225; }
                     if (clearTY == 225)
                     {
                         endRolling = true;
@@ -407,6 +410,7 @@ public class PlayerCamera : MonoBehaviour
                             clearTY = 1;
                         }
                     }
+                    if (clearTY == 316) { clearTY = 315; }
                     if (clearTY == 315)
                     {
                         endRolling = true;
@@ -437,6 +441,7 @@ public class PlayerCamera : MonoBehaviour
                             clearTY = 359;
                         }
                     }
+                    if (clearTY == 46) { clearTY = 45; }
                     if (clearTY == 45)
                     {
                        endRolling = true;
