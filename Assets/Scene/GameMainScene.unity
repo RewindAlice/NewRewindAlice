@@ -907,11 +907,11 @@ MonoBehaviour:
   gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
   gimmickBlock: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickIVY: {fileID: 171974, guid: c9f72f25b0e4cfe46ada6f22defffc69, type: 2}
+  gimmickIVY: {fileID: 141426, guid: c9f72f25b0e4cfe46ada6f22defffc69, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
-  gimmickRedFlower: {fileID: 157810, guid: 14a57de58f3dc124c80b31997c91e008, type: 2}
-  gimmickBuleFlower: {fileID: 167362, guid: 3007904ab7a94804e8a492b574371fc4, type: 2}
-  gimmickPurpleFlower: {fileID: 141160, guid: e5a721636093b71499afbf048d7cfe95, type: 2}
+  gimmickRedFlower: {fileID: 171760, guid: 14a57de58f3dc124c80b31997c91e008, type: 2}
+  gimmickBuleFlower: {fileID: 111296, guid: 3007904ab7a94804e8a492b574371fc4, type: 2}
+  gimmickPurpleFlower: {fileID: 152670, guid: e5a721636093b71499afbf048d7cfe95, type: 2}
   gimmickLadder: {fileID: 145392, guid: df8f90f9078c4bf4aa7974a7f61877f0, type: 2}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
@@ -941,6 +941,10 @@ MonoBehaviour:
   fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
   fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
   fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
+  gimmickMushroomSmall: {fileID: 116140, guid: 4d81597e8a989474c8468058ab6b633e, type: 2}
+  gimmickMushroomBig: {fileID: 165112, guid: 26f1f7576f3630e41a29c3cece41a3eb, type: 2}
+  gimmickPotionSmall: {fileID: 158544, guid: 133c361b0368a754db961ff77bb610ce, type: 2}
+  gimmickPotionBig: {fileID: 120516, guid: 1b63c1f39b223ca4694ad921504f0626, type: 2}
   gimmickHole: {fileID: 166266, guid: b1b60b1ff955f784ba70ecec41be10ba, type: 2}
   waterBlock: {fileID: 130044, guid: 23ce9c915cac81a46b7e73c8e2e9233f, type: 2}
   forestBlockGround: {fileID: 157210, guid: 6baee3df0e4340c418b01aa90da46ab3, type: 2}

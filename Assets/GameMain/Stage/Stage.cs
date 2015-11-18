@@ -156,6 +156,12 @@ public class Stage : MonoBehaviour
     //----------------------------
    
 
+    public GameObject gimmickMushroomSmall;
+    public GameObject gimmickMushroomBig;
+    
+    public GameObject gimmickPotionSmall;
+    public GameObject gimmickPotionBig;
+
     //const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
     //const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
 
@@ -299,7 +305,31 @@ public class Stage : MonoBehaviour
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
             
+            case MUSHROOM_SMALL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomSmall, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
 
+            case MUSHROOM_BIG:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                //gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
+
+            case POTION_SMALL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
+
+            case POTION_BIG:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                //gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
 
             //case ENEMY: // ▼敵////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //    gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
