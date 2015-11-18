@@ -413,11 +413,11 @@ public class TweedleDum : BaseGimmick
         }
         if (direction == 2)
         {
-            this.transform.localEulerAngles = enemyAngle2;
+            this.transform.localEulerAngles = enemyAngle3;
         }
         if (direction == 3)
         {
-            this.transform.localEulerAngles = enemyAngle3;
+            this.transform.localEulerAngles = enemyAngle2;
         }
         if (direction == 4)
         {
