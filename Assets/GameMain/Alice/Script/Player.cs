@@ -913,6 +913,7 @@ public class Player : MonoBehaviour
 		invisibleFlag = true;
 		invisibleMemory = true;
 		invisibleTurn = keyTurnAdjuster;
+		renderer.enabled = false;    // 描画しない
 	}
 
 	// ★透明化ターンカウントの変動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -946,7 +947,7 @@ public class Player : MonoBehaviour
 			invisibleFlag = false;
 
 		// 透明化ターンが0以上規定ターン以内になったら再透明化する
-		else if ((invisibleTurn >= 0) || (invisibleTurn < InvisibleLimit)) 
+		else if (((invisibleTurn >= 0) || (invisibleTurn < InvisibleLimit)) && (invisibleMemory))
 			invisibleFlag = true;
 
 		// 透明の場合、描画をしない
