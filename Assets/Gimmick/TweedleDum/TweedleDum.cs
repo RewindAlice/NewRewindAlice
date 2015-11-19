@@ -106,7 +106,7 @@ public class TweedleDum : BaseGimmick
 	{
         //向きの初期化
         this.direction = direction;
-        ChangeDirection();
+        InitChangeDirection();
         //座標の初期化
         arrayPosX = x;
         arrayPosY = y;
@@ -405,6 +405,27 @@ public class TweedleDum : BaseGimmick
     //向きの変更をする関数
     //---------------------
     public void ChangeDirection()
+    {
+        //変数に応じて回転を代入する
+        if (direction == 1)
+        {
+            this.transform.localEulerAngles = enemyAngle1;
+        }
+        if (direction == 2)
+        {
+            this.transform.localEulerAngles = enemyAngle2;
+        }
+        if (direction == 3)
+        {
+            this.transform.localEulerAngles = enemyAngle3;
+        }
+        if (direction == 4)
+        {
+            this.transform.localEulerAngles = enemyAngle4;
+        }
+    }
+
+    public void InitChangeDirection()
     {
         //変数に応じて回転を代入する
         if (direction == 1)
