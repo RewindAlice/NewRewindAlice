@@ -97,7 +97,7 @@ public class PlayerCamera : MonoBehaviour
 			if (clearFlag)
 			{
 				ResultCameraMove();
-                Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 
                 if(endRolling == true)
                 {
@@ -135,6 +135,7 @@ public class PlayerCamera : MonoBehaviour
                             case 23: PlayerPrefs.SetInt("STAMP_NUM", 32); break;
                             case 24: PlayerPrefs.SetInt("STAMP_NUM", 33); break;
                         }
+                        Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                     }
                 }

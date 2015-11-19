@@ -20,6 +20,10 @@ public class StageSelect : MonoBehaviour
 	const float STAMP_Y7 = -3;
 	const float STAMP_Z = -5;
 
+    //BGMフェード調整
+    const float   BGMFadeTime = 60.0f;
+    private float BGMTimer;
+    private bool  BGMDeleter;
 	public enum STAGE
 	{
 		STAGE_1,
@@ -83,6 +87,8 @@ public class StageSelect : MonoBehaviour
 	// 初期化
 	void Start()
 	{
+        BGMTimer = 0;
+        BGMDeleter = false;
 		selectFlag = false;
 		keyFlag = false;
 		CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
@@ -110,13 +116,14 @@ public class StageSelect : MonoBehaviour
 
 		CreateIcon();
 		CreateStamp();  // スタンプの生成
+        Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f);
 	}
 
 	// 更新
 	void Update()
 	{
 		count++;
-
+        Singleton<SoundPlayer>.instance.update();
 		
 		if (count >= 50 && drawFlag == false)
 		{
@@ -195,8 +202,20 @@ public class StageSelect : MonoBehaviour
 				(Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
 				(Input.GetKeyDown(KeyCode.Joystick1Button7)))
 			{
-				JumpSelectStage();
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+				
 			}
+            if(BGMDeleter)
+            {
+                BGMTimer++;
+            }
+             //BGMが止まったら
+           if(BGMTimer> BGMFadeTime)
+           {
+                Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                JumpSelectStage();
+           }
 		}
 	}
 	// ページをめくる（次ページへ）
@@ -292,101 +311,103 @@ public class StageSelect : MonoBehaviour
 	// 選択されたステージに移動
 	void JumpSelectStage()
 	{
-		selectFlag = true;
-		switch (stage)
-		{
-			case STAGE.STAGE_1:
-				switch (chapter)
-				{
-					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 11); break;
-                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 1); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 2); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 3); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 4); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 5); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 12); break;
-				}
-				break;
-			case STAGE.STAGE_2:
-				switch (chapter)
-				{
-					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 21); break;
-                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 6); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 7); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 8); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 9); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 10); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 22); break;
-				}
-				break;
-			case STAGE.STAGE_3:
-				switch (chapter)
-				{
-					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 31); break;
-                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 11); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 12); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 13); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 14); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 15); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 32); break;
-				}
-				break;
-			case STAGE.STAGE_4:
-				switch (chapter)
-				{
-					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 41); break;
-                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 16); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 17); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 18); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 19); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 20); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 42); break;
-				}
-				break;
-			case STAGE.STAGE_5:
-				switch (chapter)
-				{
-					case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 51); break;
-                    case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 21); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 22); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 24); PlayerPrefs.SetInt("CHALLENGE", 0); break;
-                    case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STORY_NUM", 52); break;
-					case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 53); break;
-				}
-				break;
-		}
+      
+		    selectFlag = true;
+		    switch (stage)
+		    {
+			    case STAGE.STAGE_1:
+				    switch (chapter)
+				    {
+					    case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 11); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 1); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 2); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 3); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 4); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 5); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+					    case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 12); break;
+				    }
+				    break;
+			    case STAGE.STAGE_2:
+				    switch (chapter)
+				    {
+					    case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 21); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 6); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 7); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 8); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 9); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 10); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+					    case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 22); break;
+				    }
+				    break;
+			    case STAGE.STAGE_3:
+				    switch (chapter)
+				    {
+					    case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 31); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 11); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 12); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 13); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 14); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 15); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+					    case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 32); break;
+				    }
+				    break;
+			    case STAGE.STAGE_4:
+				    switch (chapter)
+				    {
+					    case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 41); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 16); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 17); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 18); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 19); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 20); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+					    case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 42); break;
+				    }
+				    break;
+			    case STAGE.STAGE_5:
+				    switch (chapter)
+				    {
+					    case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STORY_NUM", 51); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 21); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 22); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 24); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STORY_NUM", 52); break;
+					    case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 53); break;
+				    }
+				    break;
+		    }
 
-		switch (chapter)
-		{
-			// ストーリーへ
-			case Chapter.CHAPTER_1:
-			case Chapter.CHAPTER_7:
-				JumpScene();
-				CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
-                Application.LoadLevel("AdventureMainScene");
-				break;
-
-			// ゲームへ
-			case Chapter.CHAPTER_2:
-			case Chapter.CHAPTER_3:
-			case Chapter.CHAPTER_4:
-			case Chapter.CHAPTER_5:
-			case Chapter.CHAPTER_6:
-				if ((stage == STAGE.STAGE_5) && (chapter == Chapter.CHAPTER_6))
-				{
-					JumpScene();
-					CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
+		    switch (chapter)
+		    {
+			    // ストーリーへ
+			    case Chapter.CHAPTER_1:
+			    case Chapter.CHAPTER_7:
+				    JumpScene();
+				    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
                     Application.LoadLevel("AdventureMainScene");
-				}
-				else
-				{
-					JumpScene();
-					CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
-                    Application.LoadLevel("GameMainScene");
-				}
-				break;
-		}
+				    break;
+
+			    // ゲームへ
+			    case Chapter.CHAPTER_2:
+			    case Chapter.CHAPTER_3:
+			    case Chapter.CHAPTER_4:
+			    case Chapter.CHAPTER_5:
+			    case Chapter.CHAPTER_6:
+				    if ((stage == STAGE.STAGE_5) && (chapter == Chapter.CHAPTER_6))
+				    {
+					    JumpScene();
+					    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
+                        Application.LoadLevel("AdventureMainScene");
+				    }
+				    else
+				    {
+					    JumpScene();
+					    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+                        Application.LoadLevel("GameMainScene");
+				    }
+				    break;
+		    }
+       
 	}
 
 	void DrawStagePicture()

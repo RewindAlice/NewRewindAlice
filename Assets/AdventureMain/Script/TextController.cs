@@ -49,6 +49,12 @@ public class TextController : MonoBehaviour
     public int crickNum;
     public int stageNum;
 
+
+    //BGMフェード調整
+    const float BGMFadeTime = 60.0f;
+    private float BGMTimer;
+    private bool BGMDeleter;
+
     //読み込み改善用
       //////////////////////////////////////////////////////////////////
     /// <summary>
@@ -75,6 +81,43 @@ public class TextController : MonoBehaviour
         funcFlag = false;
         stopText = false;
         timer = 0;
+        BGMDeleter = false;
+        BGMTimer = 0;
+        switch(stageNum)
+        {
+            case 11:
+            case 12:
+                Singleton<SoundPlayer>.instance.playBGM("bgm003", 1.0f);
+                break;
+
+            case 21:
+           
+                Singleton<SoundPlayer>.instance.playBGM("bgm004", 1.0f);
+                break;
+
+            case 22:
+            case 31: 
+                Singleton<SoundPlayer>.instance.playBGM("bgm005", 1.0f);
+                break;
+
+            case 32:
+                Singleton<SoundPlayer>.instance.playBGM("bgm006", 1.0f);
+                break;
+
+            case 41:
+                Singleton<SoundPlayer>.instance.playBGM("bgm007", 1.0f);
+                break;
+            case 42:
+                Singleton<SoundPlayer>.instance.playBGM("bgm008", 1.0f);
+                break;
+            case 51:
+            case 52:
+                Singleton<SoundPlayer>.instance.playBGM("bgm009", 1.0f);
+                break;
+            default:
+
+                break;
+        }
 
         seManager = SE.GetComponent<SEManager>();
         leftCharacterImage = LeftCharacter.GetComponent<ChangeCharacterImage>();
@@ -156,6 +199,7 @@ public class TextController : MonoBehaviour
 
     void Update()
     {
+        Singleton<SoundPlayer>.instance.update();
         //if (Input.GetKeyDown(KeyCode.Escape) && (timer == 0))
         //{
         //    if(stopText == false)
@@ -215,58 +259,119 @@ public class TextController : MonoBehaviour
 
             if (stageNum == 11 && crickNum == 19)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 1);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 1);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 12 && crickNum == 8)
-            {
-                PlayerPrefs.SetInt("STAMP_NUM", 7);
-                Application.LoadLevel("StageSelectScene");
+            { 
+                BGMDeleter = true;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 7);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 21 && crickNum == 18)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 8);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc(); 
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 8);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 22 && crickNum == 6)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 14);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 14);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 31 && crickNum == 13)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 15);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc(); 
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+
+                    PlayerPrefs.SetInt("STAMP_NUM", 15);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 32 && crickNum == 16)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 21);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 21);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 41 && crickNum == 6)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 22);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 22);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 42 && crickNum == 18)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 28);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 28);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 51 && crickNum == 8)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 29);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 29);
+                    Application.LoadLevel("StageSelectScene");
+                }
             }
             else if (stageNum == 52 && crickNum == 23)
-            {
-                PlayerPrefs.SetInt("STAMP_NUM", 34);
-                Application.LoadLevel("EndingScene");
+            {                
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 34);
+                    Application.LoadLevel("EndingScene");
+                }
             }
             else if (stageNum == 53 && crickNum == 34)
             {
-                PlayerPrefs.SetInt("STAMP_NUM", 35);
-                Application.LoadLevel("StageSelectScene");
+                EndBgmfunc();
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    PlayerPrefs.SetInt("STAMP_NUM", 35);
+                    Application.LoadLevel("StageSelectScene");
+                }
+            }
+            if(stageNum == 52 && crickNum == 10)
+            {
+                Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f);
             }
         }
         else
@@ -277,6 +382,11 @@ public class TextController : MonoBehaviour
             //}
 
         }
+        if(BGMDeleter)
+        {
+            BGMTimer++;
+        }
+
         //backGame();
     }
     //void backGame()
@@ -314,5 +424,11 @@ public class TextController : MonoBehaviour
         // 文字列を代入
         stageData = stageTextAsset.text;
         scenarios = stageData.Split("\n"[0]);
+    }
+
+    void EndBgmfunc()
+    {
+        BGMDeleter = true;
+        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
     }
 }
