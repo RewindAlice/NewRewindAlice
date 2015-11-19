@@ -553,6 +553,13 @@ public class SpadeSoldierTurnLeft : BaseGimmick {
 
     public void InitChangeDirection()
     {
+
+        //キャラの回転処理
+        enemyAngle1 = new Vector3(0, 0, 0);
+        enemyAngle2 = new Vector3(0, 90, 0);
+        enemyAngle3 = new Vector3(0, 180, 0);
+        enemyAngle4 = new Vector3(0, 270, 0);
+
         //変数に応じて回転を代入する
         if (direction == 1)
         {
@@ -560,10 +567,12 @@ public class SpadeSoldierTurnLeft : BaseGimmick {
         }
         if (direction == 2)
         {
+            direction = 3;
             this.transform.localEulerAngles = enemyAngle3;
         }
         if (direction == 3)
         {
+            direction = 2;
             this.transform.localEulerAngles = enemyAngle2;
         }
         if (direction == 4)
