@@ -1791,6 +1791,11 @@ public class Stage : MonoBehaviour
             (posZ == alice.arrayPosZ))
         {
              flag = twins;
+
+            if(alice.invisibleFlag == true)
+            {
+                flag = true;
+            }
         }
             
         return flag;
