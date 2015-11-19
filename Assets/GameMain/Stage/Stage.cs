@@ -497,6 +497,7 @@ public class Stage : MonoBehaviour
             case GARDEN_BLOCK_GROUND:        // ガーデンステージの足場ブロック（1段目）
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
 
             case GARDEN_BLOCK_FLOWER:        // ガーデンテージの足場ブロック（2段目以降）
@@ -505,10 +506,12 @@ public class Stage : MonoBehaviour
                     case 0:
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockRoseRed, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
                     case 1:
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockRoseWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
                 }
                 break;
