@@ -111,7 +111,7 @@ public class StageSelect : MonoBehaviour
 		drawFlag = false;
 
 		// ファイルが存在する
-		if (File.Exists("Assets/StageSelect/SaveData.txt")) { print("FILE"); }
+		if (File.Exists("Assets/StageSelect/SaveClearData.txt")) { print("FILE"); }
 		ReadFile(); // ファイルの読み込み
 
 		CreateIcon();
@@ -396,9 +396,15 @@ public class StageSelect : MonoBehaviour
 				    if ((stage == STAGE.STAGE_5) && (chapter == Chapter.CHAPTER_6))
 				    {
 					    JumpScene();
-					    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
-                        Application.LoadLevel("AdventureMainScene");
+                        CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
+                       
 				    }
+                    else if ((stage == STAGE.STAGE_1) && (chapter == Chapter.CHAPTER_2 || chapter == Chapter.CHAPTER_3))
+                    {
+                        JumpScene();
+                        CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
+                        
+                    }
 				    else
 				    {
 					    JumpScene();
@@ -623,7 +629,7 @@ public class StageSelect : MonoBehaviour
 	void WriteFile()
 	{
 		FileStream fStream;
-		fStream = new FileStream("Assets/StageSelect/SaveData.txt", FileMode.Create, FileAccess.Write);
+		fStream = new FileStream("Assets/StageSelect/SaveClearData.txt", FileMode.Create, FileAccess.Write);
 		Encoding utf8Enc = Encoding.GetEncoding("UTF-8");
 		StreamWriter writer = new StreamWriter(fStream, utf8Enc);
 
@@ -638,7 +644,7 @@ public class StageSelect : MonoBehaviour
 	void ReadFile()
 	{
 		FileStream fStream;
-		fStream = new FileStream("Assets/StageSelect/SaveData.txt", FileMode.Open, FileAccess.Read);
+        fStream = new FileStream("Assets/StageSelect/SaveClearData.txt", FileMode.Open, FileAccess.Read);
 		StreamReader reader = new StreamReader(fStream);
 
 		if (reader != null)

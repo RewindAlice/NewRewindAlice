@@ -81,7 +81,7 @@ public class ChangeText : MonoBehaviour {
         timeCount = 0;
         lineCount = 0;
         //ステージの番号を取得
-        stageNumber = 1;//PlayerPrefs.GetInt("STAGE_NUM");
+        stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
         challengeFlag = PlayerPrefs.GetInt("CHALLENGE");
 
         if (challengeFlag == 0)

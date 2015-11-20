@@ -151,8 +151,9 @@ public class GameMain : MonoBehaviour
         }
         else
         {
-            stageNumber = 3;
+            stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
         }
+
         ChangeTextName();
         beforeStageNumber = stageNumber;
         //---------------------------------------
