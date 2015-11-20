@@ -43,6 +43,13 @@ public class Player : MonoBehaviour
         RIGHT,  // 右
     }
 
+    // ★アリスの動き★
+    public enum Motion
+    {
+        WALK_NEXT,      // 歩く（進む）
+        WALK_RETURN,    // 歩く（戻る）
+    }
+
     // ★移動方向★
     public enum MoveDirection
     {
@@ -154,6 +161,10 @@ public class Player : MonoBehaviour
     public bool gameOverFlag;
     //------------------------
 
+    // アニメーション用フラグ
+    public bool animationFlagWalkNext;      // 歩きアニメーション（進む）
+    public bool animationFlagWalkReturn;    // 歩きアニメーション（戻る）
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -189,6 +200,10 @@ public class Player : MonoBehaviour
 		//西尾竜太郎追加部分
 		//------------------------
 		renderer = GetComponentInChildren<Renderer>();
+
+        // アニメーション用フラグ
+        animationFlagWalkNext = false;
+        animationFlagWalkReturn = false;
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -451,9 +466,24 @@ public class Player : MonoBehaviour
                     countSmall = 0;     // 小さくなっているカウントを０に
                 }
 
+                // キー入力による移動の場合
+                if(inputKeyFlag)
+                {
+                    switch(moveDirection)
+                    {
+                        case MoveDirection.FRONT:
+                        case MoveDirection.BACK:
+                        case MoveDirection.LEFT:
+                        case MoveDirection.RIGHT:
+                            SetAnimation(Motion.WALK_RETURN, true);
+                            break;
+                    }
+                }
+
                 // ▽移動方向が
                 switch (moveDirection)
                 {
+
                     // ▼上なら//////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP: moveDirection = MoveDirection.DOWN; break;   // 移動方向を下に変更
                     // ▼下なら//////////////////////////////////////////////////////////////////////////////
@@ -700,6 +730,10 @@ public class Player : MonoBehaviour
 
         playerAction = PlayerAction.NONE;   // アリスの行動を無しに
         stopCount = 0;                      // 待機時のカウントを０に
+
+        // アニメーションのリセット
+        SetAnimation(Motion.WALK_NEXT, false);
+        SetAnimation(Motion.WALK_RETURN, false);
     }
 
     // ★移動情報の保存★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -916,7 +950,7 @@ public class Player : MonoBehaviour
 		renderer.enabled = false;    // 描画しない
 	}
 
-	// ★透明化ターンカウントの変動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	// ★透明化ターンカウントの変動★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void InvisibleTurnChange()
 	{
 		if (invisibleMemory)
@@ -957,4 +991,27 @@ public class Player : MonoBehaviour
 			renderer.enabled = true;    // 描画する
 	}
 
+    // ★アニメーションのセット★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void SetAnimation(Motion motion, bool flag)
+    {
+        switch(motion)
+        {
+            case Motion.WALK_NEXT: AnimationWalkNext(flag); break;
+            case Motion.WALK_RETURN: AnimationWalkReturn(flag); break;
+        }
+    }
+
+    // ★歩きアニメーション（進む）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationWalkNext(bool flag)
+    {
+        animationFlagWalkNext = flag;
+        GetComponent<Animator>().SetBool("WalkMotionFlag_Next", animationFlagWalkNext);
+    }
+
+    // ★歩きアニメーション（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationWalkReturn(bool flag)
+    {
+        animationFlagWalkReturn = flag;
+        GetComponent<Animator>().SetBool("WalkMotionFlag_Return", animationFlagWalkReturn);
+    }
 }
