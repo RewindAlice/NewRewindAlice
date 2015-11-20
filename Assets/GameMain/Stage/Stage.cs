@@ -1430,6 +1430,7 @@ public class Stage : MonoBehaviour
             {
                 // 落下するもの
                 case NONE_BLOCK:
+                case STAGE_GOAL:
 				case DOOR_RED_KEY: // 鍵（赤）
 				case DOOR_BLUE_KEY: // 鍵（青）
 				case DOOR_YELLOW_KEY: // 鍵（黄）
