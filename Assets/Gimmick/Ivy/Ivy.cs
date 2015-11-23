@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ivy : BaseGimmick
-{
+public class Ivy : BaseGimmick {
+
 
     // ★BaseGimmickで宣言した変数
     //protected bool gimmickFlag;                       // ギミックフラグ
@@ -14,7 +14,7 @@ public class Ivy : BaseGimmick
     public int growCount;           // 成長段階
     //public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
-
+    public bool getBrownFlag;           //ステージからフラグを回収させる
 
     public GameObject Ivychild_one;
     public GameObject Ivychild_two;
@@ -27,13 +27,14 @@ public class Ivy : BaseGimmick
     // 初期化
     void Start()
     {
+        getBrownFlag = false;
         pause = GameObject.Find("Pause");
         pauseScript = pause.GetComponent<Pause>();
         Ivy_one = Ivychild_one.GetComponent<MaterialChanger>();
         Ivy_two = Ivychild_two.GetComponent<MaterialChanger>();
-        
+
         gimmickFlag = false;        // ギミックが有効か判断するフラグに偽を保存
-        startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
+        //startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
         growCount = 0;              // 初期の成長段階
         besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
@@ -43,11 +44,11 @@ public class Ivy : BaseGimmick
     // 更新
     void Update()
     {
-         if(pauseScript.pauseFlag ==false)
+        if (pauseScript.pauseFlag == false)
         {
 
-        }   
-	
+        }
+
     }
 
     //アリスが動いたときに呼ばれる関数
@@ -67,6 +68,15 @@ public class Ivy : BaseGimmick
 
             besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
         }
+        if(startActionTurn + 1 <= aliceMoveCount)
+        {
+            getBrownFlag = true;
+
+        }
+        else
+        {
+            getBrownFlag = false;
+        }
     }
 
     //アリスが戻った時に呼ばれる関数
@@ -84,6 +94,16 @@ public class Ivy : BaseGimmick
             Ivy_one.changeMaterialBrown();
             Ivy_two.changeMaterialBrown();
             besideDicisionMovePossibleFlag = false;    // 移動可能フラグを偽　に
+        }
+
+        if (startActionTurn + 1 >= aliceMoveCount)
+        {
+            getBrownFlag = false;
+
+        }
+        else
+        {
+            getBrownFlag = true;
         }
 
         moveCount--;

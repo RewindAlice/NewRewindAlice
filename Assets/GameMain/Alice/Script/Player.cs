@@ -743,6 +743,14 @@ public class Player : MonoBehaviour
         // 保存数が０なら初期の向きに直す
         if (saveCount == 0) { transform.localEulerAngles = new Vector3(0, 0, 0); }
 
+
+        if (playerAction == PlayerAction.NEXT)
+        {
+            //上るフラグのリセット
+            climb1Flag = false;
+            climb2Flag = false;
+        }
+
         playerAction = PlayerAction.NONE;   // アリスの行動を無しに
         stopCount = 0;                      // 待機時のカウントを０に
 

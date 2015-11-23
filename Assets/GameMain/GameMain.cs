@@ -63,12 +63,15 @@ public class GameMain : MonoBehaviour
     {
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
+        Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f);
 
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
+        //音楽フェード
+        Singleton<SoundPlayer>.instance.update();
         //-----------------------------------------------------
         //松村脩平変更点
         //デバッグ機能(ステージ番号を変更後、ステージ変更される)

@@ -373,6 +373,7 @@ public class Stage : MonoBehaviour
                         gimmickNumArray[y, x, z] = gimmickPattern;       
                         break;
                 }
+                gimmickObjectArray[y, x, z].GetComponent<Ivy>().SetStartActionTurn(gimmickStartTurn);
                 break;
             case TREE: // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickTree, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
@@ -708,6 +709,7 @@ public class Stage : MonoBehaviour
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
                 }
+                //gimmickObjectArray[y, x, z].GetComponent<Ladder>().SetStartActionTurn(gimmickStartTurn);
                 break;
         }
     }
@@ -948,12 +950,10 @@ public class Stage : MonoBehaviour
             case NONE_BLOCK:      // 何も無い
             case START_POINT:     // スタート地点
             case STAGE_GOOL:      // ゴール地点
-            case IVY_BLOCK: // 蔦ブロック
             case IVY_FRONT: // 蔦（前）
             case IVY_BACK:  // 蔦（後）
             case IVY_LEFT:  // 蔦（左）
             case IVY_RIGHT: // 蔦（右）
-            case LADDER_BLOCK://梯子
             case LADDER_FRONT: // 蔦（前）
             case LADDER_BACK:  // 蔦（後）
             case LADDER_LEFT:  // 蔦（左）
@@ -975,6 +975,26 @@ public class Stage : MonoBehaviour
             case CHESHIRE_CAT: // チェシャ
                 flag = true;
                 
+                break;
+
+            case IVY_BLOCK: // 蔦ブロック
+            case LADDER_BLOCK://梯子
+                switch (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ])
+                {
+                    case IVY_FRONT: // 蔦（前
+                    case IVY_BACK:  // 蔦（後）
+                    case IVY_LEFT:  // 蔦（左）
+                    case IVY_RIGHT: // 蔦（右）
+                        if (gimmickObjectArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().getBrownFlag)
+                        {
+                            flag = false;
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                        break;
+                }
                 break;
             case ROCK:
                 break;
