@@ -147,6 +147,10 @@ MonoBehaviour:
   invisibleMemory: 0
   invisibleTurn: 0
   gameOverFlag: 0
+  animationFlagWalkNext: 0
+  animationFlagWalkReturn: 0
+  animationFlagDropNext: 0
+  animationFlagDropReturn: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,9 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3add6ddc3ab97f4ca11b602cad5bcad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alice_On: {fileID: 0}
-  aliceSmile_On: {fileID: 0}
-  aliceAmazing_On: {fileID: 0}
+  alice_On: {fileID: 21300000, guid: c29ae9c9f0683dd4ca07923e82e9f59f, type: 3}
+  aliceSmile_On: {fileID: 21300000, guid: 3ee99e3a366ae0048940f835f91e3ed7, type: 3}
+  aliceAmazing_On: {fileID: 21300000, guid: 7d63b83218b38eb4fbd184c0053c6272, type: 3}
   image: {fileID: 0}
 --- !u!114 &134013362
 MonoBehaviour:
@@ -989,7 +993,7 @@ MonoBehaviour:
   gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
   gimmickBlock: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickIVY: {fileID: 141426, guid: c9f72f25b0e4cfe46ada6f22defffc69, type: 2}
+  gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
   gimmickRedFlower: {fileID: 171760, guid: 14a57de58f3dc124c80b31997c91e008, type: 2}
   gimmickBuleFlower: {fileID: 111296, guid: 3007904ab7a94804e8a492b574371fc4, type: 2}

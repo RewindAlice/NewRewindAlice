@@ -50,6 +50,9 @@ public class TextController : MonoBehaviour
     public int stageNum;
 
 
+    public bool storyEndFlag;
+
+
     //BGMフェード調整
     const float BGMFadeTime = 60.0f;
     private float BGMTimer;
@@ -76,6 +79,7 @@ public class TextController : MonoBehaviour
 
     void Start()
     {
+        storyEndFlag = false;
         stageNum = PlayerPrefs.GetInt ("STORY_NUM");
         crickNum = 0;
         funcFlag = false;
@@ -230,12 +234,16 @@ public class TextController : MonoBehaviour
 					(Input.GetKeyDown(KeyCode.Space)))
                 {
                     seManager.SEStop();
-                    SetNextLine();
-                    crickNum++;
-                    flagManager.clickCounter++;
-                    leftCharacterImage.CharacterChange();
-                    rightCharacterImage.CharacterChange();
-                    seManager.SEChanger(stageNum, crickNum);
+                    if (storyEndFlag ==false)
+                    {
+                        SetNextLine();
+                        crickNum++;
+                        flagManager.clickCounter++;
+                        leftCharacterImage.CharacterChange();
+                        rightCharacterImage.CharacterChange();
+                        seManager.SEChanger(stageNum, crickNum);
+                    }
+                   
                 }
             }
             else
@@ -259,6 +267,7 @@ public class TextController : MonoBehaviour
 
             if (stageNum == 11 && crickNum == 19)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -268,7 +277,8 @@ public class TextController : MonoBehaviour
                 }
             }
             else if (stageNum == 12 && crickNum == 8)
-            { 
+            {
+                storyEndFlag = true;
                 BGMDeleter = true;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 if (BGMTimer > BGMFadeTime)
@@ -280,6 +290,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 21 && crickNum == 18)
             {
+                storyEndFlag = true;
                 EndBgmfunc(); 
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -290,6 +301,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 22 && crickNum == 6)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -300,6 +312,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 31 && crickNum == 13)
             {
+                storyEndFlag = true;
                 EndBgmfunc(); 
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -311,6 +324,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 32 && crickNum == 16)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -321,6 +335,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 41 && crickNum == 6)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -331,6 +346,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 42 && crickNum == 18)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -341,6 +357,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 51 && crickNum == 8)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -350,7 +367,8 @@ public class TextController : MonoBehaviour
                 }
             }
             else if (stageNum == 52 && crickNum == 23)
-            {                
+            {
+                storyEndFlag = true;    
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {
@@ -361,6 +379,7 @@ public class TextController : MonoBehaviour
             }
             else if (stageNum == 53 && crickNum == 34)
             {
+                storyEndFlag = true;
                 EndBgmfunc();
                 if (BGMTimer > BGMFadeTime)
                 {

@@ -198,9 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3add6ddc3ab97f4ca11b602cad5bcad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alice_On: {fileID: 0}
-  aliceSmile_On: {fileID: 0}
-  aliceAmazing_On: {fileID: 0}
+  alice_On: {fileID: 21300000, guid: c29ae9c9f0683dd4ca07923e82e9f59f, type: 3}
+  aliceSmile_On: {fileID: 21300000, guid: 3ee99e3a366ae0048940f835f91e3ed7, type: 3}
+  aliceAmazing_On: {fileID: 21300000, guid: 7d63b83218b38eb4fbd184c0053c6272, type: 3}
   image: {fileID: 0}
 --- !u!114 &134013362
 MonoBehaviour:

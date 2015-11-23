@@ -12,7 +12,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/AdventureMainScene.unity
   - enabled: 1
-    path: Assets/Scene/TutorialScene.unity
+    path: Assets/Scene/TutorialMainScene.unity
   - enabled: 1
     path: Assets/Scene/GameMainScene.unity
   - enabled: 1

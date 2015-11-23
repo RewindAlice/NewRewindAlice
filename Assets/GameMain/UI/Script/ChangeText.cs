@@ -119,7 +119,7 @@ public class ChangeText : MonoBehaviour {
             }
             else if (stageNumber == 6)
             {
-                limitTalk = 2;
+                limitTalk = 1;
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage2-1talk";
             }

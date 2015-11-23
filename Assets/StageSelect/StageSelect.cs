@@ -684,6 +684,8 @@ public class StageSelect : MonoBehaviour
 			clearFlag[num - 1] = true;
 			WriteFile();
 		}
+
+        PlayerPrefs.SetInt("STAMP_NUM", 0);
 	}
 
 	void SetIconPosition()
