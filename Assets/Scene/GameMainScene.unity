@@ -147,6 +147,10 @@ MonoBehaviour:
   invisibleMemory: 0
   invisibleTurn: 0
   gameOverFlag: 0
+  animationFlagWalkNext: 0
+  animationFlagWalkReturn: 0
+  animationFlagDropNext: 0
+  animationFlagDropReturn: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0

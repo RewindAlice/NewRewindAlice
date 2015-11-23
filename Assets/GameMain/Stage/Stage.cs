@@ -1217,6 +1217,7 @@ public class Stage : MonoBehaviour
 				case DOOR_GREEN_KEY: // 鍵（緑）
 				case CHESHIRE_CAT: // チェシャ
                     alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+                    alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                     print("落下");
                     break;
 
