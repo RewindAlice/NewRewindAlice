@@ -44,7 +44,7 @@ LevelGameManager:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -68,7 +68,8 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightmapSnapshot: {fileID: 112000000, guid: 01a46cda98d57eb479a7de974cc2ae64,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -911,7 +912,7 @@ MonoBehaviour:
   gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
   gimmickBlock: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickIVY: {fileID: 141426, guid: c9f72f25b0e4cfe46ada6f22defffc69, type: 2}
+  gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
   gimmickRedFlower: {fileID: 171760, guid: 14a57de58f3dc124c80b31997c91e008, type: 2}
   gimmickBuleFlower: {fileID: 111296, guid: 3007904ab7a94804e8a492b574371fc4, type: 2}
