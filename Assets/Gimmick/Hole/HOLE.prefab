@@ -1,15 +1,15 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &165504
+--- !u!1 &104986
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 413200}
-  - 198: {fileID: 19864292}
-  - 199: {fileID: 19925782}
+  - 4: {fileID: 478608}
+  - 198: {fileID: 19824198}
+  - 199: {fileID: 19943150}
   m_Layer: 0
   m_Name: Dust_Effect
   m_TagString: Untagged
@@ -17,32 +17,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &166266
+--- !u!1 &158650
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 426406}
-  - 33: {fileID: 3391520}
-  - 23: {fileID: 2354046}
-  - 95: {fileID: 9521412}
-  m_Layer: 0
-  m_Name: HOLE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &185426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 405882}
+  - 4: {fileID: 460550}
   m_Layer: 0
   m_Name: DustEffect 1
   m_TagString: Untagged
@@ -50,50 +32,68 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &405882
+--- !u!1 &171968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 438524}
+  - 33: {fileID: 3330858}
+  - 23: {fileID: 2318578}
+  - 95: {fileID: 9504008}
+  m_Layer: 0
+  m_Name: HOLE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &438524
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185426}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 413200}
-  m_Father: {fileID: 426406}
-  m_RootOrder: 0
---- !u!4 &413200
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165504}
-  m_LocalRotation: {x: .70710659, y: 0, z: 0, w: -.707106948}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 405882}
-  m_RootOrder: 0
---- !u!4 &426406
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 166266}
+  m_GameObject: {fileID: 171968}
   m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 1.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 405882}
+  - {fileID: 460550}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2354046
+--- !u!4 &460550
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158650}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 478608}
+  m_Father: {fileID: 438524}
+  m_RootOrder: 0
+--- !u!4 &478608
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104986}
+  m_LocalRotation: {x: .70710659, y: 0, z: 0, w: -.707106948}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 460550}
+  m_RootOrder: 0
+--- !u!23 &2318578
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 166266}
+  m_GameObject: {fileID: 171968}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -112,20 +112,20 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3391520
+--- !u!33 &3330858
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 166266}
+  m_GameObject: {fileID: 171968}
   m_Mesh: {fileID: 4300000, guid: 3c2c8a8189ec12c4db49b3c40aa90b79, type: 3}
---- !u!95 &9521412
+--- !u!95 &9504008
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 166266}
+  m_GameObject: {fileID: 171968}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 3c2c8a8189ec12c4db49b3c40aa90b79, type: 3}
   m_Controller: {fileID: 0}
@@ -136,12 +136,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!198 &19864292
+--- !u!198 &19824198
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165504}
+  m_GameObject: {fileID: 104986}
   lengthInSec: 1
   startDelay: 0
   speed: 1
@@ -1169,17 +1169,17 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!199 &19925782
+--- !u!199 &19943150
 ParticleSystemRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165504}
+  m_GameObject: {fileID: 104986}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a6ac547fed590db4c8666831cd3a1246, type: 2}
+  - {fileID: 2100000, guid: 7a50f5bf274db5a4eb4dca527d78460f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1214,5 +1214,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 166266}
+  m_RootGameObject: {fileID: 171968}
   m_IsPrefabParent: 1

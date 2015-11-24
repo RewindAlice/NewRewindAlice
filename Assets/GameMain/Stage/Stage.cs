@@ -670,9 +670,52 @@ public class Stage : MonoBehaviour
 
             //梯子ブロック
             case LADDER_BLOCK:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
+                switch (x)
+                {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 9:
+                        if (z % 2 == 0)
+                        {
+                            // 家ステージの足場ブロック（黒）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        else
+                        {
+                            // 家ステージの足場ブロック（白）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        break;
+                    case 2:
+                    case 4:
+                    case 6:
+                    case 8:
+                    case 10:
+                        if (z % 2 == 1)
+                        {
+                            // 家ステージの足場ブロック（黒）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        else
+                        {
+                            // 家ステージの足場ブロック（白）
+                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                            gimmickNumArray[y, x, z] = gimmickPattern;
+                        }
+                        break;
+                }
+                //gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                //gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                //gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
             //梯子
             case LADDER_FRONT:
