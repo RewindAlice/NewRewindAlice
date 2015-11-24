@@ -761,7 +761,7 @@ public class Player : MonoBehaviour
             climb1Flag = false;
         }
 
-        GameObject so = GameObject.Find("Stage");
+        //GameObject so = GameObject.Find("Stage");
         
         playerAction = PlayerAction.NONE;   // アリスの行動を無しに
         stopCount = 0;                      // 待機時のカウントを０に

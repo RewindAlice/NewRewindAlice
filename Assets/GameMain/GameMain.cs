@@ -263,6 +263,7 @@ public class GameMain : MonoBehaviour
                 {
                     if (turnCountGimmick == 0 && !alice.autoMoveFlag)
                     {
+                        
                         stage.ChangeArrayGimmickReturn();     // 一部ギミックの配列上の位置を変更
                         aliceActionNotifer.NotiferReturn(alice.turnCount);
                     }
@@ -273,6 +274,7 @@ public class GameMain : MonoBehaviour
                     if (turnCountGimmick == 60)
                     {
                         turn = Turn.PLAYER; // ターンをプレイヤーに
+                       
                     }
                 }
                 // ターンがプレイヤーなら
@@ -314,6 +316,8 @@ public class GameMain : MonoBehaviour
                                     GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
                                 }
                             }
+                            stage.GimmickDecision(alice);   // ギミックとの判定
+                            stage.IvytDecision(alice);
                             print("ターン終了");// デバッグ用コメント
                         }
                     }

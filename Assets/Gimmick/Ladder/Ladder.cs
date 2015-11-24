@@ -8,12 +8,14 @@ public class Ladder : BaseGimmick
     public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
 
+    public bool breakFlag;
  
     private GameObject pause;
     private Pause pauseScript;
     // 初期化
     void Start()
     {
+        breakFlag = false;
         pause = GameObject.Find("Pause");
         pauseScript = pause.GetComponent<Pause>();
 
@@ -51,6 +53,16 @@ public class Ladder : BaseGimmick
             //GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             movePossibleFlag = true;    // 移動可能フラグを真に
         }
+
+        if (startActionTurn + 1 <= aliceMoveCount)
+        {
+            breakFlag = true;
+
+        }
+        else
+        {
+            breakFlag = false;
+        }
     }
 
     //アリスが戻った時に呼ばれる関数
@@ -69,6 +81,16 @@ public class Ladder : BaseGimmick
             //GetComponent<Renderer>().material.color = new Color(1.0f, 0.7f, 0.3f, 1.0f);
            
             movePossibleFlag = false;    // 移動可能フラグを真に
+        }
+
+        if (startActionTurn + 1 <= aliceMoveCount)
+        {
+            breakFlag = true;
+
+        }
+        else
+        {
+            breakFlag = false;
         }
 
         moveCount--;

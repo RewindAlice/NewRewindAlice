@@ -1037,6 +1037,20 @@ public class Stage : MonoBehaviour
                             flag = true;
                         }
                         break;
+
+                    case LADDER_FRONT: // 蔦（前
+                    case LADDER_BACK:  // 蔦（後）
+                    case LADDER_LEFT:  // 蔦（左）
+                    case LADDER_RIGHT: // 蔦（右）
+                        if (gimmickObjectArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ladder>().breakFlag)
+                        {
+                            flag = false;
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                        break;
                 }
                 break;
             case ROCK:
@@ -1200,7 +1214,8 @@ public class Stage : MonoBehaviour
                 Climb1(Player.PlayerAngle.LEFT);
                 break;
             case IVY_RIGHT: // 蔦（右）
-            case LADDER_RIGHT://               Climb1(Player.PlayerAngle.RIGHT);
+            case LADDER_RIGHT://               
+            Climb1(Player.PlayerAngle.RIGHT);
                 break;
             case TREE:  // ▼木//////////////////////////////////////////////////////////////
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
@@ -1264,7 +1279,7 @@ public class Stage : MonoBehaviour
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
-        alice.climb2Flag = false;
+        //alice.climb2Flag = false;
 
         // アリスが地面についていないなら
         if(posY >= 1)
@@ -1392,6 +1407,35 @@ public class Stage : MonoBehaviour
         }
     }
 
+    public void IvytDecision(Player alice)
+    {
+        int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
+        int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
+        int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
+
+        alice.climb2Flag = false;
+
+        // アリスが地面についていないなら
+        if (posY >= 1)
+        {
+            switch (gimmickNumArray[posY - 1, posX, posZ])
+            {
+
+                case IVY_FRONT: // 蔦（前）
+                    Climb2(Player.PlayerAngle.FRONT);
+                    break;
+                case IVY_BACK:  // 蔦（後）
+                    Climb2(Player.PlayerAngle.BACK);
+                    break;
+                case IVY_LEFT:  // 蔦（左）
+                    Climb2(Player.PlayerAngle.LEFT);
+                    break;
+                case IVY_RIGHT: // 蔦（右）
+                    Climb2(Player.PlayerAngle.RIGHT);
+                    break;
+            }
+        }
+    }
 
     public void FlowerDecision(Player alice)
     {
