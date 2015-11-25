@@ -727,6 +727,7 @@ public class GameMain : MonoBehaviour
 
                     alice.moveDirection = Player.MoveDirection.STOP;
                     alice.inputKeyFlag = true;
+                    alice.SetAnimation(Player.Motion.STOP_NEXT, true);
                     print("待機");// デバッグ用コメント
                 }
 
@@ -737,7 +738,7 @@ public class GameMain : MonoBehaviour
                     (tutorialTurn == 5 || tutorialTurn == 7))
                 {
                     //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
-                    if (alice.saveMoveDirection[alice.saveCount] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
+                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
                     {
                         stage.FootDecision(alice,Player.PlayerAction.NEXT);
                     }

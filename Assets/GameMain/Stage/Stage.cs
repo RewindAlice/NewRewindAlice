@@ -1205,6 +1205,7 @@ public class Stage : MonoBehaviour
             case POTION_BIG:        // ▼薬（大きくなる）
             case POTION_SMALL:      // ▼薬（小さくなる）
 			case ROCK:						// ▼岩
+            case WATER:
                 flag = true;
                 break;
 
@@ -1344,6 +1345,7 @@ public class Stage : MonoBehaviour
 				case DOOR_YELLOW_KEY: // 鍵（黄）
 				case DOOR_GREEN_KEY: // 鍵（緑）
 				case CHESHIRE_CAT: // チェシャ
+                case WATER:
                     if (action == Player.PlayerAction.NEXT)
                     {
                         alice.AutoMoveSetting(Player.MoveDirection.DOWN);
@@ -1800,7 +1802,7 @@ public class Stage : MonoBehaviour
         switch (gimmickNumArray[posY - 1, posX, posZ])
         {
 
-            //進行方向下にあるとき通れないオブジェクト
+            //進行方向下にあるとき通れるオブジェクト
             case FOREST_BLOCK_GROUND:
             case FOREST_BLOCK_GRASS:
             case FOREST_BLOCK_ALLGRASS:
@@ -1817,8 +1819,6 @@ public class Stage : MonoBehaviour
             case GARDEN_BLOCK_GROUND:
             case GARDEN_BLOCK_FLOWER:
 
-            case WATER:             // 水
-
             case START_POINT:             // スタート地点
             case STAGE_GOOL:              // ゴール地点
             case IVY_BLOCK:
@@ -1834,6 +1834,11 @@ public class Stage : MonoBehaviour
 			case ROCK:
 
                 flag = true;
+                break;
+
+            //進行方向下にあるとき通れないオブジェクト
+            case WATER:             // 水
+                flag = false;
                 break;
             // 木
             case TREE:

@@ -50,6 +50,8 @@ public class Player : MonoBehaviour
         WALK_RETURN,    // 歩く（戻る）
         DROP_NEXT,      // 落下（進む）
         DROP_RETURN,    // 落下（戻る）
+        STOP_NEXT,      // 待機（進む）
+        STOP_RETURN,    // 待機（戻る）
     }
 
     // ★移動方向★
@@ -168,6 +170,8 @@ public class Player : MonoBehaviour
     public bool animationFlagWalkReturn;    // 歩きアニメーション（戻る）
     public bool animationFlagDropNext;      // 落下アニメーション（進む）
     public bool animationFlagDropReturn;    // 落下アニメーション（戻る）
+    public bool animationFlagStopNext;      // 待機アニメーション（進む）
+    public bool animationFlagStopReturn;    // 待機アニメーション（戻る）
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -210,6 +214,8 @@ public class Player : MonoBehaviour
         animationFlagWalkReturn = false;
         animationFlagDropNext = false;
         animationFlagDropReturn = false;
+        animationFlagStopNext = false;
+        animationFlagStopReturn = false;
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -482,6 +488,9 @@ public class Player : MonoBehaviour
                         case MoveDirection.LEFT:
                         case MoveDirection.RIGHT:
                             SetAnimation(Motion.WALK_RETURN, true);
+                            break;
+                        case MoveDirection.STOP:
+                            SetAnimation(Motion.STOP_RETURN, true);
                             break;
                     }
                 }
@@ -771,6 +780,8 @@ public class Player : MonoBehaviour
         SetAnimation(Motion.WALK_RETURN, false);
         SetAnimation(Motion.DROP_NEXT, false);
         SetAnimation(Motion.DROP_RETURN, false);
+        SetAnimation(Motion.STOP_NEXT, false);
+        SetAnimation(Motion.STOP_RETURN, false);
     }
 
     // ★移動情報の保存★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -1037,6 +1048,8 @@ public class Player : MonoBehaviour
             case Motion.WALK_RETURN: AnimationWalkReturn(flag); break;
             case Motion.DROP_NEXT: AnimationDropNext(flag); break;
             case Motion.DROP_RETURN: AnimationDropReturn(flag); break;
+            case Motion.STOP_NEXT: AnimationStopNext(flag); break;
+            case Motion.STOP_RETURN: AnimationStopReturn(flag); break;
         }
     }
 
@@ -1066,6 +1079,20 @@ public class Player : MonoBehaviour
     {
         animationFlagDropReturn = flag;
         GetComponent<Animator>().SetBool("DropMotionFlag_Return", animationFlagDropReturn);
+    }
+
+    // ★待機アニメーション（進む）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationStopNext(bool flag)
+    {
+        animationFlagStopNext = flag;
+        GetComponent<Animator>().SetBool("StopMotionFlag_Next", animationFlagStopNext);
+    }
+
+    // ★待機アニメーション（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationStopReturn(bool flag)
+    {
+        animationFlagStopReturn = flag;
+        GetComponent<Animator>().SetBool("StopMotionFlag_Return", animationFlagStopReturn);
     }
 	// ★アリスが巨大化中であるか取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public bool GetBig()
