@@ -34,8 +34,6 @@ public class Stage : MonoBehaviour
     const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
     const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
 
-
-
     //// 蔦ギミック（仮）
     const int IVY_BLOCK = 21;
     const int IVY_FRONT = 22;
@@ -139,7 +137,11 @@ public class Stage : MonoBehaviour
 	public GameObject gimmickKey_Green; // 緑鍵
 
 	public GameObject cheshire; // チェシャ
+	public GameObject rock; // 岩
 
+	public GameObject gameMain; // ゲームメイン
+
+	//--------------------------------------------
     
     public int field;
     GameObject fieldObject;                                                     // ステージ天球のオブジェクト
@@ -666,7 +668,14 @@ public class Stage : MonoBehaviour
 				gimmickObjectArray[y, x, z].GetComponent<Cheshire>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
 				break;
 
-
+			case ROCK:  // ▼岩////////////////////////////////////////////////////////////////////////////////////////////ll//////////////////////////////////////////////////////
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(rock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                           // ギミックを指定された向きに変更
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
+				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);                                              // ギミックの初期化
+				break;
 
             //梯子ブロック
             case LADDER_BLOCK:
@@ -1053,9 +1062,7 @@ public class Stage : MonoBehaviour
                         break;
                 }
                 break;
-            case ROCK:
-                break;
-
+         
             // 特定の条件の時は移動可能
             case TREE:  // ▼木////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
@@ -1080,6 +1087,44 @@ public class Stage : MonoBehaviour
 			case DOOR_GREEN: // 扉（緑）
 				if (alice.getKeyColor_Green) { flag = true; }
 				else { flag = false; }
+				break;
+
+			case ROCK:
+				// アリスが大きければ
+//				if(alice.GetBig())
+				{
+					int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
+					int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
+
+					int pushDirectionX = alice.arrayPosX - posX; // 押した方向x
+					int pushDirectionZ = alice.arrayPosZ - posZ; //  押した方向z
+					//Debug.Log(pushDirectionX);
+					Debug.Log(pushDirectionZ);
+					//Debug.Log(alice.GetMoveDirection());
+
+					// 押した先にギミックが無ければ移動可能
+					if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+					{
+						flag = true;
+						Debug.Log("oseruyo-");
+						//// 
+						if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
+						((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
+						((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
+						((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
+						{
+							gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
+
+							GameObject objectTemp;
+							objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+							gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
+							gimmickObjectArray[posY, posX, posZ] = objectTemp;
+
+							gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+							gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+						}
+					}
+				}
 				break;
 
             default:
@@ -1159,6 +1204,7 @@ public class Stage : MonoBehaviour
             case MUSHROOM_SMALL:    // ▼キノコ（小さくなる）
             case POTION_BIG:        // ▼薬（大きくなる）
             case POTION_SMALL:      // ▼薬（小さくなる）
+			case ROCK:						// ▼岩
                 flag = true;
                 break;
 
@@ -1599,6 +1645,25 @@ public class Stage : MonoBehaviour
                                 gimmickNumArray[y + 1, x, z] = DUMMY_TREE;
                             }
                             break;
+
+						// ▼岩なら
+						case ROCK:
+							if (y > 0)
+							{
+								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+								{
+									gimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+									GameObject objectTemp;
+									objectTemp = gimmickObjectArray[y - 1, x, z];
+									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
+									gimmickObjectArray[y, x, z] = objectTemp;
+
+									gimmickNumArray[y - 1, x, z] = ROCK;
+									gimmickNumArray[y, x, z] = NONE_BLOCK;
+
+								}
+							}
+							break;
                     }
                 }
             }
@@ -1625,6 +1690,24 @@ public class Stage : MonoBehaviour
                                 gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
                             }
                             break;
+
+						// ▼岩なら
+						case ROCK:
+							if (y > 0)
+							{
+								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+								{
+									gimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+									GameObject objectTemp;
+									objectTemp = gimmickObjectArray[y - 1, x, z];
+									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
+									gimmickObjectArray[y, x, z] = objectTemp;
+
+									gimmickNumArray[y - 1, x, z] = ROCK;
+									gimmickNumArray[y, x, z] = NONE_BLOCK;
+								}
+							}
+							break;
                     }
                 }
             }
@@ -1748,7 +1831,7 @@ public class Stage : MonoBehaviour
             case LADDER_BACK:
             case LADDER_LEFT:
             case LADDER_RIGHT:
-
+			case ROCK:
 
                 flag = true;
                 break;
@@ -1797,5 +1880,40 @@ public class Stage : MonoBehaviour
         return false;
     }
 
+	// ★岩とギミックの判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public bool RockGimmickDecision(int posX, int posY, int posZ, int pushDirectionX, int pushDirectionZ)
+	{
+		// 移動先がステージを超えておらず、何もなければ押して通れる
+		if ((((pushDirectionX == 1) && (posX > 1)) ||
+			 ((pushDirectionX == -1) && (posX < STAGE_X - 2)) ||
+			 ((pushDirectionZ == 1) && (posZ > 1)) ||
+			 ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2))) &&
+			(gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] == NONE_BLOCK))
+			return true;
+
+		return false;
+	}
+
+	// ★岩の巻き戻し処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void RockReturn(int posX, int posY, int posZ, int moveDirectionX, int moveDirectionY, int moveDirectionZ)
+	{
+		Debug.Log("MODOTTAYO");
+		Debug.Log(posX);
+		Debug.Log(posY);
+		Debug.Log(posZ);
+		GameObject objectTemp;
+		objectTemp = gimmickObjectArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ];
+		gimmickObjectArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = gimmickObjectArray[posY, posX, posZ];
+		gimmickObjectArray[posY, posX, posZ] = objectTemp;
+
+		gimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = NONE_BLOCK;
+		gimmickNumArray[posY, posX, posZ] = ROCK;
+	}
+
+	// ★アリスが自動移動しているか確認★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public bool CheckAutoMove()
+	{
+		return alice.GetAutoMove();
+	}
     //----------------------------------------------------------------------------
 }

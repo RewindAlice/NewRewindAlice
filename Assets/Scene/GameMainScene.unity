@@ -940,6 +940,8 @@ MonoBehaviour:
   gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
   gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   cheshire: {fileID: 153752, guid: 24f396f694c557c48938b343fa43ff7d, type: 2}
+  rock: {fileID: 147168, guid: eda8e8867ce2fa045a0885d7467248cc, type: 2}
+  gameMain: {fileID: 0}
   field: 0
   fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
   fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}

@@ -1067,4 +1067,50 @@ public class Player : MonoBehaviour
         animationFlagDropReturn = flag;
         GetComponent<Animator>().SetBool("DropMotionFlag_Return", animationFlagDropReturn);
     }
+	// ★アリスが巨大化中であるか取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public bool GetBig()
+	{
+		if (playerMode == PlayerMode.BIG)
+			return true;
+
+		return false;
+	}
+
+	// ★アリスの移動方向を取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public int GetMoveDirection()
+	{
+		int direction = 0;
+
+		if (playerAction == PlayerAction.NEXT)
+		{
+			switch (playerAngle)
+			{
+				case PlayerAngle.FRONT:
+					direction = 1;
+					break;
+				case PlayerAngle.BACK:
+					direction = 2;
+					break;
+				case PlayerAngle.LEFT:
+					direction = 3;
+					break;
+				case PlayerAngle.RIGHT:
+					direction = 4;
+					break;
+			}
+		}
+		if (moveDirection == MoveDirection.STOP)
+			direction = 0;
+
+		if (playerAction == PlayerAction.RETURN)
+			direction = 5;
+
+		return direction;
+	}
+
+	// ★自動移動フラグを返す★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public bool GetAutoMove()
+	{
+		return autoMoveFlag;
+	}
 }
