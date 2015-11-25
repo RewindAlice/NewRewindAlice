@@ -987,7 +987,7 @@ public class Stage : MonoBehaviour
             }
 
             // 横と横下が真の時のみ真を返す
-            if (moveDirectionflag && moveDirectionDownflag)
+            if (moveDirectionflag && moveDirectionDownflag && alice.gameOverFlag == false)
             {
                 return true;
             }

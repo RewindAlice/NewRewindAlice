@@ -27,7 +27,7 @@ public class BadImageChanger : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //endFlag = player.gameOverFlag;  調整必要
+        endFlag = player.gameOverFlag;  //調整必要
         
         if(endFlag == true)
         {

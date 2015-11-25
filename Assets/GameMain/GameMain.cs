@@ -215,21 +215,25 @@ public class GameMain : MonoBehaviour
                 // ターンがプレイヤーなら
                 if (turn == Turn.PLAYER)
                 {
-                    // プレイヤーの移動
-                    if(alice.moveFlag == false && alice.moveFinishFlag == false){ InputPlayerMove(); }
-
-                    // プレイヤーの移動が完了したら
-                    if (alice.moveFinishFlag == true)
+                    if (alice.gameOverFlag == false)
                     {
-                        stage.ChangeArrayGimmickNext();
-                        stage.GimmickDecision(alice,Player.PlayerAction.NEXT);   // ギミックとの判定
-                        stage.FootDecision(alice, Player.PlayerAction.NEXT);      // 足元との判定
-                        alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
-                        if(!alice.autoMoveFlag)
+                        // プレイヤーの移動
+                        if (alice.moveFlag == false && alice.moveFinishFlag == false) { InputPlayerMove(); }
+
+                        // プレイヤーの移動が完了したら
+                        if (alice.moveFinishFlag == true)
                         {
-                            turn = Turn.GIMMICK;                                // ターンをギミックに
-                            aliceActionNotifer.NotiferNext(alice.turnCount);    // ギミックを次の段階へ
+                            stage.ChangeArrayGimmickNext();
+                            stage.GimmickDecision(alice, Player.PlayerAction.NEXT);   // ギミックとの判定
+                            stage.FootDecision(alice, Player.PlayerAction.NEXT);      // 足元との判定
+                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+
+                            if (!alice.autoMoveFlag)
+                            {
+                                turn = Turn.GIMMICK;                                // ターンをギミックに
+                                aliceActionNotifer.NotiferNext(alice.turnCount);    // ギミックを次の段階へ
+                            }
                         }
                     }
                 }
@@ -717,7 +721,7 @@ public class GameMain : MonoBehaviour
 
                 // ▼待機処理
                 // Ｘキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) ||
+                if ((Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) ||
                     (Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 0))
                 {

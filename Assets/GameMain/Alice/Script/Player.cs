@@ -352,8 +352,11 @@ public class Player : MonoBehaviour
                 break;
             // ▼進めるなら//////////////////////////////////////////////
             case PlayerAction.NEXT:
-                MoveNextPosition();                 // アリスを進める処理
-                MoveFinishDecision(playerAction);   // 移動完了判定
+                if (gameOverFlag == false)
+                {
+                    MoveNextPosition();                 // アリスを進める処理
+                    MoveFinishDecision(playerAction);   // 移動完了判定
+                }
                 break;
             // ▼戻るなら//////////////////////////////////////////////
             case PlayerAction.RETURN:
@@ -758,6 +761,10 @@ public class Player : MonoBehaviour
             //上るフラグのリセット
             climb1Flag = false;
             climb2Flag = false;
+        }
+        if (playerAction == PlayerAction.RETURN && gameOverFlag)
+        {
+            gameOverFlag = false;
         }
 
         if((playerAction == PlayerAction.RETURN)&&( climb2Flag == true))
