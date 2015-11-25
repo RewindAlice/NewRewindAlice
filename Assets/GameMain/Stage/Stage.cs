@@ -23,7 +23,7 @@ public class Stage : MonoBehaviour
     const int FOREST_BLOCK_ALLGRASS = 6;       // 森ステージの足場ブロック（3段目以降）
 
     const int ROOM_BLOCK_FLOOR = 7;            // 家ステージの足場ブロック（1段目）
-    const int ROOM_BLOCK_BOOKSHELF = 8;        // 家ステージの足場ブロック（2段目）
+	const int ROOM_BLOCK_BOOKSHELF = 8;        // 家ステージの岩
 
     const int REDFOREST_BLOCK_GROUND = 9;      // 森ステージの足場ブロック（1段目）
     const int REDFOREST_BLOCK_GRASS = 10;      // 森ステージの足場ブロック（2段目）
@@ -454,12 +454,14 @@ public class Stage : MonoBehaviour
                 }
                 break;
 
-            case ROOM_BLOCK_BOOKSHELF:        // 家ステージの足場ブロック（2段目）
-                // 家ステージの足場ブロック（白）
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                break;
+			case ROOM_BLOCK_BOOKSHELF:        // 家ステージの岩
+				gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                           // ギミックを指定された向きに変更
+				gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
+				gimmickNumArray[y, x, z] = ROCK;                                                                                          // ギミックを数字として配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
+				gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);                                              // ギミックの初期化
+				break;
 
             case REDFOREST_BLOCK_GROUND:      // 森ステージの足場ブロック（1段目）
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockGround, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
@@ -1091,7 +1093,7 @@ public class Stage : MonoBehaviour
 
 			case ROCK:
 				// アリスが大きければ
-//				if(alice.GetBig())
+				if(alice.GetBig())
 				{
 					int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
 					int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
@@ -1889,13 +1891,21 @@ public class Stage : MonoBehaviour
 	public bool RockGimmickDecision(int posX, int posY, int posZ, int pushDirectionX, int pushDirectionZ)
 	{
 		// 移動先がステージを超えておらず、何もなければ押して通れる
-		if ((((pushDirectionX == 1) && (posX > 1)) ||
+		if (((pushDirectionX == 1) && (posX > 1)) ||
 			 ((pushDirectionX == -1) && (posX < STAGE_X - 2)) ||
 			 ((pushDirectionZ == 1) && (posZ > 1)) ||
-			 ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2))) &&
-			(gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] == NONE_BLOCK))
-			return true;
+			 ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2)))
+		{
+			switch (gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
+			{
+				case NONE_BLOCK:
+				case START_POINT:
+				case STAGE_GOOL:
+					return true;
 
+				default: break;
+			}
+		}
 		return false;
 	}
 
