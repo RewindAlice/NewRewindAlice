@@ -14,6 +14,10 @@ public class Flower1 : BaseGimmick
     public int motionCount;
     private GameObject pause;
     private Pause pauseScript;
+
+    public GameObject children;
+    public BlockMaterialChanger changer;
+
     // 初期化
     void Start()
     {
@@ -26,6 +30,8 @@ public class Flower1 : BaseGimmick
         moveCount = 0;
         motionCount = 0;
         GetComponent<Animator>().SetInteger("MotionCount", motionCount);
+
+       
     }
 
     // 更新
@@ -35,6 +41,13 @@ public class Flower1 : BaseGimmick
         {
 
         }
+    }
+
+
+    public void changeMaterial(int number)
+    {
+        changer = children.GetComponent<BlockMaterialChanger>();
+        changer.MatelialChange(number);
     }
 
     //アリスが動いたときに呼ばれる関数

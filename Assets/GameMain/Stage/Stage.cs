@@ -592,19 +592,24 @@ public class Stage : MonoBehaviour
                 break;
 
             case RED_FLOWER:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickRedFlower, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickRedFlower, new Vector3(x, y-0.2f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Flower3>().changeMaterial(field);
+
                 break;
             case BLUE_FLOWER:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBuleFlower, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBuleFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Flower2>().changeMaterial(field);
                 break;
             case PURPLE_FLOWER:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPurpleFlower, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPurpleFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
+
+                gimmickObjectArray[y, x, z].GetComponent<Flower1>().changeMaterial(field);
                 break;
             //-----------------------------------------------------------------
 

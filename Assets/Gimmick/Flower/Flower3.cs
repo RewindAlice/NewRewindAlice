@@ -14,6 +14,9 @@ public class Flower3 : BaseGimmick
     public int motionCount;
     private GameObject pause;
     private Pause pauseScript;
+
+    public GameObject children;
+    public BlockMaterialChanger changer;
     // 初期化
     void Start()
     {
@@ -26,6 +29,14 @@ public class Flower3 : BaseGimmick
         moveCount = 0;
         motionCount = 2;
         GetComponent<Animator>().SetInteger("MotionCount", motionCount);
+
+        
+    }
+
+    public void changeMaterial(int number)
+    {
+        changer = children.GetComponent<BlockMaterialChanger>();
+        changer.MatelialChange(number);
     }
 
     // 更新

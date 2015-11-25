@@ -916,9 +916,9 @@ MonoBehaviour:
   gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
   gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
-  gimmickRedFlower: {fileID: 146258, guid: 3be130c6eac9e3a46969170ba339db93, type: 2}
-  gimmickBuleFlower: {fileID: 153170, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}
-  gimmickPurpleFlower: {fileID: 182154, guid: 229d5fdeaa2737e40ad1f77ddeb9144a, type: 2}
+  gimmickRedFlower: {fileID: 193118, guid: 3be130c6eac9e3a46969170ba339db93, type: 2}
+  gimmickBuleFlower: {fileID: 141934, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}
+  gimmickPurpleFlower: {fileID: 100042, guid: 229d5fdeaa2737e40ad1f77ddeb9144a, type: 2}
   gimmickLadder: {fileID: 192434, guid: b31d8c0b7b337e24c9eb6eb812617207, type: 2}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 980834258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd844b1caa4614e4099305a3de38ae02, type: 3}
+  m_Script: {fileID: 11500000, guid: 23f114b1133d3644385a46b5c6ae41d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &980834261
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: f64472b4d3fe7d94aa33df72d80e8375, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 542451de466ed134aab980027c5dff38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
