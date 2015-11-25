@@ -222,8 +222,8 @@ public class GameMain : MonoBehaviour
                     if (alice.moveFinishFlag == true)
                     {
                         stage.ChangeArrayGimmickNext();
-                        stage.GimmickDecision(alice);   // ギミックとの判定
-                        stage.FootDecision(alice);      // 足元との判定
+                        stage.GimmickDecision(alice,Player.PlayerAction.NEXT);   // ギミックとの判定
+                        stage.FootDecision(alice, Player.PlayerAction.NEXT);      // 足元との判定
                         alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
                         if(!alice.autoMoveFlag)
@@ -316,8 +316,10 @@ public class GameMain : MonoBehaviour
                                     GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
                                 }
                             }
-                            stage.GimmickDecision(alice);   // ギミックとの判定
-                            stage.IvytDecision(alice);
+                            stage.GimmickDecision(alice,Player.PlayerAction.RETURN);   // ギミックとの判定
+                            stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+                            
+                                                        
                             print("ターン終了");// デバッグ用コメント
                         }
                     }
@@ -737,7 +739,7 @@ public class GameMain : MonoBehaviour
                     //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
                     if (alice.saveMoveDirection[alice.saveCount] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
                     {
-                        stage.FootDecision(alice);
+                        stage.FootDecision(alice,Player.PlayerAction.NEXT);
                     }
 
                     action = PlayerAction.RETURN;   // 行動を戻るに

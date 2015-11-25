@@ -1188,7 +1188,7 @@ public class Stage : MonoBehaviour
     }
 
     // ★ギミックとの判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void GimmickDecision(Player alice)
+    public void GimmickDecision(Player alice, Player.PlayerAction action)
     {
         int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
@@ -1218,10 +1218,14 @@ public class Stage : MonoBehaviour
             Climb1(Player.PlayerAngle.RIGHT);
                 break;
             case TREE:  // ▼木//////////////////////////////////////////////////////////////
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
+                if (action == Player.PlayerAction.NEXT)
                 {
-                    alice.AutoMoveSetting(Player.MoveDirection.UP);
+                    if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
+                    {
+                        alice.AutoMoveSetting(Player.MoveDirection.UP);
+                    }
                 }
+                
                 break;
             case MUSHROOM_BIG:  // ▼キノコ（大きくなる）////////////////////////////////////////////////////////////////////////////////////
             case POTION_BIG:    // ▼薬（大きくなる）////////////////////////////////////////////////////////////////////////////////////////
@@ -1273,7 +1277,7 @@ public class Stage : MonoBehaviour
     }
 
     // ★足元との判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void FootDecision(Player alice)
+    public void FootDecision(Player alice,Player.PlayerAction action)
     {
         int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
@@ -1294,9 +1298,13 @@ public class Stage : MonoBehaviour
 				case DOOR_YELLOW_KEY: // 鍵（黄）
 				case DOOR_GREEN_KEY: // 鍵（緑）
 				case CHESHIRE_CAT: // チェシャ
-                    alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                    alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                    print("落下");
+                    if (action == Player.PlayerAction.NEXT)
+                    {
+                        alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+                        alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+                        print("落下");
+                    }
+                   
                     break;
 
                 case IVY_FRONT: // 蔦（前）
@@ -1312,10 +1320,13 @@ public class Stage : MonoBehaviour
                     Climb2(Player.PlayerAngle.RIGHT);
                     break;
                 case TREE:  // ▼木//////////////////////////////////////////////////////////////////
-                    // 木の成長段階が１以下なら
-                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
+                    if (action == Player.PlayerAction.NEXT)
                     {
-                        alice.AutoMoveSetting(Player.MoveDirection.UP);
+                        // 木の成長段階が１以下なら
+                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
+                        {
+                            alice.AutoMoveSetting(Player.MoveDirection.UP);
+                        }
                     }
                     break;
                 case WARP_HOLE_ONE:
@@ -1323,84 +1334,89 @@ public class Stage : MonoBehaviour
                 case WARP_HOLE_TRHEE:
                 case WARP_HOLE_FOUR:
                 case WARP_HOLE_FIVE:
-                    for (int y = 0; y < STAGE_Y; y++)
-                    {
-                        for (int x = 0; x < STAGE_X; x++)
-                        {
-                            for (int z = 0; z < STAGE_Z; z++)
-                            {
-                                switch (gimmickNumArray[posY - 1, posX, posZ])
-                                {
-                                    case WARP_HOLE_ONE:
-                                        if (alice.playerMode == Player.PlayerMode.SMALL)
-                                        {
-                                            if (gimmickNumArray[y, x, z] == WARP_HOLE_ONE && ((y != posY - 1) || (x != posX) || (z != posZ)))
-                                            {
-                                                alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                alice.arrayPosX = x;
-                                                alice.arrayPosY = y + 1;
-                                                alice.arrayPosZ = z;
-                                                break;
-                                            }
-                                        }
 
-                                        break;
-                                    case WARP_HOLE_TWO:
-                                        if (alice.playerMode == Player.PlayerMode.SMALL)
-                                        {
-                                            if (gimmickNumArray[y, x, z] == WARP_HOLE_TWO && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                    if(action == Player.PlayerAction.NEXT)
+                    {
+                        for (int y = 0; y < STAGE_Y; y++)
+                        {
+                            for (int x = 0; x < STAGE_X; x++)
+                            {
+                                for (int z = 0; z < STAGE_Z; z++)
+                                {
+                                    switch (gimmickNumArray[posY - 1, posX, posZ])
+                                    {
+                                        case WARP_HOLE_ONE:
+                                            if (alice.playerMode == Player.PlayerMode.SMALL)
                                             {
-                                                alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                alice.arrayPosX = x;
-                                                alice.arrayPosY = y + 1;
-                                                alice.arrayPosZ = z;
-                                                break;
+                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_ONE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                                {
+                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
+                                                    alice.arrayPosX = x;
+                                                    alice.arrayPosY = y + 1;
+                                                    alice.arrayPosZ = z;
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        break;
-                                    case WARP_HOLE_TRHEE:
-                                        if (alice.playerMode == Player.PlayerMode.SMALL)
-                                        {
-                                            if (gimmickNumArray[y, x, z] == WARP_HOLE_TRHEE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+
+                                            break;
+                                        case WARP_HOLE_TWO:
+                                            if (alice.playerMode == Player.PlayerMode.SMALL)
                                             {
-                                                alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                alice.arrayPosX = x;
-                                                alice.arrayPosY = y + 1;
-                                                alice.arrayPosZ = z;
-                                                break;
+                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_TWO && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                                {
+                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
+                                                    alice.arrayPosX = x;
+                                                    alice.arrayPosY = y + 1;
+                                                    alice.arrayPosZ = z;
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        break;
-                                    case WARP_HOLE_FOUR:
-                                        if (alice.playerMode == Player.PlayerMode.SMALL)
-                                        {
-                                            if (gimmickNumArray[y, x, z] == WARP_HOLE_FOUR && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                            break;
+                                        case WARP_HOLE_TRHEE:
+                                            if (alice.playerMode == Player.PlayerMode.SMALL)
                                             {
-                                                alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                alice.arrayPosX = x;
-                                                alice.arrayPosY = y + 1;
-                                                alice.arrayPosZ = z;
-                                                break;
+                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_TRHEE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                                {
+                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
+                                                    alice.arrayPosX = x;
+                                                    alice.arrayPosY = y + 1;
+                                                    alice.arrayPosZ = z;
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        break;
-                                    case WARP_HOLE_FIVE:
-                                        if (alice.playerMode == Player.PlayerMode.SMALL)
-                                        {
-                                            if (gimmickNumArray[y, x, z] == WARP_HOLE_FIVE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                            break;
+                                        case WARP_HOLE_FOUR:
+                                            if (alice.playerMode == Player.PlayerMode.SMALL)
                                             {
-                                                alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                alice.arrayPosX = x;
-                                                alice.arrayPosY = y + 1;
-                                                alice.arrayPosZ = z;
-                                                break;
+                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_FOUR && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                                {
+                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
+                                                    alice.arrayPosX = x;
+                                                    alice.arrayPosY = y + 1;
+                                                    alice.arrayPosZ = z;
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        break;
+                                            break;
+                                        case WARP_HOLE_FIVE:
+                                            if (alice.playerMode == Player.PlayerMode.SMALL)
+                                            {
+                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_FIVE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                                {
+                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
+                                                    alice.arrayPosX = x;
+                                                    alice.arrayPosY = y + 1;
+                                                    alice.arrayPosZ = z;
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                    }
                                 }
                             }
                         }
                     }
+                   
                     break;
 
             }
