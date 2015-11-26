@@ -108,6 +108,8 @@ public class Stage : MonoBehaviour
     //------------------------------------
     //松村脩平追加部分
     //------------------------------------
+
+    public GameObject gimmickIvyBlock;
     //ハートのトランプ兵のモデル
     public GameObject gimmickSoldierHeartLeft;
     public GameObject gimmickSoldierHeartRight;
@@ -340,9 +342,10 @@ public class Stage : MonoBehaviour
             //    moveGimmickNumList.Add(ENEMY);
             //    break;
             case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIvyBlock, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(field);
                 break;
             case IVY_FRONT: // ▼蔦（前）///////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_BACK:  // ▼蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1490,6 +1493,35 @@ public class Stage : MonoBehaviour
                    
                     break;
 
+            }
+        }
+    }
+
+    public void FlowerFootDecision(Player alice)
+    {
+        int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
+        int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
+        int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
+
+        //alice.climb2Flag = false;
+
+        // アリスが地面についていないなら
+        if (posY >= 1)
+        {
+            switch (gimmickNumArray[posY - 1, posX, posZ])
+            {
+                case RED_FLOWER:
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower3>().besideDownDicisionMovePossibleFlag == false) { alice.gameOverFlag = true; }
+
+                    break;
+                case BLUE_FLOWER:
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower2>().besideDownDicisionMovePossibleFlag == false) { alice.gameOverFlag = true; }
+
+                    break;
+                case PURPLE_FLOWER:
+                    if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Flower1>().besideDownDicisionMovePossibleFlag == false) { alice.gameOverFlag = true; }
+
+                    break;
             }
         }
     }

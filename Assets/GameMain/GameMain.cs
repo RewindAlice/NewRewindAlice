@@ -245,7 +245,7 @@ public class GameMain : MonoBehaviour
                     // カウントが６０になったら
                     if (turnCountGimmick == 60)
                     {
-                        stage.FlowerDecision(alice);      // 足元との判定
+                        //stage.FlowerDecision(alice);      // 足元との判定
                         action = PlayerAction.NONE;   // 行動を無しに
                         turn = Turn.NONE;       // ターンを無しに
                         turnNum--;
@@ -256,6 +256,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             tutorialTurn++;
                         }
+                        stage.FlowerFootDecision(alice);
                     }
                 }
                 break;

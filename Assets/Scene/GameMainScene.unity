@@ -920,6 +920,7 @@ MonoBehaviour:
   gimmickBuleFlower: {fileID: 141934, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}
   gimmickPurpleFlower: {fileID: 100042, guid: 229d5fdeaa2737e40ad1f77ddeb9144a, type: 2}
   gimmickLadder: {fileID: 192434, guid: b31d8c0b7b337e24c9eb6eb812617207, type: 2}
+  gimmickIvyBlock: {fileID: 131046, guid: 4a658d24719d95245bc739c651667ba8, type: 2}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
   gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,
