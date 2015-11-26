@@ -1353,6 +1353,7 @@ public class Stage : MonoBehaviour
 
 			case CHESHIRE_CAT: // チェシャ
 				alice.TouchCheshire();
+				gimmickObjectArray[posY, posX, posZ].GetComponent<Cheshire>().StartInvisible();
 				break;
         }
     }

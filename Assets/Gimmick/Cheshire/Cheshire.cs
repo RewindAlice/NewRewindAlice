@@ -10,17 +10,24 @@ public class Cheshire : BaseGimmick
 	//public bool movePossibleFlag;   // 移動可能フラグ
 
 	public int moveCount = 0;   //
+	public int turnNum;
+	public bool invisibleFlag;
+	public int startInvisibleTurn; // 入手ターン
+	private Renderer renderer;
 
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start()
 	{
-
+		turnNum = 0;
+		startInvisibleTurn = 0;
+		invisibleFlag = false;
+		renderer = GetComponentInChildren<Renderer>();
 	}
 
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
-
+		RemoveInvisible();
 	}
 
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -39,6 +46,7 @@ public class Cheshire : BaseGimmick
 		{
 			moveCount++;
 		}
+		turnNum++;
 	}
 
 	// ★アリスが戻った時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -59,6 +67,29 @@ public class Cheshire : BaseGimmick
 				gimmickCount--;
 			}
 			moveCount--;
+		}
+		turnNum--;
+	}
+
+	// ★透明化処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void StartInvisible()
+	{
+		if (!invisibleFlag)
+		{
+			startInvisibleTurn = turnNum + 1;
+			invisibleFlag = true;
+			renderer.enabled = false;    // 描画しない
+		}
+	}
+
+	// ★透明化解除処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void RemoveInvisible()
+	{
+		if (startInvisibleTurn > turnNum)
+		{
+			startInvisibleTurn = 0;
+			invisibleFlag = false;
+			renderer.enabled = true;    // 描画しない
 		}
 	}
 }
