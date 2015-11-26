@@ -1162,7 +1162,15 @@ public class Stage : MonoBehaviour
             {
                 if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)(moveGimmickObjectList[num].transform.position.y+0.5f)) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
                 {
-                    flag = false;
+                    if(alice.invisibleFlag == false)
+                    {
+                        flag = false;
+                    }
+                    else
+                    {
+                        flag = true;
+                    }
+                    
                 }
             }
         }
