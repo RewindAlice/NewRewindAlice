@@ -233,6 +233,12 @@ public class GameMain : MonoBehaviour
                             {
                                 turn = Turn.GIMMICK;                                // ターンをギミックに
                                 aliceActionNotifer.NotiferNext(alice.turnCount);    // ギミックを次の段階へ
+
+                                if(alice.autoMoveFlag)
+                                {
+                                    turn = Turn.PLAYER;
+                                    AutoPlayerMove();
+                                }
                             }
                         }
                     }
