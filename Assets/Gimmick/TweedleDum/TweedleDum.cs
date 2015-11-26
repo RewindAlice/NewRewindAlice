@@ -4,7 +4,9 @@ using System.Collections;
 public class TweedleDum : BaseGimmick
 {
     //ステージオブジェクト
+    public GameObject player;
     public GameObject stage;
+    public Player playerScript;
     public Stage stageScript;
 
     // 移動方向
@@ -61,7 +63,9 @@ public class TweedleDum : BaseGimmick
 	void Start()
 	{
         //オブジェクトの検索
+        player = GameObject.Find("Alice");
 		stage = GameObject.Find("Stage");
+        playerScript = player.GetComponent<Player>();
 		stageScript = stage.GetComponent<Stage>();
 
 		//キャラの回転角初期化
@@ -131,22 +135,120 @@ public class TweedleDum : BaseGimmick
 				switch (direction)
 				{
 					case 1:
-                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1,true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
+                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
                             moveFlag = true;
+
+                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
+                            {
+                                switch (playerScript.cameraAngle)
+                                {
+                                    case PlayerCamera.CameraAngle.FRONT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                        break;
+                                    case PlayerCamera.CameraAngle.BACK:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.LEFT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.RIGHT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                        break;
+                                }
+                            }
+                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
+                            {
+                                moveFlag = false;
+                            }
                         }
 						break;
 					case 3:
                         if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
-							moveFlag = true;
+                        {
+                            moveFlag = true;
+
+                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
+                            {
+                                switch (playerScript.cameraAngle)
+                                {
+                                    case PlayerCamera.CameraAngle.FRONT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.BACK:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                        break;
+                                    case PlayerCamera.CameraAngle.LEFT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.RIGHT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                        break;
+                                }
+                            }
+                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
+                            {
+                                moveFlag = false;
+                            }
+                        }
 						break;
 					case 4:
                         if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
-							moveFlag = true;
+                        {
+                            moveFlag = true;
+
+                            if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
+                            {
+                                switch (playerScript.cameraAngle)
+                                {
+                                    case PlayerCamera.CameraAngle.FRONT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.BACK:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.LEFT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                        break;
+                                    case PlayerCamera.CameraAngle.RIGHT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                        break;
+                                }
+                            }
+                            else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
+                            {
+                                moveFlag = false;
+                            }
+                        }
 						break;
 					case 2:
                         if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
-							moveFlag = true;
+                        {
+                            moveFlag = true;
+
+                            if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
+                            {
+                                switch (playerScript.cameraAngle)
+                                {
+                                    case PlayerCamera.CameraAngle.FRONT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.BACK:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.LEFT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                        break;
+                                    case PlayerCamera.CameraAngle.RIGHT:
+                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                        break;
+                                }
+                            }
+                            else if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
+                            {
+                                moveFlag = false;
+                            }
+                        }
 						break;
 					default:
 						break;
@@ -439,17 +541,17 @@ public class TweedleDum : BaseGimmick
         {
             this.transform.localEulerAngles = enemyAngle1;
         }
-        if (direction == 2)
+        else if (direction == 2)
         {
             direction = 3;
             this.transform.localEulerAngles = enemyAngle3;
         }
-        if (direction == 3)
+        else if (direction == 3)
         {
             direction = 2;
             this.transform.localEulerAngles = enemyAngle2;
         }
-        if (direction == 4)
+        else if (direction == 4)
         {
             this.transform.localEulerAngles = enemyAngle4;
         }
