@@ -152,6 +152,8 @@ MonoBehaviour:
   animationFlagWalkReturn: 0
   animationFlagDropNext: 0
   animationFlagDropReturn: 0
+  animationFlagStopNext: 0
+  animationFlagStopReturn: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1024,8 @@ MonoBehaviour:
   gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
   gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   cheshire: {fileID: 153752, guid: 24f396f694c557c48938b343fa43ff7d, type: 2}
+  rock: {fileID: 0}
+  gameMain: {fileID: 0}
   field: 0
   fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
   fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}
@@ -1504,7 +1508,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -500, y: -285}
+  m_AnchoredPosition: {x: -537, y: -285}
   m_SizeDelta: {x: 380, y: 380}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1360012141
@@ -2075,13 +2079,13 @@ RectTransform:
   m_GameObject: {fileID: 1825628338}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -1.62920685e-07}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.14999998, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1963803935}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -14, y: -265}
+  m_AnchoredPosition: {x: -9, y: -288}
   m_SizeDelta: {x: 1257, y: 304}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1825628340
@@ -2336,8 +2340,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: -273}
-  m_SizeDelta: {x: 637, y: 62}
+  m_AnchoredPosition: {x: -30, y: -313}
+  m_SizeDelta: {x: 700, y: 124}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1972864571
 MonoBehaviour:
