@@ -1077,23 +1077,35 @@ public class Stage : MonoBehaviour
 
 			// 扉
 			case DOOR_RED: // 扉（赤）
-				if (alice.getKeyColor_Red) { flag = true; }
-				else { flag = false; }
+				if (alice.getKeyColor_Red)
+				{
+					flag = true;
+					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+				}
 				break;
 
 			case DOOR_BLUE: // 扉（青）
-				if (alice.getKeyColor_Blue) { flag = true; }
-				else { flag = false; }
+				if (alice.getKeyColor_Blue)
+				{
+					flag = true;
+					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+				}
 				break;
 
 			case DOOR_YELLOW: // 扉（黄）
-				if (alice.getKeyColor_Yellow) { flag = true; }
-				else { flag = false; }
+				if (alice.getKeyColor_Yellow)
+				{
+					flag = true;
+					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+				}
 				break;
 
 			case DOOR_GREEN: // 扉（緑）
-				if (alice.getKeyColor_Green) { flag = true; }
-				else { flag = false; }
+				if (alice.getKeyColor_Green)
+				{
+					flag = true;
+					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+				}
 				break;
 
 			case ROCK:
@@ -1313,15 +1325,19 @@ public class Stage : MonoBehaviour
 
 			case DOOR_RED_KEY: // 鍵（赤）
 				alice.GetKey(Player.GetKeyColor.RED);
+				gimmickObjectArray[posY, posX, posZ].GetComponent<Key>().GetKey();
 				break;
 			case DOOR_BLUE_KEY: // 鍵（青）
 				alice.GetKey(Player.GetKeyColor.BLUE);
+				gimmickObjectArray[posY, posX, posZ].GetComponent<Key>().GetKey();
 				break;
 			case DOOR_YELLOW_KEY: // 鍵（黄）
 				alice.GetKey(Player.GetKeyColor.YELLOW);
+				gimmickObjectArray[posY, posX, posZ].GetComponent<Key>().GetKey();
 				break;
 			case DOOR_GREEN_KEY: // 鍵（緑）
 				alice.GetKey(Player.GetKeyColor.GREEN);
+				gimmickObjectArray[posY, posX, posZ].GetComponent<Key>().GetKey();
 				break;
 
 			case CHESHIRE_CAT: // チェシャ

@@ -10,17 +10,24 @@ public class Key : BaseGimmick
 	//public bool movePossibleFlag;   // 移動可能フラグ
 
 	public int moveCount = 0;   //
+	public int turnNum;
+	public bool getFlag;
+	public int getTimingTurn; // 入手ターン
+	private Renderer renderer;
 
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start()
 	{
-
+		turnNum = 0;
+		getTimingTurn = 0;
+		getFlag = false;
+		renderer = GetComponentInChildren<Renderer>();
 	}
 
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
-
+		LostKey();
 	}
 
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -39,6 +46,7 @@ public class Key : BaseGimmick
 		{
 			moveCount++;
 		}
+		turnNum++;
 	}
 
 	// ★アリスが戻った時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -59,6 +67,29 @@ public class Key : BaseGimmick
 				gimmickCount--;
 			}
 			moveCount--;
+		}
+		turnNum--;
+	}
+
+	// ★鍵取得処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void GetKey()
+	{
+		if (!getFlag)
+		{
+			getTimingTurn = turnNum + 1;
+			getFlag = true;
+			renderer.enabled = false;    // 描画しない
+		}
+	}
+
+	// ★鍵消失処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void LostKey()
+	{
+		if (getTimingTurn > turnNum)
+		{
+			getTimingTurn = 0;
+			getFlag = false;
+			renderer.enabled = true;    // 描画しない
 		}
 	}
 }
