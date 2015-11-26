@@ -25,8 +25,8 @@ public class Door : BaseGimmick
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
-		if (openTimingTurn > turnNum)
-			CloseDoor();
+        if (openTimingTurn > turnNum)
+            CloseDoor();
 	}
 
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -49,7 +49,7 @@ public class Door : BaseGimmick
 		if (startActionTurn > aliceMove)
 		{
 			gimmickFlag = false;    // ギミックを無効にする
-			GetComponent<Animator>().SetBool("openFlag", gimmickFlag);
+			//GetComponent<Animator>().SetBool("openFlag", gimmickFlag);
 		}
 		turnNum--;
 
@@ -63,7 +63,8 @@ public class Door : BaseGimmick
 			openTimingTurn = turnNum + 1;
 			openFlag = true;
 			gimmickFlag = true;
-			GetComponent<Animator>().SetBool("openFlag", openFlag);
+            GetComponent<Animator>().SetBool("OpenMotionFlag_Next", true);
+            GetComponent<Animator>().SetBool("OpenMotionFlag_Return", false);
 		}
 	}
 
@@ -72,6 +73,7 @@ public class Door : BaseGimmick
 	{
 			openTimingTurn = 0;
 			openFlag = false;
-			GetComponent<Animator>().SetBool("openFlag", openFlag);
+            GetComponent<Animator>().SetBool("OpenMotionFlag_Next", false);
+            GetComponent<Animator>().SetBool("OpenMotionFlag_Return", true);
 	}
 }
