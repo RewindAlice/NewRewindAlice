@@ -352,13 +352,16 @@ public class GameMain : MonoBehaviour
     // ★カメラの回転★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void CameraTurn()
     {
+
+        float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
+
         if (turn == Turn.NONE)
         {
             if (tutorialFlag == false ||
                 (tutorialFlag == true && stageNumber == 1 && (tutorialTurn == 0 || tutorialTurn == 1)))
             {
                 // 矢印左を押したら(カメラ移動左回転)
-                if ((Input.GetKeyDown(KeyCode.LeftArrow)))
+                if ((Input.GetKeyDown(KeyCode.LeftArrow)) || (HorizontalKeyInput < -0.9f))
                 {
                     CameraTurnLeftMove();
                     print("カメラ左回転");// デバッグ用コメント
@@ -370,7 +373,7 @@ public class GameMain : MonoBehaviour
             if (tutorialFlag == false)
             {
                 // 矢印右を押したら(カメラ移動右回転)
-                if ((Input.GetKeyDown(KeyCode.RightArrow)))
+                if ((Input.GetKeyDown(KeyCode.RightArrow)) || (HorizontalKeyInput > 0.9f))
                 {
                     CameraTurnRightMove();
                     print("カメラ右回転");// デバッグ用コメント
@@ -416,12 +419,15 @@ public class GameMain : MonoBehaviour
             }
             else
             {
+                float TrigerInput = 0.0f;
+                TrigerInput = Input.GetAxis("Triger");
+
                 // ▼画面奥方向移動処理
                 // Ｗキーが押された時、行動が無しなら////////////////////////////////////////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag)&&(tutorialFlag==false)||
-                    (Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) && 
+                if (((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3)))&& (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag)&&(tutorialFlag==false)||
+                    ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) && 
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6||tutorialTurn == 7)||
-                    (Input.GetKeyDown(KeyCode.W)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                    ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10))
                 {
                     if (tutorialImageFlag == true)
@@ -497,10 +503,10 @@ public class GameMain : MonoBehaviour
 
                 // ▼画面手前方向移動処理
                 // Ｓキーが押された時、行動が無しなら///////////////////////////////////////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false)||
-                    (Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) && 
+                if (((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false) ||
+                    ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) && 
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 5||tutorialTurn == 6||tutorialTurn == 7) ||
-                    (Input.GetKeyDown(KeyCode.S)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
+                    ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
                     if (tutorialImageFlag == true)
@@ -574,10 +580,10 @@ public class GameMain : MonoBehaviour
 
                // ▼画面左方向移動処理
                 // Ａキーが押された時、行動が無しなら///////////////////////////////////////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false)||
-                    (Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                if (((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false) ||
+                    ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7 || tutorialTurn == 8)||
-                    (Input.GetKeyDown(KeyCode.A)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                    ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
                     if (tutorialImageFlag == true)
@@ -651,10 +657,10 @@ public class GameMain : MonoBehaviour
 
                  // ▼画面右方向移動処理
                 // Ｄキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false)||
-                     (Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                if (((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false) ||
+                     ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7)||
-                    (Input.GetKeyDown(KeyCode.D)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                    ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
                     if (tutorialImageFlag == true)
@@ -728,8 +734,8 @@ public class GameMain : MonoBehaviour
 
                 // ▼待機処理
                 // Ｘキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) ||
-                    (Input.GetKeyDown(KeyCode.X)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+                if (((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) ||
+                    ((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 0))
                 {
                     action = PlayerAction.NEXT;     // 行動を進むに
@@ -744,8 +750,8 @@ public class GameMain : MonoBehaviour
 
                 // ▼巻き戻し処理
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.Q)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
-                    (Input.GetKeyDown(KeyCode.Q)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4)))&& (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+                    ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 5 || tutorialTurn == 7))
                 {
                     //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
@@ -764,7 +770,7 @@ public class GameMain : MonoBehaviour
 
                 // ▼早送り処理
                 // Ｅキーが押された時、行動が無しなら//////////////////////////////
-                if ((Input.GetKeyDown(KeyCode.E)) && (action == PlayerAction.NONE))
+                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button5)))&& (action == PlayerAction.NONE))
                 {
                     if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)
                     {
