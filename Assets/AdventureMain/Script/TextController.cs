@@ -58,6 +58,7 @@ public class TextController : MonoBehaviour
     private float BGMTimer;
     private bool BGMDeleter;
 
+    public GameObject nameTextController;
     //読み込み改善用
       //////////////////////////////////////////////////////////////////
     /// <summary>
@@ -179,6 +180,7 @@ public class TextController : MonoBehaviour
         ReadTextData();
         //this.read();
         flagManager = GetComponent<FlagManager>();
+        nameTextController = GameObject.Find("NameTextController");
         SetNextLine();
     }
 
@@ -226,17 +228,19 @@ public class TextController : MonoBehaviour
                 //Debug.Log("hoge");
                 //Debug.Log( flagManager.sentenceEndFlag );  
                 if ((currentLine < scenarios.Length && Input.GetMouseButtonDown(0)) ||
-                    (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
-                    (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
-                    (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
-                    (Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
-					(Input.GetKeyDown(KeyCode.W)) ||
-					(Input.GetKeyDown(KeyCode.Space)))
+                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
+                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
+                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
+                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
+                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.W)) ||
+                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Space)))
                 {
                     seManager.SEStop();
                     if (storyEndFlag ==false)
                     {
+                        
                         SetNextLine();
+                        nameTextController.GetComponent<NameTextController>().TextUpdate();
                         crickNum++;
                         flagManager.clickCounter++;
                         leftCharacterImage.CharacterChange();

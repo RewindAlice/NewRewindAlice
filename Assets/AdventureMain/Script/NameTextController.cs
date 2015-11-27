@@ -130,22 +130,22 @@ public class NameTextController : MonoBehaviour
         //        funcFlag = true;
         //    }
         //}
-        if (stopText == false)
-        {
-            //Debug.Log( flagManager.sentenceEndFlag );        
-            // 現在の行番号がラストまで行ってない状態でクリックすると、テキストを更新する
-            if (currentLine < scenarios.Length && flagManager.sentenceEndFlag == true && Input.GetMouseButtonDown(0))
-            {
-                TextUpdate();
-            }
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.Space))//Wへ変更予定
-            {
-                funcFlag = true;
-            }
-        }
+        //if (stopText == false)
+        //{
+        //    //Debug.Log( flagManager.sentenceEndFlag );        
+        //    // 現在の行番号がラストまで行ってない状態でクリックすると、テキストを更新する
+        //    if (currentLine < scenarios.Length && flagManager.sentenceEndFlag == true && Input.GetMouseButtonDown(0))
+        //    {
+        //        TextUpdate();
+        //    }
+        //}
+        //else
+        //{
+        //    if (Input.GetKey(KeyCode.Space))//Wへ変更予定
+        //    {
+        //        funcFlag = true;
+        //    }
+        //}
         //backGame();
     }
 
@@ -168,7 +168,7 @@ public class NameTextController : MonoBehaviour
     //    }
     //}
     // テキストを更新する
-    void TextUpdate()
+    public void TextUpdate()
     {
         // 現在の行のテキストをuiTextに流し込み、現在の行番号を一つ追加する
         uiText.text = scenarios[currentLine];
