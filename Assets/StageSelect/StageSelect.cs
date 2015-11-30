@@ -84,6 +84,8 @@ public class StageSelect : MonoBehaviour
 	public bool selectFlag;
 	public bool keyFlag;
 
+    public int returnCount;
+
 	// 初期化
 	void Start()
 	{
@@ -117,11 +119,20 @@ public class StageSelect : MonoBehaviour
 		CreateIcon();
 		CreateStamp();  // スタンプの生成
         Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f);
+
+        returnCount = 0;
 	}
 
 	// 更新
 	void Update()
 	{
+        returnCount++;
+
+        if(returnCount > 1000)
+        {
+            Application.LoadLevel("TitleScene");
+        }
+
 		count++;
         Singleton<SoundPlayer>.instance.update();
 		
@@ -173,24 +184,28 @@ public class StageSelect : MonoBehaviour
 			// 矢印左を押したら
 			if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
 			{
+                returnCount = 0;
 				keyFlag = true;
 				TurnThePageReturn();
 			}
 			// 矢印右を押したら
 			if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
 			{
+                returnCount = 0;
 				keyFlag = true;
 				TurnThePageNext();
 			}
 
 			if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f)))
 			{
+                returnCount = 0;
 				keyFlag = true;
 				SelectChapterUp();
 			}
 
 			if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.7f)))
 			{
+                returnCount = 0;
 				keyFlag = true;
 				SelectChapterDown();
 			}
@@ -202,6 +217,7 @@ public class StageSelect : MonoBehaviour
 				(Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
 				(Input.GetKeyDown(KeyCode.Joystick1Button7)))
 			{
+                returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
 				
