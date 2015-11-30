@@ -12,85 +12,67 @@ public class Stage : MonoBehaviour
     const int STAGE_Y = 5;  // ステージの高さ
     const int STAGE_Z = 11; // ステージの奥行
 
-    //新配列番号
-    const int NONE_BLOCK = 0;
-    const int START_POINT = 1;
-    const int STAGE_GOOL = 2;
-    const int WATER = 3;    // 水
+    // 配列番号                                 // ギミックの種類
+    const int NONE_BLOCK = 0;                   // 透明ブロック
+    const int START_POINT = 1;                  // スタート地点
+    const int STAGE_GOOL = 2;                   // ゴール地点
+    const int WATER = 3;                        // 水
+    const int FOREST_BLOCK_GROUND = 4;          // 森ステージの足場ブロック（1段目）
+    const int FOREST_BLOCK_GRASS = 5;           // 森ステージの足場ブロック（2段目）
+    const int FOREST_BLOCK_ALLGRASS = 6;        // 森ステージの足場ブロック（3段目以降）
+    const int ROOM_BLOCK_FLOOR = 7;             // 家ステージの足場ブロック（1段目）
+	const int ROOM_BLOCK_BOOKSHELF = 8;         // 家ステージの岩
+    const int REDFOREST_BLOCK_GROUND = 9;       // 森ステージの足場ブロック（1段目）
+    const int REDFOREST_BLOCK_GRASS = 10;       // 森ステージの足場ブロック（2段目）
+    const int REDFOREST_BLOCK_ALLGRASS = 11;    // 森ステージの足場ブロック（3段目以降）
+    const int DARKFOREST_BLOCK_GROUND = 12;     // 暗い森ステージの足場ブロック（全段）
+    const int GARDEN_BLOCK_GROUND = 13;         // ガーデンステージの足場ブロック（1段目）
+    const int GARDEN_BLOCK_FLOWER = 14;         // ガーデンステージの足場ブロック（2段目以降）
+    const int IVY_BLOCK = 21;                   // 蔦ブロック
+    const int IVY_FRONT = 22;                   // 蔦（前）
+    const int IVY_BACK = 23;                    // 蔦（後）
+    const int IVY_LEFT = 24;                    // 蔦（左）
+    const int IVY_RIGHT = 25;                   // 蔦（右）
+    const int LADDER_BLOCK = 26;                // 梯子ブロック
+    const int LADDER_FRONT = 27;                // 梯子（前）
+    const int LADDER_BACK = 28;                 // 梯子（後）
+    const int LADDER_LEFT = 29;                 // 梯子（左）
+    const int LADDER_RIGHT = 30;                // 梯子（右）
+    const int TREE = 31;                        // 木
+    const int DUMMY_TREE = 32;                  // 木（判定用）
+    const int MUSHROOM_SMALL = 33;              // キノコ（小さくなる）
+    const int MUSHROOM_BIG = 34;                // キノコ（大きくなる）
+    const int POTION_SMALL = 35;                // 薬（小さくなる）
+    const int POTION_BIG = 36;                  // 薬（大きくなる）
+    const int DOOR_RED_KEY = 37;                // 赤扉（鍵）
+    const int DOOR_RED = 38;                    // 赤扉
+    const int DOOR_BLUE_KEY = 39;               // 青扉（鍵）
+    const int DOOR_BLUE = 40;                   // 青扉
+    const int DOOR_YELLOW_KEY = 41;             // 黄扉（鍵）
+    const int DOOR_YELLOW = 42;                 // 黄扉
+    const int DOOR_GREEN_KEY = 43;              // 緑扉（鍵）
+    const int DOOR_GREEN = 44;                  // 緑扉
+    const int WARP_HOLE_ONE = 45;               // 穴１
+    const int WARP_HOLE_TWO = 46;               // 穴２
+    const int WARP_HOLE_TRHEE = 47;             // 穴３
+    const int WARP_HOLE_FOUR = 48;              // 穴４
+    const int WARP_HOLE_FIVE = 49;              // 穴５
+    const int BRAMBLE = 50;                     // 茨
+    const int RED_FLOWER = 51;                  // 花１（赤）
+    const int BLUE_FLOWER = 52;                 // 花２（青）
+    const int PURPLE_FLOWER = 53;               // 花３（紫）　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+    const int CHESHIRE_CAT = 54;                // チェシャ猫  
+    const int TWEEDLEDUM = 55;                  // トゥイードルダム
+    const int TWEEDLEDEE = 56;                  // トゥイードルディ
+    const int SOLDIER_HEART_RIGHT = 57;         // ハート兵（右回り）
+    const int SOLDIER_HEART_LEFT = 58;          // ハート兵（左回り）
+    const int SOLDIER_SPADE_RIGHT = 59;         // スペード兵（右回り）
+    const int SOLDIER_SPADE_LEFT = 60;          // スペード兵（左回り）
+    const int SOLDIER_SPADE_BAF = 61;           // スペード兵（往復）
+    const int ROCK = 62;                        // 岩
+    const int HAMPTYDUMPTY = 64;                // ハンプティダンプティ
 
-    const int FOREST_BLOCK_GROUND = 4;         // 森ステージの足場ブロック（1段目）
-    const int FOREST_BLOCK_GRASS = 5;          // 森ステージの足場ブロック（2段目）
-    const int FOREST_BLOCK_ALLGRASS = 6;       // 森ステージの足場ブロック（3段目以降）
-
-    const int ROOM_BLOCK_FLOOR = 7;            // 家ステージの足場ブロック（1段目）
-	const int ROOM_BLOCK_BOOKSHELF = 8;        // 家ステージの岩
-
-    const int REDFOREST_BLOCK_GROUND = 9;      // 森ステージの足場ブロック（1段目）
-    const int REDFOREST_BLOCK_GRASS = 10;      // 森ステージの足場ブロック（2段目）
-    const int REDFOREST_BLOCK_ALLGRASS = 11;   // 森ステージの足場ブロック（3段目以降）
-
-    const int DARKFOREST_BLOCK_GROUND = 12;    // 暗い森ステージの足場ブロック（全段）
-
-    const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
-    const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
-
-    //// 蔦ギミック（仮）
-    const int IVY_BLOCK = 21;
-    const int IVY_FRONT = 22;
-    const int IVY_BACK = 23;
-    const int IVY_LEFT = 24;
-    const int IVY_RIGHT = 25;
-
-    //梯子
-    const int LADDER_BLOCK = 26;
-    const int LADDER_FRONT = 27;
-    const int LADDER_BACK = 28;
-    const int LADDER_LEFT = 29;
-    const int LADDER_RIGHT = 30;
-
-    const int TREE = 31;   // 高さ1の木
-    const int DUMMY_TREE = 32;   // 高さ2の木
-
-    const int MUSHROOM_SMALL = 33;  // キノコ（小さくなる）
-    const int MUSHROOM_BIG = 34;    // キノコ（大きくなる）
-    const int POTION_SMALL = 35;    // 薬（小さくなる）
-    const int POTION_BIG = 36;      // 薬（大きくなる）
-
-    const int DOOR_RED_KEY = 37;    // 赤扉（鍵）
-    const int DOOR_RED = 38;        // 赤扉
-
-    const int DOOR_BLUE_KEY = 39;   // 青扉（鍵）
-    const int DOOR_BLUE = 40;       // 青扉
-
-    const int DOOR_YELLOW_KEY = 41; // 黄扉（鍵）
-    const int DOOR_YELLOW = 42;     // 黄扉
-
-    const int DOOR_GREEN_KEY = 43;  // 緑扉（鍵）
-    const int DOOR_GREEN = 44;      // 緑扉
-
-    const int WARP_HOLE_ONE = 45;   // 穴１
-    const int WARP_HOLE_TWO = 46;   // 穴２
-    const int WARP_HOLE_TRHEE = 47; // 穴３
-    const int WARP_HOLE_FOUR = 48;  // 穴４
-    const int WARP_HOLE_FIVE = 49;  // 穴５
-
-    const int BRAMBLE = 50;         // 茨
-    const int RED_FLOWER = 51;      // 花１
-    const int BLUE_FLOWER = 52;     // 花２
-    const int PURPLE_FLOWER = 53;   // 花３
-    const int CHESHIRE_CAT = 54;    // チェシャ猫  
- 
-    const int TWEEDLEDUM = 55;           //トゥイードルダム
-    const int TWEEDLEDEE = 56;           //トゥイードルディ
-    const int SOLDIER_HEART_RIGHT = 57;  //ハート兵右回り
-    const int SOLDIER_HEART_LEFT = 58;//ハート兵左回り
-    const int SOLDIER_SPADE_RIGHT = 59;//スペード兵右回り
-    const int SOLDIER_SPADE_LEFT = 60;//スペード兵左回り
-    const int SOLDIER_SPADE_BAF = 61;//スペード兵行ったり来たり
-    const int ROCK = 62;                 //岩
-    const int HAMPTYDUMPTY = 64;         //ハンプティダンプティ
-
-    public Player alice;
+    public Player alice;            // アリス
 
     public GameObject gimmickNone;  // 何も無い
     public GameObject gimmickStart; // スタート地点
@@ -205,8 +187,6 @@ public class Stage : MonoBehaviour
     List<int> moveGimmickNumList = new List<int>();                                 // 移動系ギミック（数字）
     GameObject[, ,] gimmickObjectArray = new GameObject[STAGE_Y, STAGE_X, STAGE_Z]; // ステージの配置（オブジェクト）
     List<GameObject> moveGimmickObjectList = new List<GameObject>();                // 移動系ギミック（オブジェクト）
-    //int[, ,] gimmickStartTurnArray = new int[STAGE_Y, STAGE_X, STAGE_Z];            // ステージの配置（開始ターン数）
-    //List<int> moveGimmickStartTurnList = new List<int>();                           // 移動系ギミック（開始ターン数）
     int turnNum;                                                                    // ステージのターン数
     private string guitxt = "";
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -291,66 +271,56 @@ public class Stage : MonoBehaviour
         gimmick = gimmick % 100;            // 配列の数字を百で割った余りを入れるF
         gimmickStartTurn = gimmick;         // ギミックの開始ターンを入れる
 
+        // ▽ギミックの種類が
         switch (gimmickPattern)
         {
-            case NONE_BLOCK:  // ▼何も無い//////////////////////////////////////////////////////////////////////////////////////////////////////
+            case NONE_BLOCK:  // ▼何も無い////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case START_POINT: // ▼スタート地点///////////////////////////////////////////////////////////////////////////////////////////////////
+            case START_POINT: // ▼スタート地点/////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickStart, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case STAGE_GOOL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+            case STAGE_GOOL:  // ▼ゴール地点///////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            
-            case MUSHROOM_SMALL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+            case MUSHROOM_SMALL:  // ▼キノコ（小さくなる）//////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomSmall, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
                 break;
-
-            case MUSHROOM_BIG:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+            case MUSHROOM_BIG:  // ▼キノコ（大きくなる）////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
-                //gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
                 break;
-
-            case POTION_SMALL:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+            case POTION_SMALL:  // ▼薬（小さくなる）////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
                 break;
-
-            case POTION_BIG:  // ▼ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////
+            case POTION_BIG:  // ▼薬（大きくなる）////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = gimmickPattern;
-                //gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
                 break;
-
-            //case ENEMY: // ▼敵////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //    gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
-            //    gimmickNumArray[y, x, z] = NONE_BLOCK;
-            //    moveGimmickObjectList.Add(GameObject.Instantiate(gimmickEnemy, new Vector3(x, y, z), Quaternion.identity) as GameObject);
-            //    moveGimmickNumList.Add(ENEMY);
-            //    break;
-            case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIvyBlock, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(field);
                 break;
-            case IVY_FRONT: // ▼蔦（前）///////////////////////////////////////////////////////////////////////////////////////////////////
-            case IVY_BACK:  // ▼蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////
-            case IVY_LEFT:  // ▼蔦（左）///////////////////////////////////////////////////////////////////////////////////////////////////
-            case IVY_RIGHT: // ▼蔦（右）///////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_FRONT: // ▼蔦（前）/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_BACK:  // ▼蔦（後）/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_LEFT:  // ▼蔦（左）/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_RIGHT: // ▼蔦（右）/////////////////////////////////////////////////////////////////////////////////////////////////////
                 switch (gimmickPattern)
                 {
                     case IVY_FRONT:
@@ -412,13 +382,9 @@ public class Stage : MonoBehaviour
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
             case ROOM_BLOCK_FLOOR:           // 家ステージの足場ブロック（1段目）
-                 switch (x)
+                 switch (x % 2)
                 {
                     case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                    case 9:
                         if (z % 2 == 0)
                         {
                             // 家ステージの足場ブロック（黒）
@@ -434,11 +400,7 @@ public class Stage : MonoBehaviour
                             gimmickNumArray[y, x, z] = gimmickPattern;
                         }
                         break;
-                    case 2:
-                    case 4:
-                    case 6:
-                    case 8:
-                    case 10:
+                    case 0:
                         if (z % 2 == 1)
                         {
                             // 家ステージの足場ブロック（黒）
