@@ -3,12 +3,6 @@ using System.Collections;
 
 public class Rock : BaseGimmick
 {
-	// ★BaseGimmickで宣言した変数
-	//protected bool gimmickFlag;     // ギミックフラグ
-	//public int startActionTurn;     // ギミック開始ターン
-	//protected int gimmickCount;     // ギミック開始後のターン数
-	//public bool movePossibleFlag;   // 移動可能フラグ
-
 	// ★移動方向★
 	public enum MoveDirection
 	{
@@ -36,8 +30,7 @@ public class Rock : BaseGimmick
 
 	public bool moveFlag;
 	public int moveTimer;
-	public int moveCount = 0;   //
-	public int saveCount = 0; // 現在の保存数
+	public int moveCount = 0;
 	public MoveDirection[] moveMemory = new MoveDirection[100]; // 保存用配列(移動方向)
 	private MoveDirection moveDirection = 0; // 移動方向
 	public PlayerAction playerAction; // アリスの行動
@@ -127,44 +120,10 @@ public class Rock : BaseGimmick
 	// ★岩が押されたときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void PushMove(int x, int y, int z, int directionX, int directionZ)
 	{
-		//posX = x;
-		//posY = y;
-		//posZ = z;
-
-		if (directionZ == -1)
-		{
-			moveMemory[turnNum] = MoveDirection.FRONT;
-			//posZ--;
-		}
-		else if (directionZ == 1)
-		{
-			moveMemory[turnNum] = MoveDirection.BACK;
-			//posZ++;
-		}
-		else if (directionX == 1)
-		{
-			moveMemory[turnNum] = MoveDirection.LEFT;
-			//posX++;
-		}
-		else if (directionX == -1)
-		{
-			moveMemory[turnNum] = MoveDirection.RIGHT;
-			//posX--;
-		}
-
-
-
-		
-
-	//	moveMemory[turnNum+2] = MoveDirection.FRONT;		
-		//if (directionZ == -1)
-		//	moveDirection = MoveDirection.FRONT;
-		//else if (directionZ == 1)
-		//	moveDirection = MoveDirection.BACK;
-		//else if (directionX == 1)
-		//	moveDirection = MoveDirection.LEFT;
-		//else if (directionX == -1)
-		//	moveDirection = MoveDirection.RIGHT;
+		if (directionZ == -1) { moveMemory[turnNum] = MoveDirection.FRONT; }
+		else if (directionZ == 1) { moveMemory[turnNum] = MoveDirection.BACK; }
+		else if (directionX == 1) { moveMemory[turnNum] = MoveDirection.LEFT; }
+		else if (directionX == -1) { moveMemory[turnNum] = MoveDirection.RIGHT; }
 	}
 
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -241,9 +200,5 @@ public class Rock : BaseGimmick
 		moveTimer++;
 	}
 	// ★岩が落ちるときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-	public void Fall()
-	{
-		moveMemory[turnNum+1] = MoveDirection.DOWN;
-		Debug.Log("FALLROCK");
-	}
+	public void Fall() { moveMemory[turnNum + 1] = MoveDirection.DOWN; }
 }
