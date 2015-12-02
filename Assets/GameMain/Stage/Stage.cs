@@ -922,163 +922,174 @@ public class Stage : MonoBehaviour
     {
         bool flag = false;
 
-        switch(gimmick)
+        switch (gimmick)
         {
-            // 移動できる
-            case NONE_BLOCK:      // 何も無い
-            case START_POINT:     // スタート地点
-            case STAGE_GOOL:      // ゴール地点
-            case IVY_FRONT: // 蔦（前）
-            case IVY_BACK:  // 蔦（後）
-            case IVY_LEFT:  // 蔦（左）
-            case IVY_RIGHT: // 蔦（右）
-            case LADDER_FRONT: // 蔦（前）
-            case LADDER_BACK:  // 蔦（後）
-            case LADDER_LEFT:  // 蔦（左）
-            case LADDER_RIGHT: // 蔦（右）
-            case MUSHROOM_BIG:      // ▼キノコ（大きくなる）
-            case MUSHROOM_SMALL:    // ▼キノコ（小さくなる）
-            case POTION_BIG:        // ▼薬（大きくなる）
-            case POTION_SMALL:      // ▼薬（小さくなる）
-            case DOOR_RED_KEY:    // 赤扉（鍵）
-            case DOOR_BLUE_KEY:   // 青扉（鍵）
-            case DOOR_YELLOW_KEY: // 黄扉（鍵）
-            case DOOR_GREEN_KEY:  // 緑扉（鍵）
-            case WARP_HOLE_ONE:   // 穴１
-            case WARP_HOLE_TWO:   // 穴２
-            case WARP_HOLE_TRHEE: // 穴３
-            case WARP_HOLE_FOUR:  // 穴４
-            case WARP_HOLE_FIVE:  // 穴５
-            case BRAMBLE: //茨
-            case CHESHIRE_CAT: // チェシャ
+            // 移動できるギミック
+            case NONE_BLOCK:        // No.0     透明ブロック
+            case START_POINT:       // No.1     スタート地点
+            case STAGE_GOOL:        // No.2     ゴール地点
+            case IVY_FRONT:         // No.22    蔦（前）
+            case IVY_BACK:          // No.23    蔦（後）
+            case IVY_LEFT:          // No.24    蔦（左）
+            case IVY_RIGHT:         // No.25    蔦（右）
+            case LADDER_FRONT:      // No.27    梯子（前）
+            case LADDER_BACK:       // No.28    梯子（後）
+            case LADDER_LEFT:       // No.29    梯子（左）
+            case LADDER_RIGHT:      // No.30    梯子（右）
+            case MUSHROOM_SMALL:    // No.33    キノコ（小さくなる）
+            case MUSHROOM_BIG:      // No.34    キノコ（大きくなる）
+            case POTION_SMALL:      // No.35    薬（小さくなる）
+            case POTION_BIG:        // No.36    薬（大きくなる）
+            case DOOR_RED_KEY:      // No.37    赤扉（鍵）
+            case DOOR_BLUE_KEY:     // No.39    青扉（鍵）
+            case DOOR_YELLOW_KEY:   // No.41    黄扉（鍵）
+            case DOOR_GREEN_KEY:    // No.43    緑扉（鍵）
+            case WARP_HOLE_ONE:     // No.45    穴１
+            case WARP_HOLE_TWO:     // No.46    穴２
+            case WARP_HOLE_TRHEE:   // No.47    穴３
+            case WARP_HOLE_FOUR:    // No.48    穴４
+            case WARP_HOLE_FIVE:    // No.49    穴５
+            case BRAMBLE:           // No.50    茨
+            case RED_FLOWER:        // No.51    花１（赤）
+            case BLUE_FLOWER:       // No.52    花２（青）
+            case PURPLE_FLOWER:     // No.53    花３（紫）
+            case CHESHIRE_CAT:      // No.54    チェシャ猫  
                 flag = true;
-                
                 break;
 
-            case IVY_BLOCK: // 蔦ブロック
-            case LADDER_BLOCK://梯子
+            // 移動できないギミック
+            case WATER:                     // No.3     水
+            case FOREST_BLOCK_GROUND:       // No.4     森ステージの足場ブロック（1段目）
+            case FOREST_BLOCK_GRASS:        // No.5     森ステージの足場ブロック（2段目）
+            case FOREST_BLOCK_ALLGRASS:     // No.6     森ステージの足場ブロック（3段目以降）
+            case ROOM_BLOCK_FLOOR:          // No.7     家ステージの足場ブロック（1段目）
+            case ROOM_BLOCK_BOOKSHELF:      // No.8     家ステージの本棚
+            case REDFOREST_BLOCK_GROUND:    // No.9     赤い森ステージの足場ブロック（1段目）
+            case REDFOREST_BLOCK_GRASS:     // No.10    赤い森ステージの足場ブロック（2段目）
+            case REDFOREST_BLOCK_ALLGRASS:  // No.11    赤い森ステージの足場ブロック（3段目以降）
+            case DARKFOREST_BLOCK_GROUND:   // No.12    暗い森ステージの足場ブロック（全段）
+            case GARDEN_BLOCK_GROUND:       // No.13    庭園ステージの足場ブロック（1段目）
+            case GARDEN_BLOCK_FLOWER:       // No.14    庭園ステージの足場ブロック（2段目以降）
+            case DUMMY_TREE:                // No.32    木（成長後判定用）
+            default:
+                flag = false;
+                break;
+
+            // 条件によって変わるギミック
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_BLOCK:     // No.21    蔦ブロック/////////////////////////////////////
+            case LADDER_BLOCK:  // No.26    梯子ブロック///////////////////////////////////
                 switch (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ])
                 {
-                    case IVY_FRONT: // 蔦（前
-                    case IVY_BACK:  // 蔦（後）
-                    case IVY_LEFT:  // 蔦（左）
-                    case IVY_RIGHT: // 蔦（右）
+                    case IVY_FRONT: // No.22    蔦（前）///////////////////////////////////////////////////////////////////////////
+                    case IVY_BACK:  // No.23    蔦（後）///////////////////////////////////////////////////////////////////////////
+                    case IVY_LEFT:  // No.24    蔦（左）///////////////////////////////////////////////////////////////////////////
+                    case IVY_RIGHT: // No.25    蔦（右）///////////////////////////////////////////////////////////////////////////
                         if (gimmickObjectArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().getBrownFlag)
                         {
-                            flag = false;
+                            flag = false;   // 移動できない
                         }
                         else
                         {
-                            flag = true;
+                            flag = true;    // 移動できる
                         }
                         break;
-
-                    case LADDER_FRONT: // 蔦（前
-                    case LADDER_BACK:  // 蔦（後）
-                    case LADDER_LEFT:  // 蔦（左）
-                    case LADDER_RIGHT: // 蔦（右）
+                    case LADDER_FRONT: // No.27    梯子（前）//////////////////////////////////////////////////////////////////////
+                    case LADDER_BACK:  // No.28    梯子（後）//////////////////////////////////////////////////////////////////////
+                    case LADDER_LEFT:  // No.29    梯子（左）//////////////////////////////////////////////////////////////////////
+                    case LADDER_RIGHT: // No.30    梯子（右）//////////////////////////////////////////////////////////////////////
                         if (gimmickObjectArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ladder>().breakFlag)
                         {
-                            flag = false;
+                            flag = false;   // 移動できない
                         }
                         else
                         {
-                            flag = true;
+                            flag = true;    // 移動できる
                         }
                         break;
                 }
                 break;
-         
-            // 特定の条件の時は移動可能
-            case TREE:  // ▼木////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case TREE:  // No.31    木///////////////////////////////////////////////////////////////////////////////
+                flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();
                 break;
+            /////////////////////////////////////////////////////////////////////////////
+            case DOOR_RED: // No.38    赤扉（扉）////////////////////////////////////////
+                if (alice.getKeyColor_Red)
+                {
+                    flag = true;    // 移動できる
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                }
+                break;
+            /////////////////////////////////////////////////////////////////////////////
+            case DOOR_BLUE: // No.40    青扉（扉）///////////////////////////////////////
+                if (alice.getKeyColor_Blue)
+                {
+                    flag = true;    // 移動できる
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                }
+                break;
+            /////////////////////////////////////////////////////////////////////////////
+            case DOOR_YELLOW: // No.42    黄扉（扉）/////////////////////////////////////
+                if (alice.getKeyColor_Yellow)
+                {
+                    flag = true;    // 移動できる
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                }
+                break;
+            /////////////////////////////////////////////////////////////////////////////
+            case DOOR_GREEN: // No.44    緑扉（扉）//////////////////////////////////////
+                if (alice.getKeyColor_Green)
+                {
+                    flag = true;    // 移動できる
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                }
+                break;
+            //////////////////////////////////////////////////////////////////////////////////////
+            case ROCK:  // No.62    岩////////////////////////////////////////////////////////////
+                // アリスが大きければ
+                if (alice.GetBig())
+                {
+                    int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
+                    int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
 
-			// 扉
-			case DOOR_RED: // 扉（赤）
-				if (alice.getKeyColor_Red)
-				{
-					flag = true;
-					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-				}
-				break;
+                    int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
+                    int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
+                    Debug.Log(pushDirectionZ);
 
-			case DOOR_BLUE: // 扉（青）
-				if (alice.getKeyColor_Blue)
-				{
-					flag = true;
-					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-				}
-				break;
+                    // 押した先にギミックが無ければ移動可能
+                    if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+                    {
+                        flag = true;    // 移動できる
+                        if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
+                        ((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
+                        ((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
+                        ((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
+                        {
+                            gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
 
-			case DOOR_YELLOW: // 扉（黄）
-				if (alice.getKeyColor_Yellow)
-				{
-					flag = true;
-					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-				}
-				break;
+                            GameObject objectTemp;
+                            objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+                            gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
+                            gimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-			case DOOR_GREEN: // 扉（緑）
-				if (alice.getKeyColor_Green)
-				{
-					flag = true;
-					gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-				}
-				break;
-
-			case ROCK:
-				// アリスが大きければ
-				if(alice.GetBig())
-				{
-					int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
-					int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
-
-					int pushDirectionX = alice.arrayPosX - posX; // 押した方向x
-					int pushDirectionZ = alice.arrayPosZ - posZ; //  押した方向z
-					//Debug.Log(pushDirectionX);
-					Debug.Log(pushDirectionZ);
-					//Debug.Log(alice.GetMoveDirection());
-
-					// 押した先にギミックが無ければ移動可能
-					if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
-					{
-						flag = true;
-						Debug.Log("oseruyo-");
-						//// 
-						if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
-						((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
-						((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
-						((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
-						{
-							gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
-
-							GameObject objectTemp;
-							objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-							gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
-							gimmickObjectArray[posY, posX, posZ] = objectTemp;
-
-							gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
-							gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-						}
-					}
-				}
-				break;
-
-            default:
-                flag = false;
+                            gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+                            gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+                        }
+                    }
+                }
                 break;
         }
 
-        // 移動系ギミックの判定
+        // 移動系ギミックの判定////////////////////////////////////
         for (int num = 0; num < moveGimmickObjectList.Count; num++)
         {
             // 配列の中にギミックがある場合
-            if(moveGimmickNumList[num] != NONE_BLOCK)
+            if (moveGimmickNumList[num] != NONE_BLOCK)
             {
-                if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)(moveGimmickObjectList[num].transform.position.y+0.5f)) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
+                if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)(moveGimmickObjectList[num].transform.position.y + 0.5f)) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
                 {
-                    if(alice.invisibleFlag == false)
+                    if (alice.invisibleFlag == false)
                     {
                         flag = false;
                     }
@@ -1086,7 +1097,7 @@ public class Stage : MonoBehaviour
                     {
                         flag = true;
                     }
-                    
+
                 }
             }
         }
