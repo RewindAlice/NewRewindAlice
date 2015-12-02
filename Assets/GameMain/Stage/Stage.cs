@@ -28,7 +28,7 @@ public class Stage : MonoBehaviour
     const int DARKFOREST_BLOCK_GROUND = 12;     // No.12    暗い森ステージの足場ブロック（全段）
     const int GARDEN_BLOCK_GROUND = 13;         // No.13    庭園ステージの足場ブロック（1段目）
     const int GARDEN_BLOCK_FLOWER = 14;         // No.14    庭園ステージの足場ブロック（2段目以降）
-    // No.15 ～ No.20は無し
+                                                // No.15 ～ No.20は無し
     const int IVY_BLOCK = 21;                   // No.21    蔦ブロック
     const int IVY_FRONT = 22;                   // No.22    蔦（前）
     const int IVY_BACK = 23;                    // No.23    蔦（後）
@@ -229,464 +229,264 @@ public class Stage : MonoBehaviour
         // ▽ギミックの種類が
         switch (gimmickPattern)
         {
-            case NONE_BLOCK:  // ▼何も無い////////////////////////////////////////////////////////////////////////////////////////////////
+            // ▼No.0     透明ブロック/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case NONE_BLOCK:///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case START_POINT: // ▼スタート地点/////////////////////////////////////////////////////////////////////////////////////////////
+            // ▼No.1     スタート地点//////////////////////////////////////////////////////////////////////////////////////////////////////
+            case START_POINT:///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickStart, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case STAGE_GOOL:  // ▼ゴール地点///////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
+            // ▼No.2     ゴール地点////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case STAGE_GOOL:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickGoal, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case MUSHROOM_SMALL:  // ▼キノコ（小さくなる）//////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomSmall, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(MUSHROOM_SMALL);
-                break;
-            case MUSHROOM_BIG:  // ▼キノコ（大きくなる）////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(MUSHROOM_BIG);
-                break;
-            case POTION_SMALL:  // ▼薬（小さくなる）////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(POTION_SMALL);
-                break;
-            case POTION_BIG:  // ▼薬（大きくなる）////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
-                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(POTION_BIG);
-                break;
-            case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIvyBlock, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(field);
-
-                break;
-            case IVY_FRONT: // ▼蔦（前）/////////////////////////////////////////////////////////////////////////////////////////////////////
-            case IVY_BACK:  // ▼蔦（後）/////////////////////////////////////////////////////////////////////////////////////////////////////
-            case IVY_LEFT:  // ▼蔦（左）/////////////////////////////////////////////////////////////////////////////////////////////////////
-            case IVY_RIGHT: // ▼蔦（右）/////////////////////////////////////////////////////////////////////////////////////////////////////
-                switch (gimmickPattern)
-                {
-                    case IVY_FRONT:
-                        Vector3 ivyFrontPosition = new Vector3(x, y - 0.4f, z + 0.5f);
-                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyFrontPosition, Quaternion.identity) as GameObject;
-                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 180, 0);
-                        gimmickNumArray[y, x, z] = gimmickPattern;       
-                        break;
-                    case IVY_BACK:
-                        Vector3 ivyBackPosition = new Vector3(x, y - 0.4f, z - 0.5f);
-                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyBackPosition, Quaternion.identity) as GameObject;
-                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
-                        gimmickNumArray[y, x, z] = gimmickPattern;       
-                        break;
-                    case IVY_LEFT:
-                        Vector3 ivyLeftPosition = new Vector3(x - 0.5f, y - 0.4f, z);
-                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyLeftPosition, Quaternion.identity) as GameObject;
-                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 90, 0);
-                        gimmickNumArray[y, x, z] = gimmickPattern;       
-                        break;
-                    case IVY_RIGHT:
-                        Vector3 ivyRightPosition = new Vector3(x + 0.5f, y - 0.4f, z);
-                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyRightPosition, Quaternion.identity) as GameObject;
-                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 270, 0);
-                        gimmickNumArray[y, x, z] = gimmickPattern;       
-                        break;
-                }
-                gimmickObjectArray[y, x, z].GetComponent<Ivy>().SetStartActionTurn(gimmickStartTurn);
-                break;
-            case TREE: // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickTree, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
-                gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-                gimmickObjectArray[y, x, z].GetComponent<Tree>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-                break;
-
-
-            //------------------------------------
-            //松村脩平追加部分
-            //------------------------------------
-            case WATER: // 森ステージの足場ブロック（1段目）
+            // ▼No.3     水//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case WATER:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(waterBlock, new Vector3(x, y, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case FOREST_BLOCK_GROUND: // 森ステージの足場ブロック（1段目）
+            // ▼No.4     森ステージの足場ブロック（1段目）/////////////////////////////////////////////////////////////////////////////////////////////
+            case FOREST_BLOCK_GROUND:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockGround, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case FOREST_BLOCK_GRASS:          // 森ステージの足場ブロック（2段目）
+            // ▼No.5     森ステージの足場ブロック（2段目）////////////////////////////////////////////////////////////////////////////////////////////
+            case FOREST_BLOCK_GRASS:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case FOREST_BLOCK_ALLGRASS:       // 森ステージの足場ブロック（3段目以降）
+            // ▼No.6     森ステージの足場ブロック（3段目以降）///////////////////////////////////////////////////////////////////////////////////////////
+            case FOREST_BLOCK_ALLGRASS:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(forestBlockAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case ROOM_BLOCK_FLOOR:           // 家ステージの足場ブロック（1段目）
-                 switch (x % 2)
+            // ▼No.7     家ステージの足場ブロック（1段目）///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case ROOM_BLOCK_FLOOR:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                switch (x % 2)
                 {
-                    case 1:
-                        if (z % 2 == 0)
+                    case 0:
+                        switch (z % 2)
                         {
-                            // 家ステージの足場ブロック（黒）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
-                        }
-                        else
-                        {
-                            // 家ステージの足場ブロック（白）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
+                            case 0:
+                                // 家ステージの足場ブロック（白）/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
+                            case 1:
+                                // 家ステージの足場ブロック（黒）/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
                         }
                         break;
-                    case 0:
-                        if (z % 2 == 1)
+                    case 1:
+                        switch (z % 2)
                         {
-                            // 家ステージの足場ブロック（黒）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
-                        }
-                        else
-                        {
-                            // 家ステージの足場ブロック（白）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
+                            case 0:
+                                // 家ステージの足場ブロック（黒）/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
+                            case 1:
+                                // 家ステージの足場ブロック（白）/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
                         }
                         break;
                 }
                 break;
-
-			case ROOM_BLOCK_BOOKSHELF:        // 家ステージの岩
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                           // ギミックを指定された向きに変更
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
-				gimmickNumArray[y, x, z] = ROCK;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);                                              // ギミックの初期化
-				break;
-
-            case REDFOREST_BLOCK_GROUND:      // 森ステージの足場ブロック（1段目）
+            // ▼No.8     家ステージの本棚///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case ROOM_BLOCK_BOOKSHELF:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
+                gimmickNumArray[y, x, z] = ROCK;
+                gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);
+                break;
+            // ▼No.9     赤い森ステージの足場ブロック（1段目）////////////////////////////////////////////////////////////////////////////////////////////
+            case REDFOREST_BLOCK_GROUND:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockGround, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case REDFOREST_BLOCK_GRASS:      // 森ステージの足場ブロック（2段目）
+            // ▼No.10    赤い森ステージの足場ブロック（2段目）///////////////////////////////////////////////////////////////////////////////////////////
+            case REDFOREST_BLOCK_GRASS:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case REDFOREST_BLOCK_ALLGRASS:   // 森ステージの足場ブロック（3段目以降）
+            // ▼No.11    赤い森ステージの足場ブロック（3段目以降）//////////////////////////////////////////////////////////////////////////////////////////
+            case REDFOREST_BLOCK_ALLGRASS:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(redForestBlockAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            case DARKFOREST_BLOCK_GROUND:    // 暗い森ステージの足場ブロック（全段）
+            // ▼No.12    暗い森ステージの足場ブロック（全段）///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DARKFOREST_BLOCK_GROUND:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 switch (UnityEngine.Random.Range(0, 2))
                 {
-                    case 0:
+                    case 0://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(darkForestBlockRedAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
-                    case 1:
+                    case 1:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(darkForestBlockGreenAllGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
-                    //case 2:
-                    //    gimmickObjectArray[y, x, z] = GameObject.Instantiate(blockInsect3, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                    //    gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                    //    gimmickNumArray[y, x, z] = gimmickPattern;
-                        //break;
                 }
                 break;
-
-            case GARDEN_BLOCK_GROUND:        // ガーデンステージの足場ブロック（1段目）
+            // ▼No.13    庭園ステージの足場ブロック（1段目）//////////////////////////////////////////////////////////////////////////////////////////
+            case GARDEN_BLOCK_GROUND://////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockGrass, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-
-            case GARDEN_BLOCK_FLOWER:        // ガーデンテージの足場ブロック（2段目以降）
+            // ▼No.14    庭園ステージの足場ブロック（2段目以降）////////////////////////////////////////////////////////////////////////////////////////////////
+            case GARDEN_BLOCK_FLOWER:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 switch (UnityEngine.Random.Range(0, 2))
                 {
-                    case 0:
+                    case 0://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockRoseRed, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
-                    case 1:
+                    case 1:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gardenBlockRoseWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
                 }
                 break;
-
-            case SOLDIER_HEART_RIGHT:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartRight, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                break;
-
-            case SOLDIER_HEART_LEFT:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartLeft, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                break;
-
-            case SOLDIER_SPADE_RIGHT:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeRight, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
-                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
-                break;
-
-            case SOLDIER_SPADE_LEFT:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeLeft, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
-                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
-                break;
-
-            case SOLDIER_SPADE_BAF:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = NONE_BLOCK;
-                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeBAF, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
-                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierBackAndForth>().Initialize(gimmickDirection, x, y, z);
-                break;
-
-            case TWEEDLEDUM:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = NONE_BLOCK;
-                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDum, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
-                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDum>().Initialize(gimmickDirection, x, y, z);
-                break;
-            case TWEEDLEDEE:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = NONE_BLOCK;
-                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDee, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
-                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDee>().Initialize(gimmickDirection, x, y, z);
-                break;
-
-
-            case BRAMBLE:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBramble, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-
-                break;
-
-            case WARP_HOLE_ONE:
-            case WARP_HOLE_TWO:
-            case WARP_HOLE_TRHEE:
-            case WARP_HOLE_FOUR:
-            case WARP_HOLE_FIVE:
-
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickHole, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+            // ▼No.21    蔦ブロック//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_BLOCK:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIvyBlock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(field);
                 break;
-
-            case RED_FLOWER:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickRedFlower, new Vector3(x, y-0.2f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<Flower3>().changeMaterial(field);
-
-                break;
-            case BLUE_FLOWER:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBuleFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<Flower2>().changeMaterial(field);
-                break;
-            case PURPLE_FLOWER:
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPurpleFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-
-                gimmickObjectArray[y, x, z].GetComponent<Flower1>().changeMaterial(field);
-                break;
-            //-----------------------------------------------------------------
-
-			//------------------------------------
-            //西尾竜太郎追加部分
-            //------------------------------------
-				case DOOR_RED:  // ▼赤扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Red, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
-                gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-                gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-			case DOOR_RED_KEY:  // ▼赤鍵//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Red, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);		         // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-
-			case DOOR_BLUE:  // ▼青扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Blue, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);          // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-			case DOOR_BLUE_KEY:  // ▼青鍵//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Blue, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);		                 // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-
-			case DOOR_YELLOW:  // ▼黄扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Yellow, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-			case DOOR_YELLOW_KEY:  // ▼黄鍵//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Yellow, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);                                     // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-
-			case DOOR_GREEN:  // ▼緑扉//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Green, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                                     // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-			case DOOR_GREEN_KEY:  // ▼緑鍵////////////////////////////////////////////////////////////////////////////////////////////ll//////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Green, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);                                     // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-
-			case CHESHIRE_CAT:  // ▼チェシャ////////////////////////////////////////////////////////////////////////////////////////////ll//////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(cheshire, new Vector3(x, y, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                           // ギミックを指定された向きに変更
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Cheshire>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				break;
-
-			case ROCK:  // ▼岩////////////////////////////////////////////////////////////////////////////////////////////ll//////////////////////////////////////////////////////
-				gimmickObjectArray[y, x, z] = GameObject.Instantiate(rock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;  // ギミックのオブジェクトを配列に設定
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);                           // ギミックを指定された向きに変更
-				gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
-				gimmickNumArray[y, x, z] = gimmickPattern;                                                                                          // ギミックを数字として配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);                                              // ギミックの開始ターンを配列に設定
-				gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);                                              // ギミックの初期化
-				break;
-
-            //梯子ブロック
-            case LADDER_BLOCK:
-                switch (x)
+            // ▼No.22~  蔦////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_FRONT: // ▼No.22    蔦（前）/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_BACK:  // ▼No.23    蔦（後）/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_LEFT:  // ▼No.24    蔦（左）/////////////////////////////////////////////////////////////////////////////////////////////////////
+            case IVY_RIGHT: // ▼No.25    蔦（右）/////////////////////////////////////////////////////////////////////////////////////////////////////
+                switch (gimmickPattern)
                 {
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                    case 9:
-                        if (z % 2 == 0)
+                    // ▼No.22    蔦（前）////////////////////////////////////////////////////////////////////////////////////////////////////
+                    case IVY_FRONT:///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        Vector3 ivyFrontPosition = new Vector3(x, y - 0.4f, z + 0.5f);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyFrontPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 180, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                    // ▼No.23    蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////
+                    case IVY_BACK:///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        Vector3 ivyBackPosition = new Vector3(x, y - 0.4f, z - 0.5f);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyBackPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                    // ▼No.24    蔦（左）///////////////////////////////////////////////////////////////////////////////////////////////////
+                    case IVY_LEFT:///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        Vector3 ivyLeftPosition = new Vector3(x - 0.5f, y - 0.4f, z);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyLeftPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 90, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                    // ▼No.25    蔦（右）////////////////////////////////////////////////////////////////////////////////////////////////////
+                    case IVY_RIGHT:///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        Vector3 ivyRightPosition = new Vector3(x + 0.5f, y - 0.4f, z);
+                        gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIVY, ivyRightPosition, Quaternion.identity) as GameObject;
+                        gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 270, 0);
+                        gimmickNumArray[y, x, z] = gimmickPattern;
+                        break;
+                }
+                gimmickObjectArray[y, x, z].GetComponent<Ivy>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.26    梯子ブロック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case LADDER_BLOCK:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                switch (x % 2)
+                {
+                    case 0:
+                        switch (z % 2)
                         {
-                            // 家ステージの足場ブロック（黒）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
-                        }
-                        else
-                        {
-                            // 家ステージの足場ブロック（白）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
+                            case 0:// 家ステージの足場ブロック（白）//////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
+                            case 1:// 家ステージの足場ブロック（黒）//////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
                         }
                         break;
-                    case 2:
-                    case 4:
-                    case 6:
-                    case 8:
-                    case 10:
-                        if (z % 2 == 1)
+                    case 1:
+                        switch (z % 2)
                         {
-                            // 家ステージの足場ブロック（黒）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
-                        }
-                        else
-                        {
-                            // 家ステージの足場ブロック（白）
-                            gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                            gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                            gimmickNumArray[y, x, z] = gimmickPattern;
+                            case 0:// 家ステージの足場ブロック（黒）//////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorBlack, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
+                            case 1:// 家ステージの足場ブロック（白）//////////////////////////////////////////////////////////////////////////////////////////////////////
+                                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockFloorWhite, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                                gimmickNumArray[y, x, z] = gimmickPattern;
+                                break;
                         }
                         break;
                 }
-                //gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBlock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                //gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
-                //gimmickNumArray[y, x, z] = gimmickPattern;
                 break;
-            //梯子
-            case LADDER_FRONT:
-            case LADDER_BACK:
-            case LADDER_LEFT:
-            case LADDER_RIGHT:
+            // ▼N0.27~  梯子///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case LADDER_FRONT:  // ▼No.27    梯子（前）////////////////////////////////////////////////////////////////////////////////////////////
+            case LADDER_BACK:   // ▼No.28    梯子（後）////////////////////////////////////////////////////////////////////////////////////////////
+            case LADDER_LEFT:   // ▼No.29    梯子（左）////////////////////////////////////////////////////////////////////////////////////////////
+            case LADDER_RIGHT:  // ▼No.30    梯子（右）////////////////////////////////////////////////////////////////////////////////////////////
                 switch (gimmickPattern)
                 {
-                    case LADDER_FRONT:
+                    // ▼No.27    梯子（前）////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    case LADDER_FRONT://////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Vector3 LadderFrontPosition = new Vector3(x - 0.9f, y - 0.5f, z + 0.45f);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderFrontPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 180, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
-
-                    case LADDER_BACK:
+                    // ▼No.28    梯子（後）///////////////////////////////////////////////////////////////////////////////////////////////////////
+                    case LADDER_BACK://////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Vector3 LadderBackPosition = new Vector3(x + 0.9f, y - 0.5f, z - 0.45f);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderBackPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
-
-                    case LADDER_LEFT:
+                    // ▼No.29    梯子（左）///////////////////////////////////////////////////////////////////////////////////////////////////////
+                    case LADDER_LEFT://////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Vector3 LadderLeftPosition = new Vector3(x - 0.45f, y - 0.5f, z - 0.9f);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderLeftPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 90, 0);
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
-
-                    case LADDER_RIGHT:
+                    // ▼No.30    梯子（右）////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    case LADDER_RIGHT://////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Vector3 LadderRightPosition = new Vector3(x + 0.45f, y - 0.5f, z + 0.9f);
                         gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickLadder, LadderRightPosition, Quaternion.identity) as GameObject;
                         gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 270, 0);
@@ -694,6 +494,200 @@ public class Stage : MonoBehaviour
                         break;
                 }
                 //gimmickObjectArray[y, x, z].GetComponent<Ladder>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.31    木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case TREE:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickTree, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Tree>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.33    キノコ（小さくなる）///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case MUSHROOM_SMALL://///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.34    キノコ（大きくなる）///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case MUSHROOM_BIG:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.35    薬（小さくなる）///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case POTION_SMALL:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.36    薬（大きくなる）/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case POTION_BIG:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.37    赤扉（鍵）//////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_RED_KEY:////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Red, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.38    赤扉（扉）//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_RED:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Red, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.39    青扉（鍵）///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_BLUE_KEY:////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Blue, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.40    青扉（扉）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_BLUE:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Blue, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.41    黄扉（鍵）/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_YELLOW_KEY:////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Yellow, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.42    黄扉（扉）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_YELLOW:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Yellow, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.43    緑扉（鍵）////////////////////////////////////////////////////////////////////////////////////////////ll//////////////
+            case DOOR_GREEN_KEY:////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Green, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection) + new Vector3(-45, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Key>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.44    緑扉（扉）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case DOOR_GREEN:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickDoor_Green, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.45~  穴///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case WARP_HOLE_ONE:     // ▼No.45    穴１////////////////////////////////////////////////////////////////////////////////////////////
+            case WARP_HOLE_TWO:     // ▼No.46    穴２////////////////////////////////////////////////////////////////////////////////////////////
+            case WARP_HOLE_TRHEE:   // ▼No.47    穴３////////////////////////////////////////////////////////////////////////////////////////////
+            case WARP_HOLE_FOUR:    // ▼No.48    穴４////////////////////////////////////////////////////////////////////////////////////////////
+            case WARP_HOLE_FIVE:    // ▼No.49    穴５////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickHole, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            // ▼No.50    茨/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case BRAMBLE:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBramble, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            // ▼No.51    花１（赤）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case RED_FLOWER:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickRedFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Flower3>().changeMaterial(field);
+                break;
+            // ▼No.52    花２（青）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case BLUE_FLOWER:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBuleFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Flower2>().changeMaterial(field);
+                break;
+            // ▼No.53    花３（紫）//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case PURPLE_FLOWER:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPurpleFlower, new Vector3(x, y - 0.2f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(0, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Flower1>().changeMaterial(field);
+                break;
+            // ▼No.54    チェシャ猫////////////////////////////////////////////////////////////////////////////////////////////////////
+            case CHESHIRE_CAT://////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(cheshire, new Vector3(x, y, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Cheshire>().SetStartActionTurn(gimmickStartTurn);
+                break;
+            // ▼No.55    トゥイードルダム////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case TWEEDLEDUM://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDum, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDum>().Initialize(gimmickDirection, x, y, z);
+                break;
+            // ▼No.56    トゥイードルディ////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case TWEEDLEDEE://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDee, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDee>().Initialize(gimmickDirection, x, y, z);
+                break;
+            // ▼No.57    ハート兵（右回り）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case SOLDIER_HEART_RIGHT:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartRight, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            // ▼No.58    ハート兵（左回り）////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case SOLDIER_HEART_LEFT:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickSoldierHeartLeft, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                break;
+            // ▼No.59    スペード兵（右回り）////////////////////////////////////////////////////////////////////////////////////////////////////
+            case SOLDIER_SPADE_RIGHT://///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeRight, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
+                break;
+            // ▼No.60    スペード兵（左回り）////////////////////////////////////////////////////////////////////////////////////////////////////
+            case SOLDIER_SPADE_LEFT://////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeLeft, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
+                break;
+            // ▼No.61    スペード兵（往復）//////////////////////////////////////////////////////////////////////////////////////////////////////
+            case SOLDIER_SPADE_BAF:///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+                moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeBAF, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
+                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierBackAndForth>().Initialize(gimmickDirection, x, y, z);
+                break;
+            // ▼No.62    岩///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case ROCK://///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                gimmickObjectArray[y, x, z] = GameObject.Instantiate(rock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
+                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);
                 break;
         }
     }
