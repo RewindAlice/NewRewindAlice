@@ -777,142 +777,142 @@ public class Stage : MonoBehaviour
     // ★移動可能判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public bool MovePossibleDecision(Player alice, Player.MoveDirection direction, PlayerCamera.CameraAngle cameraAngle)
     {
-        bool moveDirectionflag = false;
-        bool moveDirectionDownflag = false;
+        bool besideDicisionflag = false;        // 横判定の結果
+        bool besideDownDicisionflag = false;    // 横下判定の結果
 
         int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
-        // アリスがステージ外にいる場合
-        if((posY == 0) || (posX == 0) || (posX == 10) || (posZ == 0) || (posZ == 10))
+        // アリスがステージ外にいる場合//////////////////////////////////////////////
+        if ((posY == 0) || (posX == 0) || (posX == 10) || (posZ == 0) || (posZ == 10))
         {
             return false;
         }
         else
         {
-            // カメラの向きが
-            switch(cameraAngle)
+            // ▽カメラの向きが
+            switch (cameraAngle)
             {
-                // 前なら
-                case PlayerCamera.CameraAngle.FRONT:
-                    // 移動方向が
+                // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case PlayerCamera.CameraAngle.FRONT://///////////////////////////////////////////////////////////////////////////////////////
+                    // ▽移動方向が
                     switch (direction)
                     {
-                        // 前なら
-                        case Player.MoveDirection.FRONT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
+                        // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.FRONT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
                             break;
-                        // 後なら
-                        case Player.MoveDirection.BACK:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
+                        // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.BACK://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
                             break;
-                        // 左なら
-                        case Player.MoveDirection.LEFT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
+                        // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.LEFT://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
                             break;
-                        // 右なら
-                        case Player.MoveDirection.RIGHT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
+                        // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.RIGHT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
                             break;
                     }
                     break;
-                // 後なら
-                case PlayerCamera.CameraAngle.BACK:
-                    // 移動方向が
+                // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case PlayerCamera.CameraAngle.BACK://////////////////////////////////////////////////////////////////////////////////////////
+                    // ▽移動方向が
                     switch (direction)
                     {
-                        // 前なら
-                        case Player.MoveDirection.FRONT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
+                        // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.FRONT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
                             break;
-                        // 後なら
-                        case Player.MoveDirection.BACK:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
+                        // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.BACK://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
                             break;
-                        // 左なら
-                        case Player.MoveDirection.LEFT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
+                        // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.LEFT://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
                             break;
-                        // 右なら
-                        case Player.MoveDirection.RIGHT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
+                        // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.RIGHT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
                             break;
 
                     }
                     break;
-                // 左なら
-                case PlayerCamera.CameraAngle.LEFT:
-                    // 移動方向が
+                // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case PlayerCamera.CameraAngle.LEFT://////////////////////////////////////////////////////////////////////////////////////////
+                    // ▽移動方向が
                     switch (direction)
                     {
-                        // 前なら
-                        case Player.MoveDirection.FRONT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
+                        // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.FRONT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
                             break;
-                        // 後なら
-                        case Player.MoveDirection.BACK:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
+                        // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.BACK://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
                             break;
-                        // 左なら
-                        case Player.MoveDirection.LEFT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
+                        // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.LEFT://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
                             break;
-                        // 右なら
-                        case Player.MoveDirection.RIGHT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
+                        // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.RIGHT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
                             break;
                     }
                     break;
-                // 右なら
-                case PlayerCamera.CameraAngle.RIGHT:
-                    // 移動方向が
+                // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case PlayerCamera.CameraAngle.RIGHT://///////////////////////////////////////////////////////////////////////////////////////
+                    // ▽移動方向が
                     switch (direction)
                     {
-                        // 前なら
-                        case Player.MoveDirection.FRONT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
+                        // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.FRONT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX - 1, posZ], posX - 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX - 1, posZ], posX - 1, posY - 1, posZ);
                             break;
-                        // 後なら
-                        case Player.MoveDirection.BACK:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
+                        // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.BACK://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX + 1, posZ], posX + 1, posY, posZ);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX + 1, posZ], posX + 1, posY - 1, posZ);
                             break;
-                        // 左なら
-                        case Player.MoveDirection.LEFT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
+                        // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.LEFT://////////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ - 1], posX, posY, posZ - 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ - 1], posX, posY - 1, posZ - 1);
                             break;
-                        // 右なら
-                        case Player.MoveDirection.RIGHT:
-                            moveDirectionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
-                            moveDirectionDownflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
+                        // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Player.MoveDirection.RIGHT://///////////////////////////////////////////////////////////////////////////////////
+                            besideDicisionflag = BesideDicision(gimmickNumArray[posY, posX, posZ + 1], posX, posY, posZ + 1);
+                            besideDownDicisionflag = BesideDownDicision(gimmickNumArray[posY - 1, posX, posZ + 1], posX, posY - 1, posZ + 1);
                             break;
                     }
                     break;
             }
 
-            // 横と横下が真の時のみ真を返す
-            if (moveDirectionflag && moveDirectionDownflag && alice.gameOverFlag == false)
+            // 横判定と横下判定が真の時のみ真を返す/////////////////////////////////////////
+            if (besideDicisionflag && besideDownDicisionflag && alice.gameOverFlag == false)
             {
-                return true;
+                return true;    // 移動できる
             }
             else
             {
-                return false;
+                return false;   // 移動できない
             }
         }
     }
