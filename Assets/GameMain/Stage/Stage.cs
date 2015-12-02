@@ -21,13 +21,13 @@ public class Stage : MonoBehaviour
     const int FOREST_BLOCK_GRASS = 5;           // No.5     森ステージの足場ブロック（2段目）
     const int FOREST_BLOCK_ALLGRASS = 6;        // No.6     森ステージの足場ブロック（3段目以降）
     const int ROOM_BLOCK_FLOOR = 7;             // No.7     家ステージの足場ブロック（1段目）
-    const int ROOM_BLOCK_BOOKSHELF = 8;         // No.8     家ステージの岩
-    const int REDFOREST_BLOCK_GROUND = 9;       // No.9     森ステージの足場ブロック（1段目）
-    const int REDFOREST_BLOCK_GRASS = 10;       // No.10    森ステージの足場ブロック（2段目）
-    const int REDFOREST_BLOCK_ALLGRASS = 11;    // No.11    森ステージの足場ブロック（3段目以降）
+    const int ROOM_BLOCK_BOOKSHELF = 8;         // No.8     家ステージの本棚
+    const int REDFOREST_BLOCK_GROUND = 9;       // No.9     赤い森ステージの足場ブロック（1段目）
+    const int REDFOREST_BLOCK_GRASS = 10;       // No.10    赤い森ステージの足場ブロック（2段目）
+    const int REDFOREST_BLOCK_ALLGRASS = 11;    // No.11    赤い森ステージの足場ブロック（3段目以降）
     const int DARKFOREST_BLOCK_GROUND = 12;     // No.12    暗い森ステージの足場ブロック（全段）
-    const int GARDEN_BLOCK_GROUND = 13;         // No.13    ガーデンステージの足場ブロック（1段目）
-    const int GARDEN_BLOCK_FLOWER = 14;         // No.14    ガーデンステージの足場ブロック（2段目以降）
+    const int GARDEN_BLOCK_GROUND = 13;         // No.13    庭園ステージの足場ブロック（1段目）
+    const int GARDEN_BLOCK_FLOWER = 14;         // No.14    庭園ステージの足場ブロック（2段目以降）
     // No.15 ～ No.20は無し
     const int IVY_BLOCK = 21;                   // No.21    蔦ブロック
     const int IVY_FRONT = 22;                   // No.22    蔦（前）
@@ -61,7 +61,7 @@ public class Stage : MonoBehaviour
     const int BRAMBLE = 50;                     // No.50    茨
     const int RED_FLOWER = 51;                  // No.51    花１（赤）
     const int BLUE_FLOWER = 52;                 // No.52    花２（青）
-    const int PURPLE_FLOWER = 53;               // No.53    花３（紫）　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+    const int PURPLE_FLOWER = 53;               // No.53    花３（紫）
     const int CHESHIRE_CAT = 54;                // No.54    チェシャ猫  
     const int TWEEDLEDUM = 55;                  // No.55    トゥイードルダム
     const int TWEEDLEDEE = 56;                  // No.56    トゥイードルディ
@@ -73,110 +73,64 @@ public class Stage : MonoBehaviour
     const int ROCK = 62;                        // No.62    岩
     const int HAMPTYDUMPTY = 64;                // No.64    ハンプティダンプティ
 
-    public Player alice;            // アリス
+    public GameObject gameMain;                     // ゲームメイン
+    public Player alice;                            // アリス
+    public GameObject gimmickNone;                  // No.0     透明ブロック
+    public GameObject gimmickStart;                 // No.1     スタート地点
+    public GameObject gimmickGoal;                  // No.2     ゴール地点
+    public GameObject waterBlock;                   // No.3     水
+    public GameObject forestBlockGround;            // No.4     森ステージの足場ブロック（1段目）
+    public GameObject forestBlockGrass;             // No.5     森ステージの足場ブロック（2段目）
+    public GameObject forestBlockAllGrass;          // No.6     森ステージの足場ブロック（3段目以降）
+    public GameObject roomBlockFloorBlack;          // No.7     家ステージの足場ブロック（黒）
+    public GameObject roomBlockFloorWhite;          // No.7     家ステージの足場ブロック（白）
+    public GameObject roomBlockBookShelf;           // No.8     家ステージの本棚
+    public GameObject redForestBlockGround;         // No.9     赤い森ステージの足場ブロック（1段目）
+    public GameObject redForestBlockGrass;          // No.10    赤い森ステージの足場ブロック（2段目）
+    public GameObject redForestBlockAllGrass;       // No.11    赤い森ステージの足場ブロック（3段目以降）
+    public GameObject darkForestBlockRedAllGrass;   // No.12    暗い森ステージの足場ブロック（赤）
+    public GameObject darkForestBlockGreenAllGrass; // No.12    暗い森ステージの足場ブロック（青）
+    public GameObject gardenBlockGrass;             // No.13    庭園ステージの足場ブロック（1段目）
+    public GameObject gardenBlockRoseRed;           // No.14    庭園ステージの足場ブロック（2段目以降）（赤）
+    public GameObject gardenBlockRoseWhite;         // No.14    庭園ステージの足場ブロック（2段目以降）（白）
+    public GameObject gimmickIvyBlock;              // No.21    蔦ブロック
+    public GameObject gimmickIVY;                   // No.22~   蔦
+    public GameObject gimmickLadder;                // No.27~   梯子
+    public GameObject gimmickTree;                  // No.31~   木
+    public GameObject gimmickMushroomSmall;         // No.33    キノコ（小さくなる）
+    public GameObject gimmickMushroomBig;           // No.34    キノコ（大きくなる）
+    public GameObject gimmickPotionSmall;           // No.35    薬（小さくなる）
+    public GameObject gimmickPotionBig;             // No.36    薬（大きくなる）
+    public GameObject gimmickKey_Red;               // No.37    赤扉（鍵）
+    public GameObject gimmickDoor_Red;              // No.38    赤扉（扉）
+    public GameObject gimmickKey_Blue;              // No.39    青扉（鍵）
+    public GameObject gimmickDoor_Blue;             // No.40    青扉（扉）
+    public GameObject gimmickKey_Yellow;            // No.41    黄扉（鍵）
+    public GameObject gimmickDoor_Yellow;           // No.42    黄扉（扉）
+    public GameObject gimmickKey_Green;             // No.43    緑扉（鍵）
+    public GameObject gimmickDoor_Green;            // No.44    緑扉（扉）
+    public GameObject gimmickHole;                  // No.45~   穴
+    public GameObject gimmickBramble;               // No.50    茨
+    public GameObject gimmickRedFlower;             // No.51    花１（赤）
+    public GameObject gimmickBuleFlower;            // No.52    花２（青）
+    public GameObject gimmickPurpleFlower;          // No.53    花３（紫）
+    public GameObject cheshire;                     // No.54    チェシャ猫
+    public GameObject gimmickTweedleDum;            // No.55    トゥイードルダム
+    public GameObject gimmickTweedleDee;            // No.56    トゥイードルディ
+    public GameObject gimmickSoldierHeartRight;     // No.57    ハート兵（右回り）
+    public GameObject gimmickSoldierHeartLeft;      // No.58    ハート兵（左回り）
+    public GameObject gimmickSoldierSpadeRight;     // No.59    スペード兵（右回り）
+    public GameObject gimmickSoldierSpadeLeft;      // No.60    スペード兵（左回り）
+    public GameObject gimmickSoldierSpadeBAF;       // No.61    スペード兵（往復）
+    public GameObject rock;                         // No.62    岩
 
-    public GameObject gimmickNone;  // 何も無い
-    public GameObject gimmickStart; // スタート地点
-    public GameObject gimmickGoal;  // ゴール地点
-    public GameObject gimmickBlock; // ブロック
-    public GameObject gimmickEnemy; // 敵（移動系配列）
-
-    public GameObject gimmickIVY;   // 蔦
-    public GameObject gimmickTree;  // 木
-
-    public GameObject gimmickRedFlower;
-    public GameObject gimmickBuleFlower;
-    public GameObject gimmickPurpleFlower;
-    public GameObject gimmickLadder;
-    //------------------------------------
-    //松村脩平追加部分
-    //------------------------------------
-
-    public GameObject gimmickIvyBlock;
-    //ハートのトランプ兵のモデル
-    public GameObject gimmickSoldierHeartLeft;
-    public GameObject gimmickSoldierHeartRight;
-    //スペードのトランプ兵のモデル
-    public GameObject gimmickSoldierSpadeLeft;
-    public GameObject gimmickSoldierSpadeRight;
-    public GameObject gimmickSoldierSpadeBAF;
-    
-    public GameObject gimmickTweedleDum;
-    public GameObject gimmickTweedleDee;
-
-    public GameObject gimmickBramble;
-
-	//------------------------------------
-	//西尾竜太郎追加部分
-	//------------------------------------
-	public GameObject gimmickDoor_Red; // 赤扉
-	public GameObject gimmickKey_Red; // 赤鍵
-
-	public GameObject gimmickDoor_Blue; // 青扉
-	public GameObject gimmickKey_Blue; // 青鍵
-
-	public GameObject gimmickDoor_Yellow; // 黄扉
-	public GameObject gimmickKey_Yellow; // 黄鍵
-
-	public GameObject gimmickDoor_Green; // 緑扉
-	public GameObject gimmickKey_Green; // 緑鍵
-
-	public GameObject cheshire; // チェシャ
-	public GameObject rock; // 岩
-
-	public GameObject gameMain; // ゲームメイン
-
-	//--------------------------------------------
-    
-    public int field;
-    GameObject fieldObject;                                                     // ステージ天球のオブジェクト
-    
-
+    public int field;               // フィールド番号
+    GameObject fieldObject;         // ステージ天球のオブジェクト
     public GameObject fieldStage1;  // ステージ１の天球
     public GameObject fieldStage2;  // ステージ２の天球
     public GameObject fieldStage3;  // ステージ３の天球
     public GameObject fieldStage4;  // ステージ４の天球
     public GameObject fieldStage5;  // ステージ５の天球
-
-
-
-    //----------------------------
-   
-
-    public GameObject gimmickMushroomSmall;
-    public GameObject gimmickMushroomBig;
-    
-    public GameObject gimmickPotionSmall;
-    public GameObject gimmickPotionBig;
-
-    //const int GARDEN_BLOCK_GROUND = 13;        // ガーデンステージの足場ブロック（1段目）
-    //const int GARDEN_BLOCK_FLOWER = 14;        // ガーデンテージの足場ブロック（2段目以降）
-
-    public GameObject gimmickHole;
-    public GameObject waterBlock;
-    public GameObject forestBlockGround;           // 森ステージの足場ブロック（１段目）
-    public GameObject forestBlockGrass;                // 森ステージの足場ブロック（２段目）
-    public GameObject forestBlockAllGrass;                // 森ステージの足場ブロック（３段目）
-    
-    public GameObject roomBlockFloorBlack;                 // 家ステージの足場ブロック（黒）
-    public GameObject roomBlockFloorWhite;                 // 家ステージの足場ブロック（白）
-    public GameObject roomBlockBookShelf;                  // 家ステージの足場ブロック（本棚）
-
-    public GameObject redForestBlockGround;     // 森(ステージ4)ステージの足場ブロック（１段目）
-    public GameObject redForestBlockGrass;          // 森(ステージ4)ステージの足場ブロック（２段目）
-    public GameObject redForestBlockAllGrass;          // 森(ステージ4)ステージの足場ブロック（３段目）
-    
-    public GameObject darkForestBlockRedGround;               // 暗い森ステージの足場ブロック（茶）
-    public GameObject darkForestBlockGreenGround;               // 暗い森ステージの足場ブロック（青）
-
-    public GameObject darkForestBlockRedAllGrass;       // 暗い森ステージの足場ブロック（青）（２段目以降）
-    public GameObject darkForestBlockGreenAllGrass;        // 暗い森ステージの足場ブロック（赤）（２段目以降）
- 
-    public GameObject gardenBlockGrass;           // 庭園ステージの足場ブロック（一段目）
-    public GameObject gardenBlockRoseRed;         // 庭園ステージの足場ブロック（赤）（２段目以降）
-    public GameObject gardenBlockRoseWhite;       // 庭園ステージの足場ブロック（白）（２段目以降）
-    //----------------------------
-    //------------------------------------
 
     int gimmick = 0;            // 配列の数字
     int gimmickPattern = 0;     // ギミックの種類
