@@ -10,8 +10,10 @@ public class ModeChange : BaseGimmick
     //public bool besideDicisionMovePossibleFlag;       // 横判定用移動可能フラグ
     //public bool besideDownDicisionMovePossibleFlag;   // 横下判定用移動可能フラグ
 
-    public int moveCount = 0;   //
-
+    public int itemCode;
+    const int setEffectTimer = 180;
+    public int effectTimer = 0;
+    public bool playingEffectFlag;
     private Renderer renderer;
     public int touchCount;      // キノコに触れてからのターン数
     public bool drawFlag;       // ギミックの表示フラグ
@@ -19,6 +21,7 @@ public class ModeChange : BaseGimmick
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     void Start()
     {
+        playingEffectFlag = false;
         gimmickFlag = true;                         // 初期のギミックフラグを真に
         besideDicisionMovePossibleFlag = true;      // 初期の横判定用移動可能フラグを真に
         besideDownDicisionMovePossibleFlag = true;  // 初期の横下判定用移動可能フラグを真に
@@ -68,7 +71,56 @@ public class ModeChange : BaseGimmick
                 gimmickCount = 0;
                 gimmickFlag = true;
                 drawFlag = true;
+                OutPutEffect();
             }
         }
+    }
+
+    public void OutPutEffect()
+    {
+        //空のオブジェクトを生成する
+        GameObject prefab = null;
+        bool effctBigFlag = false;
+        //アイコムコードでエフェクトの色を識別する
+        switch (itemCode)
+        {
+            //キノコ小さい
+            case 33:
+                effctBigFlag = false;
+                break;
+            //キノコ大きい
+            case 34:
+                effctBigFlag = true;
+                break;
+            //ポーション小さい
+            case 35:
+                effctBigFlag = false;
+                break;
+            //ポーション大きい
+            case 36:
+                effctBigFlag = true;
+                break;
+        }
+        //大きくするなら
+        if (effctBigFlag)
+        {
+            prefab = (GameObject)Resources.Load("Particles/GiganticEffect");
+        }
+        else 
+        {
+            prefab = (GameObject)Resources.Load("Particles/MinuteEffect");            
+        }
+        if (prefab != null)
+        {
+            //オブジェクトを作ると破棄.
+            GameObject instant_object = (GameObject)GameObject.Instantiate(prefab,
+                           this.transform.localPosition, Quaternion.identity);
+            GameObject.Destroy(instant_object, 3);
+        }
+
+    }
+    public void GetGimmickNum(int num)
+    {
+        itemCode = num;
     }
 }

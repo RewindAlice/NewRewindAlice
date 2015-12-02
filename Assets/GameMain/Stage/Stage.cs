@@ -294,28 +294,33 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(MUSHROOM_SMALL);
                 break;
             case MUSHROOM_BIG:  // ▼キノコ（大きくなる）////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickMushroomBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(MUSHROOM_BIG);
                 break;
             case POTION_SMALL:  // ▼薬（小さくなる）////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(POTION_SMALL);
                 break;
             case POTION_BIG:  // ▼薬（大きくなる）////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().GetGimmickNum(POTION_BIG);
                 break;
             case IVY_BLOCK: // ▼蔦ブロック/////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickIvyBlock, new Vector3(x, y-0.5f, z), Quaternion.identity) as GameObject;
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(field);
+
                 break;
             case IVY_FRONT: // ▼蔦（前）/////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_BACK:  // ▼蔦（後）/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1274,6 +1279,7 @@ public class Stage : MonoBehaviour
                     alice.playerMode = Player.PlayerMode.BIG;                                               // 状態を大きいに
                     alice.countBig = 3;                                                                     // 大きくなっているカウントを３に
                     alice.ModeChange();                                                                     // 状態の切り替え
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().OutPutEffect();         // エフェクトを出す
                     gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().drawFlag = false;       // 描画フラグを偽に
                     gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().SetGimmickFlag(false);  // ギミックフラグを偽に
                 }
@@ -1287,6 +1293,7 @@ public class Stage : MonoBehaviour
                     alice.countSmall = 3;                                                                   // 小さくなっているカウントを３に
                     alice.ModeChange();                                                                     // 状態の切り替え
                     gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().drawFlag = false;       // 描画フラグを偽に
+                    gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().OutPutEffect();         // エフェクトを出す
                     gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().SetGimmickFlag(false);  // ギミックフラグを偽に
                 }
                 break;
