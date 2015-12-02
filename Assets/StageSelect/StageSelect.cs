@@ -86,6 +86,8 @@ public class StageSelect : MonoBehaviour
 
     public int returnCount;
 
+    public bool Android;
+    public TouchController touchController;
 	// 初期化
 	void Start()
 	{
@@ -113,14 +115,15 @@ public class StageSelect : MonoBehaviour
 		drawFlag = false;
 
 		// ファイルが存在する
-		if (File.Exists("Assets/StageSelect/SaveClearData.txt")) { print("FILE"); }
-		ReadFile(); // ファイルの読み込み
+		//if (File.Exists("Assets/StageSelect/SaveClearData.txt")) { print("FILE"); }
+		//ReadFile(); // ファイルの読み込み
 
 		CreateIcon();
 		CreateStamp();  // スタンプの生成
         Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f);
 
         returnCount = 0;
+
 	}
 
 	// 更新
@@ -170,73 +173,219 @@ public class StageSelect : MonoBehaviour
 
 		SetData();
 		ResetData();
+        if(!Android)
+        {
+            float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
+            float VerticalKeyInput = Input.GetAxis("VerticalKey");
 
-		float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
-		float VerticalKeyInput = Input.GetAxis("VerticalKey");
+            if ((-0.3f < HorizontalKeyInput) && (HorizontalKeyInput < 0.3f) && (-0.3f < VerticalKeyInput) && (VerticalKeyInput < 0.3f))
+            {
+                keyFlag = false;
+            }
 
-		if ((-0.3f < HorizontalKeyInput) && (HorizontalKeyInput < 0.3f) && (-0.3f < VerticalKeyInput) && (VerticalKeyInput < 0.3f))
-		{
-			keyFlag = false;
-		}
 
-		if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
-		{
-			// 矢印左を押したら
-			if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
-			{
-                returnCount = 0;
-				keyFlag = true;
-				TurnThePageReturn();
-			}
-			// 矢印右を押したら
-			if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
-			{
-                returnCount = 0;
-				keyFlag = true;
-				TurnThePageNext();
-			}
 
-			if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f)))
-			{
-                returnCount = 0;
-				keyFlag = true;
-				SelectChapterUp();
-			}
+            if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
+            {
+                // 矢印左を押したら
+                if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    TurnThePageReturn();
+                }
+                // 矢印右を押したら
+                if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    TurnThePageNext();
+                }
 
-			if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.7f)))
-			{
-                returnCount = 0;
-				keyFlag = true;
-				SelectChapterDown();
-			}
+                if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    SelectChapterUp();
+                }
 
-			if ((Input.GetKeyDown(KeyCode.W)) ||
-				(Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
-				(Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
-				(Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
-				(Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
-				(Input.GetKeyDown(KeyCode.Joystick1Button7)))
-			{
+                if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.7f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    SelectChapterDown();
+                }
+
+                if ((Input.GetKeyDown(KeyCode.W)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button7)))
+                {
+                    returnCount = 0;
+                    Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                    BGMDeleter = true;
+
+                }
+                if (BGMDeleter)
+                {
+                    BGMTimer++;
+                }
+                //BGMが止まったら
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    JumpSelectStage();
+                }
+            }
+        }
+        else
+        {
+
+            if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
+            {
+                if(touchController.detachPosX != 0 &&touchController.detachPosY != 0)
+                {
+                    //ページ移動判定
+                    //左めくり
+                    if (touchController.touchPosX - touchController.detachPosX < -60)
+                    {
+                        returnCount = 0;
+                        keyFlag = true;
+                        TurnThePageReturn();
+
+                        Debug.Log("Left_mekuri");
+                    }
+                    //右めくり
+                    if (touchController.touchPosX - touchController.detachPosX > +60)
+                    {
+                        returnCount = 0;
+                        keyFlag = true;
+                        TurnThePageNext();
+
+                        Debug.Log("RIGHT_mekuri");
+                    }
+                }
+                
+            }
+            //チャプター1選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                ((touchController.touchPosY > 590) && (touchController.touchPosY < 645)) &&
+                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
+            {
+
+                Debug.Log("1");
+                chapter = Chapter.CHAPTER_1;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
-				
-			}
-            if(BGMDeleter)
+            }
+
+            //チャプター2選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                ((touchController.touchPosY > 500) && (touchController.touchPosY < 550)) &&
+                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
+            {
+
+                Debug.Log("2");
+                chapter = Chapter.CHAPTER_2;
+                returnCount = 0;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+            }
+            //チャプター3選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+               ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
+               ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+               ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
+            {
+
+                Debug.Log("3");
+                chapter = Chapter.CHAPTER_3;
+                returnCount = 0;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+            }
+            //チャプター4選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
+                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
+            {
+
+                Debug.Log("4");
+                chapter = Chapter.CHAPTER_4;
+                returnCount = 0;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+            }
+            //チャプター5選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
+                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
+            {
+
+                Debug.Log("5");
+                chapter = Chapter.CHAPTER_5;
+                returnCount = 0;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+            }
+            //チャプター6選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
+                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
+            {
+                Debug.Log("6");
+                chapter = Chapter.CHAPTER_6;
+                returnCount = 0;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+            }
+            //チャプター7選択
+            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+               ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
+               ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+               ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
+            {
+
+                Debug.Log("7");
+                chapter = Chapter.CHAPTER_7;
+                returnCount = 0;
+                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                BGMDeleter = true;
+            }
+
+            //タッチ判定の初期化
+            if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
+            {
+                Debug.Log("INITIALIZE");
+                touchController.TouchPostionInitialize();
+                keyFlag = false;
+            }
+
+            if (BGMDeleter)
             {
                 BGMTimer++;
             }
-             //BGMが止まったら
-           if(BGMTimer> BGMFadeTime)
-           {
+            //BGMが止まったら
+            if (BGMTimer > BGMFadeTime)
+            {
                 Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                 JumpSelectStage();
-           }
-		}
+            }
+        }
+		
 	}
 	// ページをめくる（次ページへ）
 	void TurnThePageNext()
 	{
+        Debug.Log("Stage" + stage);
 		if (selectFlag == false)
 		{
 			switch (stage)
@@ -268,6 +417,7 @@ public class StageSelect : MonoBehaviour
 	// ページをめくる（前ページへ）
 	void TurnThePageReturn()
 	{
+        Debug.Log("Stage" + stage);
 		if (selectFlag == false)
 		{
 			switch (stage)
@@ -687,7 +837,7 @@ public class StageSelect : MonoBehaviour
 			{
 				clearFlag[num] = false;
 			}
-			WriteFile();
+			//WriteFile();
 		}
 	}
 
@@ -698,7 +848,7 @@ public class StageSelect : MonoBehaviour
 		if (num != 0)
 		{
 			clearFlag[num - 1] = true;
-			WriteFile();
+			//WriteFile();
 		}
 
         PlayerPrefs.SetInt("STAMP_NUM", 0);

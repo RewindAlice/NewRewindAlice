@@ -805,6 +805,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1289899027}
   - 114: {fileID: 1289899026}
+  - 114: {fileID: 1289899028}
   m_Layer: 0
   m_Name: StageSelect
   m_TagString: Untagged
@@ -891,6 +892,8 @@ MonoBehaviour:
   drawCount: 0
   selectFlag: 0
   keyFlag: 0
+  returnCount: 0
+  touchController: {fileID: 1289899028}
 --- !u!4 &1289899027
 Transform:
   m_ObjectHideFlags: 0
@@ -903,6 +906,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
+--- !u!114 &1289899028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1289899025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9581985db2c3549b7f62d7d7686261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchPosX: 0
+  touchPosY: 0
+  detachPosX: 0
+  detachPosY: 0
 --- !u!1001 &1420205926
 Prefab:
   m_ObjectHideFlags: 0

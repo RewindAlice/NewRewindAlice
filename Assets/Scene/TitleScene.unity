@@ -169,6 +169,7 @@ GameObject:
   - 4: {fileID: 569244737}
   - 212: {fileID: 569244736}
   - 114: {fileID: 569244738}
+  - 114: {fileID: 569244739}
   m_Layer: 0
   m_Name: TitleSprite
   m_TagString: Untagged
@@ -225,6 +226,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f5066e3577f604d9c833e23e0c62bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TouchObject: {fileID: 0}
+  touchController: {fileID: 569244739}
+--- !u!114 &569244739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 569244735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9581985db2c3549b7f62d7d7686261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchPosX: 0
+  touchPosY: 0
+  detachPosX: 0
+  detachPosY: 0
 --- !u!1 &717160689
 GameObject:
   m_ObjectHideFlags: 0
