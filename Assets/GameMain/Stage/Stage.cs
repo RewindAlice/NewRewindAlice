@@ -144,6 +144,7 @@ public class Stage : MonoBehaviour
     List<GameObject> moveGimmickObjectList = new List<GameObject>();                // 移動系ギミック（オブジェクト）
     int turnNum;                                                                    // ステージのターン数
     private string guitxt = "";
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -156,6 +157,7 @@ public class Stage : MonoBehaviour
 	
 	}
 
+    // ★ステージ情報の読み込み★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     void ReadFile()
     {
         FileInfo fi = new FileInfo("Assets/GameMain/Stage/StageData/"+PlayerPrefs.GetString("Text"));
@@ -181,22 +183,26 @@ public class Stage : MonoBehaviour
             }
         }
     }
+
     // ★ステージの生成★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void CreateStage()
     {
-        //----------------------------------------------
-        //松村脩平追加部分
-        Vector3 fieldPosition = new Vector3(5, -0.5f, 5);
+        Vector3 fieldPosition = new Vector3(5, -0.5f, 5);   // フィールドの座標を設定
 
+        // ▽フィールド番号が
         switch (field)
         {
-            case 1: fieldObject = GameObject.Instantiate(fieldStage1, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 2: fieldObject = GameObject.Instantiate(fieldStage2, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 3: fieldObject = GameObject.Instantiate(fieldStage3, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 4: fieldObject = GameObject.Instantiate(fieldStage4, fieldPosition, Quaternion.identity) as GameObject; break;
-            case 5: fieldObject = GameObject.Instantiate(fieldStage5, fieldPosition, Quaternion.identity) as GameObject; break;
+            // ▼１なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case 1: fieldObject = GameObject.Instantiate(fieldStage1, fieldPosition, Quaternion.identity) as GameObject; break;     // ステージ１の天球を設定
+            // ▼２なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case 2: fieldObject = GameObject.Instantiate(fieldStage2, fieldPosition, Quaternion.identity) as GameObject; break;     // ステージ２の天球を設定
+            // ▼３なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case 3: fieldObject = GameObject.Instantiate(fieldStage3, fieldPosition, Quaternion.identity) as GameObject; break;     // ステージ３の天球を設定
+            // ▼４なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case 4: fieldObject = GameObject.Instantiate(fieldStage4, fieldPosition, Quaternion.identity) as GameObject; break;     // ステージ４の天球を設定
+            // ▼５なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case 5: fieldObject = GameObject.Instantiate(fieldStage5, fieldPosition, Quaternion.identity) as GameObject; break;     // ステージ５の天球を設定
         }
-        //----------------------------------------------
 
         for(int x = 0; x < STAGE_X; x++)
         {
@@ -204,8 +210,7 @@ public class Stage : MonoBehaviour
             {
                 for(int z = 0; z < STAGE_Z; z++)
                 {
-                    // ギミックの生成
-                    CreateGimmcik(x, y, z);
+                    CreateGimmcik(x, y, z); // ギミックの生成
                 }
             }
         }
@@ -697,8 +702,6 @@ public class Stage : MonoBehaviour
     {
         ReadFile();
     }
-
-   
 
     // ★ターン数の取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public int getStageTurnNum()
