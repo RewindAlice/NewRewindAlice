@@ -1137,10 +1137,12 @@ public class Stage : MonoBehaviour
             case DARKFOREST_BLOCK_GROUND:   // No.12    暗い森ステージの足場ブロック（全段）
             case GARDEN_BLOCK_GROUND:       // No.13    庭園ステージの足場ブロック（1段目）
             case GARDEN_BLOCK_FLOWER:       // No.14    庭園ステージの足場ブロック（2段目以降）
+            case IVY_BLOCK:                 // No.21    蔦ブロック
             case IVY_FRONT:                 // No.22    蔦（前）
             case IVY_BACK:                  // No.23    蔦（後）
             case IVY_LEFT:                  // No.24    蔦（左）
             case IVY_RIGHT:                 // No.25    蔦（右）
+            case LADDER_BLOCK:              // No.26    梯子ブロック
             case LADDER_FRONT:              // No.27    梯子（前）
             case LADDER_BACK:               // No.28    梯子（後）
             case LADDER_LEFT:               // No.29    梯子（左）
