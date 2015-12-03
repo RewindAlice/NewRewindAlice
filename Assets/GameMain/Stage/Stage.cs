@@ -210,7 +210,7 @@ public class Stage : MonoBehaviour
             {
                 for(int z = 0; z < STAGE_Z; z++)
                 {
-                    CreateGimmcik(x, y, z); // ギミックの生成
+                    CreateGimmcik(x, y, z);     // ギミックの生成
                 }
             }
         }
@@ -700,19 +700,19 @@ public class Stage : MonoBehaviour
     // ★選択されたステージを設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void setSelectStage(int stageNum)
     {
-        ReadFile();
+        ReadFile();     // ステージ情報の読み込み
     }
 
     // ★ターン数の取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public int getStageTurnNum()
     {
-        return turnNum;
+        return turnNum;     // ターン数を返す
     }
 
     // ★スタート位置の取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public Vector3 getStartPosition()
     {
-        Vector3 startPosition = new Vector3(0, 0, 0);
+        Vector3 startPosition = new Vector3(0, 0, 0);   // スタート位置の初期化
 
         for (int x = 0; x < STAGE_X; x++)
         {
@@ -720,14 +720,16 @@ public class Stage : MonoBehaviour
             {
                 for (int z = 0; z < STAGE_Z; z++)
                 {
+                    // 配列の内容がスタート位置なら
                     if (gimmickNumArray[y, x, z] == START_POINT)
                     {
-                        startPosition = new Vector3(x, y - 0.5f, z);
+                        startPosition = new Vector3(x, y - 0.5f, z);    // スタート位置を設定
                     }
                 }
             }
         }
-        return startPosition;
+
+        return startPosition;   // スタート位置を返す
     }
 
     // ★配列上の位置の取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -741,40 +743,51 @@ public class Stage : MonoBehaviour
             {
                 for (int z = 0; z < STAGE_Z; z++)
                 {
+                    // 配列の内容がスタート位置なら
                     if (gimmickNumArray[y, x, z] == START_POINT)
                     {
+                        // ▽送られてきた文字が
                         switch (c)
                         {
-                            case 'x': arrayPos = x; break;
-                            case 'y': arrayPos = y; break;
-                            case 'z': arrayPos = z; break;
+                            // ▼Xなら////////////////////////////////////////////////
+                            case 'x': arrayPos = x; break;  // 配列座標にXの座標を設定
+                            // ▼Yなら////////////////////////////////////////////////
+                            case 'y': arrayPos = y; break;  // 配列座標にXの座標を設定
+                            // ▼Zなら////////////////////////////////////////////////
+                            case 'z': arrayPos = z; break;  // 配列座標にXの座標を設定
                         }
                     }
                 }
             }
         }
+
         return arrayPos;
     }
 
     // ★ギミックの向きを取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     Vector3 getGimmickDirection(int directionPattern)
     {
-        Vector3 direction = new Vector3(0, 0, 0);
+        Vector3 direction = new Vector3(0, 0, 0);   // 向きを初期化
 
-        Vector3 direction1 = new Vector3(0, 0, 0);
-        Vector3 direction2 = new Vector3(0, 90, 0);
-        Vector3 direction3 = new Vector3(0, 180, 0);
-        Vector3 direction4 = new Vector3(0, 270, 0);
+        Vector3 direction1 = new Vector3(0, 0, 0);      // 向き１の角度を設定
+        Vector3 direction2 = new Vector3(0, 90, 0);     // 向き２の角度を設定
+        Vector3 direction3 = new Vector3(0, 180, 0);    // 向き３の角度を設定
+        Vector3 direction4 = new Vector3(0, 270, 0);    // 向き４の角度を設定
 
+        // ▽送られてきた向きが
         switch (directionPattern)
         {
-            case 1: direction = direction1; break;
-            case 2: direction = direction2; break;
-            case 3: direction = direction3; break;
-            case 4: direction = direction4; break;
+            // ▼向き１なら//////////////////////////////////////////////
+            case 1: direction = direction1; break;  // 向きに向き１を設定
+            // ▼向き２なら//////////////////////////////////////////////
+            case 2: direction = direction2; break;  // 向きに向き２を設定
+            // ▼向き３なら//////////////////////////////////////////////
+            case 3: direction = direction3; break;  // 向きに向き３を設定
+            // ▼向き４なら//////////////////////////////////////////////
+            case 4: direction = direction4; break;  // 向きに向き４を設定
         }
 
-        return direction;
+        return direction;   // 向きを返す
     }
 
     // ★移動可能判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -787,10 +800,10 @@ public class Stage : MonoBehaviour
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
-        // アリスがステージ外にいる場合//////////////////////////////////////////////
+        // アリスがステージ外にいる場合///////////////////////////////////////////////
         if ((posY == 0) || (posX == 0) || (posX == 10) || (posZ == 0) || (posZ == 10))
         {
-            return false;
+            return false;   // 移動できない
         }
         else
         {
@@ -927,7 +940,7 @@ public class Stage : MonoBehaviour
 
         switch (gimmick)
         {
-            // 移動できるギミック
+            // 移動できるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case NONE_BLOCK:        // No.0     透明ブロック
             case START_POINT:       // No.1     スタート地点
             case STAGE_GOOL:        // No.2     ゴール地点
@@ -960,7 +973,7 @@ public class Stage : MonoBehaviour
                 flag = true;
                 break;
 
-            // 移動できないギミック
+            // 移動できないギミック//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case WATER:                     // No.3     水
             case FOREST_BLOCK_GROUND:       // No.4     森ステージの足場ブロック（1段目）
             case FOREST_BLOCK_GRASS:        // No.5     森ステージの足場ブロック（2段目）
@@ -978,8 +991,7 @@ public class Stage : MonoBehaviour
                 flag = false;
                 break;
 
-            // 条件によって変わるギミック
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // 条件によって変わるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_BLOCK:     // No.21    蔦ブロック/////////////////////////////////////
             case LADDER_BLOCK:  // No.26    梯子ブロック///////////////////////////////////
                 switch (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ])
@@ -1012,11 +1024,9 @@ public class Stage : MonoBehaviour
                         break;
                 }
                 break;
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////
             case TREE:  // No.31    木///////////////////////////////////////////////////////////////////////////////
                 flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();
                 break;
-            /////////////////////////////////////////////////////////////////////////////
             case DOOR_RED: // No.38    赤扉（扉）////////////////////////////////////////
                 if (alice.getKeyColor_Red)
                 {
@@ -1024,7 +1034,6 @@ public class Stage : MonoBehaviour
                     gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
                 }
                 break;
-            /////////////////////////////////////////////////////////////////////////////
             case DOOR_BLUE: // No.40    青扉（扉）///////////////////////////////////////
                 if (alice.getKeyColor_Blue)
                 {
@@ -1032,7 +1041,6 @@ public class Stage : MonoBehaviour
                     gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
                 }
                 break;
-            /////////////////////////////////////////////////////////////////////////////
             case DOOR_YELLOW: // No.42    黄扉（扉）/////////////////////////////////////
                 if (alice.getKeyColor_Yellow)
                 {
@@ -1040,7 +1048,6 @@ public class Stage : MonoBehaviour
                     gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
                 }
                 break;
-            /////////////////////////////////////////////////////////////////////////////
             case DOOR_GREEN: // No.44    緑扉（扉）//////////////////////////////////////
                 if (alice.getKeyColor_Green)
                 {
@@ -1048,7 +1055,6 @@ public class Stage : MonoBehaviour
                     gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
                 }
                 break;
-            //////////////////////////////////////////////////////////////////////////////////////
             case ROCK:  // No.62    岩////////////////////////////////////////////////////////////
                 // アリスが大きければ
                 if (alice.GetBig())
@@ -1115,80 +1121,65 @@ public class Stage : MonoBehaviour
 
         switch (gimmick)
         {
-            // 移動できる
-            case NONE_BLOCK:      // 何も無い
-            case START_POINT:     // スタート地点
-            case STAGE_GOOL:      // ゴール地点
-            case FOREST_BLOCK_GROUND:     // ブロック
-            case FOREST_BLOCK_GRASS:          // 森ステージの足場ブロック（2段目）
-            case FOREST_BLOCK_ALLGRASS:       // 森ステージの足場ブロック（3段目以降）
-         
-            case ROOM_BLOCK_FLOOR:            // 家ステージの足場ブロック（1段目）
-            case ROOM_BLOCK_BOOKSHELF:        // 家ステージの足場ブロック（2段目）
-           
-            case REDFOREST_BLOCK_GROUND:      // 森ステージの足場ブロック（1段目）
-            case REDFOREST_BLOCK_GRASS:      // 森ステージの足場ブロック（2段目）
-            case REDFOREST_BLOCK_ALLGRASS:   // 森ステージの足場ブロック（3段目以降）
-          
-            case DARKFOREST_BLOCK_GROUND:    // 暗い森ステージの足場ブロック（全段）
-            
-            case GARDEN_BLOCK_GROUND:        // ガーデンステージの足場ブロック（1段目）
-            case GARDEN_BLOCK_FLOWER:        // ガーデンテージの足場ブロック（2段目以降）
-            case IVY_BLOCK: // 蔦ブロック
-            case IVY_FRONT: // 蔦（前）
-            case IVY_BACK:  // 蔦（後）
-            case IVY_LEFT:  // 蔦（左）
-            case IVY_RIGHT: // 蔦（右）
-
-            case LADDER_BLOCK: // 蔦ブロック
-            case LADDER_FRONT: // 蔦（前）
-            case LADDER_BACK:  // 蔦（後）
-            case LADDER_LEFT:  // 蔦（左）
-            case LADDER_RIGHT: // 蔦（右）
-            case WARP_HOLE_ONE:
-            case WARP_HOLE_TWO:
-            case WARP_HOLE_TRHEE:
-            case WARP_HOLE_FOUR:
-            case WARP_HOLE_FIVE:
-			case DOOR_RED: // 扉（赤）
-			case DOOR_BLUE: // 扉（青）
-			case DOOR_YELLOW: // 扉（黄）
-			case DOOR_GREEN: // 扉（緑）
-			case DOOR_RED_KEY: // 鍵（赤）
-			case DOOR_BLUE_KEY: // 鍵（青）
-			case DOOR_YELLOW_KEY: // 鍵（黄）
-			case DOOR_GREEN_KEY: // 鍵（緑）
-			case CHESHIRE_CAT: // チェシャ
-            case DUMMY_TREE:        // ▼木（ダミー）
-            case MUSHROOM_BIG:      // ▼キノコ（大きくなる）
-            case MUSHROOM_SMALL:    // ▼キノコ（小さくなる）
-            case POTION_BIG:        // ▼薬（大きくなる）
-            case POTION_SMALL:      // ▼薬（小さくなる）
-			case ROCK:						// ▼岩
-            case WATER:
+            // 移動できるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case NONE_BLOCK:                // No.0     透明ブロック
+            case START_POINT:               // No.1     スタート地点
+            case STAGE_GOOL:                // No.2     ゴール地点
+            case WATER:                     // No.3     水
+            case FOREST_BLOCK_GROUND:       // No.4     森ステージの足場ブロック（1段目）
+            case FOREST_BLOCK_GRASS:        // No.5     森ステージの足場ブロック（2段目）
+            case FOREST_BLOCK_ALLGRASS:     // No.6     森ステージの足場ブロック（3段目以降）
+            case ROOM_BLOCK_FLOOR:          // No.7     家ステージの足場ブロック（1段目）
+            case ROOM_BLOCK_BOOKSHELF:      // No.8     家ステージの本棚
+            case REDFOREST_BLOCK_GROUND:    // No.9     赤い森ステージの足場ブロック（1段目）
+            case REDFOREST_BLOCK_GRASS:     // No.10    赤い森ステージの足場ブロック（2段目）
+            case REDFOREST_BLOCK_ALLGRASS:  // No.11    赤い森ステージの足場ブロック（3段目以降）
+            case DARKFOREST_BLOCK_GROUND:   // No.12    暗い森ステージの足場ブロック（全段）
+            case GARDEN_BLOCK_GROUND:       // No.13    庭園ステージの足場ブロック（1段目）
+            case GARDEN_BLOCK_FLOWER:       // No.14    庭園ステージの足場ブロック（2段目以降）
+            case IVY_FRONT:                 // No.22    蔦（前）
+            case IVY_BACK:                  // No.23    蔦（後）
+            case IVY_LEFT:                  // No.24    蔦（左）
+            case IVY_RIGHT:                 // No.25    蔦（右）
+            case LADDER_FRONT:              // No.27    梯子（前）
+            case LADDER_BACK:               // No.28    梯子（後）
+            case LADDER_LEFT:               // No.29    梯子（左）
+            case LADDER_RIGHT:              // No.30    梯子（右）
+            case DUMMY_TREE:                // No.32    木（成長後判定用）
+            case MUSHROOM_SMALL:            // No.33    キノコ（小さくなる）
+            case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
+            case POTION_SMALL:              // No.35    薬（小さくなる）
+            case POTION_BIG:                // No.36    薬（大きくなる）
+            case DOOR_RED_KEY:              // No.37    赤扉（鍵）
+            case DOOR_BLUE_KEY:             // No.39    青扉（鍵）
+            case DOOR_YELLOW_KEY:           // No.41    黄扉（鍵）
+            case DOOR_GREEN_KEY:            // No.43    緑扉（鍵）
+            case WARP_HOLE_ONE:             // No.45    穴１
+            case WARP_HOLE_TWO:             // No.46    穴２
+            case WARP_HOLE_TRHEE:           // No.47    穴３
+            case WARP_HOLE_FOUR:            // No.48    穴４
+            case WARP_HOLE_FIVE:            // No.49    穴５
+            case BRAMBLE:                   // No.50    茨
+            case CHESHIRE_CAT:              // No.54    チェシャ猫
                 flag = true;
                 break;
 
-            // 特定の条件の時は移動可能
-            case TREE:  // ▼木//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // 条件によって変わるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            case TREE:  // No.31    木///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDownDicisionMovePossibleFlag();   // 木の横下判定用移動可能フラグを取得
                 break;
-
-            // 花
-            case RED_FLOWER:
+            case RED_FLOWER:    // No.51    花１（赤）///////////////////////////////////////////////////////////////////////////////////////
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower3>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
-            case BLUE_FLOWER:
+            case BLUE_FLOWER:   // No.52    花２（青）///////////////////////////////////////////////////////////////////////////////////////
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower2>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
-            case PURPLE_FLOWER:
+            case PURPLE_FLOWER: // No.53    花３（紫）///////////////////////////////////////////////////////////////////////////////////////
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower1>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
-
-
         }
 
         return flag;
