@@ -156,6 +156,8 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
                                         break;
                                 }
+
+                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
                             {
@@ -185,6 +187,8 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
                                         break;
                                 }
+
+                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
                             {
@@ -214,6 +218,8 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
                                         break;
                                 }
+
+                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
                             {
@@ -243,6 +249,8 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
                                         break;
                                 }
+
+                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
                             {
