@@ -6,24 +6,26 @@ using System.Text;
 
 public class StageSelect : MonoBehaviour
 {
-	const int BUTTON_W = 200;
-	const int BUTTON_H = 20;
+	//const int BUTTON_W = 200;
+	//const int BUTTON_H = 20;
 
-	const int STAMP_NUM = 35;
-	const float STAMP_X = -1;
-	const float STAMP_Y1 = 2.8f;
-	const float STAMP_Y2 = 1.9f;
-	const float STAMP_Y3 = 0.9f;
-	const float STAMP_Y4 = 0;
-	const float STAMP_Y5 = -0.9f;
-	const float STAMP_Y6 = -2;
-	const float STAMP_Y7 = -3;
-	const float STAMP_Z = -5;
+	const int STAMP_NUM = 35;       //スタンプの数
+	const float STAMP_X = -1;       //スタンプのX座標
+	const float STAMP_Y1 = 2.8f;    //スタンプのY座標1
+    const float STAMP_Y2 = 1.9f;    //スタンプのY座標2
+    const float STAMP_Y3 = 0.9f;    //スタンプのY座標3
+    const float STAMP_Y4 = 0;       //スタンプのY座標4
+    const float STAMP_Y5 = -0.9f;   //スタンプのY座標5
+    const float STAMP_Y6 = -2;      //スタンプのY座標6
+    const float STAMP_Y7 = -3;      //スタンプのY座標7
+	const float STAMP_Z = -5;       //スタンプのZ座標
 
     //BGMフェード調整
     const float   BGMFadeTime = 60.0f;
     private float BGMTimer;
     private bool  BGMDeleter;
+
+    //ステージの番号
 	public enum STAGE
 	{
 		STAGE_1,
@@ -33,6 +35,7 @@ public class StageSelect : MonoBehaviour
 		STAGE_5,
 	}
 
+    //チャプター数
 	public enum Chapter
 	{
 		CHAPTER_1,
@@ -46,8 +49,8 @@ public class StageSelect : MonoBehaviour
 
 	public STAGE stage;
 	public Chapter chapter;
-	public bool startFlag;
 
+	public bool startFlag;
 	public bool resetFlag;
 
 	public GameObject book;
@@ -86,9 +89,18 @@ public class StageSelect : MonoBehaviour
 
     public int returnCount;
 
-    public bool Android;
-    public TouchController touchController;
-	// 初期化
+    public bool Android;                        //Android実機ならフラグを立てる
+    public TouchController touchController;     //Androidのタッチ用クラス
+
+    public int[] clearFlagConvert = new int [STAMP_NUM];
+
+    public TextAsset stageTextAsset;    //テキスト読み込み用
+    public string stageData;            //テキスト代入用
+    public string[] scenarios;          //ステージ読み込み用変数
+    private string filepath;            //テキスト名
+
+    
+    // 初期化
 	void Start()
 	{
         BGMTimer = 0;
@@ -115,10 +127,60 @@ public class StageSelect : MonoBehaviour
 		drawFlag = false;
 
 		// ファイルが存在する
-		//if (File.Exists("Assets/StageSelect/SaveClearData.txt")) { print("FILE"); }
+        //if (File.Exists(Application.temporaryCachePath + "/SaveClearData.txt")) { print("FILE"); }
 		//ReadFile(); // ファイルの読み込み
 
-		CreateIcon();
+        //クリアデータ保存
+        clearFlagConvert[0] = PlayerPrefs.GetInt("Story1_1Clear", 0);
+        clearFlagConvert[1] = PlayerPrefs.GetInt("Stage1_1Clear", 0);
+        clearFlagConvert[2] = PlayerPrefs.GetInt("Stage1_2Clear", 0);
+        clearFlagConvert[3] = PlayerPrefs.GetInt("Stage1_3Clear", 0);
+        clearFlagConvert[4] = PlayerPrefs.GetInt("Stage1_4Clear", 0);
+        clearFlagConvert[5] = PlayerPrefs.GetInt("Stage1_5Clear", 0);
+        clearFlagConvert[6] = PlayerPrefs.GetInt("Story1_2Clear", 0);
+        clearFlagConvert[7] = PlayerPrefs.GetInt("Story2_1Clear", 0);
+        clearFlagConvert[8] = PlayerPrefs.GetInt("Stage2_1Clear", 0);
+        clearFlagConvert[9] = PlayerPrefs.GetInt("Stage2_2Clear", 0);
+        clearFlagConvert[10] = PlayerPrefs.GetInt("Stage2_3Clear", 0);
+        clearFlagConvert[11] = PlayerPrefs.GetInt("Stage2_4Clear", 0);
+        clearFlagConvert[12] = PlayerPrefs.GetInt("Stage2_5Clear", 0);
+        clearFlagConvert[13] = PlayerPrefs.GetInt("Story2_2Clear", 0);
+        clearFlagConvert[14] = PlayerPrefs.GetInt("Story3_1Clear", 0);
+        clearFlagConvert[15] = PlayerPrefs.GetInt("Stage3_1Clear", 0);
+        clearFlagConvert[16] = PlayerPrefs.GetInt("Stage3_2Clear", 0);
+        clearFlagConvert[17] = PlayerPrefs.GetInt("Stage3_3Clear", 0);
+        clearFlagConvert[18] = PlayerPrefs.GetInt("Stage3_4Clear", 0);
+        clearFlagConvert[19] = PlayerPrefs.GetInt("Stage3_5Clear", 0);
+        clearFlagConvert[20] = PlayerPrefs.GetInt("Story3_2Clear", 0);
+        clearFlagConvert[21] = PlayerPrefs.GetInt("Story4_1Clear", 0);
+        clearFlagConvert[22] = PlayerPrefs.GetInt("Stage4_1Clear", 0);
+        clearFlagConvert[23] = PlayerPrefs.GetInt("Stage4_2Clear", 0);
+        clearFlagConvert[24] = PlayerPrefs.GetInt("Stage4_3Clear", 0);
+        clearFlagConvert[25] = PlayerPrefs.GetInt("Stage4_4Clear", 0);
+        clearFlagConvert[26] = PlayerPrefs.GetInt("Stage4_5Clear", 0);
+        clearFlagConvert[27] = PlayerPrefs.GetInt("Story4_2Clear", 0);
+        clearFlagConvert[28] = PlayerPrefs.GetInt("Story5_1Clear", 0);
+        clearFlagConvert[29] = PlayerPrefs.GetInt("Stage5_1Clear", 0);
+        clearFlagConvert[30] = PlayerPrefs.GetInt("Stage5_2Clear", 0);
+        clearFlagConvert[31] = PlayerPrefs.GetInt("Stage5_3Clear", 0);
+        clearFlagConvert[32] = PlayerPrefs.GetInt("Stage5_4Clear", 0);
+        clearFlagConvert[33] = PlayerPrefs.GetInt("Story5_2Clear", 0);
+        clearFlagConvert[34] = PlayerPrefs.GetInt("Story5_3Clear", 0);
+        
+        //クリアデータ格納
+        for (int i = 0; i < STAMP_NUM; i++)
+        {
+            if(clearFlagConvert[i] == 1)
+            {
+                clearFlag[i] = true;
+            }
+            else
+            {
+                clearFlag[i] = false;
+            }
+        }
+            
+        CreateIcon();
 		CreateStamp();  // スタンプの生成
         Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f);
 
@@ -171,8 +233,8 @@ public class StageSelect : MonoBehaviour
 			}
 		}
 
-		SetData();
-		ResetData();
+		//SetData();
+		//ResetData();
         if(!Android)
         {
             float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
@@ -245,26 +307,23 @@ public class StageSelect : MonoBehaviour
 
             if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
             {
+                //画面から指が離れたら
                 if(touchController.detachPosX != 0 &&touchController.detachPosY != 0)
                 {
                     //ページ移動判定
-                    //左めくり
                     if (touchController.touchPosX - touchController.detachPosX < -60)
                     {
                         returnCount = 0;
                         keyFlag = true;
+                        //頁を戻す
                         TurnThePageReturn();
-
-                        Debug.Log("Left_mekuri");
                     }
-                    //右めくり
                     if (touchController.touchPosX - touchController.detachPosX > +60)
                     {
                         returnCount = 0;
                         keyFlag = true;
+                        //頁を進める
                         TurnThePageNext();
-
-                        Debug.Log("RIGHT_mekuri");
                     }
                 }
                 
@@ -275,8 +334,6 @@ public class StageSelect : MonoBehaviour
                 ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                 ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
             {
-
-                Debug.Log("1");
                 chapter = Chapter.CHAPTER_1;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
@@ -289,72 +346,66 @@ public class StageSelect : MonoBehaviour
                 ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                 ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
             {
-
-                Debug.Log("2");
                 chapter = Chapter.CHAPTER_2;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
             }
+
             //チャプター3選択
             if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
                ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
             {
-
-                Debug.Log("3");
                 chapter = Chapter.CHAPTER_3;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
             }
+
             //チャプター4選択
             if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
                 ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
                 ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                 ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
             {
-
-                Debug.Log("4");
                 chapter = Chapter.CHAPTER_4;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
             }
+
             //チャプター5選択
             if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
                 ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
                 ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                 ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
             {
-
-                Debug.Log("5");
                 chapter = Chapter.CHAPTER_5;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
             }
+
             //チャプター6選択
             if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
                 ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
                 ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                 ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
             {
-                Debug.Log("6");
                 chapter = Chapter.CHAPTER_6;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                 BGMDeleter = true;
             }
+
             //チャプター7選択
             if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
                ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
                ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
             {
-
-                Debug.Log("7");
                 chapter = Chapter.CHAPTER_7;
                 returnCount = 0;
                 Singleton<SoundPlayer>.instance.stopBGM(1.0f);
@@ -795,36 +846,62 @@ public class StageSelect : MonoBehaviour
 	void WriteFile()
 	{
 		FileStream fStream;
-		fStream = new FileStream("Assets/StageSelect/SaveClearData.txt", FileMode.Create, FileAccess.Write);
+        fStream = new FileStream(Application.persistentDataPath + "/SaveClearData.txt", FileMode.Create, FileAccess.Write);
 		Encoding utf8Enc = Encoding.GetEncoding("UTF-8");
 		StreamWriter writer = new StreamWriter(fStream, utf8Enc);
-
+        
 		for (int num = 0; num < STAMP_NUM; num++)
 		{
-			if (clearFlag[num] == true) { writer.WriteLine("○"); }
-			else { writer.WriteLine("×"); }
+			if (clearFlag[num] == true) { writer.WriteLine("×"); }
+            else { writer.WriteLine("○"); }
 		}
 		writer.Close();
 	}
 
 	void ReadFile()
 	{
-		FileStream fStream;
-        fStream = new FileStream("Assets/StageSelect/SaveClearData.txt", FileMode.Open, FileAccess.Read);
-		StreamReader reader = new StreamReader(fStream);
+        FileInfo fi = new FileInfo(Application.persistentDataPath + "/SaveClearData.txt");
+        StreamReader sr = new StreamReader(fi.OpenRead());
 
-		if (reader != null)
+        if (sr != null)
 		{
 			for (int num = 0; num < STAMP_NUM; num++)
 			{
-				string str = reader.ReadLine();
+                string str = sr.ReadLine();
 
-				if (str == "○") { clearFlag[num] = true; }
+                if (str == "○") { clearFlag[num] = true; }
 				else { clearFlag[num] = false; }
 			}
-			reader.Close();
+            sr.Close();
 		}
+
+
 	}
+
+    //.txtを読み込むときにreadの部分で差し換えてください
+    void ReadTextData()
+    {
+        filepath = "SaveClearData";
+
+        
+        // TextAssetとして、Resourcesフォルダからテキストデータをロードする
+        stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
+        
+        // 文字列を代入
+        stageData = stageTextAsset.text;
+        string[] limmit = { "\r\n" };
+        scenarios = stageData.Split(limmit, System.StringSplitOptions.RemoveEmptyEntries);
+
+        for (int num = 0; num < STAMP_NUM; num++)
+        {
+            string str = scenarios[num];
+
+            if (str == "○") 
+            { clearFlag[num] = true; }
+            else { clearFlag[num] = false; }
+        }
+
+    }
 
 	void ResetData()
 	{
@@ -837,7 +914,7 @@ public class StageSelect : MonoBehaviour
 			{
 				clearFlag[num] = false;
 			}
-			//WriteFile();
+			WriteFile();
 		}
 	}
 
@@ -848,7 +925,7 @@ public class StageSelect : MonoBehaviour
 		if (num != 0)
 		{
 			clearFlag[num - 1] = true;
-			//WriteFile();
+			WriteFile();
 		}
 
         PlayerPrefs.SetInt("STAMP_NUM", 0);

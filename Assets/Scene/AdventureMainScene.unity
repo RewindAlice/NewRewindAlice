@@ -1672,6 +1672,7 @@ GameObject:
   - 4: {fileID: 1371905272}
   - 114: {fileID: 1371905274}
   - 114: {fileID: 1371905273}
+  - 114: {fileID: 1371905275}
   m_Layer: 0
   m_Name: SentenceTextController
   m_TagString: Untagged
@@ -1801,8 +1802,26 @@ MonoBehaviour:
   crickNum: 0
   stageNum: 0
   storyEndFlag: 0
+  nameTextController: {fileID: 0}
   stageTextAsset: {fileID: 0}
   stageData: 
+  touchController: {fileID: 1371905275}
+  pause: {fileID: 270288898}
+--- !u!114 &1371905275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1371905271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9581985db2c3549b7f62d7d7686261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchPosX: 0
+  touchPosY: 0
+  detachPosX: 0
+  detachPosY: 0
 --- !u!1 &1491377187
 GameObject:
   m_ObjectHideFlags: 0

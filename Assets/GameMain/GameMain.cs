@@ -58,6 +58,8 @@ public class GameMain : MonoBehaviour
     public int waitingTime;
     public GameObject CharacterTaklText;
 
+    public TouchController touchController;      //Androidのタッチ用クラス
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -97,10 +99,30 @@ public class GameMain : MonoBehaviour
 
 		if (pause.GetComponent<Pause>().pauseFlag == false)
 		{
+
+            //pause起動
+            if (((touchController.touchPosX > 1200) && (touchController.touchPosX < 1280)) &&
+                ((touchController.touchPosY > 640) && (touchController.touchPosY < 720)) &&
+                ((touchController.detachPosX > 1200) && (touchController.detachPosX < 1280)) &&
+                ((touchController.detachPosY > 640) && (touchController.detachPosY < 720)))
+            {
+                touchController.TouchPostionInitialize();
+                //pause.GetComponent<Pause>().pauseFlag = true;
+                pause.GetComponent<Pause>().pauseImageManager1.GetComponent<Image>().enabled = true;
+                pause.GetComponent<Pause>().pauseImageManager2.GetComponent<Image>().enabled = true;
+                pause.GetComponent<Pause>().pauseImageManager3.GetComponent<Image>().enabled = true;
+                pause.GetComponent<Pause>().pauseImageManager4.GetComponent<Image>().enabled = true;
+                pause.GetComponent<Pause>().pauseImageManager5.GetComponent<Image>().enabled = true;
+                pause.GetComponent<Pause>().pauseImageManager6.GetComponent<Image>().enabled = true;
+                pause.GetComponent<Pause>().Initialize();
+            }
+
 			MapCamera();    // マップカメラ
-			CameraTurn();   // カメラの回転
+			
 			PlayerMove();   // プレイヤーの移動
-			GameAction();   // 行動を行う
+            CameraTurn();   // カメラの回転
+            GameAction();   // 行動を行う
+
 			if ((stageNumber == 1) ||
 				(stageNumber == 2))
 			{
@@ -141,7 +163,69 @@ public class GameMain : MonoBehaviour
 					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
 				}
 			}
+
+            if (touchController.detachPosX != 0)
+            {
+                touchController.TouchPostionInitialize();
+            }
+
 		}
+        else if(pause.GetComponent<Pause>().pauseFlag == true)
+        {
+
+            if(touchController.detachPosX != 0)
+            {
+                //ゲームへもどる
+                if (((touchController.touchPosX > 275) && (touchController.touchPosX < 650)) &&
+                    ((touchController.touchPosY > 470) && (touchController.touchPosY < 545)) &&
+                    ((touchController.detachPosX > 275) && (touchController.detachPosX < 650)) &&
+                    ((touchController.detachPosY > 470) && (touchController.detachPosY < 545)))
+                {
+                    pause.GetComponent<Pause>().pauseImageManager1.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager2.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager3.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager4.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager5.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().EscapePause();
+                    touchController.TouchPostionInitialize();
+                }
+                //はじめから
+                else if (((touchController.touchPosX > 275) && (touchController.touchPosX < 650)) &&
+                    ((touchController.touchPosY > 315) && (touchController.touchPosY < 390)) &&
+                    ((touchController.detachPosX > 275) && (touchController.detachPosX < 650)) &&
+                    ((touchController.detachPosY > 315) && (touchController.detachPosY < 390)))
+                {
+                    pause.GetComponent<Pause>().EscapePause();
+                    Application.LoadLevel("GameMainScene");
+                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+                    touchController.TouchPostionInitialize();
+                }
+                //ステージセレクト
+                else if (((touchController.touchPosX > 275) && (touchController.touchPosX < 650)) &&
+                    ((touchController.touchPosY > 170) && (touchController.touchPosY < 240)) &&
+                    ((touchController.detachPosX > 275) && (touchController.detachPosX < 650)) &&
+                    ((touchController.detachPosY > 170) && (touchController.detachPosY < 240)))
+                {
+                    pause.GetComponent<Pause>().EscapePause();
+                    Application.LoadLevel("StageSelectScene");
+                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                    touchController.TouchPostionInitialize();
+                }
+                else
+                {
+                    pause.GetComponent<Pause>().pauseImageManager1.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager2.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager3.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager4.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager5.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                    pause.GetComponent<Pause>().EscapePause();
+                    touchController.TouchPostionInitialize();
+                }
+            }
+            
+        }
 	}
 
     // ★ゲームの設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -197,6 +281,13 @@ public class GameMain : MonoBehaviour
             ImageUI = GameObject.Find("EXImage");
             CharacterTaklText = GameObject.Find("CharacterTaklText");
             ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        }
+
+        //画面から指が離れたら
+        if(touchController.detachPosX != 0)
+        {
+            //初期化
+            touchController.TouchPostionInitialize();
         }
     }
 
@@ -367,6 +458,17 @@ public class GameMain : MonoBehaviour
                     print("カメラ左回転");// デバッグ用コメント
                 }
 
+                if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
+                {
+                    
+                    //右めくり
+                    if (touchController.touchPosX - touchController.detachPosX < -180)
+                    {
+                        CameraTurnLeftMove();
+                        touchController.TouchPostionInitialize();
+
+                    }
+                }
 
             }
 
@@ -377,6 +479,18 @@ public class GameMain : MonoBehaviour
                 {
                     CameraTurnRightMove();
                     print("カメラ右回転");// デバッグ用コメント
+                }
+                if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
+                {
+                    //ページ移動判定
+                    //左めくり
+                    //右めくり
+                    if (touchController.touchPosX - touchController.detachPosX > +180)
+                    {
+                   
+                        CameraTurnRightMove();
+                        touchController.TouchPostionInitialize();
+                    }
                 }
             }
         }
@@ -428,8 +542,14 @@ public class GameMain : MonoBehaviour
                     ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) && 
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6||tutorialTurn == 7)||
                     ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
-                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10))
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10) ||
+                    ((touchController.touchPosX > 550) && (touchController.touchPosX < 685)) &&
+                    ((touchController.touchPosY > 290) && (touchController.touchPosY < 380)) &&
+                    ((touchController.detachPosX > 550) && (touchController.detachPosX < 685)) &&
+                    ((touchController.detachPosY > 290) && (touchController.detachPosY < 380)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == false))
                 {
+                    touchController.TouchPostionInitialize();
+
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -507,8 +627,15 @@ public class GameMain : MonoBehaviour
                     ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) && 
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 5||tutorialTurn == 6||tutorialTurn == 7) ||
                     ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
-                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
+                    ((touchController.touchPosX > 580) && (touchController.touchPosX < 730)) &&
+                    ((touchController.touchPosY > 100) && (touchController.touchPosY < 200)) &&
+                    ((touchController.detachPosX > 580) && (touchController.detachPosX < 730)) &&
+                    ((touchController.detachPosY > 100) && (touchController.detachPosY < 200)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false))
                 {
+
+                    touchController.TouchPostionInitialize();
+
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -583,9 +710,14 @@ public class GameMain : MonoBehaviour
                 if (((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false) ||
                     ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7 || tutorialTurn == 8)||
-                    ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
-                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+                    ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) && (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
+                    ((touchController.touchPosX > 400) && (touchController.touchPosX < 560)) &&
+                    ((touchController.touchPosY > 190) && (touchController.touchPosY < 285)) &&
+                    ((touchController.detachPosX > 400) && (touchController.detachPosX < 560)) &&
+                    ((touchController.detachPosY > 190) && (touchController.detachPosY < 285)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false))
                 {
+
+                    touchController.TouchPostionInitialize();
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -661,8 +793,18 @@ public class GameMain : MonoBehaviour
                      ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7)||
                     ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
-                    (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+                    (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
+                    ((touchController.touchPosX > 715) && (touchController.touchPosX < 880)) &&
+                    ((touchController.touchPosY > 270) && (touchController.touchPosY < 320)) &&
+                    ((touchController.detachPosX > 715) && (touchController.detachPosX < 880)) &&
+                    ((touchController.detachPosY > 270) && (touchController.detachPosY < 320)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false) ||
+                    ((touchController.touchPosX > 740) && (touchController.touchPosX < 880)) &&
+                    ((touchController.touchPosY > 230) && (touchController.touchPosY < 270)) &&
+                    ((touchController.detachPosX > 740) && (touchController.detachPosX < 880)) &&
+                    ((touchController.detachPosY > 230) && (touchController.detachPosY < 270)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false))
                 {
+
+                    touchController.TouchPostionInitialize();
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -732,12 +874,23 @@ public class GameMain : MonoBehaviour
                     }
                 }
 
+                
+               
+                 
                 // ▼待機処理
                 // Ｘキーが押された時、行動が無しなら///////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) ||
                     ((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
-                    (tutorialTurn == 0))
+                    (tutorialTurn == 0)||
+                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+                    ((touchController.touchPosX + 30 > touchController.detachPosX) && (touchController.touchPosX - 30 < touchController.detachPosX)) &&
+                    ((touchController.touchPosY + 30 > touchController.detachPosY) && (touchController.touchPosY - 30 < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false))
                 {
+
+                    touchController.TouchPostionInitialize();
                     action = PlayerAction.NEXT;     // 行動を進むに
                     turn = Turn.PLAYER;             // ターンをプレイヤーに
                     turnCountGimmick = 0;           // カウントを０に
@@ -752,8 +905,15 @@ public class GameMain : MonoBehaviour
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4)))&& (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
                     ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
-                    (tutorialTurn == 5 || tutorialTurn == 7))
+                    (tutorialTurn == 5 || tutorialTurn == 7) || 
+                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+                    ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false))
                 {
+
+                    touchController.TouchPostionInitialize();
                     //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
                     if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
                     {
@@ -770,8 +930,14 @@ public class GameMain : MonoBehaviour
 
                 // ▼早送り処理
                 // Ｅキーが押された時、行動が無しなら//////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button5)))&& (action == PlayerAction.NONE))
+                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) ||
+                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+                    ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE))
                 {
+                    touchController.TouchPostionInitialize();
                     if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)
                     {
                         action = PlayerAction.NEXT; // 行動を進むに
@@ -794,6 +960,11 @@ public class GameMain : MonoBehaviour
         alice.moveBackPossibleFlag = stage.MovePossibleDecision(alice, Player.MoveDirection.BACK,camera.cameraAngle);       // 後移動可能判定
         alice.moveLeftPossibleFlag = stage.MovePossibleDecision(alice, Player.MoveDirection.LEFT, camera.cameraAngle);      // 左移動可能判定
         alice.moveRightPossibleFlag = stage.MovePossibleDecision(alice, Player.MoveDirection.RIGHT, camera.cameraAngle);    // 右移動可能判定
+        Debug.Log("FRONT" + alice.moveFrontPossibleFlag);
+        Debug.Log("BACK" + alice.moveBackPossibleFlag);
+        Debug.Log("LEFT" + alice.moveLeftPossibleFlag);
+        Debug.Log("RIGHT" + alice.moveRightPossibleFlag);
+    
     }
 
     // ★アリスの登り判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

@@ -14,39 +14,39 @@ public class TouchController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        
+        //デザイン解像度の変更(1280*720)
         Screen.SetResolution(width, height, false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        //タッチされている数が0以上ならば
         if (Input.touchCount > 0)
         {
+            //最初のタッチの取得
             Touch touch = Input.GetTouch(0);
+
+            //タッチが始まったら
             if (touch.phase == TouchPhase.Began)
             {
-                // タッチ開始
+                //タッチの座標を保存
                 touchPosX = (int)touch.position.x;
                 touchPosY = (int)touch.position.y;
-
-                Debug.Log("touchPosX" + touchPosX);
-                Debug.Log("touchPosY" + touchPosY);
             }
+            //タッチ中に移動したら
             else if (touch.phase == TouchPhase.Moved)
             {
-                // タッチ移動
             }
+            //画面から指が離れたら
             else if (touch.phase == TouchPhase.Ended)
             {
-                // タッチ終了
                 detachPosX = (int)touch.position.x;
                 detachPosY = (int)touch.position.y;
-                Debug.Log("detachPosX" + detachPosX);
-                Debug.Log("detachPosY" + detachPosY);
             }
         }
 	}
-
 
     //タッチ座標の初期化処理
     public void TouchPostionInitialize()

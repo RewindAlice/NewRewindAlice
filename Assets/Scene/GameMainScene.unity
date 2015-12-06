@@ -908,54 +908,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169a38f41b3255845bfc67f2276b0861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMain: {fileID: 0}
   alice: {fileID: 99142192}
   gimmickNone: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickStart: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
   gimmickGoal: {fileID: 131028, guid: ab8f68c91a736ca418884df6acdf775b, type: 2}
-  gimmickBlock: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
-  gimmickEnemy: {fileID: 146638, guid: 669d5ab6dfdc15d409715092ac80cf94, type: 2}
-  gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
-  gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
-  gimmickRedFlower: {fileID: 193118, guid: 3be130c6eac9e3a46969170ba339db93, type: 2}
-  gimmickBuleFlower: {fileID: 141934, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}
-  gimmickPurpleFlower: {fileID: 100042, guid: 229d5fdeaa2737e40ad1f77ddeb9144a, type: 2}
-  gimmickLadder: {fileID: 192434, guid: b31d8c0b7b337e24c9eb6eb812617207, type: 2}
-  gimmickIvyBlock: {fileID: 131046, guid: 4a658d24719d95245bc739c651667ba8, type: 2}
-  gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
-    type: 2}
-  gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,
-    type: 2}
-  gimmickSoldierSpadeLeft: {fileID: 163446, guid: bea912331daa03c4aaabba1046fd9f6f,
-    type: 2}
-  gimmickSoldierSpadeRight: {fileID: 147770, guid: aa684cc5d3a648546ad13cb4e6f4d17c,
-    type: 2}
-  gimmickSoldierSpadeBAF: {fileID: 154258, guid: 6f793ef4412d7cb4a9c1dd5b3de08648,
-    type: 2}
-  gimmickTweedleDum: {fileID: 101880, guid: d9885d370ee96f84895ed0f26b0019d9, type: 2}
-  gimmickTweedleDee: {fileID: 149168, guid: 7bac3a7153b44f345a10d3afd4c2d6e3, type: 2}
-  gimmickBramble: {fileID: 194816, guid: 059ed2bb35cb4a740a48b6d581421cb9, type: 2}
-  gimmickDoor_Red: {fileID: 159322, guid: b0bb8567a5334df4b9d4f24e26110b6f, type: 2}
-  gimmickKey_Red: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
-  gimmickDoor_Blue: {fileID: 181444, guid: b7a9b39cbdaa17445a9484dd91a76fc4, type: 2}
-  gimmickKey_Blue: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
-  gimmickDoor_Yellow: {fileID: 152608, guid: 443f4abc9c6552d4fbc7a038b8d973aa, type: 2}
-  gimmickKey_Yellow: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
-  gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
-  gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
-  cheshire: {fileID: 153752, guid: 24f396f694c557c48938b343fa43ff7d, type: 2}
-  rock: {fileID: 147168, guid: eda8e8867ce2fa045a0885d7467248cc, type: 2}
-  gameMain: {fileID: 0}
-  field: 0
-  fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
-  fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}
-  fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
-  fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
-  fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
-  gimmickMushroomSmall: {fileID: 116140, guid: 4d81597e8a989474c8468058ab6b633e, type: 2}
-  gimmickMushroomBig: {fileID: 165112, guid: 26f1f7576f3630e41a29c3cece41a3eb, type: 2}
-  gimmickPotionSmall: {fileID: 158544, guid: 133c361b0368a754db961ff77bb610ce, type: 2}
-  gimmickPotionBig: {fileID: 120516, guid: 1b63c1f39b223ca4694ad921504f0626, type: 2}
-  gimmickHole: {fileID: 171968, guid: c9c8fa47da4b0544c860d0b4e7f35499, type: 2}
   waterBlock: {fileID: 130044, guid: 23ce9c915cac81a46b7e73c8e2e9233f, type: 2}
   forestBlockGround: {fileID: 157210, guid: 6baee3df0e4340c418b01aa90da46ab3, type: 2}
   forestBlockGrass: {fileID: 159890, guid: 6db1146b62843ab4980120197f2e492a, type: 2}
@@ -967,10 +924,6 @@ MonoBehaviour:
   redForestBlockGrass: {fileID: 103864, guid: 99f9c6526b5c32a4a854e3e6c6d776c6, type: 2}
   redForestBlockAllGrass: {fileID: 171354, guid: 714e0b70372d5b64cbf7d9410d543aa9,
     type: 2}
-  darkForestBlockRedGround: {fileID: 163664, guid: d112dbe69897b1149b7affedb6e4d0d5,
-    type: 2}
-  darkForestBlockGreenGround: {fileID: 196864, guid: 3c7b1723262c7e34e8051bd2ac60e788,
-    type: 2}
   darkForestBlockRedAllGrass: {fileID: 185628, guid: eabc04b5bea7f3d42913033bf7b03da5,
     type: 2}
   darkForestBlockGreenAllGrass: {fileID: 135572, guid: 342680f38dba00749a08a75f25c306b8,
@@ -978,6 +931,50 @@ MonoBehaviour:
   gardenBlockGrass: {fileID: 180566, guid: 91e27e201c5331a4d88b930e3c124cd8, type: 2}
   gardenBlockRoseRed: {fileID: 189268, guid: 2c2781dbbd871694898ac80944816021, type: 2}
   gardenBlockRoseWhite: {fileID: 129964, guid: 009ea351b5f64e44b9e12eb586177cdd, type: 2}
+  gimmickIvyBlock: {fileID: 131046, guid: 4a658d24719d95245bc739c651667ba8, type: 2}
+  gimmickIVY: {fileID: 171974, guid: bc0e3af59792ba64591c420a44f6e00f, type: 2}
+  gimmickLadder: {fileID: 192434, guid: b31d8c0b7b337e24c9eb6eb812617207, type: 2}
+  gimmickTree: {fileID: 173548, guid: 54b6f1ba7e13d8a4194de2fc4a1f19b1, type: 2}
+  gimmickMushroomSmall: {fileID: 116140, guid: 4d81597e8a989474c8468058ab6b633e, type: 2}
+  gimmickMushroomBig: {fileID: 165112, guid: 26f1f7576f3630e41a29c3cece41a3eb, type: 2}
+  gimmickPotionSmall: {fileID: 158544, guid: 133c361b0368a754db961ff77bb610ce, type: 2}
+  gimmickPotionBig: {fileID: 120516, guid: 1b63c1f39b223ca4694ad921504f0626, type: 2}
+  gimmickKey_Red: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Red: {fileID: 159322, guid: b0bb8567a5334df4b9d4f24e26110b6f, type: 2}
+  gimmickKey_Blue: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Blue: {fileID: 181444, guid: b7a9b39cbdaa17445a9484dd91a76fc4, type: 2}
+  gimmickKey_Yellow: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Yellow: {fileID: 152608, guid: 443f4abc9c6552d4fbc7a038b8d973aa, type: 2}
+  gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
+  gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
+  gimmickHole: {fileID: 171968, guid: c9c8fa47da4b0544c860d0b4e7f35499, type: 2}
+  gimmickBramble: {fileID: 194816, guid: 059ed2bb35cb4a740a48b6d581421cb9, type: 2}
+  gimmickRedFlower: {fileID: 193118, guid: 3be130c6eac9e3a46969170ba339db93, type: 2}
+  gimmickBuleFlower: {fileID: 141934, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}
+  gimmickPurpleFlower: {fileID: 100042, guid: 229d5fdeaa2737e40ad1f77ddeb9144a, type: 2}
+  cheshire: {fileID: 153752, guid: 24f396f694c557c48938b343fa43ff7d, type: 2}
+  gimmickTweedleDum: {fileID: 101880, guid: d9885d370ee96f84895ed0f26b0019d9, type: 2}
+  gimmickTweedleDee: {fileID: 149168, guid: 7bac3a7153b44f345a10d3afd4c2d6e3, type: 2}
+  gimmickSoldierHeartRight: {fileID: 192340, guid: c9e3a9defb0d27b4b8aad53f06e4d527,
+    type: 2}
+  gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
+    type: 2}
+  gimmickSoldierSpadeRight: {fileID: 147770, guid: aa684cc5d3a648546ad13cb4e6f4d17c,
+    type: 2}
+  gimmickSoldierSpadeLeft: {fileID: 163446, guid: bea912331daa03c4aaabba1046fd9f6f,
+    type: 2}
+  gimmickSoldierSpadeBAF: {fileID: 154258, guid: 6f793ef4412d7cb4a9c1dd5b3de08648,
+    type: 2}
+  rock: {fileID: 147168, guid: eda8e8867ce2fa045a0885d7467248cc, type: 2}
+  field: 0
+  fieldStage1: {fileID: 143018, guid: 8fcd8306dc66fa74697ed1e4e6b3a3f9, type: 2}
+  fieldStage2: {fileID: 124350, guid: 867e729854b7116409d0d27be09cc8d4, type: 2}
+  fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
+  fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
+  fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
+  stageTextAsset: {fileID: 0}
+  stageData: 
+  scenarios: []
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
@@ -2484,6 +2481,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2060863231}
   - 114: {fileID: 2060863230}
+  - 114: {fileID: 2060863232}
   m_Layer: 0
   m_Name: GameMain
   m_TagString: Untagged
@@ -2521,6 +2519,7 @@ MonoBehaviour:
   limitTurn: 0
   waitingTime: 0
   CharacterTaklText: {fileID: 1972864569}
+  touchController: {fileID: 2060863232}
 --- !u!4 &2060863231
 Transform:
   m_ObjectHideFlags: 0
@@ -2533,3 +2532,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &2060863232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2060863229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9581985db2c3549b7f62d7d7686261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchPosX: 0
+  touchPosY: 0
+  detachPosX: 0
+  detachPosY: 0

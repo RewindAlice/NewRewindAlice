@@ -24,12 +24,12 @@ public class Pause : MonoBehaviour
     public GameObject stageSelectButton;
     public GameObject character;
     public GameObject selecticon;
-    private PauseImageManager pauseImageManager1;
-    private PauseImageManager pauseImageManager2;
-    private PauseImageManager pauseImageManager3;
-    private PauseImageManager pauseImageManager4;
-    private PauseImageManager pauseImageManager5;
-    private PauseImageManager pauseImageManager6;
+    public PauseImageManager pauseImageManager1;
+    public PauseImageManager pauseImageManager2;
+    public PauseImageManager pauseImageManager3;
+    public PauseImageManager pauseImageManager4;
+    public PauseImageManager pauseImageManager5;
+    public PauseImageManager pauseImageManager6;
     private PaseCharacterChanger changer;
 
     void Start()
@@ -181,7 +181,7 @@ public class Pause : MonoBehaviour
         }
     }
 
-    void Initialize()
+    public void Initialize()
     {
         pauseFlag = true;
         Time.timeScale = 0;
@@ -191,7 +191,7 @@ public class Pause : MonoBehaviour
         menuSelectFlag = false;
     }
 
-    void EscapePause()
+    public void EscapePause()
     {
         pauseFlag = false;
         Time.timeScale = 1;

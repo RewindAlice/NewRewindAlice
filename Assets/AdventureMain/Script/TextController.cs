@@ -71,6 +71,10 @@ public class TextController : MonoBehaviour
     public string stageData;
     //////////////////////////////////////////////////////////////
 
+
+    public TouchController touchController;
+
+    public GameObject pause;
     // 文字の表示が完了しているかどうか
     public bool IsCompleteDisplayText
     {
@@ -219,190 +223,270 @@ public class TextController : MonoBehaviour
         //}
         if (stopText == false)
         {
-            //Debug.Log( flagManager.sentenceEndFlag );        
-            // 文字の表示が完了してるならクリック時に次の行を表示する
-            if (IsCompleteDisplayText)
+            //pause起動
+            if (((touchController.touchPosX > 1200) && (touchController.touchPosX < 1280)) &&
+                ((touchController.touchPosY > 640) && (touchController.touchPosY < 720)) &&
+                ((touchController.detachPosX > 1200) && (touchController.detachPosX < 1280)) &&
+                ((touchController.detachPosY > 640) && (touchController.detachPosY < 720)))
             {
-
-                flagManager.sentenceEndFlag = true;
-                //Debug.Log("hoge");
-                //Debug.Log( flagManager.sentenceEndFlag );  
-                if ((currentLine < scenarios.Length && Input.GetMouseButtonDown(0)) ||
-                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
-                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
-                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
-                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
-                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.W)) ||
-                    (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Space)))
-                {
-                    seManager.SEStop();
-                    if (storyEndFlag ==false)
-                    {
-                        
-                        SetNextLine();
-                        nameTextController.GetComponent<NameTextController>().TextUpdate();
-                        crickNum++;
-                        flagManager.clickCounter++;
-                        leftCharacterImage.CharacterChange();
-                        rightCharacterImage.CharacterChange();
-                        seManager.SEChanger(stageNum, crickNum);
-                    }
-                   
-                }
+                touchController.TouchPostionInitialize();
+                pause.GetComponent<StoryPause>().text.stopText = true;//ストーリーのテキストを止める
+                pause.GetComponent<StoryPause>().name.stopText = true;//名前のテキストを止める
+                pause.GetComponent<StoryPause>().pauseImageManager1.GetComponent<Image>().enabled = true;
+                pause.GetComponent<StoryPause>().pauseImageManager2.GetComponent<Image>().enabled = true;
+                //pauseImageManager3.GetComponent<Image>().enabled = true;
+                pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = true;
+                pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = true;
+                pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = true;
+                pause.GetComponent<StoryPause>().Initialize();
+       
             }
             else
             {
-                // 完了してないなら文字をすべて表示する
-                if ((Input.GetMouseButtonDown(0)) ||
-					(Input.GetKeyDown(KeyCode.W)) ||
-					(Input.GetKeyDown(KeyCode.Space)))
+                if(pause.GetComponent<StoryPause>().pauseFlag == false)
                 {
-                    timeUntilDisplay = 0;
+                    if (IsCompleteDisplayText)
+                    {
+
+                        flagManager.sentenceEndFlag = true;
+                        //Debug.Log("hoge");
+                        //Debug.Log( flagManager.sentenceEndFlag );  
+                        if ((currentLine < scenarios.Length && Input.GetMouseButtonDown(0)) ||
+                            (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
+                            (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
+                            (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
+                            (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
+                            (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.W)) ||
+                            (currentLine < scenarios.Length && Input.GetKeyDown(KeyCode.Space)))
+                        {
+                            seManager.SEStop();
+                            if (storyEndFlag == false)
+                            {
+
+                                SetNextLine();
+                                nameTextController.GetComponent<NameTextController>().TextUpdate();
+                                crickNum++;
+                                flagManager.clickCounter++;
+                                leftCharacterImage.CharacterChange();
+                                rightCharacterImage.CharacterChange();
+                                seManager.SEChanger(stageNum, crickNum);
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        // 完了してないなら文字をすべて表示する
+                        if ((Input.GetMouseButtonDown(0)) ||
+                            (Input.GetKeyDown(KeyCode.W)) ||
+                            (Input.GetKeyDown(KeyCode.Space)))
+                        {
+                            timeUntilDisplay = 0;
+                        }
+                        flagManager.sentenceEndFlag = false;
+                    }
+
+                    int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
+                    if (displayCharacterCount != lastUpdateCharacter)
+                    {
+                        uiText.text = currentText.Substring(0, displayCharacterCount);
+                        lastUpdateCharacter = displayCharacterCount;
+                    }
+
+                    if (stageNum == 11 && crickNum == 19)
+                    {
+                        PlayerPrefs.SetInt("Story1_1Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 1);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 12 && crickNum == 8)
+                    {
+                        PlayerPrefs.SetInt("Story1_2Clear", 1);
+                        storyEndFlag = true;
+                        BGMDeleter = true;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 7);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 21 && crickNum == 18)
+                    {
+                        PlayerPrefs.SetInt("Story2_1Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 8);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 22 && crickNum == 6)
+                    {
+                        PlayerPrefs.SetInt("Story2_2Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 14);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 31 && crickNum == 13)
+                    {
+                        PlayerPrefs.SetInt("Story3_1Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+
+                            PlayerPrefs.SetInt("STAMP_NUM", 15);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 32 && crickNum == 16)
+                    {
+                        PlayerPrefs.SetInt("Story3_2Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 21);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 41 && crickNum == 6)
+                    {
+                        PlayerPrefs.SetInt("Story4_1Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 22);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 42 && crickNum == 18)
+                    {
+                        PlayerPrefs.SetInt("Story4_2Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 28);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 51 && crickNum == 8)
+                    {
+                        PlayerPrefs.SetInt("Story5_1Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 29);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    else if (stageNum == 52 && crickNum == 23)
+                    {
+                        PlayerPrefs.GetInt("Story5_2Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 34);
+                            Application.LoadLevel("EndingScene");
+                        }
+                    }
+                    else if (stageNum == 53 && crickNum == 34)
+                    {
+                        PlayerPrefs.GetInt("Story5_3Clear", 1);
+                        storyEndFlag = true;
+                        EndBgmfunc();
+                        if (BGMTimer > BGMFadeTime)
+                        {
+                            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                            PlayerPrefs.SetInt("STAMP_NUM", 35);
+                            Application.LoadLevel("StageSelectScene");
+                        }
+                    }
+                    if (stageNum == 52 && crickNum == 10)
+                    {
+                        Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f);
+                    }
                 }
-                flagManager.sentenceEndFlag = false;
+               
             }
 
-            int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
-            if (displayCharacterCount != lastUpdateCharacter)
-            {
-                uiText.text = currentText.Substring(0, displayCharacterCount);
-                lastUpdateCharacter = displayCharacterCount;
-            }
-
-            if (stageNum == 11 && crickNum == 19)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 1);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 12 && crickNum == 8)
-            {
-                storyEndFlag = true;
-                BGMDeleter = true;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 7);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 21 && crickNum == 18)
-            {
-                storyEndFlag = true;
-                EndBgmfunc(); 
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 8);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 22 && crickNum == 6)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 14);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 31 && crickNum == 13)
-            {
-                storyEndFlag = true;
-                EndBgmfunc(); 
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-
-                    PlayerPrefs.SetInt("STAMP_NUM", 15);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 32 && crickNum == 16)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 21);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 41 && crickNum == 6)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 22);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 42 && crickNum == 18)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 28);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 51 && crickNum == 8)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 29);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            else if (stageNum == 52 && crickNum == 23)
-            {
-                storyEndFlag = true;    
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 34);
-                    Application.LoadLevel("EndingScene");
-                }
-            }
-            else if (stageNum == 53 && crickNum == 34)
-            {
-                storyEndFlag = true;
-                EndBgmfunc();
-                if (BGMTimer > BGMFadeTime)
-                {
-                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                    PlayerPrefs.SetInt("STAMP_NUM", 35);
-                    Application.LoadLevel("StageSelectScene");
-                }
-            }
-            if(stageNum == 52 && crickNum == 10)
-            {
-                Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f);
-            }
+            //Debug.Log( flagManager.sentenceEndFlag );        
+            // 文字の表示が完了してるならクリック時に次の行を表示する
+            
         }
         else
         {
-            //if(Input.GetKey(KeyCode.Space))//Wへ変更予定
-            //{
-            //    funcFlag = true;
-            //}
+             if(pause.GetComponent<StoryPause>().pauseFlag == true)
+            {
+                 if(touchController.detachPosX != 0)
+                 {
+                     //pause起動
+                     if (((touchController.touchPosX > 250) && (touchController.touchPosX < 750)) &&
+                         ((touchController.touchPosY > 500) && (touchController.touchPosY < 595)) &&
+                         ((touchController.detachPosX > 250) && (touchController.detachPosX < 750)) &&
+                         ((touchController.detachPosY > 500) && (touchController.detachPosY < 595)))
+                     {
+                         touchController.TouchPostionInitialize();
+                         pause.GetComponent<StoryPause>().pauseImageManager1.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager2.GetComponent<Image>().enabled = false;
+                         //pauseImageManager3.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().EscapePause();
+
+
+                     }
+                     else if (((touchController.touchPosX > 250) && (touchController.touchPosX < 750)) &&
+                            ((touchController.touchPosY > 220) && (touchController.touchPosY < 310)) &&
+                            ((touchController.detachPosX > 250) && (touchController.detachPosX < 750)) &&
+                            ((touchController.detachPosY > 220) && (touchController.detachPosY < 310)))
+                     {
+                         touchController.TouchPostionInitialize();
+                         pause.GetComponent<StoryPause>().EscapePause();
+                         Application.LoadLevel("StageSelectScene");
+                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
+                     }
+                     else
+                     {
+                         touchController.TouchPostionInitialize();
+                         pause.GetComponent<StoryPause>().pauseImageManager1.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager2.GetComponent<Image>().enabled = false;
+                         //pauseImageManager3.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().EscapePause();
+                     }
+                 }
+                
+            }
 
         }
         if(BGMDeleter)
@@ -410,6 +494,10 @@ public class TextController : MonoBehaviour
             BGMTimer++;
         }
 
+        if(touchController.detachPosX != 0)
+        {
+            touchController.TouchPostionInitialize();
+        }
         //backGame();
     }
     //void backGame()

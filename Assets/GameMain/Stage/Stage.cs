@@ -145,6 +145,15 @@ public class Stage : MonoBehaviour
     int turnNum;                                                                    // ステージのターン数
     private string guitxt = "";
 
+
+    public TextAsset stageTextAsset;    //テキスト読み込み用
+
+    public string stageData;            //テキスト代入用
+    public string[] scenarios;          //ステージ読み込み用変数
+    private string filepath;            //テキスト名
+    //
+    
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -179,6 +188,38 @@ public class Stage : MonoBehaviour
                 for (int k = 0; k < 11; k++)
                 {
                     gimmickArray[i, j, k] = Int32.Parse(fields[k]);
+                }
+            }
+        }
+    }
+
+    // ★ステージ情報の読み込み★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    void ReadTextData()
+    {
+
+        //Resourcesフォルダからテキストデータをロードする
+        stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
+
+        // 文字列を代入
+        stageData = stageTextAsset.text;
+        string[] limmit = { "\r", "\n", "," };
+        scenarios = stageData.Split(limmit, System.StringSplitOptions.RemoveEmptyEntries);
+
+        turnNum = Int32.Parse(scenarios[0]);
+
+        field = Int32.Parse(scenarios[1]);
+
+        int stageObjectNumber = 2;
+        
+        //ステージ情報の代入
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 11; j++)
+            {
+                for (int k = 0; k < 11; k++)
+                {
+                    gimmickArray[i, j, k] = Int32.Parse(scenarios[stageObjectNumber]);
+                    stageObjectNumber++;
                 }
             }
         }
@@ -700,7 +741,106 @@ public class Stage : MonoBehaviour
     // ★選択されたステージを設定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void setSelectStage(int stageNum)
     {
-        ReadFile();     // ステージ情報の読み込み
+        //ステージテキストの設定
+        if (stageNum == 1)
+        {
+            filepath = "StageData/stage01";
+        }
+        else if (stageNum == 2)
+        {
+            filepath = "StageData/stage02";
+        }
+        else if (stageNum == 3)
+        {
+            filepath = "StageData/stage03";
+        }
+        else if (stageNum == 4)
+        {
+            filepath = "StageData/stage04";
+        }
+        else if (stageNum == 5)
+        {
+            filepath = "StageData/stage05";
+        }
+        else if (stageNum == 6)
+        {
+            filepath = "StageData/stage06";
+        }
+        else if (stageNum == 7)
+        {
+            filepath = "StageData/stage07";
+        }
+        else if (stageNum == 8)
+        {
+            filepath = "StageData/stage08";
+        }
+        else if (stageNum == 9)
+        {
+            filepath = "StageData/stage09";
+        }
+        else if (stageNum == 10)
+        {
+            filepath = "StageData/stage10";
+        }
+        else if (stageNum == 11)
+        {
+            filepath = "StageData/stage11";
+        }
+        else if (stageNum == 12)
+        {
+            filepath = "StageData/stage12";
+        }
+        else if (stageNum == 13)
+        {
+            filepath = "StageData/stage13";
+        }
+        else if (stageNum == 14)
+        {
+            filepath = "StageData/stage14";
+        }
+        else if (stageNum == 15)
+        {
+            filepath = "StageData/stage15";
+        }
+        else if (stageNum == 16)
+        {
+            filepath = "StageData/stage16";
+        }
+        else if (stageNum == 17)
+        {
+            filepath = "StageData/stage17";
+        }
+        else if (stageNum == 18)
+        {
+            filepath = "StageData/stage18";
+        }
+        else if (stageNum == 19)
+        {
+            filepath = "StageData/stage19";
+        }
+        else if (stageNum == 20)
+        {
+            filepath = "StageData/stage20";
+        }
+        else if (stageNum == 21)
+        {
+            filepath = "StageData/stage21";
+        }
+        else if (stageNum == 22)
+        {
+            filepath = "StageData/stage22";
+        }
+        else if (stageNum == 23)
+        {
+            filepath = "StageData/stage23";
+        }
+        else if (stageNum == 24)
+        {
+            filepath = "StageData/stage24";
+        }
+
+        ReadTextData(); //ステージ情報の読み込み
+        //ReadFile();
     }
 
     // ★ターン数の取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

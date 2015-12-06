@@ -25,19 +25,19 @@ public class StoryPause : MonoBehaviour
     public GameObject stageSelectButton;
     public GameObject character;
     public GameObject selecticon;
-    private PauseImageManager pauseImageManager1;
-    private PauseImageManager pauseImageManager2;
+    public PauseImageManager pauseImageManager1;
+    public PauseImageManager pauseImageManager2;
     //private PauseImageManager pauseImageManager3;
-    private PauseImageManager pauseImageManager4;
-    private PauseImageManager pauseImageManager5;
-    private PauseImageManager pauseImageManager6;
-    private PaseCharacterChanger changer;
+    public PauseImageManager pauseImageManager4;
+    public PauseImageManager pauseImageManager5;
+    public PauseImageManager pauseImageManager6;
+    public PaseCharacterChanger changer;
     //テキストの制御
     public GameObject textController;
-    private TextController text;
+    public TextController text;
     //キャラ名の制御
     public GameObject nameTextController;
-    private NameTextController name;
+    public NameTextController name;
 
     void Start()
     {
@@ -203,7 +203,7 @@ public class StoryPause : MonoBehaviour
         }
     }
 
-    void Initialize()
+    public void Initialize()
     {
         pauseFlag = true;
         Time.timeScale = 0;
@@ -213,7 +213,7 @@ public class StoryPause : MonoBehaviour
         menuSelectFlag = false;
     }
 
-    void EscapePause()
+    public void EscapePause()
     {
         pauseFlag = false;
         Time.timeScale = 1;

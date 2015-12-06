@@ -893,7 +893,47 @@ MonoBehaviour:
   selectFlag: 0
   keyFlag: 0
   returnCount: 0
+  Android: 0
   touchController: {fileID: 1289899028}
+  clearFlagConvert: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  stageTextAsset: {fileID: 0}
+  stageData: 
+  scenarios:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!4 &1289899027
 Transform:
   m_ObjectHideFlags: 0
@@ -1230,9 +1270,9 @@ Camera:
   m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: .000269263983
+    x: .000922828913
     y: 0
-    width: .999461472
+    width: .998154342
     height: 1
   near clip plane: .300000012
   far clip plane: 1000
