@@ -36,6 +36,7 @@ public class Rock : BaseGimmick
 	public PlayerAction playerAction; // アリスの行動
 	public GameObject gameMain; // ゲームメイン
 	public GameObject stage; // ステージ
+    public GameObject alice;
 	public int turnNum;
 
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -43,6 +44,7 @@ public class Rock : BaseGimmick
 	{
 		gameMain = GameObject.Find("GameMain");
 		stage = GameObject.Find("Stage");
+        alice = GameObject.Find("Alice");
 		moveTimer = 0;
 		moveFlag = false;
 		turnNum = 0;
@@ -120,10 +122,26 @@ public class Rock : BaseGimmick
 	// ★岩が押されたときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void PushMove(int x, int y, int z, int directionX, int directionZ)
 	{
-		if (directionZ == -1) { moveMemory[turnNum] = MoveDirection.FRONT; }
-		else if (directionZ == 1) { moveMemory[turnNum] = MoveDirection.BACK; }
-		else if (directionX == 1) { moveMemory[turnNum] = MoveDirection.LEFT; }
-		else if (directionX == -1) { moveMemory[turnNum] = MoveDirection.RIGHT; }
+		if (directionZ == -1) 
+        {
+            moveMemory[turnNum] = MoveDirection.FRONT;
+            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+		else if (directionZ == 1) 
+        {
+            moveMemory[turnNum] = MoveDirection.BACK;
+            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+		else if (directionX == 1) 
+        {
+            moveMemory[turnNum] = MoveDirection.LEFT;
+            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+		else if (directionX == -1) 
+        {
+            moveMemory[turnNum] = MoveDirection.RIGHT;
+            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
 	}
 
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
