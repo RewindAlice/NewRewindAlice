@@ -891,7 +891,7 @@ public class GameMain : MonoBehaviour
                  
                 // ▼待機処理
                 // Ｘキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) ||
+                if (((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) && (alice.arrayPosY != 0) ||
                     ((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 0)||
                     ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
@@ -912,10 +912,10 @@ public class GameMain : MonoBehaviour
                     alice.SetAnimation(Player.Motion.STOP_NEXT, true);
                     print("待機");// デバッグ用コメント
                 }
-
+                
                 // ▼巻き戻し処理
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+                    if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false)  ||
                     ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 5 || tutorialTurn == 7) || 
                     ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
