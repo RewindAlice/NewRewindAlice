@@ -915,7 +915,7 @@ public class GameMain : MonoBehaviour
 
                 // ▼巻き戻し処理
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4)))&& (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
                     ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 5 || tutorialTurn == 7) || 
                     ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
@@ -925,6 +925,7 @@ public class GameMain : MonoBehaviour
                     ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false))
                 {
 
+                  
                     touchController.TouchPostionInitialize();
                     //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
                     if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
@@ -942,7 +943,7 @@ public class GameMain : MonoBehaviour
 
                 // ▼早送り処理
                 // Ｅキーが押された時、行動が無しなら//////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) ||
+                if (((Input.GetKeyDown(KeyCode.E)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) ||
                     ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
                     ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
                     ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
