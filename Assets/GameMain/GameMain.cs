@@ -615,6 +615,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.FRONT;
                             alice.inputKeyFlag = true;
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("前移動");// デバッグ用コメント
                         }
@@ -699,6 +700,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.BACK;
                             alice.inputKeyFlag = true;
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("後移動");// デバッグ用コメント
                         }
@@ -781,6 +783,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.LEFT;
                             alice.inputKeyFlag = true;
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("左移動");// デバッグ用コメント
                         }
@@ -868,6 +871,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.RIGHT;
                             alice.inputKeyFlag = true;
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("右移動");// デバッグ用コメント
                         }
