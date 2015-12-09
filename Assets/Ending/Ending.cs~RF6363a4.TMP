@@ -1,0 +1,27 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class Ending : MonoBehaviour {
+
+    public Sprite Ending01;
+    public Sprite Ending02;
+    public Sprite Ending03;
+    public Sprite Ending04;
+
+    public Image image;
+
+    public int count;
+	// Use this for initialization
+	void Start () {
+
+        CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
+        image = gameObject.GetComponent<Image>();
+        count = 0;
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        CameraFade.StartAlphaFade(Color.white, false, 1.0f, 0.5f);
+	}
+}

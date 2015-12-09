@@ -8,6 +8,7 @@ public class Video : MonoBehaviour {
     public int count = 0;
     public bool flag = false;
 
+    public bool Android;
     // Use this for initialization
     void Start()
     {
@@ -16,6 +17,10 @@ public class Video : MonoBehaviour {
         renderer = GetComponent<Renderer>();
         //renderer.material.mainTexture = movie as MovieTexture;
         //movie.Play();
+        if(Android)
+        {
+            gameObject.SetActive(false); 
+        }
     }
 
     // Update is called once per frame
