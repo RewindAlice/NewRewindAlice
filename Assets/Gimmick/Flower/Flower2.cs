@@ -26,6 +26,7 @@ public class Flower2 : BaseGimmick
         startActionTurn = 1;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
         besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
+        besideDownDicisionMovePossibleFlag = false;
         moveCount = 0;
         motionCount = 1;
         GetComponent<Animator>().SetInteger("MotionCount", motionCount);
