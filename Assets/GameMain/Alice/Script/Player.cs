@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
         PUSH_RETURN,        // 押す（戻る）
         CLIMB_START_NEXT,   // 登り開始（進む）
         CLIMB_START_RETURN, // 登り開始（戻る）
+        CLIMB_NEXT,         // 登り（進む）
+        CLIMB_RETURN,       // 登り（戻る）
     }
 
     // ★移動方向★
@@ -180,6 +182,8 @@ public class Player : MonoBehaviour
     public bool animationFlagPushReturn;        // 押すアニメーション（戻る）
     public bool animationFlagClimbStartNext;    // 登り開始アニメーション（進む）
     public bool animationFlagClimbStartReturn;  // 登り開始アニメーション（戻る）
+    public bool animationFlagClimbNext;         // 登りアニメーション（進む）
+    public bool animationFlagClimbReturn;       // 登りアニメーション（戻る）
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -228,6 +232,8 @@ public class Player : MonoBehaviour
         animationFlagPushReturn = false;
         animationFlagClimbStartNext = false;
         animationFlagClimbStartReturn = false;
+        animationFlagClimbNext = false;
+        animationFlagClimbReturn = false;
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -586,8 +592,13 @@ public class Player : MonoBehaviour
                         break;
                     // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
+                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimbNext)
+                        {
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z); // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
+                        }
                         // アリスの座標Ｙが移動前から１増えているなら
-                        if (transform.localPosition.y >= moveBeforePosition.y + 1)
+                        else if (transform.localPosition.y >= moveBeforePosition.y + 1)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
@@ -805,6 +816,8 @@ public class Player : MonoBehaviour
         SetAnimation(Motion.PUSH_RETURN, false);
         SetAnimation(Motion.CLIMB_START_NEXT, false);
         SetAnimation(Motion.CLIMB_START_RETURN, false);
+        SetAnimation(Motion.CLIMB_NEXT, false);
+        SetAnimation(Motion.CLIMB_RETURN, false);
     }
 
     // ★移動情報の保存★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -1077,6 +1090,8 @@ public class Player : MonoBehaviour
             case Motion.PUSH_RETURN: AnimationPushReturn(flag); break;
             case Motion.CLIMB_START_NEXT: AnimationClimbStartNext(flag); break;
             case Motion.CLIMB_START_RETURN: AnimationClimbStartReturn(flag); break;
+            case Motion.CLIMB_NEXT: AnimationClimbNext(flag); break;
+            case Motion.CLIMB_RETURN: AnimationClimbReturn(flag); break;
         }
     }
 
@@ -1148,6 +1163,20 @@ public class Player : MonoBehaviour
     {
         animationFlagClimbStartReturn = flag;
         GetComponent<Animator>().SetBool("ClimbStartMotionFlag_Return", animationFlagClimbStartReturn);
+    }
+
+    // ★登りアニメーション（進む）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationClimbNext(bool flag)
+    {
+        animationFlagClimbNext = flag;
+        GetComponent<Animator>().SetBool("ClimbMotionFlag_Next", animationFlagClimbNext);
+    }
+
+    // ★登りニメーション（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationClimbReturn(bool flag)
+    {
+        animationFlagClimbReturn = flag;
+        GetComponent<Animator>().SetBool("ClimbMotionFlag_Return", animationFlagClimbReturn);
     }
 
 	// ★アリスが巨大化中であるか取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

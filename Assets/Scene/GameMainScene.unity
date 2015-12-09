@@ -154,6 +154,12 @@ MonoBehaviour:
   animationFlagDropReturn: 0
   animationFlagStopNext: 0
   animationFlagStopReturn: 0
+  animationFlagPushNext: 0
+  animationFlagPushReturn: 0
+  animationFlagClimbStartNext: 0
+  animationFlagClimbStartReturn: 0
+  animationFlagClimbNext: 0
+  animationFlagClimbReturn: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1170,12 @@ MonoBehaviour:
   stageSelectButton: {fileID: 469259081}
   character: {fileID: 134013359}
   selecticon: {fileID: 1293366907}
+  pauseImageManager1: {fileID: 0}
+  pauseImageManager2: {fileID: 0}
+  pauseImageManager3: {fileID: 0}
+  pauseImageManager4: {fileID: 0}
+  pauseImageManager5: {fileID: 0}
+  pauseImageManager6: {fileID: 0}
 --- !u!114 &976129166
 MonoBehaviour:
   m_ObjectHideFlags: 0

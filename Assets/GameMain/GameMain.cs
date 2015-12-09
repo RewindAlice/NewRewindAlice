@@ -592,8 +592,9 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
                             alice.moveDirection = Player.MoveDirection.UP;
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.inputKeyFlag = true;
                             print("上移動");// デバッグ用コメント
                         }
@@ -615,6 +616,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.FRONT;
                             alice.inputKeyFlag = true;
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("前移動");// デバッグ用コメント
@@ -677,8 +679,9 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
                             alice.moveDirection = Player.MoveDirection.UP;
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.inputKeyFlag = true;
                             print("上移動");// デバッグ用コメント
                         }
@@ -700,6 +703,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.BACK;
                             alice.inputKeyFlag = true;
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("後移動");// デバッグ用コメント
@@ -760,8 +764,9 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
                             alice.moveDirection = Player.MoveDirection.UP;
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.inputKeyFlag = true;
                             print("上移動");// デバッグ用コメント
                         }
@@ -783,6 +788,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.LEFT;
                             alice.inputKeyFlag = true;
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("左移動");// デバッグ用コメント
@@ -848,8 +854,9 @@ public class GameMain : MonoBehaviour
                             action = PlayerAction.NEXT;     // 行動を進むに
                             turn = Turn.PLAYER;             // ターンをプレイヤーに
                             turnCountGimmick = 0;           // カウントを０に
-
                             alice.moveDirection = Player.MoveDirection.UP;
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
+                            alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.inputKeyFlag = true;
                             print("上移動");// デバッグ用コメント
                         }
@@ -871,6 +878,7 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.RIGHT;
                             alice.inputKeyFlag = true;
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("右移動");// デバッグ用コメント
