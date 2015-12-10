@@ -17,23 +17,24 @@ public class Video : MonoBehaviour {
         renderer = GetComponent<Renderer>();
         //renderer.material.mainTexture = movie as MovieTexture;
         //movie.Play();
-        if(Android)
-        {
-            gameObject.SetActive(false); 
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        count++;
-
-        if ((count >= 420) && (flag == false))
+        if (Android)
         {
-            flag = true;
-            //movie.Stop();
-            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-            //Application.LoadLevel("StageSelectScene");
+            count++;
+
+            if ((count >= 420) && (flag == false))
+            {
+                flag = true;
+                //movie.Stop();
+                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                //Application.LoadLevel("StageSelectScene");
+            }
         }
+       
     }
 }

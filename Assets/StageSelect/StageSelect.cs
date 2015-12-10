@@ -325,92 +325,107 @@ public class StageSelect : MonoBehaviour
                         //頁を進める
                         TurnThePageNext();
                     }
+
+
+                    //チャプター1選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 590) && (touchController.touchPosY < 645)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
+                    {
+                        chapter = Chapter.CHAPTER_1;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター2選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 500) && (touchController.touchPosY < 550)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
+                    {
+                        chapter = Chapter.CHAPTER_2;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター3選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                       ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
+                       ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                       ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
+                    {
+                        chapter = Chapter.CHAPTER_3;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター4選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
+                    {
+                        chapter = Chapter.CHAPTER_4;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター5選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
+                    {
+                        chapter = Chapter.CHAPTER_5;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター6選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
+                    {
+                        chapter = Chapter.CHAPTER_6;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター7選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                       ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
+                       ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                       ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
+                    {
+                        chapter = Chapter.CHAPTER_7;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
                 }
-                
-            }
-            //チャプター1選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                ((touchController.touchPosY > 590) && (touchController.touchPosY < 645)) &&
-                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
-            {
-                chapter = Chapter.CHAPTER_1;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
-            }
 
-            //チャプター2選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                ((touchController.touchPosY > 500) && (touchController.touchPosY < 550)) &&
-                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
-            {
-                chapter = Chapter.CHAPTER_2;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
-            }
+                if (BGMDeleter)
+                {
+                    BGMTimer++;
+                }
+                //BGMが止まったら
+                if (BGMTimer > BGMFadeTime)
+                {
 
-            //チャプター3選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-               ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
-               ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-               ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
-            {
-                chapter = Chapter.CHAPTER_3;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
-            }
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    JumpSelectStage();
+                }
 
-            //チャプター4選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
-                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
-            {
-                chapter = Chapter.CHAPTER_4;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
             }
-
-            //チャプター5選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
-                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
-            {
-                chapter = Chapter.CHAPTER_5;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
-            }
-
-            //チャプター6選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
-                ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
-            {
-                chapter = Chapter.CHAPTER_6;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
-            }
-
-            //チャプター7選択
-            if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-               ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
-               ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-               ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
-            {
-                chapter = Chapter.CHAPTER_7;
-                returnCount = 0;
-                Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                BGMDeleter = true;
-            }
+           
 
             //タッチ判定の初期化
             if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
@@ -420,16 +435,6 @@ public class StageSelect : MonoBehaviour
                 keyFlag = false;
             }
 
-            if (BGMDeleter)
-            {
-                BGMTimer++;
-            }
-            //BGMが止まったら
-            if (BGMTimer > BGMFadeTime)
-            {
-                Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                JumpSelectStage();
-            }
         }
 		
 	}
@@ -614,19 +619,22 @@ public class StageSelect : MonoBehaviour
 				    {
 					    JumpScene();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
-                       
+                        Debug.Log("ENDING");
+                        //Application.LoadLevel("AdventureMainScene");
 				    }
                     else if ((stage == STAGE.STAGE_1) && (chapter == Chapter.CHAPTER_2 || chapter == Chapter.CHAPTER_3))
                     {
                         JumpScene();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
+                        Debug.Log("TUTORIAL");
+                        //Application.LoadLevel("TutorialMainScene");
                         
                     }
 				    else
 				    {
 					    JumpScene();
 					    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
-                        Application.LoadLevel("GameMainScene");
+                        //Application.LoadLevel("GameMainScene");
 				    }
 				    break;
 		    }
