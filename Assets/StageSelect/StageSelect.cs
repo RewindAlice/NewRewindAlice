@@ -193,7 +193,7 @@ public class StageSelect : MonoBehaviour
 	{
         returnCount++;
 
-        if(returnCount > 1000)
+        if(returnCount > 1200)
         {
             Application.LoadLevel("TitleScene");
         }
@@ -212,7 +212,7 @@ public class StageSelect : MonoBehaviour
 			drawCount++;
 		}
 
-		if (drawCount > 50)
+		if (drawCount > 60)
 		{
 			DrawStagePicture();
 		}
