@@ -145,6 +145,10 @@ public class Stage : MonoBehaviour
     int turnNum;                                                                    // ステージのターン数
     private string guitxt = "";
 
+    int[] ModeChangeSaveNum;                                                       //石が移動したときにもともと何があったかを保存する配列
+    int[] ModeChangeSaveTurn;                                                      //上記のターンを保存する配列
+    int SaveTrunArrayController = 0;
+    bool stoneFallController = false;
 
     public TextAsset stageTextAsset;    //テキスト読み込み用
 
@@ -157,7 +161,13 @@ public class Stage : MonoBehaviour
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
-        
+        ModeChangeSaveTurn = new int[] {0,0,0,0,0,0,0,0,0,0,
+                                      0,0,0,0,0,0,0,0,0,0,
+                                      0,0,0,0,0,0,0,0,0,0};
+
+        ModeChangeSaveNum = new int[]{0,0,0,0,0,0,0,0,0,0,
+                                      0,0,0,0,0,0,0,0,0,0,
+                                      0,0,0,0,0,0,0,0,0,0};
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -1939,6 +1949,7 @@ public class Stage : MonoBehaviour
 
 									gimmickNumArray[y - 1, x, z] = ROCK;
 									gimmickNumArray[y, x, z] = NONE_BLOCK;
+                                    stoneFallController = true;
 
 								}
 							}
@@ -2251,7 +2262,24 @@ public class Stage : MonoBehaviour
 				case STAGE_GOOL:
 					return true;
 
-				default: break;
+                case POTION_BIG:
+                case POTION_SMALL:
+                case MUSHROOM_BIG:
+                case MUSHROOM_SMALL:
+                    //現在のターンを入れる
+                    ModeChangeSaveTurn[SaveTrunArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
+                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTrunArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+                    SaveTrunArrayController++;
+                    if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                default: break;
 			}
 		}
 		return false;
@@ -2275,6 +2303,19 @@ public class Stage : MonoBehaviour
 		{
 			case 1:
 				gimmickNumArray[posY, posX, posZ] = ROCK;
+                int localSetTurn = (GameObject.Find("GameMain").GetComponent<GameMain>().turnNum)+1;
+     
+            if (SaveTrunArrayController != 0)
+            {   //現在のターン数を入れる
+                if (localSetTurn == ModeChangeSaveTurn[SaveTrunArrayController - 1])
+                {
+                    gimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = ModeChangeSaveNum[ModeChangeSaveTurn[SaveTrunArrayController - 1]];
+                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTrunArrayController - 1]] = 0;
+                    ModeChangeSaveTurn[SaveTrunArrayController - 1] = 0;
+                    SaveTrunArrayController--;
+                }
+
+            }
 				break;
 			case 2:
 				gimmickNumArray[posY, posX, posZ] = SOLDIER_HEART_RIGHT;
@@ -2332,4 +2373,136 @@ public class Stage : MonoBehaviour
 		return alice.GetAutoMove();
 	}
     //----------------------------------------------------------------------------
+    //ダムが横の方向見る
+    public bool TwinBesideDecision(int posX, int posY, int posZ, Vector3 mine, int direction)
+    {
+        int TwinDirection = direction;
+        bool flag = false;
+
+        if ((posY == -1) ||
+            (posX == -1) || (posX == 11) ||
+            (posZ == -1) || (posZ == 11))
+            return false;
+        //・・・・・・・・・・・・・・・・・・・・
+        //石を押すと石の番号が消える
+        //・・・・・・・・・・・・・・・・・・・・
+        switch (gimmickNumArray[posY, posX, posZ])
+        {
+            //横にあるとき通れるオブジェクト
+            case NONE_BLOCK:      // 何も無し
+            case START_POINT:     // スタート地点
+            case STAGE_GOOL:      // ゴール地点
+            case IVY_FRONT:
+            case IVY_BACK:
+            case IVY_LEFT:
+            case IVY_RIGHT:
+            case LADDER_FRONT:
+            case LADDER_BACK:
+            case LADDER_LEFT:
+            case LADDER_RIGHT:
+                flag = true;
+                break;
+
+            //横にあるとき通れないオブジェクト
+            case FOREST_BLOCK_GROUND:
+            case FOREST_BLOCK_GRASS:
+            case FOREST_BLOCK_ALLGRASS:
+
+            case ROOM_BLOCK_FLOOR:
+            case ROOM_BLOCK_BOOKSHELF:
+
+            case REDFOREST_BLOCK_GROUND:
+            case REDFOREST_BLOCK_GRASS:
+            case REDFOREST_BLOCK_ALLGRASS:
+
+            case DARKFOREST_BLOCK_GROUND:
+
+            case GARDEN_BLOCK_GROUND:
+            case GARDEN_BLOCK_FLOWER:
+
+            case WATER:             // 水
+
+            case IVY_BLOCK:         // 蔦ブロック
+            case LADDER_BLOCK:      // 梯子ブロック
+                flag = false;
+                break;
+
+            case TREE:
+            case DUMMY_TREE:
+                flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
+                break;
+            case POTION_BIG:
+            case POTION_SMALL:
+            case MUSHROOM_BIG:
+            case MUSHROOM_SMALL:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
+                    flag = true;
+                break;
+
+            case ROCK:
+
+                int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
+                int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
+
+                int pushDirectionX = (int)mine.x - posX; // 押した方向x
+                int pushDirectionZ = (int)mine.z - posZ; //  押した方向z
+                //Debug.Log(pushDirectionX);
+                Debug.Log(pushDirectionZ);
+                //Debug.Log(alice.GetMoveDirection());
+
+                // 押した先にギミックが無ければ移動可能
+                if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+                {
+                    flag = true;
+                    Debug.Log("oseruyo-");
+                    //// 
+                    //int dum = gimmickObjectArray[(int)mine.y,(int)mine.x,(int)mine.z].GetComponent<TweedleDum>().direction;
+
+                    if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (TwinDirection == 4)) ||
+                    ((pushDirectionX == -1) && (pushDirectionZ == 0) && (TwinDirection == 2)) ||
+                    ((pushDirectionX == 0) && (pushDirectionZ == 1) && (TwinDirection == 3)) ||
+                    ((pushDirectionX == 0) && (pushDirectionZ == -1) && (TwinDirection == 1)))
+                    {
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().GimmickPushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
+
+                        GameObject objectTemp;
+                        objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+                        gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
+                        gimmickObjectArray[posY, posX, posZ] = objectTemp;
+
+                        gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+                        gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+                    }
+                }
+
+                break;
+        }
+        return flag;
+    }
+    public void SearchRockFallAgain()
+    {
+
+        for (int x = 0; x < STAGE_X; x++)
+        {
+            for (int y = 0; y < STAGE_Y; y++)
+            {
+                for (int z = 0; z < STAGE_Z; z++)
+                {
+                    // ▽ギミックが
+                    switch (gimmickNumArray[y, x, z])
+                    {
+                        // ▼岩なら
+                        case ROCK:
+                            if (stoneFallController)
+                            {
+                                gimmickObjectArray[y, x, z].GetComponent<Rock>().fallFunction();
+                                stoneFallController = false;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+    }
 }

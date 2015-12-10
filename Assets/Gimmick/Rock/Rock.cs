@@ -79,12 +79,8 @@ public class Rock : BaseGimmick
 			gimmickFlag = true; // ギミックを有効にする
 		}
 
-		if (!stage.GetComponent<Stage>().CheckAutoMove())
-		{
-			moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
-			playerAction = PlayerAction.NEXT;
-			moveFlag = true;
-		}
+        fallFunction();
+
 		// アリスの移動数が多かったら
 		if (moveCount < aliceMove)
 		{
@@ -100,13 +96,7 @@ public class Rock : BaseGimmick
 		{
 			gimmickFlag = false;    // ギミックを無効にする
 		}
-
-		if (!stage.GetComponent<Stage>().CheckAutoMove())
-		{
-			moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定
-			playerAction = PlayerAction.RETURN;
-			moveFlag = true;
-		}
+        backs();
 
 		// ギミックが有効なら
 		if (gimmickFlag)
@@ -143,6 +133,30 @@ public class Rock : BaseGimmick
             alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
         }
 	}
+
+    public void GimmickPushMove(int x, int y, int z, int directionX, int directionZ)
+    {
+        if (directionZ == -1)
+        {
+            moveMemory[turnNum] = MoveDirection.FRONT;
+ //           alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+        else if (directionZ == 1)
+        {
+            moveMemory[turnNum] = MoveDirection.BACK;
+//            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+        else if (directionX == 1)
+        {
+            moveMemory[turnNum] = MoveDirection.LEFT;
+//            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+        else if (directionX == -1)
+        {
+            moveMemory[turnNum] = MoveDirection.RIGHT;
+//            alice.GetComponent<Player>().SetAnimation(Player.Motion.PUSH_NEXT, true);
+        }
+    }
 
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Move()
@@ -218,4 +232,25 @@ public class Rock : BaseGimmick
 	}
 	// ★岩が落ちるときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Fall() { moveMemory[turnNum + 1] = MoveDirection.DOWN; }
+
+    public void fallFunction()
+    {
+
+        if (!stage.GetComponent<Stage>().CheckAutoMove())
+        {
+            moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
+            playerAction = PlayerAction.NEXT;
+            moveFlag = true;
+        }
+    }
+
+    public void backs()
+    {
+        if (!stage.GetComponent<Stage>().CheckAutoMove())
+        {
+            moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定
+            playerAction = PlayerAction.RETURN;
+            moveFlag = true;
+        }
+    }
 }

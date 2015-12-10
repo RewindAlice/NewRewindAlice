@@ -135,11 +135,14 @@ public class TweedleDum : BaseGimmick
 				switch (direction)
 				{
 					case 1:
-                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
+                        //横判定と横下判定
+                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, new Vector3(arrayPosX,arrayPosY,arrayPosZ),direction))
+                            && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
                             moveFlag = true;
-
-                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
+                            //アリスと位置が被ったら
+                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) 
+                                &&(stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
                             {
                                 switch (playerScript.cameraAngle)
                                 {
@@ -157,16 +160,17 @@ public class TweedleDum : BaseGimmick
                                         break;
                                 }
 
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
-                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
+                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) 
+                                && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
                             {
                                 moveFlag = false;
                             }
                         }
 						break;
 					case 3:
-                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ),direction)) 
+                            && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                         {
                             moveFlag = true;
 
@@ -187,17 +191,17 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
                                         break;
                                 }
-
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
-                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
+                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
+                                && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
                             {
                                 moveFlag = false;
                             }
                         }
 						break;
 					case 4:
-                        if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                            && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
 
@@ -218,8 +222,6 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
                                         break;
                                 }
-
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
                             {
@@ -228,7 +230,8 @@ public class TweedleDum : BaseGimmick
                         }
 						break;
 					case 2:
-                        if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                            && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
 
@@ -249,8 +252,6 @@ public class TweedleDum : BaseGimmick
                                         playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
                                         break;
                                 }
-
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
                             {
@@ -416,6 +417,7 @@ public class TweedleDum : BaseGimmick
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_Z);
+
                               
                             }
                             break;
@@ -496,7 +498,7 @@ public class TweedleDum : BaseGimmick
     //---------------------------
     public void ChangeArrayPosition(ArrayMove arrayMove)
     {
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
+        //GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
 
         switch (arrayMove)
         {
@@ -507,7 +509,7 @@ public class TweedleDum : BaseGimmick
             case ArrayMove.PLUS_Z: arrayPosZ++; break;      // 配列上の座標Zに１プラス
             case ArrayMove.MINUS_Z: arrayPosZ--; break;     // 配列上の座標Zに１マイナス
         } 
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
+        //GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
 
     }
 

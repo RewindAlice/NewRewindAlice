@@ -338,11 +338,14 @@ public class GameMain : MonoBehaviour
                 else if (turn == Turn.GIMMICK)
                 {
                     turnCountGimmick++; // カウントを増やす
+                    stage.ChangeArrayGimmickNext();//条件が一致した場合のみ処理を呼ぶ関数
+
 
                     // カウントが６０になったら
                     if (turnCountGimmick == 60)
                     {
                         //stage.FlowerDecision(alice);      // 足元との判定
+                        stage.SearchRockFallAgain();
                         action = PlayerAction.NONE;   // 行動を無しに
                         turn = Turn.NONE;       // ターンを無しに
                         turnNum--;
