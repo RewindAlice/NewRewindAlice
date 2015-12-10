@@ -3,15 +3,14 @@ using System.Collections;
 
 public class Ladder : BaseGimmick 
 {
-
-    public int growCount;           // 成長段階
-    public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
 
     public bool breakFlag;
  
     private GameObject pause;
     private Pause pauseScript;
+    private Renderer renderer;
+    public bool drawFlag;       // ギミックの表示フラグ
     // 初期化
     void Start()
     {
@@ -19,11 +18,12 @@ public class Ladder : BaseGimmick
         pause = GameObject.Find("Pause");
         pauseScript = pause.GetComponent<Pause>();
 
+        renderer = GetComponentInChildren<Renderer>();
+        drawFlag = true;    // ギミックの初期表示フラグを真に
+
         gimmickFlag = false;        // ギミックが有効か判断するフラグに偽を保存
-        startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
+        //startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
-        growCount = 0;              // 初期の成長段階
-        movePossibleFlag = true;    // 移動可能フラグを真に
         moveCount = 0;
     }
 
@@ -35,64 +35,95 @@ public class Ladder : BaseGimmick
 
         }
 
+        // 描画フラグが
+        if (drawFlag)
+        {
+            // 真なら
+            renderer.enabled = true;    // ギミックを表示
+        }
+        else
+        {
+            // 偽なら
+            renderer.enabled = false;   // ギミックを非表示
+        }
     }
 
     //アリスが動いたときに呼ばれる関数
-    public override void OnAliceMoveNext(int aliceMoveCount)
+    public override void OnAliceMoveNext(int aliceMove)
     {
-        moveCount++;
-        if (startActionTurn <= aliceMoveCount)
+        // ギミックの開始ターンとアリスの移動数が同じになったら
+        if (startActionTurn == aliceMove)
         {
-            //GetComponent<Renderer>().material.color = new Color(1.0f, 0.7f, 0.3f, 1.0f);
-           
-            movePossibleFlag = false;    // 移動可能フラグを真に
-        }
-        else
-        {
-            
-            //GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-            movePossibleFlag = true;    // 移動可能フラグを真に
+            gimmickFlag = true; // ギミックを有効にする
         }
 
-        if (startActionTurn + 1 <= aliceMoveCount)
+        // アリスの移動数が多かったら
+        if (moveCount < aliceMove)
         {
-            breakFlag = true;
+            // ギミックが有効なら
+            if (gimmickFlag)
+            {
+                // ▽ギミックが有効になってからのターン数が
+                switch (gimmickCount)
+                {
+                    // ▼０なら////////////////////////////////////////////
+                    case 0:
+                        breakFlag = false;
+                        drawFlag = true;
+                        break;
+                    // ▼１なら////////////////////////////////////////////
+                    case 1:
+                        breakFlag = true;
+                        drawFlag = false;
+                        break;
+                }
 
-        }
-        else
-        {
-            breakFlag = false;
+                gimmickCount++;
+            }
+
+            moveCount++;
         }
     }
 
     //アリスが戻った時に呼ばれる関数
-    public override void OnAliceMoveReturn(int aliceMoveCount)
+    public override void OnAliceMoveReturn(int aliceMove)
     {
-
-        if (startActionTurn >= aliceMoveCount)
+        // ギミックの開始ターンがアリスの移動数より大きかったら
+        if (startActionTurn > aliceMove)
         {
-            //GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-            
-            
-            movePossibleFlag = true;    // 移動可能フラグを真に
-        }
-        else
-        {
-            //GetComponent<Renderer>().material.color = new Color(1.0f, 0.7f, 0.3f, 1.0f);
-           
-            movePossibleFlag = false;    // 移動可能フラグを真に
+            gimmickFlag = false;    // ギミックを無効にする
         }
 
-        if (startActionTurn + 1 <= aliceMoveCount)
+        // ギミックが有効なら
+        if (gimmickFlag)
         {
-            breakFlag = true;
+            //
+            if (moveCount == aliceMove)
+            {
+                gimmickCount--;
 
-        }
-        else
-        {
-            breakFlag = false;
-        }
+                // ▽ギミックが有効になってからのターン数が
+                switch (gimmickCount)
+                {
+                    // ▼０なら////////////////////////////////////////////
+                    case 0:
+                        breakFlag = false;
+                        drawFlag = true;
+                        break;
+                    // ▼１なら////////////////////////////////////////////
+                    case 1:
+                        breakFlag = false;
+                        drawFlag = true;
+                        break;
+                }
+            }
 
-        moveCount--;
+            moveCount--;
+        }
+    }
+
+    public bool GetBreak()
+    {
+        return breakFlag;
     }
 }

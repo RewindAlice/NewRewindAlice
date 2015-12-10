@@ -539,7 +539,7 @@ public class Stage : MonoBehaviour
                         gimmickNumArray[y, x, z] = gimmickPattern;
                         break;
                 }
-                //gimmickObjectArray[y, x, z].GetComponent<Ladder>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<Ladder>().SetStartActionTurn(gimmickStartTurn);
                 break;
             // ▼No.31    木/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case TREE:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1140,7 +1140,7 @@ public class Stage : MonoBehaviour
                     case IVY_BACK:  // No.23    蔦（後）///////////////////////////////////////////////////////////////////////////
                     case IVY_LEFT:  // No.24    蔦（左）///////////////////////////////////////////////////////////////////////////
                     case IVY_RIGHT: // No.25    蔦（右）///////////////////////////////////////////////////////////////////////////
-                        if (gimmickObjectArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().getBrownFlag)
+                        if (gimmickObjectArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().eraseFlag)
                         {
                             flag = false;   // 移動できない
                         }

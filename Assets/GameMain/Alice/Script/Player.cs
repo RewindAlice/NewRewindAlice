@@ -594,8 +594,8 @@ public class Player : MonoBehaviour
                     case MoveDirection.UP:
                         if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimbNext)
                         {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z); // 移動後の座標を設定
-                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
                         }
                         // アリスの座標Ｙが移動前から１増えているなら
                         else if (transform.localPosition.y >= moveBeforePosition.y + 1)
@@ -606,8 +606,13 @@ public class Player : MonoBehaviour
                         break;
                     // ▼下なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.DOWN:
+                        if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimbNext)
+                        {
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
+                        }
                         // アリスの座標Ｙが移動前から１減っているなら
-                        if (transform.localPosition.y <= moveBeforePosition.y - 1)
+                        else if (transform.localPosition.y <= moveBeforePosition.y - 1)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 1, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                        // 移動完了処理
@@ -670,8 +675,13 @@ public class Player : MonoBehaviour
                         break;
                     // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
+                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimbNext)
+                        {
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
+                        }
                         // アリスの座標Ｙが移動前から１増えているなら
-                        if (transform.localPosition.y >= moveBeforePosition.y + 1)
+                        else if (transform.localPosition.y >= moveBeforePosition.y + 1)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
@@ -680,8 +690,13 @@ public class Player : MonoBehaviour
                         break;
                     // ▼下なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.DOWN:
+                        if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimbNext)
+                        {
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
+                        }
                         // アリスの座標Ｙが移動前から１減っているなら
-                        if (transform.localPosition.y <= moveBeforePosition.y - 1)
+                        else if (transform.localPosition.y <= moveBeforePosition.y - 1)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 1, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                        // 移動完了処理

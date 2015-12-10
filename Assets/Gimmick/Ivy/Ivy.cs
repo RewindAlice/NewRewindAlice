@@ -12,9 +12,9 @@ public class Ivy : BaseGimmick {
     //public bool besideDownDicisionMovePossibleFlag;   // 横下判定用移動可能フラグ
 
     public int growCount;           // 成長段階
-    //public bool movePossibleFlag;   // 移動可能フラグ
     public int moveCount;
-    public bool getBrownFlag;           //ステージからフラグを回収させる
+    public bool eraseFlag;           //ステージからフラグを回収させる
+
 
     public GameObject Ivychild_one;
     public GameObject Ivychild_two;
@@ -27,7 +27,7 @@ public class Ivy : BaseGimmick {
     // 初期化
     void Start()
     {
-        getBrownFlag = false;
+        eraseFlag = false;
         pause = GameObject.Find("Pause");
         pauseScript = pause.GetComponent<Pause>();
         Ivy_one = Ivychild_one.GetComponent<MaterialChanger>();
@@ -48,64 +48,89 @@ public class Ivy : BaseGimmick {
         {
 
         }
-
     }
 
     //アリスが動いたときに呼ばれる関数
-    public override void OnAliceMoveNext(int aliceMoveCount)
+    public override void OnAliceMoveNext(int aliceMove)
     {
-        moveCount++;
-        if (startActionTurn <= aliceMoveCount)
+        // ギミックの開始ターンとアリスの移動数が同じになったら
+        if (startActionTurn == aliceMove)
         {
-            Ivy_one.changeMaterialBrown();
-            Ivy_two.changeMaterialBrown();
-            besideDicisionMovePossibleFlag = false;    // 移動可能フラグを偽に
+            gimmickFlag = true; // ギミックを有効にする
         }
-        else
-        {
-            Ivy_one.changeMaterialOrizinal();
-            Ivy_two.changeMaterialOrizinal();
 
-            besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
-        }
-        if(startActionTurn + 1 <= aliceMoveCount)
+        // アリスの移動数が多かったら
+        if (moveCount < aliceMove)
         {
-            getBrownFlag = true;
+            // ギミックが有効なら
+            if (gimmickFlag)
+            {
+                // ▽ギミックが有効になってからのターン数が
+                switch (gimmickCount)
+                {
+                    // ▼０なら////////////////////////////////////////////
+                    case 0:
+                        Ivy_one.changeMaterialBrown();
+                        Ivy_two.changeMaterialBrown();
+                        eraseFlag = false;
+                        break;
+                    // ▼１なら////////////////////////////////////////////
+                    case 1:
+                        Ivy_one.changeMaterialErase();
+                        Ivy_two.changeMaterialErase();
+                        eraseFlag = true;
+                        break;
+                }
 
-        }
-        else
-        {
-            getBrownFlag = false;
+                gimmickCount++;
+            }
+
+            moveCount++;
         }
     }
 
     //アリスが戻った時に呼ばれる関数
-    public override void OnAliceMoveReturn(int aliceMoveCount)
+    public override void OnAliceMoveReturn(int aliceMove)
     {
 
-        if (startActionTurn >= aliceMoveCount)
+        // ギミックの開始ターンがアリスの移動数より大きかったら
+        if (startActionTurn > aliceMove)
         {
-            Ivy_one.changeMaterialOrizinal();
-            Ivy_two.changeMaterialOrizinal();
-            besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
-        }
-        else
-        {
-            Ivy_one.changeMaterialBrown();
-            Ivy_two.changeMaterialBrown();
-            besideDicisionMovePossibleFlag = false;    // 移動可能フラグを偽　に
+            gimmickFlag = false;    // ギミックを無効にする
         }
 
-        if (startActionTurn + 1 >= aliceMoveCount)
+        // ギミックが有効なら
+        if (gimmickFlag)
         {
-            getBrownFlag = false;
+            //
+            if (moveCount == aliceMove)
+            {
+                gimmickCount--;
 
-        }
-        else
-        {
-            getBrownFlag = true;
-        }
+                // ▽ギミックが有効になってからのターン数が
+                switch (gimmickCount)
+                {
+                    // ▼０なら////////////////////////////////////////////
+                    case 0:
+                        Ivy_one.changeMaterialOrizinal();
+                        Ivy_two.changeMaterialOrizinal();
+                        eraseFlag = false;
+                        break;
+                    // ▼１なら////////////////////////////////////////////
+                    case 1:
+                        Ivy_one.changeMaterialBrown();
+                        Ivy_two.changeMaterialBrown();
+                        eraseFlag = false;
+                        break;
+                }
+            }
 
-        moveCount--;
+            moveCount--;
+        }
+    }
+
+    public bool GetErase()
+    {
+        return eraseFlag;
     }
 }

@@ -618,6 +618,7 @@ public class GameMain : MonoBehaviour
                             alice.inputKeyFlag = true;
                             alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("前移動");// デバッグ用コメント
                         }
@@ -705,6 +706,7 @@ public class GameMain : MonoBehaviour
                             alice.inputKeyFlag = true;
                             alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("後移動");// デバッグ用コメント
                         }
@@ -790,6 +792,7 @@ public class GameMain : MonoBehaviour
                             alice.inputKeyFlag = true;
                             alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("左移動");// デバッグ用コメント
                         }
@@ -880,6 +883,7 @@ public class GameMain : MonoBehaviour
                             alice.inputKeyFlag = true;
                             alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, false);
+                            alice.SetAnimation(Player.Motion.CLIMB_NEXT, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
                             print("右移動");// デバッグ用コメント
                         }
