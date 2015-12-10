@@ -1518,17 +1518,29 @@ public class Stage : MonoBehaviour
                    
                     break;
 
-                case IVY_FRONT: // 蔦（前）
+                case IVY_FRONT:     // 蔦（前）
+                case LADDER_FRONT:  // 梯子（前）
                     Climb2(Player.PlayerAngle.FRONT);
+                    alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                    alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
                     break;
-                case IVY_BACK:  // 蔦（後）
+                case IVY_BACK:      // 蔦（後）
+                case LADDER_BACK:   // 梯子（後）
                     Climb2(Player.PlayerAngle.BACK);
+                    alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                    alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
                     break;
-                case IVY_LEFT:  // 蔦（左）
+                case IVY_LEFT:      // 蔦（左）
+                case LADDER_LEFT:   // 梯子（左）
                     Climb2(Player.PlayerAngle.LEFT);
+                    alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                    alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
                     break;
-                case IVY_RIGHT: // 蔦（右）
+                case IVY_RIGHT:     // 蔦（右）
+                case LADDER_RIGHT:  // 梯子（右）
                     Climb2(Player.PlayerAngle.RIGHT);
+                    alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                    alice.SetAnimation(Player.Motion.CLIMB_NEXT, true);
                     break;
                 case TREE:  // ▼木//////////////////////////////////////////////////////////////////
                     if (action == Player.PlayerAction.NEXT)
