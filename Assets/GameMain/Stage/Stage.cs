@@ -1385,32 +1385,68 @@ public class Stage : MonoBehaviour
                 GoalCheck();
                 break;
             // ▼No.22    蔦（前）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // ▼No.27    梯子（前）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_FRONT:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.FRONT);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
+                break;
+            // ▼No.27    梯子（前）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_FRONT:
-                Climb1(Player.PlayerAngle.FRONT);
-                alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.FRONT);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
                 break;
             // ▼No.23    蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // ▼No.28    梯子（後）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_BACK:
+                if(gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.BACK);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
+                break;
+            // ▼No.28    梯子（後）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_BACK:
-                Climb1(Player.PlayerAngle.BACK);
-                alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.BACK);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
                 break;
             // ▼No.24    蔦（左）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // ▼No.29    梯子（左）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_LEFT:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.LEFT);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
+                break;
+            // ▼No.29    梯子（左）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_LEFT:
-                Climb1(Player.PlayerAngle.LEFT);
-                alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.LEFT);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
                 break;
             // ▼No.25    蔦（右）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // ▼No.30    梯子（右）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_RIGHT:
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.RIGHT);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
+                break;
+            // ▼No.30    梯子（右）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_RIGHT:
-                Climb1(Player.PlayerAngle.RIGHT);
-                alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
+                {
+                    Climb1(Player.PlayerAngle.RIGHT);
+                    alice.SetAnimation(Player.Motion.CLIMB_START_NEXT, true);
+                }
                 break;
             // ▼No.31    木/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case TREE:

@@ -6,6 +6,7 @@ public class Ladder : BaseGimmick
     public int moveCount;
 
     public bool breakFlag;
+    public bool climbPossibleFlag;  // 登れるかのフラグ
  
     private GameObject pause;
     private Pause pauseScript;
@@ -25,6 +26,7 @@ public class Ladder : BaseGimmick
         //startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
         moveCount = 0;
+        climbPossibleFlag = true;
     }
 
     // 更新
@@ -70,11 +72,13 @@ public class Ladder : BaseGimmick
                     case 0:
                         breakFlag = false;
                         drawFlag = true;
+                        climbPossibleFlag = false;
                         break;
                     // ▼１なら////////////////////////////////////////////
                     case 1:
                         breakFlag = true;
                         drawFlag = false;
+                        climbPossibleFlag = false;
                         break;
                 }
 
@@ -109,21 +113,18 @@ public class Ladder : BaseGimmick
                     case 0:
                         breakFlag = false;
                         drawFlag = true;
+                        climbPossibleFlag = true;
                         break;
                     // ▼１なら////////////////////////////////////////////
                     case 1:
                         breakFlag = false;
                         drawFlag = true;
+                        climbPossibleFlag = false;
                         break;
                 }
             }
 
             moveCount--;
         }
-    }
-
-    public bool GetBreak()
-    {
-        return breakFlag;
     }
 }

@@ -11,9 +11,9 @@ public class Ivy : BaseGimmick {
     //public bool besideDicisionMovePossibleFlag;       // 横判定用移動可能フラグ
     //public bool besideDownDicisionMovePossibleFlag;   // 横下判定用移動可能フラグ
 
-    public int growCount;           // 成長段階
     public int moveCount;
-    public bool eraseFlag;           //ステージからフラグを回収させる
+    public bool eraseFlag;          // ステージからフラグを回収させる
+    public bool climbPossibleFlag;  // 登れるかのフラグ
 
 
     public GameObject Ivychild_one;
@@ -34,11 +34,10 @@ public class Ivy : BaseGimmick {
         Ivy_two = Ivychild_two.GetComponent<MaterialChanger>();
 
         gimmickFlag = false;        // ギミックが有効か判断するフラグに偽を保存
-        //startActionTurn = 4;        // ギミックを動かし始めるターン数を１に
         gimmickCount = 0;           // ギミックが有効になってからのターン数を０に
-        growCount = 0;              // 初期の成長段階
         besideDicisionMovePossibleFlag = true;    // 移動可能フラグを真に
         moveCount = 0;
+        climbPossibleFlag = true;
     }
 
     // 更新
@@ -73,12 +72,14 @@ public class Ivy : BaseGimmick {
                         Ivy_one.changeMaterialBrown();
                         Ivy_two.changeMaterialBrown();
                         eraseFlag = false;
+                        climbPossibleFlag = false;
                         break;
                     // ▼１なら////////////////////////////////////////////
                     case 1:
                         Ivy_one.changeMaterialErase();
                         Ivy_two.changeMaterialErase();
                         eraseFlag = true;
+                        climbPossibleFlag = false;
                         break;
                 }
 
@@ -115,22 +116,19 @@ public class Ivy : BaseGimmick {
                         Ivy_one.changeMaterialOrizinal();
                         Ivy_two.changeMaterialOrizinal();
                         eraseFlag = false;
+                        climbPossibleFlag = true;
                         break;
                     // ▼１なら////////////////////////////////////////////
                     case 1:
                         Ivy_one.changeMaterialBrown();
                         Ivy_two.changeMaterialBrown();
                         eraseFlag = false;
+                        climbPossibleFlag = false;
                         break;
                 }
             }
 
             moveCount--;
         }
-    }
-
-    public bool GetErase()
-    {
-        return eraseFlag;
     }
 }
