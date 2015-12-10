@@ -373,12 +373,12 @@ public class HeartSoldierTurnLeft : BaseGimmick
 			// 時間を戻したなら、Stageの方でも兵士を移動させる
 			if (playerAction == PlayerAction.RETURN)
 			{
-				if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, -1, 2); }
-				if (moveMemory[turnNum - 1] == MoveDirection.BACK)   { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, 1, 2); }
-				if (moveMemory[turnNum - 1] == MoveDirection.LEFT)    { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 1, 0, 0, 2); }
-				if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, -1, 0, 0, 2); }
-				if (moveMemory[turnNum - 1] == MoveDirection.UP)       { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 1, 0, 2); }
-				if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, -1, 0, 2); }
+				if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, -1, 3); }
+				if (moveMemory[turnNum - 1] == MoveDirection.BACK)   { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, 1, 3); }
+				if (moveMemory[turnNum - 1] == MoveDirection.LEFT)    { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 1, 0, 0, 3); }
+				if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, -1, 0, 0, 3); }
+				if (moveMemory[turnNum - 1] == MoveDirection.UP)       { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 1, 0, 3); }
+				if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, -1, 0, 3); }
 
 				// 落下、もしくは上昇なら続けて移動
 				if ((moveMemory[turnNum - 1] == MoveDirection.DOWN) || (moveMemory[turnNum - 1] == MoveDirection.UP))
