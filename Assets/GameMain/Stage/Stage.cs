@@ -1228,6 +1228,43 @@ public class Stage : MonoBehaviour
                     }
                 }
                 break;
+
+			case SOLDIER_HEART_LEFT: // No.58    ハート兵(左回り)////////////////////////////////////////////////////////////
+				int heartPositionByAliceX = posX - alice.arrayPosX; // アリスから見た兵士の位置x
+				int heartPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た兵士の位置z
+
+				int heartPushDirectionX = alice.arrayPosX - posX; // 押した方向x
+				int heartPushDirectionZ = alice.arrayPosZ - posZ; //  押した方向z
+
+				Debug.Log(heartPushDirectionX);
+				Debug.Log(heartPushDirectionZ);
+				// 押した先にギミックが無ければ移動可能
+				if (HeartGimmickDecision(posX, posY, posZ, heartPushDirectionX, heartPushDirectionZ))
+				{
+					if (((heartPushDirectionX == 1) && (heartPushDirectionZ == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 4)) ||
+					((heartPushDirectionX == -1) && (heartPushDirectionZ == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 2) ||
+					((heartPushDirectionX == 0) && (heartPushDirectionZ == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 3)) ||
+					((heartPushDirectionX == 0) && (heartPushDirectionZ == -1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))))
+					{
+						flag = true;
+
+						if ((alice.GetMoveDirection() == 3) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 4) ||
+							(alice.GetMoveDirection() == 4) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 2) ||
+							(alice.GetMoveDirection() == 2) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 3) ||
+							(alice.GetMoveDirection() == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))
+						{
+							gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().PushMove(posX, posY, posZ, heartPushDirectionX, heartPushDirectionZ);
+							GameObject objectTemp;
+							objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX, posZ - heartPushDirectionZ];
+							gimmickObjectArray[posY, posX - heartPushDirectionX, posZ - heartPushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
+							gimmickObjectArray[posY, posX, posZ] = objectTemp;
+
+							gimmickNumArray[posY, posX - heartPushDirectionX, posZ - heartPushDirectionZ] = SOLDIER_HEART_LEFT;
+							gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+						}
+					}
+				}
+				break;
         }
 
         // 移動系ギミックの判定////////////////////////////////////
@@ -1322,6 +1359,10 @@ public class Stage : MonoBehaviour
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Flower1>().besideDownDicisionMovePossibleFlag == true) { flag = true; }
                 else { flag = false; }
                 break;
+
+			case SOLDIER_HEART_LEFT: // No.58		ハート兵（左回り）///////////////////////////////////////////////////////////////////////////////////////
+				if (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().downFlag == true) { flag = true; }
+				break;
         }
 
         return flag;
@@ -1622,7 +1663,7 @@ public class Stage : MonoBehaviour
         }
     }
 
-    public void IvytDecision(Player alice)
+    public void IvyDecision(Player alice)
     {
         int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
@@ -1817,6 +1858,24 @@ public class Stage : MonoBehaviour
 								}
 							}
 							break;
+
+						// ▼ハート兵なら
+						case SOLDIER_HEART_LEFT:
+							if (y > 0)
+							{
+								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+								{
+									gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Fall();
+									GameObject objectTemp;
+									objectTemp = gimmickObjectArray[y - 1, x, z];
+									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
+									gimmickObjectArray[y, x, z] = objectTemp;
+
+									gimmickNumArray[y - 1, x, z] = SOLDIER_HEART_LEFT;
+									gimmickNumArray[y, x, z] = NONE_BLOCK;
+								}
+							}
+							break;
                     }
                 }
             }
@@ -1857,6 +1916,24 @@ public class Stage : MonoBehaviour
 									gimmickObjectArray[y, x, z] = objectTemp;
 
 									gimmickNumArray[y - 1, x, z] = ROCK;
+									gimmickNumArray[y, x, z] = NONE_BLOCK;
+								}
+							}
+							break;
+
+						// ▼ハート兵なら
+						case SOLDIER_HEART_LEFT:
+							if (y > 0)
+							{
+								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+								{
+									gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Fall();
+									GameObject objectTemp;
+									objectTemp = gimmickObjectArray[y - 1, x, z];
+									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
+									gimmickObjectArray[y, x, z] = objectTemp;
+
+									gimmickNumArray[y - 1, x, z] = SOLDIER_HEART_LEFT;
 									gimmickNumArray[y, x, z] = NONE_BLOCK;
 								}
 							}
@@ -2058,8 +2135,8 @@ public class Stage : MonoBehaviour
 		return false;
 	}
 
-	// ★岩の巻き戻し処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-	public void RockReturn(int posX, int posY, int posZ, int moveDirectionX, int moveDirectionY, int moveDirectionZ)
+	// ★ギミックの巻き戻し処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void GimmickReturn(int posX, int posY, int posZ, int moveDirectionX, int moveDirectionY, int moveDirectionZ, int kind)
 	{
 		Debug.Log("MODOTTAYO");
 		Debug.Log(posX);
@@ -2071,7 +2148,60 @@ public class Stage : MonoBehaviour
 		gimmickObjectArray[posY, posX, posZ] = objectTemp;
 
 		gimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = NONE_BLOCK;
-		gimmickNumArray[posY, posX, posZ] = ROCK;
+
+		switch (kind)
+		{
+			case 1:
+				gimmickNumArray[posY, posX, posZ] = ROCK;
+				break;
+			case 2:
+				gimmickNumArray[posY, posX, posZ] = SOLDIER_HEART_LEFT;
+				break;
+			case 3:
+				gimmickNumArray[posY, posX, posZ] = SOLDIER_HEART_RIGHT;
+				break;
+			default:
+				break;
+		}
+	}
+
+	// ★ハートとギミックの判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public bool HeartGimmickDecision(int posX, int posY, int posZ, int pushDirectionX, int pushDirectionZ)
+	{
+		bool flag = false;
+
+		// 移動先とその下がステージを超えておらず、何もなければ押して通れる
+		if (((pushDirectionX == 1) && (posX > 1)) ||
+			 ((pushDirectionX == -1) && (posX < STAGE_X - 2)) ||
+			 ((pushDirectionZ == 1) && (posZ > 1)) ||
+			 ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2)))
+		{
+			switch (gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
+			{
+				case NONE_BLOCK:
+				case START_POINT:
+				case STAGE_GOOL:
+					flag = true;
+					break;
+				default:
+					break;
+			}
+		}
+
+		if (flag)
+		{
+			switch (gimmickNumArray[posY - 1, posX - pushDirectionX, posZ - pushDirectionZ])
+			{
+				case NONE_BLOCK:
+				case START_POINT:
+				case STAGE_GOOL:
+					return true;
+				default:
+					break;
+			}
+		}
+		return false;
+
 	}
 
 	// ★アリスが自動移動しているか確認★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

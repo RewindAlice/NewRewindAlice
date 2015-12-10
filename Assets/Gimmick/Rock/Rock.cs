@@ -191,13 +191,12 @@ public class Rock : BaseGimmick
 			// 時間を戻したなら、Stageの方でも岩を移動させる
 			if (playerAction == PlayerAction.RETURN)
 			{
-				Debug.Log("returnnnnn");
-				if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().RockReturn(posX, posY, posZ, 0, 0, -1); }
-				if (moveMemory[turnNum - 1] == MoveDirection.BACK)   { stage.GetComponent<Stage>().RockReturn(posX, posY, posZ, 0, 0, 1); }
-				if (moveMemory[turnNum - 1] == MoveDirection.LEFT)    { stage.GetComponent<Stage>().RockReturn(posX, posY, posZ, 1, 0, 0); }
-				if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().RockReturn(posX, posY, posZ, -1, 0, 0); }
-				if (moveMemory[turnNum - 1] == MoveDirection.UP)       { stage.GetComponent<Stage>().RockReturn(posX, posY, posZ, 0, 1, 0); }
-				if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().RockReturn(posX, posY, posZ, 0, -1, 0); }
+				if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 0, -1, 1); }
+				if (moveMemory[turnNum - 1] == MoveDirection.BACK) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 0, 1, 1); }
+				if (moveMemory[turnNum - 1] == MoveDirection.LEFT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 1, 0, 0, 1); }
+				if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, -1, 0, 0, 1); }
+				if (moveMemory[turnNum - 1] == MoveDirection.UP) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 1, 0, 1); }
+				if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, -1, 0, 1); }
 
 				// 落下、もしくは上昇なら続けて移動
 				if ((moveMemory[turnNum - 1] == MoveDirection.DOWN) || (moveMemory[turnNum - 1] == MoveDirection.UP))
