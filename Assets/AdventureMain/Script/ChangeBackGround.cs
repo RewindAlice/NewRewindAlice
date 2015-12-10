@@ -134,11 +134,5 @@ public class ChangeBackGround : MonoBehaviour
             image.sprite = Stage11_1;
         }
 
-        if (stageNum == 42 && (flagManager.clickCounter == 2))
-        {
-            image.sprite = Stage42_2;
-        }
-
-
     }
 }
