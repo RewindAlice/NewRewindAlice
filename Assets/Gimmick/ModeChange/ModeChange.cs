@@ -123,4 +123,8 @@ public class ModeChange : BaseGimmick
     {
         itemCode = num;
     }
+    public bool GetRendererEnabled()
+    {
+        return renderer.enabled;
+    }
 }
