@@ -605,8 +605,7 @@ public class StageSelect : MonoBehaviour
 			    case Chapter.CHAPTER_1:
 			    case Chapter.CHAPTER_7:
 				    JumpScene();
-				    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StoryMainScene"); });
-                    Application.LoadLevel("AdventureMainScene");
+                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
 				    break;
 
 			    // ゲームへ
@@ -620,21 +619,18 @@ public class StageSelect : MonoBehaviour
 					    JumpScene();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
                         Debug.Log("ENDING");
-                        //Application.LoadLevel("AdventureMainScene");
 				    }
                     else if ((stage == STAGE.STAGE_1) && (chapter == Chapter.CHAPTER_2 || chapter == Chapter.CHAPTER_3))
                     {
                         JumpScene();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
                         Debug.Log("TUTORIAL");
-                        //Application.LoadLevel("TutorialMainScene");
                         
                     }
 				    else
 				    {
 					    JumpScene();
 					    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
-                        //Application.LoadLevel("GameMainScene");
 				    }
 				    break;
 		    }

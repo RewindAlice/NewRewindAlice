@@ -58,10 +58,12 @@ public class Title : MonoBehaviour
         {
             //シーン移動
             BGMDeleter = false;
+            BGMTimer = 0;
             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
             PlayerPrefs.SetInt("STAGE_SELECT_STAGE_NUM", 1);
             PlayerPrefs.SetInt("STAMP_NUM", 0);
-            Application.LoadLevel("StageSelectScene");
+            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+            
         }
 
         if(BGMDeleter)
