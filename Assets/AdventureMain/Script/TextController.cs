@@ -298,24 +298,31 @@ public class TextController : MonoBehaviour
                         PlayerPrefs.SetInt("Story1_1Clear", 1);
                         storyEndFlag = true;
                         EndBgmfunc();
+
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 1);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 12 && crickNum == 8)
                     {
                         PlayerPrefs.SetInt("Story1_2Clear", 1);
                         storyEndFlag = true;
-                        BGMDeleter = true;
+                        
                         Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 7);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 21 && crickNum == 18)
@@ -325,9 +332,12 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 8);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 22 && crickNum == 6)
@@ -337,9 +347,12 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 14);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 31 && crickNum == 13)
@@ -349,10 +362,13 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
 
                             PlayerPrefs.SetInt("STAMP_NUM", 15);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 32 && crickNum == 16)
@@ -362,9 +378,12 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 21);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 41 && crickNum == 6)
@@ -374,9 +393,12 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 22);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 42 && crickNum == 18)
@@ -386,9 +408,12 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 28);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
                         }
                     }
                     else if (stageNum == 51 && crickNum == 8)
@@ -398,9 +423,11 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 29);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                         }
                     }
                     else if (stageNum == 52 && crickNum == 23)
@@ -410,9 +437,11 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 34);
-                            Application.LoadLevel("EndingScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                         }
                     }
                     else if (stageNum == 53 && crickNum == 34)
@@ -422,9 +451,11 @@ public class TextController : MonoBehaviour
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
                         {
+                            BGMTimer = 0;
+                            BGMDeleter = false;
                             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                             PlayerPrefs.SetInt("STAMP_NUM", 35);
-                            Application.LoadLevel("StageSelectScene");
+                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                         }
                     }
 
@@ -470,7 +501,6 @@ public class TextController : MonoBehaviour
                      {
                          touchController.TouchPostionInitialize();
                          pause.GetComponent<StoryPause>().EscapePause();
-                         Application.LoadLevel("StageSelectScene");
                          CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
                      }

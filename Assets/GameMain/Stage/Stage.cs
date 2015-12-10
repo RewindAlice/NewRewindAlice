@@ -1383,6 +1383,7 @@ public class Stage : MonoBehaviour
             case WARP_HOLE_FIVE:            // No.49    穴５
             case BRAMBLE:                   // No.50    茨
             case CHESHIRE_CAT:              // No.54    チェシャ猫
+            case ROCK:                      // No.62    岩
                 flag = true;
                 break;
 
