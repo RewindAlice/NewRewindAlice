@@ -130,11 +130,13 @@ public class TweedleDee :BaseGimmick
                 switch (direction)
                 {
                     case 1:
-                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
+                            && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
                             moveFlag = true;
 
-                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
+                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
+                                && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
                             {
                                 switch (playerScript.cameraAngle)
                                 {
@@ -161,7 +163,8 @@ public class TweedleDee :BaseGimmick
                         }
                         break;
                     case 3:
-                        if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
+                            && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                         {    
                             moveFlag = true;
 
@@ -192,7 +195,8 @@ public class TweedleDee :BaseGimmick
                         }
                         break;
                     case 4:
-                        if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                            && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
 
@@ -223,7 +227,8 @@ public class TweedleDee :BaseGimmick
                         }
                         break;
                     case 2:
-                        if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, true)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
+                        if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                            && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                         { 
                             moveFlag = true;
 
@@ -497,7 +502,7 @@ public class TweedleDee :BaseGimmick
     //---------------------------
     public void ChangeArrayPosition(ArrayMove arrayMove)
     {
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
+       // GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
 
         switch (arrayMove)
         {
@@ -508,7 +513,7 @@ public class TweedleDee :BaseGimmick
             case ArrayMove.PLUS_Z: arrayPosZ++; break;      // 配列上の座標Zに１プラス
             case ArrayMove.MINUS_Z: arrayPosZ--; break;     // 配列上の座標Zに１マイナス
         }
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
+        //GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
 
     }
     //---------------------------
