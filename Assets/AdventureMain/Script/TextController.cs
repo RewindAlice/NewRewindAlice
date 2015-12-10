@@ -405,7 +405,7 @@ public class TextController : MonoBehaviour
                     }
                     else if (stageNum == 52 && crickNum == 23)
                     {
-                        PlayerPrefs.GetInt("Story5_2Clear", 1);
+                        PlayerPrefs.SetInt("Story5_2Clear", 1);
                         storyEndFlag = true;
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
@@ -417,7 +417,7 @@ public class TextController : MonoBehaviour
                     }
                     else if (stageNum == 53 && crickNum == 34)
                     {
-                        PlayerPrefs.GetInt("Story5_3Clear", 1);
+                        PlayerPrefs.SetInt("Story5_3Clear", 1);
                         storyEndFlag = true;
                         EndBgmfunc();
                         if (BGMTimer > BGMFadeTime)
@@ -427,6 +427,7 @@ public class TextController : MonoBehaviour
                             Application.LoadLevel("StageSelectScene");
                         }
                     }
+
                     if (stageNum == 52 && crickNum == 10)
                     {
                         Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f);
