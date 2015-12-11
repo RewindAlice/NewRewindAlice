@@ -305,11 +305,14 @@ public class GameMain : MonoBehaviour
         {
             // ▼無しなら
             case PlayerAction.NONE:
-                alice.arrowDrawFlag = true;
-
                 if (alice.gameOverFlag)
                 {
+                    alice.arrowDrawFlag = false;
                     alice.SetAnimation(Player.Motion.GAMEOVER, true);
+                }
+                else
+                {
+                    alice.arrowDrawFlag = true;
                 }
                 break;
 
