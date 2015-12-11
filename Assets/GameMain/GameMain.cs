@@ -305,6 +305,8 @@ public class GameMain : MonoBehaviour
         {
             // ▼無しなら
             case PlayerAction.NONE:
+                alice.arrowDrawFlag = true;
+
                 if (alice.gameOverFlag)
                 {
                     alice.SetAnimation(Player.Motion.GAMEOVER, true);
@@ -359,6 +361,13 @@ public class GameMain : MonoBehaviour
                         action = PlayerAction.NONE;   // 行動を無しに
                         turn = Turn.NONE;       // ターンを無しに
                         turnNum--;
+
+                        // ターン数が０になるかアリスが地面に着いていたら
+                        if(turnNum == 0 || alice.arrayPosY == 0)
+                        {
+                            alice.gameOverFlag = true;
+                        }
+
                         watchHand.NextTurn();
                         print("ターン終了");// デバッグ用コメント
                         if (tutorialFlag == true)
@@ -469,6 +478,8 @@ public class GameMain : MonoBehaviour
                 {
                     CameraTurnLeftMove();
                     print("カメラ左回転");// デバッグ用コメント
+
+                    alice.arrowDrawFlag = false;
                 }
 
                 if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
@@ -492,6 +503,8 @@ public class GameMain : MonoBehaviour
                 {
                     CameraTurnRightMove();
                     print("カメラ右回転");// デバッグ用コメント
+
+                    alice.arrowDrawFlag = false;
                 }
                 if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
                 {
@@ -561,6 +574,7 @@ public class GameMain : MonoBehaviour
                     ((touchController.detachPosX > 550) && (touchController.detachPosX < 685)) &&
                     ((touchController.detachPosY > 290) && (touchController.detachPosY < 380)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == false))
                 {
+                    alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
 
                     if (tutorialImageFlag == true)
@@ -650,7 +664,7 @@ public class GameMain : MonoBehaviour
                     ((touchController.detachPosX > 580) && (touchController.detachPosX < 730)) &&
                     ((touchController.detachPosY > 100) && (touchController.detachPosY < 200)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false))
                 {
-
+                    alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
 
                     if (tutorialImageFlag == true)
@@ -737,7 +751,7 @@ public class GameMain : MonoBehaviour
                     ((touchController.detachPosX > 400) && (touchController.detachPosX < 560)) &&
                     ((touchController.detachPosY > 190) && (touchController.detachPosY < 285)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false))
                 {
-
+                    alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
                     if (tutorialImageFlag == true)
                     {
@@ -828,7 +842,7 @@ public class GameMain : MonoBehaviour
                     ((touchController.detachPosX > 740) && (touchController.detachPosX < 880)) &&
                     ((touchController.detachPosY > 230) && (touchController.detachPosY < 270)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false))
                 {
-
+                    alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
                     if (tutorialImageFlag == true)
                     {

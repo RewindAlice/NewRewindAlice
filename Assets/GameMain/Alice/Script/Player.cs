@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         PUSH_RETURN,    // 押す（戻る）
         CLIMB_START,    // 登り開始
         CLIMB,          // 登り途中
+        GAMECLEAR,      // ゲームクリア
         GAMEOVER,       // ゲームオーバー
     }
 
@@ -181,7 +182,21 @@ public class Player : MonoBehaviour
     public bool animationFlagPushReturn;    // 押すアニメーション（戻る）
     public bool animationFlagClimbStart;    // 登り開始アニメーション
     public bool animationFlagClimb;         // 登り途中アニメーション
+    public bool animationFlagGameClear;     // ゲームクリアアニメーション
     public bool animationFlagGameOver;      // ゲームオーバーアニメーション
+
+    // 移動方向矢印
+    public bool arrowDrawFlag = false;
+    public GameObject arrowA;
+    public GameObject arrowB;
+    public GameObject arrowX;
+    public GameObject arrowY;
+
+    // 移動矢印に応じた角度
+    Vector3 angleArrowFront;     // 前方向
+    Vector3 angleArrowBack;      // 後方向
+    Vector3 angleArrowLeft;      // 左方向
+    Vector3 angleArrowRight;     // 右方向
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -230,7 +245,13 @@ public class Player : MonoBehaviour
         animationFlagPushReturn = false;
         animationFlagClimbStart = false;
         animationFlagClimb = false;
+        animationFlagGameClear = false;
         animationFlagGameOver = false;
+
+        angleArrowFront = new Vector3(90, 0, 0);
+        angleArrowBack = new Vector3(90, 180, 0);
+        angleArrowLeft = new Vector3(90, 270, 0);
+        angleArrowRight = new Vector3(90, 90, 0);
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -238,6 +259,7 @@ public class Player : MonoBehaviour
     {
 		if (pause.GetComponent<Pause>().pauseFlag == false)
 		{
+            DrawMoveArrow();
 			cameraAngle = camera.cameraAngle;   // カメラの向きを取得
 			Move();                             // 移動
 		}
@@ -1100,6 +1122,7 @@ public class Player : MonoBehaviour
             case Motion.PUSH_RETURN: AnimationPushReturn(flag); break;
             case Motion.CLIMB_START: AnimationClimbStart(flag); break;
             case Motion.CLIMB: AnimationClimb(flag); break;
+            case Motion.GAMECLEAR: AnimationGameClear(flag); break;
             case Motion.GAMEOVER: AnimationGameOver(flag); break;
         }
     }
@@ -1174,6 +1197,13 @@ public class Player : MonoBehaviour
         GetComponent<Animator>().SetBool("ClimbMotionFlag", animationFlagClimb);
     }
 
+    // ★ゲームクリアアニメーション★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationGameClear(bool flag)
+    {
+        animationFlagGameClear = flag;
+        GetComponent<Animator>().SetBool("GameClearMotionFlag", animationFlagGameClear);
+    }
+
     // ★ゲームオーバーアニメーション★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void AnimationGameOver(bool flag)
     {
@@ -1227,4 +1257,86 @@ public class Player : MonoBehaviour
 	{
 		return autoMoveFlag;
 	}
+
+    // 移動可能方向矢印表示
+    public void DrawMoveArrow()
+    {
+        // 表示フラグが真なら
+        if (arrowDrawFlag)
+        {
+            arrowA.GetComponent<Renderer>().enabled = true;     // 矢印Ａの表示フラグを真に
+            arrowB.GetComponent<Renderer>().enabled = true;     // 矢印Ｂの表示フラグを真に
+            arrowX.GetComponent<Renderer>().enabled = true;     // 矢印Ｘの表示フラグを真に
+            arrowY.GetComponent<Renderer>().enabled = true;     // 矢印Ｙの表示フラグを真に
+        }
+        else
+        {
+            arrowA.GetComponent<Renderer>().enabled = false;     // 矢印Ａの表示フラグを偽に
+            arrowB.GetComponent<Renderer>().enabled = false;     // 矢印Ｂの表示フラグを偽に
+            arrowX.GetComponent<Renderer>().enabled = false;     // 矢印Ｘの表示フラグを偽に
+            arrowY.GetComponent<Renderer>().enabled = false;     // 矢印Ｙの表示フラグを偽に
+        }
+
+        // 表示フラグが真なら
+        if (arrowDrawFlag == true)
+        {
+            // カメラアングルが
+            switch (cameraAngle)
+            {
+                case PlayerCamera.CameraAngle.FRONT:
+                    arrowA.transform.position = (transform.position + new Vector3(0, 0.1f, 0.5f));
+                    arrowB.transform.position = (transform.position + new Vector3(-0.5f, 0.1f, 0));
+                    arrowX.transform.position = (transform.position + new Vector3(0.5f, 0.1f, 0));
+                    arrowY.transform.position = (transform.position + new Vector3(0, 0.1f, -0.5f));
+
+                    arrowA.transform.localEulerAngles = angleArrowFront;
+                    arrowB.transform.localEulerAngles = angleArrowLeft;
+                    arrowX.transform.localEulerAngles = angleArrowRight;
+                    arrowY.transform.localEulerAngles = angleArrowBack;
+                    break;
+                case PlayerCamera.CameraAngle.BACK:
+                    arrowA.transform.position = (transform.position + new Vector3(0, 0.1f, -0.5f));
+                    arrowB.transform.position = (transform.position + new Vector3(0.5f, 0.1f, 0));
+                    arrowX.transform.position = (transform.position + new Vector3(-0.5f, 0.1f, 0));
+                    arrowY.transform.position = (transform.position + new Vector3(0, 0.1f, 0.5f));
+
+                    arrowA.transform.localEulerAngles = angleArrowBack;
+                    arrowB.transform.localEulerAngles = angleArrowRight;
+                    arrowX.transform.localEulerAngles = angleArrowLeft;
+                    arrowY.transform.localEulerAngles = angleArrowFront;
+                    break;
+                case PlayerCamera.CameraAngle.LEFT:
+                    arrowA.transform.position = (transform.position + new Vector3(-0.5f, 0.1f, 0));
+                    arrowB.transform.position = (transform.position + new Vector3(0, 0.1f, -0.5f));
+                    arrowX.transform.position = (transform.position + new Vector3(0, 0.1f, 0.5f));
+                    arrowY.transform.position = (transform.position + new Vector3(0.5f, 0.1f, 0f));
+
+                    arrowA.transform.localEulerAngles = angleArrowLeft;
+                    arrowB.transform.localEulerAngles = angleArrowBack;
+                    arrowX.transform.localEulerAngles = angleArrowFront;
+                    arrowY.transform.localEulerAngles = angleArrowRight;
+                    break;
+                case PlayerCamera.CameraAngle.RIGHT:
+                    arrowA.transform.position = (transform.position + new Vector3(0.5f, 0.1f, 0));
+                    arrowB.transform.position = (transform.position + new Vector3(0, 0.1f, 0.5f));
+                    arrowX.transform.position = (transform.position + new Vector3(0, 0.1f, -0.5f));
+                    arrowY.transform.position = (transform.position + new Vector3(-0.5f, 0.1f, 0f));
+
+                    arrowA.transform.localEulerAngles = angleArrowRight;
+                    arrowB.transform.localEulerAngles = angleArrowFront;
+                    arrowX.transform.localEulerAngles = angleArrowBack;
+                    arrowY.transform.localEulerAngles = angleArrowLeft;
+                    break;
+            }
+
+            if (moveFrontPossibleFlag) { arrowY.GetComponent<Renderer>().enabled = true; }
+            else { arrowY.GetComponent<Renderer>().enabled = false; }
+            if (moveBackPossibleFlag) { arrowA.GetComponent<Renderer>().enabled = true; }
+            else { arrowA.GetComponent<Renderer>().enabled = false; }
+            if (moveLeftPossibleFlag) { arrowX.GetComponent<Renderer>().enabled = true; }
+            else { arrowX.GetComponent<Renderer>().enabled = false; }
+            if (moveRightPossibleFlag) { arrowB.GetComponent<Renderer>().enabled = true; }
+            else { arrowB.GetComponent<Renderer>().enabled = false; }
+        }
+    }
 }

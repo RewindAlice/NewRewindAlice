@@ -1953,35 +1953,7 @@ public class Stage : MonoBehaviour
         // ここにゴール処理を書く
 
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
-        //switch (PlayerPrefs.GetInt("STAGE_NUM"))
-        //{
-        //    case 1: PlayerPrefs.SetInt("STAMP_NUM", 2); break;
-        //    case 2: PlayerPrefs.SetInt("STAMP_NUM", 3); break;
-        //    case 3: PlayerPrefs.SetInt("STAMP_NUM", 4); break;
-        //    case 4: PlayerPrefs.SetInt("STAMP_NUM", 5); break;
-        //    case 5: PlayerPrefs.SetInt("STAMP_NUM", 6); break;
-        //    case 6: PlayerPrefs.SetInt("STAMP_NUM", 9); break;
-        //    case 7: PlayerPrefs.SetInt("STAMP_NUM", 10); break;
-        //    case 8: PlayerPrefs.SetInt("STAMP_NUM", 11); break;
-        //    case 9: PlayerPrefs.SetInt("STAMP_NUM", 12); break;
-        //    case 10: PlayerPrefs.SetInt("STAMP_NUM", 13); break;
-        //    case 11: PlayerPrefs.SetInt("STAMP_NUM", 16); break;
-        //    case 12: PlayerPrefs.SetInt("STAMP_NUM", 17); break;
-        //    case 13: PlayerPrefs.SetInt("STAMP_NUM", 18); break;
-        //    case 14: PlayerPrefs.SetInt("STAMP_NUM", 19); break;
-        //    case 15: PlayerPrefs.SetInt("STAMP_NUM", 20); break;
-        //    case 16: PlayerPrefs.SetInt("STAMP_NUM", 23); break;
-        //    case 17: PlayerPrefs.SetInt("STAMP_NUM", 24); break;
-        //    case 18: PlayerPrefs.SetInt("STAMP_NUM", 25); break;
-        //    case 19: PlayerPrefs.SetInt("STAMP_NUM", 26); break;
-        //    case 20: PlayerPrefs.SetInt("STAMP_NUM", 27); break;
-        //    case 21: PlayerPrefs.SetInt("STAMP_NUM", 30); break;
-        //    case 22: PlayerPrefs.SetInt("STAMP_NUM", 31); break;
-        //    case 23: PlayerPrefs.SetInt("STAMP_NUM", 32); break;
-        //    case 24: PlayerPrefs.SetInt("STAMP_NUM", 33); break;
-        //}
-        //CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-                
+        alice.SetAnimation(Player.Motion.GAMECLEAR, true);
     }
 
     // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

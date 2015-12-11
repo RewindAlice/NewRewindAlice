@@ -68,6 +68,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: GameClearMotionFlag
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: GameOverMotionFlag
     m_Type: 4
     m_DefaultFloat: 0
@@ -288,7 +294,7 @@ AnimatorStateTransition:
   m_TransitionDuration: .049999997
   m_TransitionOffset: 0
   m_ExitTime: .949999988
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -670,6 +676,29 @@ AnimatorStateTransition:
   m_TransitionDuration: .31249997
   m_TransitionOffset: 0
   m_ExitTime: .6875
+  m_HasExitTime: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &110145598
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: GameClearMotionFlag
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 110261538}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: .100000001
+  m_TransitionOffset: 0
+  m_ExitTime: .899999976
   m_HasExitTime: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1282,7 +1311,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GameOverMotion1
+  m_Name: GameOverMotion
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -1293,6 +1322,23 @@ AnimatorState:
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_Motion: {fileID: 7400002, guid: 673b632d69cbc014e8cb6a1cf44100da, type: 3}
+  m_Tag: 
+--- !u!1102 &110261538
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: GameClearMotion
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400004, guid: 48a3b042837c2ac4888e3d152949e862, type: 3}
   m_Tag: 
 --- !u!1102 &110261880
 AnimatorState:
@@ -1311,6 +1357,7 @@ AnimatorState:
   - {fileID: 110133874}
   - {fileID: 110119734}
   - {fileID: 110106842}
+  - {fileID: 110145598}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1442,6 +1489,9 @@ AnimatorStateMachine:
     m_Position: {x: 144, y: 528, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110258814}
+    m_Position: {x: 252, y: 168, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110261538}
     m_Position: {x: 252, y: 120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
