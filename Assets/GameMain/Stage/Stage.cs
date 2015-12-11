@@ -1953,7 +1953,6 @@ public class Stage : MonoBehaviour
         // ここにゴール処理を書く
 
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
-        alice.SetAnimation(Player.Motion.GAMECLEAR, true);
     }
 
     // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

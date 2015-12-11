@@ -305,7 +305,12 @@ public class GameMain : MonoBehaviour
         {
             // ▼無しなら
             case PlayerAction.NONE:
-                if (alice.gameOverFlag)
+                if(GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag)
+                {
+                    alice.arrowDrawFlag = false;
+                    alice.SetAnimation(Player.Motion.GAMECLEAR, true);
+                }
+                else if (alice.gameOverFlag)
                 {
                     alice.arrowDrawFlag = false;
                     alice.SetAnimation(Player.Motion.GAMEOVER, true);
