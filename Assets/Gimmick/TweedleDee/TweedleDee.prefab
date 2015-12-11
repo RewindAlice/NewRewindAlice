@@ -767,7 +767,7 @@ Animator:
   m_GameObject: {fileID: 149168}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8939ce3ca873e904b9585dbfa401c910, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc018e9d290cbf046bb1174af7409dc4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -787,7 +787,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startActionTurn: 0
+  besideDicisionMovePossibleFlag: 0
+  besideDownDicisionMovePossibleFlag: 0
+  player: {fileID: 0}
   stage: {fileID: 0}
+  playerScript: {fileID: 0}
   stageScript: {fileID: 0}
   moveFlag: 0
   returnFlag: 0
