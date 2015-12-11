@@ -541,6 +541,8 @@ public class GameMain : MonoBehaviour
             // 自動移動フラグが真なら
             if (alice.autoMoveFlag)
             {
+                alice.arrowDrawFlag = false;
+
                 // 自動移動の方向が
                 switch(alice.moveDirection)
                 {

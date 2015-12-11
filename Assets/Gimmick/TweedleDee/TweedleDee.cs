@@ -134,6 +134,7 @@ public class TweedleDee :BaseGimmick
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
                             moveFlag = true;
+                            GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
                             if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
                                 && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
@@ -154,6 +155,7 @@ public class TweedleDee :BaseGimmick
                                         break;
                                 }
 
+                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
                                 playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
@@ -167,6 +169,7 @@ public class TweedleDee :BaseGimmick
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                         {    
                             moveFlag = true;
+                            GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
                             if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
                             {
@@ -186,6 +189,7 @@ public class TweedleDee :BaseGimmick
                                         break;
                                 }
 
+                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
                                 playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
@@ -199,6 +203,7 @@ public class TweedleDee :BaseGimmick
                             && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
+                            GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
                             if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
                             {
@@ -218,6 +223,7 @@ public class TweedleDee :BaseGimmick
                                         break;
                                 }
 
+                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
                                 playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
@@ -231,6 +237,7 @@ public class TweedleDee :BaseGimmick
                             && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                         { 
                             moveFlag = true;
+                            GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
                             if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
                             {
@@ -250,6 +257,7 @@ public class TweedleDee :BaseGimmick
                                         break;
                                 }
 
+                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
                                 playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
                             }
                             else if((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
@@ -312,6 +320,7 @@ public class TweedleDee :BaseGimmick
            if(notMoveTrun[timeCount] == 0)
            {
                moveFlag = true;
+               GetComponent<Animator>().SetBool("WalkMotion_Return", true);
            }
 
            //カウントを戻す
@@ -361,6 +370,8 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z + 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.PLUS_Z);
+                                GetComponent<Animator>().SetBool("PushMotion_Next", false);
+                                GetComponent<Animator>().SetBool("WalkMotion_Next", false);
                             }
                             break;
                         case 3:
@@ -371,6 +382,8 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_Z);
+                                GetComponent<Animator>().SetBool("PushMotion_Next", false);
+                                GetComponent<Animator>().SetBool("WalkMotion_Next", false);
                             }
                             break;
 
@@ -383,6 +396,8 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(buttonInputPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_X);
+                                GetComponent<Animator>().SetBool("PushMotion_Next", false);
+                                GetComponent<Animator>().SetBool("WalkMotion_Next", false);
                             }
                             break;
                         case 2:
@@ -393,6 +408,8 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(buttonInputPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.PLUS_X);
+                                GetComponent<Animator>().SetBool("PushMotion_Next", false);
+                                GetComponent<Animator>().SetBool("WalkMotion_Next", false);
                             }
                             break;
                     }
@@ -422,7 +439,7 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_Z);
-                              
+                                GetComponent<Animator>().SetBool("WalkMotion_Return", false);
                             }
                             break;
                         case 3:
@@ -433,7 +450,7 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z + 1);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.PLUS_Z);
-                           
+                                GetComponent<Animator>().SetBool("WalkMotion_Return", false);
                             }
                             break;
 
@@ -446,6 +463,7 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(buttonInputPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.PLUS_X);
+                                GetComponent<Animator>().SetBool("WalkMotion_Return", false);
                             }
                             break;
                         case 2:
@@ -456,7 +474,7 @@ public class TweedleDee :BaseGimmick
                                 Vector3 position = new Vector3(buttonInputPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
                                 MoveFinish(position, ArrayMove.MINUS_X);
-                            
+                                GetComponent<Animator>().SetBool("WalkMotion_Return", false);
                             }
                             break;
                     }
