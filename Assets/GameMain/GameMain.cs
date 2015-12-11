@@ -305,6 +305,10 @@ public class GameMain : MonoBehaviour
         {
             // ▼無しなら
             case PlayerAction.NONE:
+                if (alice.gameOverFlag)
+                {
+                    alice.SetAnimation(Player.Motion.GAMEOVER, true);
+                }
                 break;
 
             // ▼進むなら
@@ -937,7 +941,11 @@ public class GameMain : MonoBehaviour
                     ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
                     ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false))
                 {
-
+                    // ゲームオーバーだったらアニメーションを戻す
+                    if (alice.gameOverFlag)
+                    {
+                        alice.SetAnimation(Player.Motion.GAMEOVER, false);
+                    }
                   
                     touchController.TouchPostionInitialize();
                     //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君

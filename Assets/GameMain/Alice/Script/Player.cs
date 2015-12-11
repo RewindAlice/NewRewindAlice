@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         PUSH_RETURN,    // 押す（戻る）
         CLIMB_START,    // 登り開始
         CLIMB,          // 登り途中
+        GAMEOVER,       // ゲームオーバー
     }
 
     // ★移動方向★
@@ -180,6 +181,7 @@ public class Player : MonoBehaviour
     public bool animationFlagPushReturn;    // 押すアニメーション（戻る）
     public bool animationFlagClimbStart;    // 登り開始アニメーション
     public bool animationFlagClimb;         // 登り途中アニメーション
+    public bool animationFlagGameOver;      // ゲームオーバーアニメーション
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -228,6 +230,7 @@ public class Player : MonoBehaviour
         animationFlagPushReturn = false;
         animationFlagClimbStart = false;
         animationFlagClimb = false;
+        animationFlagGameOver = false;
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -1097,6 +1100,7 @@ public class Player : MonoBehaviour
             case Motion.PUSH_RETURN: AnimationPushReturn(flag); break;
             case Motion.CLIMB_START: AnimationClimbStart(flag); break;
             case Motion.CLIMB: AnimationClimb(flag); break;
+            case Motion.GAMEOVER: AnimationGameOver(flag); break;
         }
     }
 
@@ -1168,6 +1172,13 @@ public class Player : MonoBehaviour
     {
         animationFlagClimb = flag;
         GetComponent<Animator>().SetBool("ClimbMotionFlag", animationFlagClimb);
+    }
+
+    // ★ゲームオーバーアニメーション★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationGameOver(bool flag)
+    {
+        animationFlagGameOver = flag;
+        GetComponent<Animator>().SetBool("GameOverMotionFlag", animationFlagGameOver);
     }
 
 	// ★アリスが巨大化中であるか取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

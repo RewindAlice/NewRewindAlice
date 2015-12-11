@@ -156,10 +156,9 @@ MonoBehaviour:
   animationFlagStopReturn: 0
   animationFlagPushNext: 0
   animationFlagPushReturn: 0
-  animationFlagClimbStartNext: 0
-  animationFlagClimbStartReturn: 0
-  animationFlagClimbNext: 0
-  animationFlagClimbReturn: 0
+  animationFlagClimbStart: 0
+  animationFlagClimb: 0
+  animationFlagGameOver: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
