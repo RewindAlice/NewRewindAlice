@@ -8,18 +8,28 @@ public class Cheshire : BaseGimmick
 	public bool invisibleFlag;
 	public int startInvisibleTurn;
 	private Renderer renderer;
-
+	public bool animationFlag;
+	public bool returnAnimationFlag;
+	public int animationTimer;
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start()
 	{
 		turnNum = 0;
 		startInvisibleTurn = 0;
 		invisibleFlag = false;
+		animationFlag = false;
+		returnAnimationFlag = false;
+		animationTimer = 0;
 		renderer = GetComponentInChildren<Renderer>();
 	}
 
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-	void Update() { RemoveInvisible(); }
+	void Update() 
+	{ 
+		RemoveInvisible();
+
+		Animation();
+	}
 
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public override void OnAliceMoveNext(int aliceMove)
@@ -29,7 +39,7 @@ public class Cheshire : BaseGimmick
 
 		// アリスの移動数が多かったら
 		if (moveCount < aliceMove) { moveCount++; }
-		
+		animationFlag = true;
 		turnNum++;
 	}
 
@@ -46,6 +56,7 @@ public class Cheshire : BaseGimmick
 			
 			moveCount--;
 		}
+		returnAnimationFlag = true; 
 		turnNum--;
 	}
 
@@ -68,6 +79,41 @@ public class Cheshire : BaseGimmick
 			startInvisibleTurn = 0;
 			invisibleFlag = false;
 			renderer.enabled = true;    // 描画しない
+		}
+	}
+
+	// ★アニメーション処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void Animation()
+	{
+		if (animationFlag)
+		{
+			GetComponent<Animator>().SetBool("motionFlag", animationFlag);
+
+
+			animationTimer++;
+
+			if (animationTimer == 100)
+			{
+				animationFlag = false;
+				animationTimer = 0;
+				GetComponent<Animator>().SetBool("motionFlag", animationFlag);
+			}
+
+		}
+
+		else if (returnAnimationFlag)
+		{
+			GetComponent<Animator>().SetBool("returnMotionFlag", returnAnimationFlag);
+
+
+			animationTimer++;
+
+			if (animationTimer == 100)
+			{
+				returnAnimationFlag = false;
+				animationTimer = 0;
+				GetComponent<Animator>().SetBool("returnMotionFlag", returnAnimationFlag);
+			}
 		}
 	}
 }
