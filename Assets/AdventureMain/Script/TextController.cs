@@ -97,32 +97,32 @@ public class TextController : MonoBehaviour
         {
             case 11:
             case 12:
-                Singleton<SoundPlayer>.instance.playBGM("bgm003", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm003", 1.0f,false);
                 break;
 
             case 21:
            
-                Singleton<SoundPlayer>.instance.playBGM("bgm004", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm004", 1.0f,false);
                 break;
 
             case 22:
             case 31: 
-                Singleton<SoundPlayer>.instance.playBGM("bgm005", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm005", 1.0f,false);
                 break;
 
             case 32:
-                Singleton<SoundPlayer>.instance.playBGM("bgm006", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm006", 1.0f,false);
                 break;
 
             case 41:
-                Singleton<SoundPlayer>.instance.playBGM("bgm007", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm007", 1.0f,false);
                 break;
             case 42:
-                Singleton<SoundPlayer>.instance.playBGM("bgm008", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm008", 1.0f,false);
                 break;
             case 51:
             case 52:
-                Singleton<SoundPlayer>.instance.playBGM("bgm009", 1.0f);
+                Singleton<SoundPlayer>.instance.playBGM("bgm009", 1.0f,false);
                 break;
             default:
 
@@ -452,7 +452,7 @@ public class TextController : MonoBehaviour
 
                     if (stageNum == 52 && crickNum == 10)
                     {
-                        Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f);
+                        Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f,false);
                     }
                 }
                

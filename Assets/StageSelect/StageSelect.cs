@@ -182,7 +182,7 @@ public class StageSelect : MonoBehaviour
             
         CreateIcon();
 		CreateStamp();  // スタンプの生成
-        Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f);
+        Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f,true);
 
         returnCount = 0;
 

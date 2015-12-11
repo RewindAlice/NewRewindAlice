@@ -65,7 +65,7 @@ public class GameMain : MonoBehaviour
     {
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
-        Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f);
+        Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f,false);
 
 	}
 

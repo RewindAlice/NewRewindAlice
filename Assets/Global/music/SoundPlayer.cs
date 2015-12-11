@@ -68,7 +68,7 @@ public class SoundPlayer
         return true;
     }
     //初回再生のみ通る
-    public void playBGM(string bgmName, float fadeTime)
+    public void playBGM(string bgmName, float fadeTime,bool volBalancer)
     {
         if (fadeOutBGMPlayer != null)
         {
@@ -91,7 +91,7 @@ public class SoundPlayer
         else
         {
             curBGMPlayer = new BGMPlayer(audioClips[bgmName].resourceName);
-            curBGMPlayer.playBGM(fadeTime);
+            curBGMPlayer.playBGM(fadeTime,volBalancer);
         }
 
     }

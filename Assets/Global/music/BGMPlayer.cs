@@ -55,11 +55,24 @@ public class BGMPlayer {
         public override void update()
         {
             t += Time.deltaTime;
-            bgmPlayer.source.volume = t / bgmPlayer.fadeInTime;
-            if (t >= bgmPlayer.fadeInTime) 
+            if (bgmPlayer.volBalancer)
             {
-                bgmPlayer.source.volume = 1.0f;
-                bgmPlayer.state = new Playing(bgmPlayer);
+                bgmPlayer.source.volume = (t / bgmPlayer.fadeInTime)/2;
+                if (bgmPlayer.source.volume >= 0.5f)
+                {
+                    bgmPlayer.source.volume = 0.5f;
+                    bgmPlayer.state = new Playing(bgmPlayer);
+                }
+
+            }
+            else
+            {
+                bgmPlayer.source.volume = t / bgmPlayer.fadeInTime;
+                if (t >= bgmPlayer.fadeInTime)
+                {
+                    bgmPlayer.source.volume = 1.0f;
+                    bgmPlayer.state = new Playing(bgmPlayer);
+                }
             }
         }
 
@@ -70,8 +83,16 @@ public class BGMPlayer {
         {
             if(bgmPlayer.source.isPlaying == false)
             {
-                bgmPlayer.source.volume = 1.0f;
-                bgmPlayer.source.Play();
+                if (bgmPlayer.volBalancer)
+                {
+                    bgmPlayer.source.volume = 0.5f;
+                    bgmPlayer.source.Play();
+                }
+                else
+                {
+                    bgmPlayer.source.volume = 1.0f;
+                    bgmPlayer.source.Play();
+                }
             }
         }
         public override void bgmPauseMode()
@@ -140,6 +161,7 @@ public class BGMPlayer {
     //フェードの時間
     float fadeInTime = 0.0f;
     float fadeOutTime = 0.0f;
+    bool volBalancer = false;
     bool endFadeOut = false;
 
     public BGMPlayer(){}
@@ -167,10 +189,11 @@ public class BGMPlayer {
     //フェードなし再生
     public void playBGM() { if (source != null) state.bgmPlayMode(); }
     //フェードあり再生
-    public void playBGM(float fadeTime) 
+    public void playBGM(float fadeTime, bool half) 
     {
         if(source  != null)
         {
+            volBalancer = half;
             this.fadeInTime = fadeTime;
             state.bgmPlayMode();
         }
