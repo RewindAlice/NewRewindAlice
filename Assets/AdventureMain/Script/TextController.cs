@@ -124,6 +124,9 @@ public class TextController : MonoBehaviour
             case 52:
                 Singleton<SoundPlayer>.instance.playBGM("bgm009", 1.0f,false);
                 break;
+            case 53:
+                Singleton<SoundPlayer>.instance.playBGM("bgm011", 1.0f, false);
+                break;
             default:
 
                 break;
