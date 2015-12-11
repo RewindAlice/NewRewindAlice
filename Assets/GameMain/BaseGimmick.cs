@@ -80,4 +80,9 @@ public class BaseGimmick : MonoBehaviour
     {
         return besideDownDicisionMovePossibleFlag;  // 移動可能フラグを返す
     }
+
+    public int GetGimmckCount()
+    {
+        return gimmickCount;
+    }
 }

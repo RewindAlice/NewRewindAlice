@@ -46,18 +46,16 @@ public class Player : MonoBehaviour
     // ★アリスの動き★
     public enum Motion
     {
-        WALK_NEXT,          // 歩く（進む）
-        WALK_RETURN,        // 歩く（戻る）
-        DROP_NEXT,          // 落下（進む）
-        DROP_RETURN,        // 落下（戻る）
-        STOP_NEXT,          // 待機（進む）
-        STOP_RETURN,        // 待機（戻る）
-        PUSH_NEXT,          // 押す（進む）
-        PUSH_RETURN,        // 押す（戻る）
-        CLIMB_START_NEXT,   // 登り開始（進む）
-        CLIMB_START_RETURN, // 登り開始（戻る）
-        CLIMB_NEXT,         // 登り（進む）
-        CLIMB_RETURN,       // 登り（戻る）
+        WALK_NEXT,      // 歩く（進む）
+        WALK_RETURN,    // 歩く（戻る）
+        DROP_NEXT,      // 落下（進む）
+        DROP_RETURN,    // 落下（戻る）
+        STOP_NEXT,      // 待機（進む）
+        STOP_RETURN,    // 待機（戻る）
+        PUSH_NEXT,      // 押す（進む）
+        PUSH_RETURN,    // 押す（戻る）
+        CLIMB_START,    // 登り開始
+        CLIMB,          // 登り途中
     }
 
     // ★移動方向★
@@ -172,18 +170,16 @@ public class Player : MonoBehaviour
     //------------------------
 
     // アニメーション用フラグ
-    public bool animationFlagWalkNext;          // 歩きアニメーション（進む）
-    public bool animationFlagWalkReturn;        // 歩きアニメーション（戻る）
-    public bool animationFlagDropNext;          // 落下アニメーション（進む）
-    public bool animationFlagDropReturn;        // 落下アニメーション（戻る）
-    public bool animationFlagStopNext;          // 待機アニメーション（進む）
-    public bool animationFlagStopReturn;        // 待機アニメーション（戻る）
-    public bool animationFlagPushNext;          // 押すアニメーション（進む）
-    public bool animationFlagPushReturn;        // 押すアニメーション（戻る）
-    public bool animationFlagClimbStartNext;    // 登り開始アニメーション（進む）
-    public bool animationFlagClimbStartReturn;  // 登り開始アニメーション（戻る）
-    public bool animationFlagClimbNext;         // 登りアニメーション（進む）
-    public bool animationFlagClimbReturn;       // 登りアニメーション（戻る）
+    public bool animationFlagWalkNext;      // 歩きアニメーション（進む）
+    public bool animationFlagWalkReturn;    // 歩きアニメーション（戻る）
+    public bool animationFlagDropNext;      // 落下アニメーション（進む）
+    public bool animationFlagDropReturn;    // 落下アニメーション（戻る）
+    public bool animationFlagStopNext;      // 待機アニメーション（進む）
+    public bool animationFlagStopReturn;    // 待機アニメーション（戻る）
+    public bool animationFlagPushNext;      // 押すアニメーション（進む）
+    public bool animationFlagPushReturn;    // 押すアニメーション（戻る）
+    public bool animationFlagClimbStart;    // 登り開始アニメーション
+    public bool animationFlagClimb;         // 登り途中アニメーション
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -230,10 +226,8 @@ public class Player : MonoBehaviour
         animationFlagStopReturn = false;
         animationFlagPushNext = false;
         animationFlagPushReturn = false;
-        animationFlagClimbStartNext = false;
-        animationFlagClimbStartReturn = false;
-        animationFlagClimbNext = false;
-        animationFlagClimbReturn = false;
+        animationFlagClimbStart = false;
+        animationFlagClimb = false;
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -592,7 +586,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
-                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimbNext)
+                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimb)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
@@ -606,7 +600,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼下なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.DOWN:
-                        if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimbNext)
+                        if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimb)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
@@ -675,7 +669,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
-                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimbNext)
+                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimb)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
@@ -690,7 +684,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼下なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.DOWN:
-                        if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimbNext)
+                        if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimb)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
@@ -829,10 +823,8 @@ public class Player : MonoBehaviour
         SetAnimation(Motion.STOP_RETURN, false);
         SetAnimation(Motion.PUSH_NEXT, false);
         SetAnimation(Motion.PUSH_RETURN, false);
-        SetAnimation(Motion.CLIMB_START_NEXT, false);
-        SetAnimation(Motion.CLIMB_START_RETURN, false);
-        SetAnimation(Motion.CLIMB_NEXT, false);
-        SetAnimation(Motion.CLIMB_RETURN, false);
+        SetAnimation(Motion.CLIMB_START, false);
+        SetAnimation(Motion.CLIMB, false);
     }
 
     // ★移動情報の保存★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -1103,10 +1095,8 @@ public class Player : MonoBehaviour
             case Motion.STOP_RETURN: AnimationStopReturn(flag); break;
             case Motion.PUSH_NEXT: AnimationPushNext(flag); break;
             case Motion.PUSH_RETURN: AnimationPushReturn(flag); break;
-            case Motion.CLIMB_START_NEXT: AnimationClimbStartNext(flag); break;
-            case Motion.CLIMB_START_RETURN: AnimationClimbStartReturn(flag); break;
-            case Motion.CLIMB_NEXT: AnimationClimbNext(flag); break;
-            case Motion.CLIMB_RETURN: AnimationClimbReturn(flag); break;
+            case Motion.CLIMB_START: AnimationClimbStart(flag); break;
+            case Motion.CLIMB: AnimationClimb(flag); break;
         }
     }
 
@@ -1166,32 +1156,18 @@ public class Player : MonoBehaviour
         GetComponent<Animator>().SetBool("PushMotionFlag_Return", animationFlagPushReturn);
     }
 
-    // ★登り開始アニメーション（進む）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void AnimationClimbStartNext(bool flag)
+    // ★登り開始アニメーション★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationClimbStart(bool flag)
     {
-        animationFlagClimbStartNext = flag;
-        GetComponent<Animator>().SetBool("ClimbStartMotionFlag_Next", animationFlagClimbStartNext);
+        animationFlagClimbStart = flag;
+        GetComponent<Animator>().SetBool("ClimbStartMotionFlag", animationFlagClimbStart);
     }
 
-    // ★登り開始ニメーション（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void AnimationClimbStartReturn(bool flag)
+    // ★登り途中アニメーション★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+    public void AnimationClimb(bool flag)
     {
-        animationFlagClimbStartReturn = flag;
-        GetComponent<Animator>().SetBool("ClimbStartMotionFlag_Return", animationFlagClimbStartReturn);
-    }
-
-    // ★登りアニメーション（進む）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void AnimationClimbNext(bool flag)
-    {
-        animationFlagClimbNext = flag;
-        GetComponent<Animator>().SetBool("ClimbMotionFlag_Next", animationFlagClimbNext);
-    }
-
-    // ★登りニメーション（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void AnimationClimbReturn(bool flag)
-    {
-        animationFlagClimbReturn = flag;
-        GetComponent<Animator>().SetBool("ClimbMotionFlag_Return", animationFlagClimbReturn);
+        animationFlagClimb = flag;
+        GetComponent<Animator>().SetBool("ClimbMotionFlag", animationFlagClimb);
     }
 
 	// ★アリスが巨大化中であるか取得★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
