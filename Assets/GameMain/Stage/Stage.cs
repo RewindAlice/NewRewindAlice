@@ -564,6 +564,7 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetItemCode(MUSHROOM_SMALL);
                 break;
             // ▼No.34    キノコ（大きくなる）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case MUSHROOM_BIG:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -571,18 +572,21 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetItemCode(MUSHROOM_BIG);
                 break;
             // ▼No.35    薬（小さくなる）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case POTION_SMALL:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionSmall, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetItemCode(POTION_SMALL);
                 break;
             // ▼No.36    薬（大きくなる）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case POTION_BIG://///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickPotionBig, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = gimmickPattern;
                 gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<ModeChange>().SetItemCode(POTION_BIG);
                 break;
             // ▼No.37    赤扉（鍵）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case DOOR_RED_KEY:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

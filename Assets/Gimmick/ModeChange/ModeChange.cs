@@ -119,7 +119,7 @@ public class ModeChange : BaseGimmick
         }
 
     }
-    public void GetGimmickNum(int num)
+    public void SetItemCode(int num)
     {
         itemCode = num;
     }
