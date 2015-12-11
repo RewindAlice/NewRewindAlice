@@ -156,10 +156,8 @@ MonoBehaviour:
   animationFlagStopReturn: 0
   animationFlagPushNext: 0
   animationFlagPushReturn: 0
-  animationFlagClimbStartNext: 0
-  animationFlagClimbStartReturn: 0
-  animationFlagClimbNext: 0
-  animationFlagClimbReturn: 0
+  animationFlagClimbStart: 0
+  animationFlagClimb: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +377,15 @@ MonoBehaviour:
   exSprite_six: {fileID: 21300000, guid: 5abad9aa77b0a0442b99641315a00f7d, type: 3}
   exSprite_seven: {fileID: 21300000, guid: bd1793b34e0c31d4f820fcd0309d91b3, type: 3}
   exSprite_eight: {fileID: 21300000, guid: 6010b13a61b58e349b2088444e1d5357, type: 3}
+  exSprite_one_S: {fileID: 21300000, guid: 49ee5aa8bfc4dd743bde523804771419, type: 3}
+  exSprite_two_S: {fileID: 21300000, guid: fcbbf92763f6b6c4584ef74b300a6195, type: 3}
+  exSprite_three_S: {fileID: 21300000, guid: 1e79749475e0c3647ad678083e890b60, type: 3}
+  exSprite_four_S: {fileID: 21300000, guid: 9667c2a68e2f199409bf50c8b6912c05, type: 3}
+  exSprite_five_S: {fileID: 21300000, guid: dec5e5dbc88bb084e9c4b056c23dc48e, type: 3}
+  exSprite_six_S: {fileID: 21300000, guid: 5abad9aa77b0a0442b99641315a00f7d, type: 3}
+  exSprite_seven_S: {fileID: 21300000, guid: bd1793b34e0c31d4f820fcd0309d91b3, type: 3}
+  exSprite_eight_S: {fileID: 21300000, guid: 6010b13a61b58e349b2088444e1d5357, type: 3}
+  Android: 1
 --- !u!114 &364307942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2385,6 +2392,7 @@ MonoBehaviour:
   stageData: 
   gameMain: {fileID: 2060863229}
   tutorialCount: 0
+  Android: 1
 --- !u!114 &1972864572
 MonoBehaviour:
   m_ObjectHideFlags: 0

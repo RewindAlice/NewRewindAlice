@@ -15,6 +15,17 @@ public class EXImage : MonoBehaviour {
     public Sprite exSprite_seven;
     public Sprite exSprite_eight;
 
+    public Sprite exSprite_one_S;
+    public Sprite exSprite_two_S;
+    public Sprite exSprite_three_S;
+    public Sprite exSprite_four_S;
+    public Sprite exSprite_five_S;
+    public Sprite exSprite_six_S;
+    public Sprite exSprite_seven_S;
+    public Sprite exSprite_eight_S;
+
+
+    public bool Android;
 	// Use this for initialization
 	void Start () {
         GameMain = GameObject.Find("GameMain");
@@ -25,47 +36,95 @@ public class EXImage : MonoBehaviour {
 	
         if(GameMain.GetComponent<GameMain>().tutorialFlag == true)
         {
-            if(GameMain.GetComponent<GameMain>().stageNumber == 1)
+            if(!Android)
             {
-                switch(GameMain.GetComponent<GameMain>().tutorialTurn)
+                if (GameMain.GetComponent<GameMain>().stageNumber == 1)
                 {
-                    case 2:
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_one;
-                        break;
-                    case 4:
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_two;
-                        break;
-                    case 6:
+                    switch (GameMain.GetComponent<GameMain>().tutorialTurn)
+                    {
+                        case 2:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_one;
+                            break;
+                        case 4:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_two;
+                            break;
+                        case 6:
 
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_three;
-                        break;
-                    case 7:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_three;
+                            break;
+                        case 7:
 
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_four;
-                        break;
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_four;
+                            break;
+                    }
+                }
+                else if (GameMain.GetComponent<GameMain>().stageNumber == 2)
+                {
+                    switch (GameMain.GetComponent<GameMain>().tutorialTurn)
+                    {
+                        case 1:
+
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_five;
+                            break;
+                        case 3:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_six;
+                            break;
+                        case 4:
+
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_seven;
+                            break;
+                        case 6:
+
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_eight;
+                            break;
+                    }
                 }
             }
-            else if(GameMain.GetComponent<GameMain>().stageNumber == 2)
+            else if(Android)
             {
-                switch (GameMain.GetComponent<GameMain>().tutorialTurn)
+                if (GameMain.GetComponent<GameMain>().stageNumber == 1)
                 {
-                    case 1:
+                    switch (GameMain.GetComponent<GameMain>().tutorialTurn)
+                    {
+                        case 2:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_one_S;
+                            break;
+                        case 4:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_two_S;
+                            break;
+                        case 6:
 
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_five;
-                        break;
-                    case 3:
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_six;
-                        break;
-                    case 4:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_three_S;
+                            break;
+                        case 7:
 
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_seven;
-                        break;
-                    case 6:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_four_S;
+                            break;
+                    }
+                }
+                else if (GameMain.GetComponent<GameMain>().stageNumber == 2)
+                {
+                    switch (GameMain.GetComponent<GameMain>().tutorialTurn)
+                    {
+                        case 1:
 
-                        GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_eight;
-                        break;
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_five_S;
+                            break;
+                        case 3:
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_six_S;
+                            break;
+                        case 4:
+
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_seven_S;
+                            break;
+                        case 6:
+
+                            GameObject.Find("EXImage").GetComponent<Image>().sprite = exSprite_eight_S;
+                            break;
+                    }
                 }
             }
+           
 
         }
 	}

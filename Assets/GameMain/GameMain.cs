@@ -572,15 +572,25 @@ public class GameMain : MonoBehaviour
 
                 // ▼画面奥方向移動処理
                 // Ｗキーが押された時、行動が無しなら////////////////////////////////////////////////////////////////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3)))&& (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag)&&(tutorialFlag==false)||
-                    ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) && 
-                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6||tutorialTurn == 7)||
+                if (((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == false) ||
+                    ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
                     ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10) ||
-                    ((touchController.touchPosX > 550) && (touchController.touchPosX < 685)) &&
-                    ((touchController.touchPosY > 290) && (touchController.touchPosY < 380)) &&
-                    ((touchController.detachPosX > 550) && (touchController.detachPosX < 685)) &&
-                    ((touchController.detachPosY > 290) && (touchController.detachPosY < 380)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == false))
+                    ((touchController.touchPosX > 520) && (touchController.touchPosX < 705)) &&
+                    ((touchController.touchPosY > 290) && (touchController.touchPosY < 530)) &&
+                    ((touchController.detachPosX > 520) && (touchController.detachPosX < 705)) &&
+                    ((touchController.detachPosY > 290) && (touchController.detachPosY < 530)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == false) ||
+                     ((touchController.touchPosX > 520) && (touchController.touchPosX < 705)) &&
+                    ((touchController.touchPosY > 290) && (touchController.touchPosY < 530)) &&
+                    ((touchController.detachPosX > 520) && (touchController.detachPosX < 705)) &&
+                    ((touchController.detachPosY > 290) && (touchController.detachPosY < 530)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
+                     ((touchController.touchPosX > 520) && (touchController.touchPosX < 705)) &&
+                    ((touchController.touchPosY > 290) && (touchController.touchPosY < 530)) &&
+                    ((touchController.detachPosX > 520) && (touchController.detachPosX < 705)) &&
+                    ((touchController.detachPosY > 290) && (touchController.detachPosY < 530)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10))
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
@@ -663,14 +673,24 @@ public class GameMain : MonoBehaviour
                 // ▼画面手前方向移動処理
                 // Ｓキーが押された時、行動が無しなら///////////////////////////////////////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false) ||
-                    ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) && 
-                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 5||tutorialTurn == 6||tutorialTurn == 7) ||
-                    ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
-                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
-                    ((touchController.touchPosX > 580) && (touchController.touchPosX < 730)) &&
-                    ((touchController.touchPosY > 100) && (touchController.touchPosY < 200)) &&
-                    ((touchController.detachPosX > 580) && (touchController.detachPosX < 730)) &&
-                    ((touchController.detachPosY > 100) && (touchController.detachPosY < 200)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false))
+                     ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 5 || tutorialTurn == 6 || tutorialTurn == 7) ||
+                     ((Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.Joystick1Button0))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
+                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
+                     ((touchController.touchPosX > 570) && (touchController.touchPosX < 805)) &&
+                     ((touchController.touchPosY > 60) && (touchController.touchPosY < 220)) &&
+                     ((touchController.detachPosX > 570) && (touchController.detachPosX < 805)) &&
+                     ((touchController.detachPosY > 60) && (touchController.detachPosY < 220)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == false) ||
+                      ((touchController.touchPosX > 570) && (touchController.touchPosX < 805)) &&
+                     ((touchController.touchPosY > 60) && (touchController.touchPosY < 220)) &&
+                     ((touchController.detachPosX > 570) && (touchController.detachPosX < 805)) &&
+                     ((touchController.detachPosY > 60) && (touchController.detachPosY < 220)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 5 || tutorialTurn == 6 || tutorialTurn == 7) ||
+                      ((touchController.touchPosX > 570) && (touchController.touchPosX < 805)) &&
+                     ((touchController.touchPosY > 60) && (touchController.touchPosY < 220)) &&
+                     ((touchController.detachPosX > 570) && (touchController.detachPosX < 805)) &&
+                     ((touchController.detachPosY > 60) && (touchController.detachPosY < 220)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveBackPossibleFlag) && (tutorialFlag == true) &&
+                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
@@ -751,13 +771,24 @@ public class GameMain : MonoBehaviour
                // ▼画面左方向移動処理
                 // Ａキーが押された時、行動が無しなら///////////////////////////////////////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false) ||
-                    ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
-                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7 || tutorialTurn == 8)||
-                    ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) && (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
-                    ((touchController.touchPosX > 400) && (touchController.touchPosX < 560)) &&
-                    ((touchController.touchPosY > 190) && (touchController.touchPosY < 285)) &&
-                    ((touchController.detachPosX > 400) && (touchController.detachPosX < 560)) &&
-                    ((touchController.detachPosY > 190) && (touchController.detachPosY < 285)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false))
+                     ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7 || tutorialTurn == 8) ||
+                     ((Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.Joystick1Button2))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
+                     ((touchController.touchPosX > 380) && (touchController.touchPosX < 565)) &&
+                     ((touchController.touchPosY > 170) && (touchController.touchPosY < 385)) &&
+                     ((touchController.detachPosX > 380) && (touchController.detachPosX < 565)) &&
+                     ((touchController.detachPosY > 170) && (touchController.detachPosY < 385)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == false) ||
+                     ((touchController.touchPosX > 380) && (touchController.touchPosX < 565)) &&
+                     ((touchController.touchPosY > 170) && (touchController.touchPosY < 385)) &&
+                     ((touchController.detachPosX > 380) && (touchController.detachPosX < 565)) &&
+                     ((touchController.detachPosY > 170) && (touchController.detachPosY < 385)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7 || tutorialTurn == 8) ||
+                     ((touchController.touchPosX > 380) && (touchController.touchPosX < 565)) &&
+                     ((touchController.touchPosY > 170) && (touchController.touchPosY < 385)) &&
+                     ((touchController.detachPosX > 380) && (touchController.detachPosX < 565)) &&
+                     ((touchController.detachPosY > 170) && (touchController.detachPosY < 385)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveLeftPossibleFlag) && (tutorialFlag == true) &&
+                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
@@ -838,17 +869,23 @@ public class GameMain : MonoBehaviour
                 // Ｄキーが押された時、行動が無しなら///////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false) ||
                      ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
-                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7)||
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
                     ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
-                    ((touchController.touchPosX > 715) && (touchController.touchPosX < 880)) &&
-                    ((touchController.touchPosY > 270) && (touchController.touchPosY < 320)) &&
-                    ((touchController.detachPosX > 715) && (touchController.detachPosX < 880)) &&
-                    ((touchController.detachPosY > 270) && (touchController.detachPosY < 320)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false) ||
-                    ((touchController.touchPosX > 740) && (touchController.touchPosX < 880)) &&
-                    ((touchController.touchPosY > 230) && (touchController.touchPosY < 270)) &&
-                    ((touchController.detachPosX > 740) && (touchController.detachPosX < 880)) &&
-                    ((touchController.detachPosY > 230) && (touchController.detachPosY < 270)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false))
+                    ((touchController.touchPosX > 705) && (touchController.touchPosX < 915)) &&
+                    ((touchController.touchPosY > 220) && (touchController.touchPosY < 450)) &&
+                    ((touchController.detachPosX > 705) && (touchController.detachPosX < 915)) &&
+                    ((touchController.detachPosY > 220) && (touchController.detachPosY < 450)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false) ||
+                    ((touchController.touchPosX > 705) && (touchController.touchPosX < 915)) &&
+                    ((touchController.touchPosY > 220) && (touchController.touchPosY < 450)) &&
+                    ((touchController.detachPosX > 705) && (touchController.detachPosX < 915)) &&
+                    ((touchController.detachPosY > 220) && (touchController.detachPosY < 450)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
+                    ((touchController.touchPosX > 705) && (touchController.touchPosX < 915)) &&
+                    ((touchController.touchPosY > 220) && (touchController.touchPosY < 450)) &&
+                    ((touchController.detachPosX > 705) && (touchController.detachPosX < 915)) &&
+                    ((touchController.detachPosY > 220) && (touchController.detachPosY < 450)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                    (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
@@ -932,13 +969,20 @@ public class GameMain : MonoBehaviour
                 // Ｘキーが押された時、行動が無しなら///////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) && (alice.arrayPosY != 0) ||
                     ((Input.GetKeyDown(KeyCode.X)) || (TrigerInput < -0.007f)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
-                    (tutorialTurn == 0)||
+                    (tutorialTurn == 0) ||
                     ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
                     ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
                     ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
                     ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
                     ((touchController.touchPosX + 30 > touchController.detachPosX) && (touchController.touchPosX - 30 < touchController.detachPosX)) &&
-                    ((touchController.touchPosY + 30 > touchController.detachPosY) && (touchController.touchPosY - 30 < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false))
+                    ((touchController.touchPosY + 30 > touchController.detachPosY) && (touchController.touchPosY - 30 < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == false) && (alice.gameOverFlag == false) ||
+                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+                    ((touchController.touchPosX + 30 > touchController.detachPosX) && (touchController.touchPosX - 30 < touchController.detachPosX)) &&
+                    ((touchController.touchPosY + 30 > touchController.detachPosY) && (touchController.touchPosY - 30 < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+                    (tutorialTurn == 0))
                 {
 
                     touchController.TouchPostionInitialize();
@@ -954,14 +998,20 @@ public class GameMain : MonoBehaviour
                 
                 // ▼巻き戻し処理
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                    if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false)  ||
-                    ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
-                    (tutorialTurn == 5 || tutorialTurn == 7) || 
-                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
-                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
-                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
-                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
-                    ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false))
+                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+               ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+               (tutorialTurn == 5 || tutorialTurn == 7) ||
+               ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+               ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+               ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+               ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+               ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+                   ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+               ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+               ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+               ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+               ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+               (tutorialTurn == 5 || tutorialTurn == 7))
                 {
                     // ゲームオーバーだったらアニメーションを戻す
                     if (alice.gameOverFlag)
@@ -987,11 +1037,11 @@ public class GameMain : MonoBehaviour
                 // ▼早送り処理
                 // Ｅキーが押された時、行動が無しなら//////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.E)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) ||
-                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
-                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
-                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
-                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
-                    ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE))
+                   ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+                   ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+                   ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+                   ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+                   ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE))
                 {
                     touchController.TouchPostionInitialize();
                     if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)

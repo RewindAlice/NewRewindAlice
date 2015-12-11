@@ -49,6 +49,8 @@ public class ChangeText : MonoBehaviour {
     public GameObject gameMain;
     public int tutorialCount;
 
+    public bool Android;
+
     // 文字の表示が完了しているかどうか
     public bool IsCompleteDisplayText
     {
@@ -91,13 +93,27 @@ public class ChangeText : MonoBehaviour {
             {
                 limitTalk = 8;
                 talkNumber = 0;
-                filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
+                if(Android)
+                {
+                    filepath = "UI/IntoGame/CharacterTalk/stage1-1talkS";
+                }
+                else
+                {
+                    filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
+                }
             }
             else if (stageNumber == 2)
             {
                 limitTalk = 4;
                 talkNumber = 0;
-                filepath = "UI/IntoGame/CharacterTalk/stage1-2talk";
+                if (Android)
+                {
+                    filepath = "UI/IntoGame/CharacterTalk/stage1-2talkS";
+                }
+                else
+                {
+                    filepath = "UI/IntoGame/CharacterTalk/stage1-2talk";
+                }
             }
             else if (stageNumber == 3)
             {
