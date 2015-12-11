@@ -19,7 +19,7 @@ public class SoundBGM : MonoBehaviour
             //SEトリガー
             Debug.Log("");
             ////SEを重ならないようにする
-            Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f);
+            Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f,false);
         }
         if (Singleton<SoundPlayer>.instance.curBgmNull() == false)
         {
