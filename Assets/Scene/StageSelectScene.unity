@@ -1270,9 +1270,9 @@ Camera:
   m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: .000269263983
+    x: .000138550997
     y: 0
-    width: .999461472
+    width: .999722898
     height: 1
   near clip plane: .300000012
   far clip plane: 1000
@@ -1321,3 +1321,14 @@ MonoBehaviour:
 GameObject:
   m_PrefabParentObject: {fileID: 100090, guid: 1a40766d837eb7d439f2ad5771817f92, type: 3}
   m_PrefabInternal: {fileID: 1420205926}
+--- !u!114 &2073965939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2073965937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c72d28980e9efe4c981290521400d6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
