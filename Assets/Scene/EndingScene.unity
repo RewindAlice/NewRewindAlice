@@ -166,7 +166,7 @@ MonoBehaviour:
   Ending04: {fileID: 21300000, guid: ae4ce64b43b1a3044bced565a3015f68, type: 3}
   image: {fileID: 0}
   count: 0
-  Android: 0
+  Android: 1
 --- !u!1 &880261677
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 0
   flag: 1
-  Android: 0
+  Android: 1
 --- !u!82 &922164500
 AudioSource:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ Canvas:
   m_GameObject: {fileID: 1045029788}
   m_Enabled: 1
   serializedVersion: 2
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

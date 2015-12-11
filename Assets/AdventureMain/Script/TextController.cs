@@ -481,6 +481,7 @@ public class TextController : MonoBehaviour
                          pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                         pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, 180, 0);
                          pause.GetComponent<StoryPause>().EscapePause();
 
 
@@ -494,6 +495,7 @@ public class TextController : MonoBehaviour
                          pause.GetComponent<StoryPause>().EscapePause();
                          CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
+                         pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, -100, 0);
                      }
                      else
                      {

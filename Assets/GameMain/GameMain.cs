@@ -104,7 +104,7 @@ public class GameMain : MonoBehaviour
             if (((touchController.touchPosX > 0) && (touchController.touchPosX < 320)) &&
                ((touchController.touchPosY > 500) && (touchController.touchPosY < 720)) &&
                ((touchController.detachPosX > 0) && (touchController.detachPosX < 320)) &&
-               ((touchController.detachPosY > 500) && (touchController.detachPosY < 720)))
+               ((touchController.detachPosY > 500) && (touchController.detachPosY < 720)) && tutorialFlag == false)
             {
                 touchController.TouchPostionInitialize();
                 //pause.GetComponent<Pause>().pauseFlag = true;
@@ -170,7 +170,7 @@ public class GameMain : MonoBehaviour
             }
 
 		}
-        else if(pause.GetComponent<Pause>().pauseFlag == true)
+        else if (pause.GetComponent<Pause>().pauseFlag == true && tutorialFlag == false)
         {
 
             if(touchController.detachPosX != 0)
@@ -188,6 +188,8 @@ public class GameMain : MonoBehaviour
                     pause.GetComponent<Pause>().pauseImageManager5.GetComponent<Image>().enabled = false;
                     pause.GetComponent<Pause>().pauseImageManager6.GetComponent<Image>().enabled = false;
                     pause.GetComponent<Pause>().EscapePause();
+                    pause.GetComponent<Pause>().pauseImageManager6.transform.localPosition = new Vector3(80, 140, 0);
+               
                     touchController.TouchPostionInitialize();
                 }
                 //はじめから
@@ -200,6 +202,8 @@ public class GameMain : MonoBehaviour
                     Application.LoadLevel("GameMainScene");
                     CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
                     touchController.TouchPostionInitialize();
+                    pause.GetComponent<Pause>().pauseImageManager6.transform.localPosition = new Vector3(80, -10, 0);
+               
                 }
                 //ステージセレクト
                 else if (((touchController.touchPosX > 275) && (touchController.touchPosX < 650)) &&
@@ -211,6 +215,8 @@ public class GameMain : MonoBehaviour
                     Application.LoadLevel("StageSelectScene");
                     CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                     touchController.TouchPostionInitialize();
+                    pause.GetComponent<Pause>().pauseImageManager6.transform.localPosition = new Vector3(80, -160, 0);
+                
                 }
                 else
                 {
@@ -534,7 +540,7 @@ public class GameMain : MonoBehaviour
                         break;
                 }
             }
-            else
+            else if (camera.clearFlag == false)
             {
                 float TrigerInput = 0.0f;
                 TrigerInput = Input.GetAxis("Triger");

@@ -49,7 +49,8 @@ public class Ending : MonoBehaviour {
 
             if (count == 200)
             {
-                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                PlayerPrefs.SetInt("STORY_NUM", 53);
+                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
             }
         }
     }

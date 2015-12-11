@@ -31,7 +31,8 @@ public class Video : MonoBehaviour {
             {
                 flag = true;
                 //movie.Stop();
-                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                PlayerPrefs.SetInt("STORY_NUM", 53);
+                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
                 //Application.LoadLevel("StageSelectScene");
             }
         }
