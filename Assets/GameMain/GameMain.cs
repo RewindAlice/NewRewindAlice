@@ -51,6 +51,7 @@ public class GameMain : MonoBehaviour
     public int tutorialTurn;       //チュートリアルのターン数
     public bool tutorialImageFlag;  //説明画像が出ているかどうか
     public int tutorialCount;      //チュートリアル中のカウント
+    public float getVol;           //BGMの音量を送る
     public GameObject ImageUI;
 
     public WatchHandAnimation watchHand;
@@ -63,9 +64,10 @@ public class GameMain : MonoBehaviour
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+        getVol = 0.9f;
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
-        Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f,false);
+        Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f, false, getVol);
 
 	}
 

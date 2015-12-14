@@ -57,20 +57,20 @@ public class BGMPlayer {
             t += Time.deltaTime;
             if (bgmPlayer.volBalancer)
             {
-                bgmPlayer.source.volume = (t / bgmPlayer.fadeInTime)/2;
-                if (bgmPlayer.source.volume >= 0.5f)
+                bgmPlayer.source.volume = (((t / bgmPlayer.fadeInTime)* 0.5f)* bgmPlayer.Control);
+                if (bgmPlayer.source.volume >=(bgmPlayer.Control * 0.5f))
                 {
-                    bgmPlayer.source.volume = 0.5f;
+                    bgmPlayer.source.volume = bgmPlayer.Control* 0.5f;
                     bgmPlayer.state = new Playing(bgmPlayer);
                 }
 
             }
             else
             {
-                bgmPlayer.source.volume = t / bgmPlayer.fadeInTime;
+                bgmPlayer.source.volume = (t / bgmPlayer.fadeInTime)* bgmPlayer.Control;
                 if (t >= bgmPlayer.fadeInTime)
                 {
-                    bgmPlayer.source.volume = 1.0f;
+                    bgmPlayer.source.volume = bgmPlayer.Control;
                     bgmPlayer.state = new Playing(bgmPlayer);
                 }
             }
@@ -163,6 +163,7 @@ public class BGMPlayer {
     float fadeOutTime = 0.0f;
     bool volBalancer = false;
     bool endFadeOut = false;
+    float Control;
 
     public BGMPlayer(){}
 
@@ -189,11 +190,12 @@ public class BGMPlayer {
     //フェードなし再生
     public void playBGM() { if (source != null) state.bgmPlayMode(); }
     //フェードあり再生
-    public void playBGM(float fadeTime, bool half) 
+    public void playBGM(float fadeTime, bool half,float ControlVol) 
     {
         if(source  != null)
         {
             volBalancer = half;
+            Control = ControlVol;
             this.fadeInTime = fadeTime;
             state.bgmPlayMode();
         }

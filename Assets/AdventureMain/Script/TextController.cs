@@ -32,6 +32,8 @@ public class TextController : MonoBehaviour
     private int timer;
     const int breakTime = 16;
 
+    //ステージから音量を手に入れる
+    public float getVol;
 
     private string filepath;
 
@@ -84,6 +86,7 @@ public class TextController : MonoBehaviour
 
     void Start()
     {
+        getVol = 0.9f;
         fadeCount = 0;
         storyEndFlag = false;
         stageNum = PlayerPrefs.GetInt ("STORY_NUM");
@@ -97,35 +100,35 @@ public class TextController : MonoBehaviour
         {
             case 11:
             case 12:
-                Singleton<SoundPlayer>.instance.playBGM("bgm003", 1.0f,false);
+                Singleton<SoundPlayer>.instance.playBGM("bgm003", 1.0f,false,getVol);
                 break;
 
             case 21:
-           
-                Singleton<SoundPlayer>.instance.playBGM("bgm004", 1.0f,false);
+
+                Singleton<SoundPlayer>.instance.playBGM("bgm004", 1.0f, false, getVol);
                 break;
 
             case 22:
-            case 31: 
-                Singleton<SoundPlayer>.instance.playBGM("bgm005", 1.0f,false);
+            case 31:
+                Singleton<SoundPlayer>.instance.playBGM("bgm005", 1.0f, false, getVol);
                 break;
 
             case 32:
-                Singleton<SoundPlayer>.instance.playBGM("bgm006", 1.0f,false);
+                Singleton<SoundPlayer>.instance.playBGM("bgm006", 1.0f, false, getVol);
                 break;
 
             case 41:
-                Singleton<SoundPlayer>.instance.playBGM("bgm007", 1.0f,false);
+                Singleton<SoundPlayer>.instance.playBGM("bgm007", 1.0f, false, getVol);
                 break;
             case 42:
-                Singleton<SoundPlayer>.instance.playBGM("bgm008", 1.0f,false);
+                Singleton<SoundPlayer>.instance.playBGM("bgm008", 1.0f, false, getVol);
                 break;
             case 51:
             case 52:
-                Singleton<SoundPlayer>.instance.playBGM("bgm009", 1.0f,false);
+                Singleton<SoundPlayer>.instance.playBGM("bgm009", 1.0f, false, getVol);
                 break;
             case 53:
-                Singleton<SoundPlayer>.instance.playBGM("bgm011", 1.0f, false);
+                Singleton<SoundPlayer>.instance.playBGM("bgm011", 1.0f, false, getVol);
                 break;
             default:
 
@@ -455,7 +458,7 @@ public class TextController : MonoBehaviour
 
                     if (stageNum == 52 && crickNum == 10)
                     {
-                        Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f,false);
+                        Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f, false, getVol);
                     }
                 }
                

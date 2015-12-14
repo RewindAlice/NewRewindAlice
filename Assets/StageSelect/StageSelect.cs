@@ -83,6 +83,7 @@ public class StageSelect : MonoBehaviour
 	public int count;
 	public bool drawFlag;
 	public int drawCount;
+    public float getVol;
 
 	public bool selectFlag;
 	public bool keyFlag;
@@ -103,6 +104,7 @@ public class StageSelect : MonoBehaviour
     // 初期化
 	void Start()
 	{
+        getVol = 0.9f;
         BGMTimer = 0;
         BGMDeleter = false;
 		selectFlag = false;
@@ -182,7 +184,7 @@ public class StageSelect : MonoBehaviour
             
         CreateIcon();
 		CreateStamp();  // スタンプの生成
-        Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f,true);
+        Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f,true,getVol);
 
         returnCount = 0;
 
