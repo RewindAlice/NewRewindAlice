@@ -20,6 +20,7 @@ public class StageSelect : MonoBehaviour
     const float STAMP_Y7 = -3;      //スタンプのY座標7
 	const float STAMP_Z = -5;       //スタンプのZ座標
 
+    public const float ChangeImageTime = 80.0f;
     //BGMフェード調整
     const float   BGMFadeTime = 60.0f;
     private float BGMTimer;
@@ -33,6 +34,12 @@ public class StageSelect : MonoBehaviour
 		STAGE_3,
 		STAGE_4,
 		STAGE_5,
+        EX_STAGE_1,
+        EX_STAGE_2,
+        EX_STAGE_3,
+        EX_STAGE_4,
+        EX_STAGE_5,
+        EX_STAGE_6,
 	}
 
     //チャプター数
@@ -59,11 +66,14 @@ public class StageSelect : MonoBehaviour
 	public GameObject stage3Text;
 	public GameObject stage4Text;
 	public GameObject stage5Text;
-	public GameObject stage1Picture;
-	public GameObject stage2Picture;
-	public GameObject stage3Picture;
-	public GameObject stage4Picture;
-	public GameObject stage5Picture;
+    public GameObject exStage1Text;
+    public GameObject exStage2Text;
+    public GameObject exStage3Text;
+    public GameObject exStage4Text;
+    public GameObject exStage5Text;
+    public GameObject exStage6Text;
+
+
 
 	public GameObject selectIcon;       // セレクトアイコン
 	public GameObject stampAlice;       // スタンプ（アリス）
@@ -84,7 +94,7 @@ public class StageSelect : MonoBehaviour
 	public bool drawFlag;
 	public int drawCount;
     public float getVol;
-
+    public float stage1alpha; 
 	public bool selectFlag;
 	public bool keyFlag;
 
@@ -119,6 +129,7 @@ public class StageSelect : MonoBehaviour
 			case 4: stage = STAGE.STAGE_4; break;
 			case 5: stage = STAGE.STAGE_5; break;
 		}
+
 		chapter = Chapter.CHAPTER_1;
 		startFlag = false;
 
@@ -185,6 +196,18 @@ public class StageSelect : MonoBehaviour
         CreateIcon();
 		CreateStamp();  // スタンプの生成
         Singleton<SoundPlayer>.instance.playBGM("bgm002", 1.0f,true,getVol);
+        //画像を透明にする
+        stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f,0.0f);
+        stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         returnCount = 0;
 
@@ -216,9 +239,266 @@ public class StageSelect : MonoBehaviour
 
 		if (drawCount > 60)
 		{
-			DrawStagePicture();
-		}
+            //DrawStagePicture();
+		
+        }
+        switch (stage)
+		{
+            case STAGE.STAGE_1:
+                //前に表示していたページを消す
+                if (stage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
 
+                    }
+                }
+
+                if(drawCount >ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.STAGE_2:
+                //前に表示していたページを消す
+                if (stage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+
+                    }
+                }else if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+
+                    }
+                }
+
+                if(drawCount> ChangeImageTime && drawCount <ChangeImageTime + 20)
+                {
+
+                    stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.STAGE_3:
+                //前に表示していたページを消す
+                if (stage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (stage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.STAGE_4:
+                //前に表示していたページを消す
+                if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (stage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.STAGE_5:
+            //前に表示していたページを消す
+            if (stage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            {
+                if (drawCount > 0 && drawCount <= 25)
+                {
+                    stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                }
+            }
+
+            if (exStage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            {
+                if (drawCount > 0 && drawCount <= 25)
+                {
+                    exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                }
+            }
+
+
+            if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+            {
+                stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+            }
+            break;
+
+            case STAGE.EX_STAGE_1:
+            //前に表示していたページを消す
+                if(stage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+
+            break;
+
+            case STAGE.EX_STAGE_2: 
+            //前に表示していたページを消す
+                if(exStage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.EX_STAGE_3:
+            //前に表示していたページを消す
+                if(exStage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.EX_STAGE_4:
+            //前に表示していたページを消す
+                if(exStage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.EX_STAGE_5:
+            //前に表示していたページを消す
+                if(exStage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage6Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+            case STAGE.EX_STAGE_6:
+            //前に表示していたページを消す
+                if(exStage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+            break;
+
+
+        }
 		if (drawCount > 100)
 		{
 			icon.GetComponent<SpriteRenderer>().enabled = true;
@@ -468,6 +748,40 @@ public class StageSelect : MonoBehaviour
 					chapter = Chapter.CHAPTER_1;
 					drawCount = 0;
 					break;
+                case STAGE.STAGE_5:
+                    stage = STAGE.EX_STAGE_1;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_1:
+                    stage = STAGE.EX_STAGE_2;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_2:
+                    stage = STAGE.EX_STAGE_3;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_3:
+                    stage = STAGE.EX_STAGE_4;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_4:
+                    stage = STAGE.EX_STAGE_5;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_5:
+                    stage = STAGE.EX_STAGE_6;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+
+
+
+                    
 			}
 		}
 	}
@@ -500,6 +814,36 @@ public class StageSelect : MonoBehaviour
 					chapter = Chapter.CHAPTER_1;
 					drawCount = 0;
 					break;
+                case STAGE.EX_STAGE_1:
+                    stage = STAGE.STAGE_5;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_2:
+                    stage = STAGE.EX_STAGE_1;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_3:
+                    stage = STAGE.EX_STAGE_2;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_4:
+                    stage = STAGE.EX_STAGE_3;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_5:
+                    stage = STAGE.EX_STAGE_4;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
+                case STAGE.EX_STAGE_6:
+                    stage = STAGE.EX_STAGE_5;
+                    chapter = Chapter.CHAPTER_1;
+                    drawCount = 0;
+                    break;
 			}
 		}
 	}
@@ -599,15 +943,101 @@ public class StageSelect : MonoBehaviour
 					    case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STORY_NUM", 53); break;
 				    }
 				    break;
+                case STAGE.EX_STAGE_1:
+                    switch (chapter)
+				    {
+                        case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+				    }
+				    break;
+
+                case STAGE.EX_STAGE_2:
+                    switch (chapter)
+                    {
+                        case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    }
+                    break;
+                case STAGE.EX_STAGE_3:
+                    switch (chapter)
+                    {
+                        case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    }
+                    break;
+                case STAGE.EX_STAGE_4:
+                    switch (chapter)
+                    {
+                        case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    }
+                    break;
+                case STAGE.EX_STAGE_5:
+                    switch (chapter)
+                    {
+                        case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    }
+                    break;
+                case STAGE.EX_STAGE_6:
+                    switch (chapter)
+                    {
+                        case Chapter.CHAPTER_1: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_2: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_3: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_4: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_5: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_6: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                        case Chapter.CHAPTER_7: PlayerPrefs.SetInt("STAGE_NUM", 23); PlayerPrefs.SetInt("CHALLENGE", 0); break;
+                    }
+                    break;
+
+
+
 		    }
 
 		    switch (chapter)
 		    {
+
 			    // ストーリーへ
 			    case Chapter.CHAPTER_1:
 			    case Chapter.CHAPTER_7:
-				    JumpScene();
-                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
+                    if(stage == STAGE.EX_STAGE_1 ||stage == STAGE.EX_STAGE_2 ||stage == STAGE.EX_STAGE_3 ||stage == STAGE.EX_STAGE_4 ||stage == STAGE.EX_STAGE_5 ||stage == STAGE.EX_STAGE_6 )
+                    {
+                        JumpScene();
+                        CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+                    }
+                    else
+                    {
+                        JumpScene();
+                        CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
+                    }
+				   
 				    break;
 
 			    // ゲームへ
@@ -626,8 +1056,6 @@ public class StageSelect : MonoBehaviour
                     {
                         JumpScene();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
-                        Debug.Log("TUTORIAL");
-                        
                     }
 				    else
 				    {
@@ -644,76 +1072,77 @@ public class StageSelect : MonoBehaviour
 		switch (stage)
 		{
 			case STAGE.STAGE_1:
-				stage1Text.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                
+				//stage1Text.GetComponent<Animator>().SetBool("DrawFlag", true);
+				//stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+				//stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+				//stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
+                ////stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                ////stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
 				break;
 			case STAGE.STAGE_2:
-				stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Text.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+				//stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+				//stage2Text.GetComponent<Animator>().SetBool("DrawFlag", true);
+                ////stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                ////stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                ////stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
+                ////stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
 				break;
 			case STAGE.STAGE_3:
-				stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Text.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Text.GetComponent<Animator>().SetBool("DrawFlag", true);
+                //stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
+                //stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
 				break;
 			case STAGE.STAGE_4:
-				stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Text.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Text.GetComponent<Animator>().SetBool("DrawFlag", true);
+                //stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
+                //stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
 				break;
 			case STAGE.STAGE_5:
-				stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Text.GetComponent<Animator>().SetBool("DrawFlag", true);
-				stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
+                //stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Text.GetComponent<Animator>().SetBool("DrawFlag", true);
+                //stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", true);
 				break;
 			default:
-				stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
-				stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Text.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage1Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage2Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage3Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage4Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
+                //stage5Picture.GetComponent<Animator>().SetBool("DrawFlag", false);
 				break;
 		}
 	}
@@ -962,6 +1391,7 @@ public class StageSelect : MonoBehaviour
 			case STAGE.STAGE_3: stageNum = 3; break;
 			case STAGE.STAGE_4: stageNum = 4; break;
 			case STAGE.STAGE_5: stageNum = 5; break;
+            case STAGE.EX_STAGE_1: stageNum = 6; break;
 		}
 
 		PlayerPrefs.SetInt("STAGE_SELECT_STAGE_NUM", stageNum);
