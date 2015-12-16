@@ -458,6 +458,7 @@ public class TextController : MonoBehaviour
 
                     if (stageNum == 52 && crickNum == 10)
                     {
+                        Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                         Singleton<SoundPlayer>.instance.playBGM("bgm010", 1.0f, false, getVol);
                     }
                 }
