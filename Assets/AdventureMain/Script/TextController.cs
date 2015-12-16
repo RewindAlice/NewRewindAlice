@@ -222,10 +222,10 @@ public class TextController : MonoBehaviour
             fadeCount++;
 
             //pause起動
-            if (((touchController.touchPosX > 1200) && (touchController.touchPosX < 1280)) &&
-                ((touchController.touchPosY > 640) && (touchController.touchPosY < 720)) &&
-                ((touchController.detachPosX > 1200) && (touchController.detachPosX < 1280)) &&
-                ((touchController.detachPosY > 640) && (touchController.detachPosY < 720)))
+            if (((touchController.touchPosX > 0) && (touchController.touchPosX < 320)) &&
+               ((touchController.touchPosY > 500) && (touchController.touchPosY < 720)) &&
+               ((touchController.detachPosX > 0) && (touchController.detachPosX < 320)) &&
+               ((touchController.detachPosY > 500) && (touchController.detachPosY < 720)))
             {
                 touchController.TouchPostionInitialize();
                 pause.GetComponent<StoryPause>().text.stopText = true;//ストーリーのテキストを止める
