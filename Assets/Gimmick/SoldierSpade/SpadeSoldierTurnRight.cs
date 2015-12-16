@@ -305,6 +305,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
 
         if (timeCount >= aliceMoveTime)
         {
+            if (discoveryFlag == false)
             GetComponent<Animator>().SetBool("MoveReturn", true);
             if (notMoveTrun[timeCount - 1] == 0)
             {
