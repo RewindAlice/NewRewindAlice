@@ -5,12 +5,16 @@ public class SpadeSoldierBackAndForth : BaseGimmick
 {
 
     const float MOVE_SPEED = 1.0f;    // 移動速度
-    const float SPEED = 0.05f;        // 移動速度
+    const float SPEED = 0.02f;        // 移動速度
 
     //移動可能フラグ
     public bool moveFlag;
     //ターンが戻ったか
     public bool returnFlag;
+    public bool foundTheAliceAfter;
+    public bool returnAnimationFlag;
+    public int returnAnimationCount;
+    public int foundCount;
 
     //オブジェクト
     public GameObject alice;
@@ -53,7 +57,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
     public int arrayPosZ;                // 配列上での座標Ｚ
 
     public Vector3 buttonInputPosition;  // ボタン入力時の座標
-
+    public bool discoveryFlag;
     //------------------------
     //初期化関数
     //------------------------
@@ -101,6 +105,12 @@ public class SpadeSoldierBackAndForth : BaseGimmick
         //初期の向きを代入
         beforeDirection[0] = direction;
         ChangeDirection();
+
+        foundTheAliceAfter = false;
+        discoveryFlag = false;
+        foundCount = 0;
+        returnAnimationFlag = false;
+        returnAnimationCount = 0;
 	}
 
 
@@ -111,6 +121,21 @@ public class SpadeSoldierBackAndForth : BaseGimmick
     {
         //動かす
         Move();
+
+        if (returnAnimationFlag == true)
+        {
+            returnAnimationCount++;
+
+            if (returnAnimationCount == 50)
+            {
+                returnAnimationCount = 0;
+                returnAnimationFlag = false;
+
+                //向きの変更
+                ChangeDirection();
+
+            }
+        }
     }
 
     //------------------------
@@ -137,13 +162,14 @@ public class SpadeSoldierBackAndForth : BaseGimmick
     public override void OnAliceMoveNext(int aliceMoveTime)
     {
         //アリスを発見したかどうかのフラグ
-        bool discoveryFlag;
+        //bool discoveryFlag;
 
         //向きを保存
         beforeDirection[timeCount] = direction;
         
         //アリスが前にいるか判定
         discoveryFlag = CaptureDecision();
+        foundTheAliceAfter = false;
 
         //アリスが見つかっていなければ
         if(discoveryFlag == false)
@@ -165,6 +191,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1,false)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                             {
                                 discoveryFlag = CaptureDecision();
+                                foundTheAliceAfter = false;
                                 if (discoveryFlag == false)
                                 {
                                     moveFlag = true;
@@ -175,6 +202,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             if ((stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, false)) && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                             {
                                 discoveryFlag = CaptureDecision();
+                                foundTheAliceAfter = false;
                                 if (discoveryFlag == false)
                                 {
                                     moveFlag = true;
@@ -185,6 +213,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             if ((stageScript.BesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ,false)) && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                             {
                                 discoveryFlag = CaptureDecision();
+                                foundTheAliceAfter = false;
                                 if (discoveryFlag == false)
                                 {
                                     moveFlag = true;
@@ -195,6 +224,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             if ((stageScript.BesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ,false)) && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                             {
                                 discoveryFlag = CaptureDecision();
+                                foundTheAliceAfter = false;
                                 if (discoveryFlag == false)
                                 {
                                     moveFlag = true;
@@ -208,6 +238,8 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                     //もし動くフラグがtrueなら
                     if (moveFlag == true)
                     {
+                        GetComponent<Animator>().SetBool("MoveNext", true);
+                        foundTheAliceAfter = true;
                         break;
                     }
                     else
@@ -268,15 +300,59 @@ public class SpadeSoldierBackAndForth : BaseGimmick
 
         if (timeCount >= aliceMoveTime)
         {
+            if (discoveryFlag == false)
+                GetComponent<Animator>().SetBool("MoveReturn", true);
+
+
             if (notMoveTrun[timeCount - 1] == 0)
             {
                 moveFlag = true;
             }
 
+            //構えなおす
+            if (foundTheAliceAfter == false)
+            {
+                discoveryFlag = false;
+                returnAnimationFlag = true;
+                GetComponent<Animator>().SetBool("FoundTheAlice", false);
+                GetComponent<Animator>().SetBool("MoveNext", false);
+                GetComponent<Animator>().SetBool("AfterFound", false);
+            }
+            //構えなおして歩かせる
+            else if (foundTheAliceAfter == true)
+            {
+                //discoveryFlag = false;
+                GetComponent<Animator>().SetBool("FoundTheAlice", false);
+                GetComponent<Animator>().SetBool("MoveNext", false);
+                GetComponent<Animator>().SetBool("AfterFound", true);
+                GetComponent<Animator>().SetBool("MoveReturn", true);
+            }
             //カウントを戻す
             timeCount -= 1;
-        }
 
+           
+        }
+        else
+        {
+            //構えなおす
+            if (foundTheAliceAfter == false)
+            {
+                discoveryFlag = false;
+                returnAnimationFlag = true;
+                GetComponent<Animator>().SetBool("FoundTheAlice", false);
+                GetComponent<Animator>().SetBool("MoveNext", false);
+                GetComponent<Animator>().SetBool("AfterFound", false);
+            }
+            //構えなおして歩かせる
+            else if (foundTheAliceAfter == true)
+            {
+                //discoveryFlag = false;
+                GetComponent<Animator>().SetBool("FoundTheAlice", false);
+                GetComponent<Animator>().SetBool("MoveNext", false);
+                GetComponent<Animator>().SetBool("AfterFound", true);
+                GetComponent<Animator>().SetBool("MoveReturn", true);
+            }
+        }
        
         if (TrunTime[timeCount] == 1)
         {
@@ -284,6 +360,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
             //向きを保存
             direction = beforeDirection[timeCount];
             //向きの変更
+            if (returnAnimationFlag == false)
             ChangeDirection();
         }
 
@@ -318,6 +395,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             //目的地に着いたとき
                             if (transform.localPosition.z >= buttonInputPosition.z + 1)
                             {
+                                GetComponent<Animator>().SetBool("MoveNext", false);
                                 //誤差の調節
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z + 1);
                                 //移動を終える
@@ -328,6 +406,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             //目的地に着いたとき
                             if (transform.localPosition.z <= buttonInputPosition.z - 1)
                             {
+                                GetComponent<Animator>().SetBool("MoveNext", false);
                                 //誤差の調節
                                 Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
                                 //移動を終える
@@ -340,6 +419,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             //目的地に着いたとき
                             if (transform.localPosition.x <= buttonInputPosition.x - 1)
                             {
+                                GetComponent<Animator>().SetBool("MoveNext", false);
                                 //誤差の調節
                                 Vector3 position = new Vector3(buttonInputPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
@@ -350,6 +430,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                             //目的地に着いたとき
                             if (transform.localPosition.x >= buttonInputPosition.x + 1)
                             {
+                                GetComponent<Animator>().SetBool("MoveNext", false);
                                 //誤差の調節
                                 Vector3 position = new Vector3(buttonInputPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
                                 //移動を終える
@@ -369,58 +450,75 @@ public class SpadeSoldierBackAndForth : BaseGimmick
 
                 if (moveFlag)
                 {
-                    //動くスピードを設定
-                    transform.Translate(Vector3.back * SPEED);
-
-                    //以下停止コード
-                    switch (direction)
+                    if (discoveryFlag == true)
                     {
-                        //Z軸を調整する
-                        case 1:
-                            if (transform.localPosition.z <= buttonInputPosition.z - 1)
-                            {
-                                //誤差の調節
-                                Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
-                                //移動を終える
-                                MoveFinish(position, ArrayMove.MINUS_Z);
-
-                            }
-                            break;
-                        case 3:
-                            //目的地に着いたとき
-                            if (transform.localPosition.z >= buttonInputPosition.z + 1)
-                            {
-                                //誤差の調節
-                                Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z + 1);
-                                //移動を終える
-                                MoveFinish(position, ArrayMove.PLUS_Z);
-
-                            }
-                            break;
-
-                        //X軸を調整する
-                        case 4:
-                            //目的地に着いたとき
-                            if (transform.localPosition.x >= buttonInputPosition.x + 1)
-                            {
-                                //誤差の調節
-                                Vector3 position = new Vector3(buttonInputPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
-                                //移動を終える
-                                MoveFinish(position, ArrayMove.PLUS_X);
-                            }
-                            break;
-                        case 2:
-                            //目的地に着いたとき
-                            if (transform.localPosition.x <= buttonInputPosition.x - 1)
-                            {
-                                //誤差の調節
-                                Vector3 position = new Vector3(buttonInputPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
-                                //移動を終える
-                                MoveFinish(position, ArrayMove.MINUS_X);
-
-                            }
-                            break;
+                        foundCount++;
+                        if (foundCount == 40)
+                        {
+                            discoveryFlag = false;
+                            foundCount = 0;
+                        }
                     }
+                    else
+                    {
+                        //動くスピードを設定
+                        transform.Translate(Vector3.back * SPEED);
+
+                        //以下停止コード
+                        switch (direction)
+                        {
+                            //Z軸を調整する
+                            case 1:
+                                if (transform.localPosition.z <= buttonInputPosition.z - 1)
+                                {
+                                    GetComponent<Animator>().SetBool("MoveReturn", false);
+                                    //誤差の調節
+                                    Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z - 1);
+                                    //移動を終える
+                                    MoveFinish(position, ArrayMove.MINUS_Z);
+
+                                }
+                                break;
+                            case 3:
+                                //目的地に着いたとき
+                                if (transform.localPosition.z >= buttonInputPosition.z + 1)
+                                {
+                                    GetComponent<Animator>().SetBool("MoveReturn", false);
+                                    //誤差の調節
+                                    Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, buttonInputPosition.z + 1);
+                                    //移動を終える
+                                    MoveFinish(position, ArrayMove.PLUS_Z);
+
+                                }
+                                break;
+
+                            //X軸を調整する
+                            case 4:
+                                //目的地に着いたとき
+                                if (transform.localPosition.x >= buttonInputPosition.x + 1)
+                                {
+                                    GetComponent<Animator>().SetBool("MoveReturn", false);
+                                    //誤差の調節
+                                    Vector3 position = new Vector3(buttonInputPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
+                                    //移動を終える
+                                    MoveFinish(position, ArrayMove.PLUS_X);
+                                }
+                                break;
+                            case 2:
+                                //目的地に着いたとき
+                                if (transform.localPosition.x <= buttonInputPosition.x - 1)
+                                {
+                                    GetComponent<Animator>().SetBool("MoveReturn", false);
+                                    //誤差の調節
+                                    Vector3 position = new Vector3(buttonInputPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
+                                    //移動を終える
+                                    MoveFinish(position, ArrayMove.MINUS_X);
+
+                                }
+                                break;
+                        }
+                    }
+                    
                 }
                 else
                 {
@@ -459,6 +557,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
         moveFlag = false;
 
         CaptureDecision();
+        discoveryFlag = CaptureDecision();
     }
 
     //---------------------------
@@ -498,6 +597,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                 case 1:
                     if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ + 1))
                     {
+                        GetComponent<Animator>().SetBool("FoundTheAlice", true);
                         moveScript.gameOverFlag = true;
                         return true;
                     }
@@ -505,6 +605,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                 case 2:
                     if ((playerArray.x == arrayPosX + 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
                     {
+                        GetComponent<Animator>().SetBool("FoundTheAlice", true);
                         moveScript.gameOverFlag = true;
                         return true;
                     }
@@ -513,6 +614,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                 case 3:
                     if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ - 1))
                     {
+                        GetComponent<Animator>().SetBool("FoundTheAlice", true);
                         moveScript.gameOverFlag = true;
                         return true;
                     }
@@ -521,6 +623,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                 case 4:
                     if ((playerArray.x == arrayPosX - 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
                     {
+                        GetComponent<Animator>().SetBool("FoundTheAlice", true);
                         moveScript.gameOverFlag = true;
                         return true;
                     }

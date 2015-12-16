@@ -860,7 +860,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183114}
-  m_LocalRotation: {x: -.126010865, y: .726098716, z: .621981084, w: .264653772}
+  m_LocalRotation: {x: -.12601085, y: .726098657, z: .621981025, w: .264653742}
   m_LocalPosition: {x: -.0645489097, y: -.0546238348, z: -.000827751122}
   m_LocalScale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
   m_Children:
@@ -975,7 +975,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126502}
-  m_LocalRotation: {x: .599573553, y: -.294898987, z: .515028536, w: .536928236}
+  m_LocalRotation: {x: .599573493, y: -.294898957, z: .515028477, w: .536928177}
   m_LocalPosition: {x: -.152874097, y: -2.38418574e-09, z: 0}
   m_LocalScale: {x: 1.00000012, y: 1.00000024, z: 1.00000024}
   m_Children:
@@ -1243,7 +1243,7 @@ Animator:
   m_GameObject: {fileID: 163446}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0d438cf51f8a99e47abda3de4f9eca75, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d83321d5e5947948b97de988b393bba, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1263,9 +1263,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startActionTurn: 0
-  movePossibleFlag: 0
+  besideDicisionMovePossibleFlag: 0
+  besideDownDicisionMovePossibleFlag: 0
   moveFlag: 0
   returnFlag: 0
+  foundTheAliceAfter: 0
+  returnAnimationFlag: 0
+  returnAnimationCount: 0
+  foundCount: 0
   alice: {fileID: 0}
   stage: {fileID: 0}
   direction: 0
@@ -1277,6 +1282,7 @@ MonoBehaviour:
   arrayPosY: 0
   arrayPosZ: 0
   buttonInputPosition: {x: 0, y: 0, z: 0}
+  discoveryFlag: 0
 --- !u!137 &13797180
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

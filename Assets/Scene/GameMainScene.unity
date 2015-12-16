@@ -1024,11 +1024,11 @@ MonoBehaviour:
     type: 2}
   gimmickSoldierHeartLeft: {fileID: 169796, guid: d853757721ef8e1439af901b96d05b72,
     type: 2}
-  gimmickSoldierSpadeRight: {fileID: 147770, guid: aa684cc5d3a648546ad13cb4e6f4d17c,
+  gimmickSoldierSpadeRight: {fileID: 138750, guid: cdd173a306bda3442bb1d87d94fba7fc,
     type: 2}
-  gimmickSoldierSpadeLeft: {fileID: 163446, guid: bea912331daa03c4aaabba1046fd9f6f,
+  gimmickSoldierSpadeLeft: {fileID: 157568, guid: 5c209adbb90bd2a4987b78361355e168,
     type: 2}
-  gimmickSoldierSpadeBAF: {fileID: 154258, guid: 6f793ef4412d7cb4a9c1dd5b3de08648,
+  gimmickSoldierSpadeBAF: {fileID: 173658, guid: 9cb09eeb08f42484b8d1121ddc511d6c,
     type: 2}
   rock: {fileID: 147168, guid: eda8e8867ce2fa045a0885d7467248cc, type: 2}
   field: 0
@@ -2597,6 +2597,7 @@ MonoBehaviour:
   stageData: 
   gameMain: {fileID: 2060863229}
   tutorialCount: 0
+  Android: 0
 --- !u!114 &1972864572
 MonoBehaviour:
   m_ObjectHideFlags: 0
