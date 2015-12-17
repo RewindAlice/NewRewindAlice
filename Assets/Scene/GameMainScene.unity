@@ -1037,6 +1037,7 @@ MonoBehaviour:
   fieldStage3: {fileID: 121860, guid: 69bedc64a9b68df438d5cbc4c32356af, type: 2}
   fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
   fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
+  Effect01: {fileID: 152020, guid: d5496b73d0d74c54cb8741a6d01fded4, type: 2}
   stageTextAsset: {fileID: 0}
   stageData: 
   scenarios: []
@@ -2762,6 +2763,7 @@ MonoBehaviour:
   tutorialTurn: 0
   tutorialImageFlag: 0
   tutorialCount: 0
+  getVol: 0
   ImageUI: {fileID: 0}
   watchHand: {fileID: 694149570}
   limitTurn: 0
@@ -2795,3 +2797,5 @@ MonoBehaviour:
   touchPosY: 0
   detachPosX: 0
   detachPosY: 0
+  touchFlag: 0
+  Effect01: {fileID: 188550, guid: 404917b57e43a8448b193ae215008c00, type: 2}

@@ -132,6 +132,9 @@ public class Stage : MonoBehaviour
     public GameObject fieldStage4;  // ステージ４の天球
     public GameObject fieldStage5;  // ステージ５の天球
 
+
+
+    public GameObject Effect01;
     int gimmick = 0;            // 配列の数字
     int gimmickPattern = 0;     // ギミックの種類
     int gimmickDirection = 0;   // ギミックの向き
@@ -1953,6 +1956,29 @@ public class Stage : MonoBehaviour
         // ここにゴール処理を書く
 
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
+
+        
+        // タッチした画面座標からワールド座標へ変換
+        Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
+
+        for (int x = 0; x < STAGE_X; x++)
+        {
+            for (int y = 0; y < STAGE_Y; y++)
+            {
+                for (int z = 0; z < STAGE_Z; z++)
+                {
+                    if(gimmickNumArray[y,x,z] == STAGE_GOOL)
+                    {
+                        pos = new Vector3(gimmickObjectArray[y, x, z].transform.position.x, gimmickObjectArray[y, x, z].transform.position.y-0.5f, gimmickObjectArray[y, x, z].transform.position.z);
+                    }
+                }
+            }
+        }
+        // 指定したエフェクトを作成
+        GameObject go = (GameObject)Instantiate(Effect01, pos, Quaternion.identity);
+
+        // エフェクトを消す
+        //Destroy(go, 5.0f);
     }
 
     // ★登り状態に変更する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

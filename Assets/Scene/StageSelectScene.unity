@@ -712,6 +712,8 @@ MonoBehaviour:
   touchPosY: 0
   detachPosX: 0
   detachPosY: 0
+  touchFlag: 0
+  Effect01: {fileID: 188550, guid: 404917b57e43a8448b193ae215008c00, type: 2}
 --- !u!1 &1379507061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,9 +1240,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: .000271767378
+    y: .000538766384
     width: 1
-    height: .999456465
+    height: .998922467
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
