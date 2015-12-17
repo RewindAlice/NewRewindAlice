@@ -1974,9 +1974,25 @@ public class Stage : MonoBehaviour
                 }
             }
         }
-        // 指定したエフェクトを作成
         GameObject go = (GameObject)Instantiate(Effect01, pos, Quaternion.identity);
 
+        if(alice.GetDirection() == 1)
+        {
+            go.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        if(alice.GetDirection() == 3)
+        {
+            go.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        if(alice.GetDirection() == 2)
+        {
+            go.transform.localEulerAngles = new Vector3(0, 90, 0);
+        }
+        if (alice.GetDirection() == 4)
+        {
+            go.transform.localEulerAngles = new Vector3(0, 270, 0);
+        }
+        
         // エフェクトを消す
         //Destroy(go, 5.0f);
     }
