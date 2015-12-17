@@ -103,6 +103,13 @@ public class BGMPlayer {
         {
             bgmPlayer.state = new FadeOut(bgmPlayer);
         }
+        public override void update()
+        {
+            if (bgmPlayer.changeVol != 0)
+            {
+                bgmPlayer.source.volume = bgmPlayer.changeVol;
+            }
+        }
     }
 
     class Pause : State
@@ -164,6 +171,7 @@ public class BGMPlayer {
     bool volBalancer = false;
     bool endFadeOut = false;
     float Control;
+    float changeVol;
 
     public BGMPlayer(){}
 
@@ -223,4 +231,8 @@ public class BGMPlayer {
         return false;
     }
 
+    public void contollVOL(float vol)
+    {
+        changeVol = vol;
+    }
 }

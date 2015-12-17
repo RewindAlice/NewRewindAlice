@@ -86,7 +86,7 @@ public class TextController : MonoBehaviour
 
     void Start()
     {
-        getVol = 0.9f;
+        getVol = PlayerPrefs.GetFloat("VALUE");
         fadeCount = 0;
         storyEndFlag = false;
         stageNum = PlayerPrefs.GetInt ("STORY_NUM");

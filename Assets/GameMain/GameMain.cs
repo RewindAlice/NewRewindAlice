@@ -64,7 +64,7 @@ public class GameMain : MonoBehaviour
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
-        getVol = 0.9f;
+        getVol = PlayerPrefs.GetFloat("VALUE");
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
         Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f, false, getVol);

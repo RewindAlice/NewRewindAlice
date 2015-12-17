@@ -123,6 +123,10 @@ public class SoundPlayer
         }
         return true;
     }
+    public void controllVol(float vol)
+    {
+        curBGMPlayer.contollVOL(vol);
+    }
     public void BGMPlayerDelete()
     {
         if (curBGMPlayer != null) curBGMPlayer.destory();
