@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     // ★アリスの状態★
     public enum PlayerMode
     {
-        NOMAL,  // 通常
+        NORMAL,  // 通常
         SMALL,  // 小さい
         BIG,    // 大きい
     }
@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
         inputKeyFlag = false;
         stopCount = 0;
 
-        playerMode = PlayerMode.NOMAL;      // アリスの初期の状態を通常に
+        playerMode = PlayerMode.NORMAL;      // アリスの初期の状態を通常に
         playerAngle = PlayerAngle.FRONT;    // アリスの初期の向きを前に
 		pause = GameObject.Find("Pause");
         autoMoveFlag = false;
@@ -514,7 +514,7 @@ public class Player : MonoBehaviour
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
 
                 // プレイヤーの状態が通常なら////////////////////////////
-                if (playerMode == PlayerMode.NOMAL)
+                if (playerMode == PlayerMode.NORMAL)
                 {
                     countBig = 0;       // 大きくなっているカウントを０に
                     countSmall = 0;     // 小さくなっているカウントを０に
@@ -757,7 +757,7 @@ public class Player : MonoBehaviour
                 // 大きくなっている
                 if (countBig == 0)
                 {
-                    playerMode = PlayerMode.NOMAL;
+                    playerMode = PlayerMode.NORMAL;
                 }
             }
 
@@ -767,7 +767,7 @@ public class Player : MonoBehaviour
 
                 if (countSmall == 0)
                 {
-                    playerMode = PlayerMode.NOMAL;
+                    playerMode = PlayerMode.NORMAL;
                 }
             }
         }
@@ -781,7 +781,7 @@ public class Player : MonoBehaviour
             {
                 if (countBig == 3)
                 {
-                    playerMode = PlayerMode.NOMAL;
+                    playerMode = PlayerMode.NORMAL;
                 }
 
                 countBig++;
@@ -791,7 +791,7 @@ public class Player : MonoBehaviour
             {
                 if (countSmall == 3)
                 {
-                    playerMode = PlayerMode.NOMAL;
+                    playerMode = PlayerMode.NORMAL;
                 }
 
                 countSmall++;
@@ -866,7 +866,7 @@ public class Player : MonoBehaviour
                 for (int num = saveCount; num < SAVE_NUM; num++)
                 {
                     // 保存されている情報をリセット//////////////////////////////////////////////////
-                    saveMovePlayerMode[num] = PlayerMode.NOMAL;     // プレイヤーの状態をリセット
+                    saveMovePlayerMode[num] = PlayerMode.NORMAL;     // プレイヤーの状態をリセット
                     saveMovePlayerAngle[num] = PlayerAngle.NONE;    // プレイヤーの向きをリセット
                     saveMoveDirection[num] = MoveDirection.NONE;    // プレイヤーの移動方向をリセット
                     saveMoveInput[num] = false;
@@ -942,7 +942,7 @@ public class Player : MonoBehaviour
     {
         switch (playerMode)
         {
-            case PlayerMode.NOMAL: transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); break;
+            case PlayerMode.NORMAL: transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); break;
             case PlayerMode.BIG: transform.localScale = new Vector3(1.5f, 1.5f, 1.5f); break;
             case PlayerMode.SMALL: transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); break;
         }
