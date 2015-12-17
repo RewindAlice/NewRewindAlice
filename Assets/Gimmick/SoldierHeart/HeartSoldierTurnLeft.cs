@@ -34,6 +34,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
 
     //向き
     public int direction;
+	public float directionRot;
     //動いたターン数
     public int timeCount;
 
@@ -50,6 +51,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
 
 	// 倒れているかどうか
 	public bool downFlag;
+	public bool returnDownFlag;
 
 	// 倒れたターン	
 	public int downTurn;
@@ -62,7 +64,15 @@ public class HeartSoldierTurnLeft : BaseGimmick
 	public int turnNum;
 	public PlayerAction playerAction; // アリスの行動
 	public int[] angleMemory = new int[100]; // 保存用配列(向き)
-    //------------------------
+	public bool captureFlag;
+
+	public bool animationFlag;
+	public bool returnAnimationFlag;
+	public int animationTimer;
+
+	public bool afterCaptureFlag;
+	
+	//------------------------
     //初期化関数
     //------------------------
     void Start()
@@ -79,12 +89,14 @@ public class HeartSoldierTurnLeft : BaseGimmick
         enemyAngle2 = new Vector3(0, 90, 0);
         enemyAngle3 = new Vector3(0, 180, 0);
         enemyAngle4 = new Vector3(0, 270, 0);
+		directionRot = 0;
 
         //経過したターン数
         timeCount = 0;
 
 		// 倒れているかどうか
 		downFlag = false;
+		returnDownFlag = false;
 
 		// 倒れたターン
 		downTurn = 0;
@@ -93,11 +105,35 @@ public class HeartSoldierTurnLeft : BaseGimmick
 		moveFlag = false;
 		turnNum = 0;
 
-		for(int i = 0; i <100; i++)
+		for (int i = 0; i < 100; i++) 
 		{
 			moveMemory[i] = MoveDirection.NONE;
 			angleMemory[i] = 0;
 		}
+
+		animationFlag = false;
+		returnAnimationFlag = false;
+		animationTimer = 0;
+
+		// 向きの調整
+		switch (direction)
+		{
+			case 1:
+				directionRot = 180;
+				break;
+			case 2:
+				directionRot = 90;
+				break;
+			case 3:
+				directionRot = 0;
+				break;
+			case 4:
+				directionRot = 270;
+				break;
+		}
+		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
+
+		afterCaptureFlag = false;
     }
 
     //------------------------
@@ -108,6 +144,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
         //向きの初期化
         this.direction = direction;
         InitChangeDirection();
+		directionRot = transform.localEulerAngles.y;
         //座標の初期化
         arrayPosX = x;
         arrayPosY = y;
@@ -119,8 +156,11 @@ public class HeartSoldierTurnLeft : BaseGimmick
     //-----------------
     void Update()
     {
+		Debug.Log(arrayPosY);
 		if (moveFlag)
 			Move();
+
+		Animation();
     }
 
     //---------------------------------
@@ -128,7 +168,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
     //---------------------------------
     public override void OnAliceMoveNext(int aliceMoveTime)
     {
-        //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
+		//(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
         if (timeCount < aliceMoveTime)
         {
             //アリスを見つけたかのフラグ
@@ -151,26 +191,31 @@ public class HeartSoldierTurnLeft : BaseGimmick
                 }
 
                 // 倒れていないなら回転させる
-				if(!downFlag)
-		            ChangeDirection();
+				//if(!downFlag)
+				//	ChangeDirection();
 
-                //アリスを見つけたか判定
-                CaptureDecision();
+				// 倒れておらず、アリスを見つけていないなら回転させる
+				if ((!downFlag) && (!captureFlag))
+					ChangeDirection();
 
-				if (!stage.GetComponent<Stage>().CheckAutoMove())
-				{
-					moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
-					playerAction = PlayerAction.NEXT;
-					moveFlag = true;
-				}
 				// アリスの移動数が多かったら
 				if (moveCount < aliceMoveTime)
 				{
 					moveCount++;
 				}
             }
-
+			if (!stage.GetComponent<Stage>().CheckAutoMove())
+			{
+				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
+				playerAction = PlayerAction.NEXT;
+				moveFlag = true;
+			}
         }
+		//回転後、アリスを見つけたか判定
+		if (!captureFlag) 
+		{
+			if (CaptureDecision()) { afterCaptureFlag = true; }
+		}
     }
 
     //----------------------------------
@@ -178,7 +223,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
     //----------------------------------
     public override void OnAliceMoveReturn(int aliceMoveTime)
     {
-        if (timeCount >= aliceMoveTime)
+		if (timeCount >= aliceMoveTime)
         {
             direction += 1;
             timeCount -= 1;
@@ -191,13 +236,24 @@ public class HeartSoldierTurnLeft : BaseGimmick
 			if(!downFlag)
 	            ChangeDirection();
 
+			//if (captureFlag)
+			//{
+			//	captureFlag = false;
+			//	GetComponent<Animator>().SetBool("captureFlag", captureFlag);
+			//}
 			if (!stage.GetComponent<Stage>().CheckAutoMove())
 			{
 				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定
-				playerAction = PlayerAction.RETURN;
 				moveFlag = true;
 			}
         }
+		playerAction = PlayerAction.RETURN;
+		if (captureFlag)
+		{
+			captureFlag = false;
+			GetComponent<Animator>().SetBool("captureFlag", captureFlag);
+		}
+		afterCaptureFlag = false;
     }
 
     //---------------------------
@@ -208,6 +264,12 @@ public class HeartSoldierTurnLeft : BaseGimmick
         //アリスの位置を取得
         Vector3 playerArray = moveScript.GetArray();
 
+		//if(playerAction == PlayerAction.RETURN)
+		//{
+		//	captureFlag = false;
+		//	return false;
+		//}
+
         if (moveScript.GetInvisible() == false)
         {
             //アリスが前にいるか判定
@@ -217,6 +279,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
                     if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ + 1))
                     {
                         moveScript.gameOverFlag = true;
+						captureFlag = true;
                         return true;
                     }
                     break;
@@ -224,6 +287,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
                     if ((playerArray.x == arrayPosX + 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
                     {
                         moveScript.gameOverFlag = true;
+						captureFlag = true;
                         return true;
                     }
                     break;
@@ -232,6 +296,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
                     if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ - 1))
                     {
                         moveScript.gameOverFlag = true;
+						captureFlag = true;
                         return true;
                     }
                     break;
@@ -240,6 +305,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
                     if ((playerArray.x == arrayPosX - 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
                     {
                         moveScript.gameOverFlag = true;
+						captureFlag = true;
                         return true;
                     }
                     break;
@@ -257,24 +323,26 @@ public class HeartSoldierTurnLeft : BaseGimmick
 		// 倒れていなければ
 		if (!downFlag)
 		{
-			//変数に応じて回転を代入する
-			if (direction == 1)
-			{
-				this.transform.localEulerAngles = enemyAngle1;
-			}
-			if (direction == 2)
-			{
-				this.transform.localEulerAngles = enemyAngle2;
+			////変数に応じて回転を代入する
+			//if (direction == 1)
+			//{
+			//	this.transform.localEulerAngles = enemyAngle1;
+			//}
+			//if (direction == 2)
+			//{
+			//	this.transform.localEulerAngles = enemyAngle2;
 
-			}
-			if (direction == 3)
-			{
-				this.transform.localEulerAngles = enemyAngle3;
-			}
-			if (direction == 4)
-			{
-				this.transform.localEulerAngles = enemyAngle4;
-			}
+			//}
+			//if (direction == 3)
+			//{
+			//	this.transform.localEulerAngles = enemyAngle3;
+			//}
+			//if (direction == 4)
+			//{
+			//	this.transform.localEulerAngles = enemyAngle4;
+			//}
+			GetComponent<Animator>().SetBool("rotationFlag", true);
+			Debug.Log("rot");
 		}
     }
 
@@ -316,28 +384,49 @@ public class HeartSoldierTurnLeft : BaseGimmick
 
 		downTurn = turnNum;
 		downFlag = true;
+		GetComponent<Animator>().SetBool("downFlag", downFlag);
 	}
 	
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Move()
 	{
-		if (playerAction == PlayerAction.NEXT)
+		if (downFlag)
 		{
+			if (playerAction == PlayerAction.NEXT)
+			{
 			if ((moveMemory[turnNum] == MoveDirection.LEFT) ||
-			    (moveMemory[turnNum] == MoveDirection.RIGHT) ||
-				(moveMemory[turnNum] == MoveDirection.FRONT) ||
-				(moveMemory[turnNum] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * 0.02f); }
+					(moveMemory[turnNum] == MoveDirection.RIGHT) ||
+					(moveMemory[turnNum] == MoveDirection.FRONT) ||
+					(moveMemory[turnNum] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * 0.01f); }
+			}
 
-			if (moveMemory[turnNum] == MoveDirection.DOWN) { transform.localEulerAngles = new Vector3(90, transform.localEulerAngles.y, transform.localEulerAngles.z); }// transform.Translate(Vector3.down* 0.02f); }
-		}
-		else if (playerAction == PlayerAction.RETURN)
-		{
+			if (playerAction == PlayerAction.RETURN)
+			{
 			if ((moveMemory[turnNum - 1] == MoveDirection.LEFT) ||
-				(moveMemory[turnNum - 1] == MoveDirection.RIGHT) ||
-				(moveMemory[turnNum - 1] == MoveDirection.FRONT) ||
-				(moveMemory[turnNum - 1] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * -0.02f); }
+					(moveMemory[turnNum - 1] == MoveDirection.RIGHT) ||
+					(moveMemory[turnNum - 1] == MoveDirection.FRONT) ||
+					(moveMemory[turnNum - 1] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * -0.01f); }
+			}
+		}
+		else if ((!captureFlag)||(afterCaptureFlag))
+		{
+			if (playerAction == PlayerAction.NEXT)
+			{
+				if (moveMemory[turnNum] == MoveDirection.NONE)
+				{
+					directionRot += 1.767f;
+					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
+				}
+			}
 
-			else if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z); }
+			else if (playerAction == PlayerAction.RETURN)
+			{
+				if (moveMemory[turnNum] == MoveDirection.NONE)
+				{
+					directionRot -= 1.767f;
+					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
+				}
+			}
 		}
 
 		// 移動終了処理
@@ -345,6 +434,7 @@ public class HeartSoldierTurnLeft : BaseGimmick
 		{
 			moveFlag = false;
 			moveTimer = 0;
+			GetComponent<Animator>().SetBool("rotationFlag", false);
 
 			// 兵士の座標を動かす
 			if (playerAction == PlayerAction.NEXT)
@@ -388,24 +478,74 @@ public class HeartSoldierTurnLeft : BaseGimmick
 				moveMemory[turnNum - 1] = MoveDirection.NONE;
 			}
 
+			// 落下、もしくは上昇なら続けて移動
+			if(playerAction == PlayerAction.NEXT)
+			{
+				if ((moveMemory[turnNum + 1] == MoveDirection.DOWN) || (moveMemory[turnNum + 1] == MoveDirection.UP))
+				{
+					moveFlag = true;
+				}
+			}
+			
 			// 内部ターンの経過
 			if (playerAction == PlayerAction.NEXT) { turnNum++; }
-			else if (playerAction == PlayerAction.RETURN) { turnNum--; }
-
-			// 落下、もしくは上昇なら続けて移動
-			if ((moveMemory[turnNum] == MoveDirection.DOWN) || (moveMemory[turnNum] == MoveDirection.UP))
-				moveFlag = true;
+			else if (playerAction == PlayerAction.RETURN)
+			{ 
+				turnNum--;
+				captureFlag = false;
+			}
 
 			if (turnNum <= downTurn)
 			{
 				downFlag = false;
 				downTurn = 100;
+				GetComponent<Animator>().SetBool("downFlag", downFlag);
+			}
+
+			// 向きの調整
+			switch(direction)
+			{
+				//case 1:
+				//	directionRot = 0;
+				//	break;
+				//case 2:
+				//	directionRot = 90;
+				//	break;
+				//case 3:
+				//	directionRot = 180;
+				//	break;
+				//case 4:
+				//	directionRot = 270;
+				//	break;
+				case 1:
+					directionRot = 180;
+					break;
+				case 2:
+					directionRot = 90;
+					break;
+				case 3:
+					directionRot = 0;
+					break;
+				case 4:
+					directionRot = 270;
+					break;
 			}
 		}
 		moveTimer++;
 	}
 	// ★落ちるときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-	public void Fall() { moveMemory[turnNum + 1] = MoveDirection.DOWN; }
+	public void Fall() 
+	{ 
+		moveMemory[turnNum + 1] = MoveDirection.DOWN; 
+	}
+
+	// ★アニメーション処理★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void Animation()
+	{
+		{
+			GetComponent<Animator>().SetBool("captureFlag", captureFlag);
+		}
+	}
 }
 
 
