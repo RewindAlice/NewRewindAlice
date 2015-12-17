@@ -329,62 +329,8 @@ public class ChangeCharacter : MonoBehaviour {
         talkSpeed = 600;
         ReadTextData();
         //this.read();
-
-        if (scenarios[charaCount] == "1")
+        if(stageNumber<25)
         {
-            image.sprite = flower;
-        }
-        else if (scenarios[charaCount] == "2")
-        {
-            image.sprite = cheshireCat;
-        }
-        else if (scenarios[charaCount] == "3")
-        {
-            image.sprite = alice;
-        }
-        else if (scenarios[charaCount] == "4")
-        {
-            image.sprite = greenCaterpillar;
-        }
-        else if (scenarios[charaCount] == "5")
-        {
-            image.sprite = whiteRabbit;
-        }
-        else if (scenarios[charaCount] == "6")
-        {
-            image.sprite = madHatter;
-        }
-        else if (scenarios[charaCount] == "7")
-        {
-            image.sprite = queenOfHeart;
-        }
-        else if (scenarios[charaCount] == "8")
-        {
-            image.sprite = sisterAlice;
-        }
-
-        charaCount++;
-      
-
-}
-	
-	// Update is called once per frame
-	void Update () {
-
-        if(pauseScript.pauseFlag == false)
-        {
-            timeCount++;
-
-        }
-        
-
-        if (timeCount % talkSpeed == 0)
-        {
-            if (charaCount == limitTalk)
-            {
-                charaCount = talkNumber;
-            }
-          
             if (scenarios[charaCount] == "1")
             {
                 image.sprite = flower;
@@ -417,14 +363,74 @@ public class ChangeCharacter : MonoBehaviour {
             {
                 image.sprite = sisterAlice;
             }
-
-            charaCount++;
-                
-            
-            
-            
-           
         }
+       
+
+        charaCount++;
+      
+
+}
+	
+	// Update is called once per frame
+	void Update () {
+
+        if(pauseScript.pauseFlag == false)
+        {
+            timeCount++;
+
+        }
+        
+        if(stageNumber < 25)
+        {
+            if (timeCount % talkSpeed == 0)
+            {
+                if (charaCount == limitTalk)
+                {
+                    charaCount = talkNumber;
+                }
+
+                if (scenarios[charaCount] == "1")
+                {
+                    image.sprite = flower;
+                }
+                else if (scenarios[charaCount] == "2")
+                {
+                    image.sprite = cheshireCat;
+                }
+                else if (scenarios[charaCount] == "3")
+                {
+                    image.sprite = alice;
+                }
+                else if (scenarios[charaCount] == "4")
+                {
+                    image.sprite = greenCaterpillar;
+                }
+                else if (scenarios[charaCount] == "5")
+                {
+                    image.sprite = whiteRabbit;
+                }
+                else if (scenarios[charaCount] == "6")
+                {
+                    image.sprite = madHatter;
+                }
+                else if (scenarios[charaCount] == "7")
+                {
+                    image.sprite = queenOfHeart;
+                }
+                else if (scenarios[charaCount] == "8")
+                {
+                    image.sprite = sisterAlice;
+                }
+
+                charaCount++;
+
+
+
+
+
+            }
+        }
+        
         
 	
 	}
@@ -449,12 +455,16 @@ public class ChangeCharacter : MonoBehaviour {
     //.txtを読み込むときにreadの部分で差し換えてください
     void ReadTextData()
     {
-        // TextAssetとして、Resourcesフォルダからテキストデータをロードする
-        stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
-        // 文字列を代入(絵の判定の場合)
-        stageData = stageTextAsset.text + "99";
-        string[] test02 = { "\r\n" };
-        //.txt内の改行に合わせて改行する
-        scenarios = stageData.Split(test02, System.StringSplitOptions.RemoveEmptyEntries);
+        if(stageNumber < 25)
+        {
+            // TextAssetとして、Resourcesフォルダからテキストデータをロードする
+            stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
+            // 文字列を代入(絵の判定の場合)
+            stageData = stageTextAsset.text + "99";
+            string[] test02 = { "\r\n" };
+            //.txt内の改行に合わせて改行する
+            scenarios = stageData.Split(test02, System.StringSplitOptions.RemoveEmptyEntries);
+        }
+       
     }
 }

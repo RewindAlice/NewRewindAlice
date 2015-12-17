@@ -855,6 +855,79 @@ public class Stage : MonoBehaviour
         {
             filepath = "StageData/stage24";
         }
+        else if (stageNum == 25)
+        {
+            filepath = "StageData/stage25";
+        }
+        else if (stageNum == 26)
+        {
+            filepath = "StageData/stage26";
+        }
+        else if (stageNum == 27)
+        {
+            filepath = "StageData/stage27";
+        }
+        else if (stageNum == 28)
+        {
+            filepath = "StageData/stage28";
+        }
+        else if (stageNum == 29)
+        {
+            filepath = "StageData/stage29";
+        }
+        else if (stageNum == 30)
+        {
+            filepath = "StageData/stage30";
+        }
+        else if (stageNum == 31)
+        {
+            filepath = "StageData/stage31";
+        }
+        else if (stageNum == 32)
+        {
+            filepath = "StageData/stage32";
+        }
+        else if (stageNum == 33)
+        {
+            filepath = "StageData/stage33";
+        }
+        else if (stageNum == 34)
+        {
+            filepath = "StageData/stage34";
+        }
+        else if (stageNum == 35)
+        {
+            filepath = "StageData/stage35";
+        }
+        else if (stageNum == 36)
+        {
+            filepath = "StageData/stage36";
+        }
+        else if (stageNum == 37)
+        {
+            filepath = "StageData/stage37";
+        }
+        else if (stageNum == 38)
+        {
+            filepath = "StageData/stage38";
+        }
+        else if (stageNum == 39)
+        {
+            filepath = "StageData/stage39";
+        }
+        else if (stageNum == 40)
+        {
+            filepath = "StageData/stage40";
+        }
+        else if (stageNum == 41)
+        {
+            filepath = "StageData/stage41";
+        }
+        else if (stageNum == 42)
+        {
+            filepath = "StageData/stage42";
+        }
+
 
         ReadTextData(); //ステージ情報の読み込み
         //ReadFile();

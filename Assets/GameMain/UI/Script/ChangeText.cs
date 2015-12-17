@@ -325,17 +325,21 @@ public class ChangeText : MonoBehaviour {
         }
         else
         {
-            if (timeCount % talkSpeed == 0)
+            if(stageNumber <25)
             {
-                if (lineCount == limitTalk)
+                if (timeCount % talkSpeed == 0)
                 {
-                    lineCount = talkNumber;
+                    if (lineCount == limitTalk)
+                    {
+                        lineCount = talkNumber;
+                    }
+
+                    SetNextLine(lineCount);
+                    lineCount++;
+
                 }
-
-                SetNextLine(lineCount);
-                lineCount++;
-
             }
+            
 
         }
 
@@ -372,21 +376,29 @@ public class ChangeText : MonoBehaviour {
    
     void SetNextLine(int line)
     {
-        currentText = scenarios[line];
-        timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
-        timeElapsed = Time.time;
-        //currentLine++;
-        lastUpdateCharacter = -1;
+        if(stageNumber <25)
+        {
+            currentText = scenarios[line];
+            timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
+            timeElapsed = Time.time;
+            //currentLine++;
+            lastUpdateCharacter = -1;
+        }
+        
     }
 
         //.txtを読み込むときにreadの部分で差し換えてください
     void ReadTextData()
     {
-        // TextAssetとして、Resourcesフォルダからテキストデータをロードする
-        stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
-        // 文字列を代入
-        stageData = stageTextAsset.text;
-        scenarios = stageData.Split("\n"[0]);
+        if(stageNumber < 25)
+        {
+            // TextAssetとして、Resourcesフォルダからテキストデータをロードする
+            stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
+            // 文字列を代入
+            stageData = stageTextAsset.text;
+            scenarios = stageData.Split("\n"[0]);
+        }
+       
     }
 
     public void TutorialNext()

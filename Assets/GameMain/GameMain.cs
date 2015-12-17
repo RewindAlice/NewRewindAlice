@@ -1322,6 +1322,96 @@ public class GameMain : MonoBehaviour
             PlayerPrefs.SetInt("STAGE_NUM", 24);
             PlayerPrefs.SetString("Text", "stage24.txt");
         }
+        else if (stageNumber == 25)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 25);
+            PlayerPrefs.SetString("Text", "stage25.txt");
+        }
+        else if (stageNumber == 26)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 26);
+            PlayerPrefs.SetString("Text", "stage26.txt");
+        }
+        else if (stageNumber == 27)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 27);
+            PlayerPrefs.SetString("Text", "stage27.txt");
+        }
+        else if (stageNumber == 28)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 28);
+            PlayerPrefs.SetString("Text", "stage28.txt");
+        }
+        else if (stageNumber == 29)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 29);
+            PlayerPrefs.SetString("Text", "stage29.txt");
+        }
+        else if (stageNumber == 30)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 30);
+            PlayerPrefs.SetString("Text", "stage30.txt");
+        }
+        else if (stageNumber == 31)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 31);
+            PlayerPrefs.SetString("Text", "stage31.txt");
+        }
+        else if (stageNumber == 32)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 32);
+            PlayerPrefs.SetString("Text", "stage32.txt");
+        }
+        else if (stageNumber == 33)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 33);
+            PlayerPrefs.SetString("Text", "stage33.txt");
+        }
+        else if (stageNumber == 34)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 34);
+            PlayerPrefs.SetString("Text", "stage34.txt");
+        }
+        else if (stageNumber == 35)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 35);
+            PlayerPrefs.SetString("Text", "stage35.txt");
+        }
+        else if (stageNumber == 36)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 36);
+            PlayerPrefs.SetString("Text", "stage36.txt");
+        }
+        else if (stageNumber == 37)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 37);
+            PlayerPrefs.SetString("Text", "stage37.txt");
+        }
+        else if (stageNumber == 38)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 38);
+            PlayerPrefs.SetString("Text", "stage38.txt");
+        }
+        else if (stageNumber == 39)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 39);
+            PlayerPrefs.SetString("Text", "stage39.txt");
+        }
+        else if (stageNumber == 40)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 40);
+            PlayerPrefs.SetString("Text", "stage40.txt");
+        }
+        else if (stageNumber == 41)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 41);
+            PlayerPrefs.SetString("Text", "stage41.txt");
+        }
+        else if (stageNumber == 42)
+        {
+            PlayerPrefs.SetInt("STAGE_NUM", 42);
+            PlayerPrefs.SetString("Text", "stage42.txt");
+        }
     }
     //---------------------------------------------------
 }
