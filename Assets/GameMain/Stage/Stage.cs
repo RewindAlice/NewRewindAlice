@@ -1767,6 +1767,8 @@ public class Stage : MonoBehaviour
                         alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                         print("落下");
                     }
+
+                   
                    
                     break;
 
@@ -1925,6 +1927,13 @@ public class Stage : MonoBehaviour
                         if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
                         {
                             alice.AutoMoveSetting(Player.MoveDirection.UP);
+                        }
+
+                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount <= 1)
+                        {
+                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+                            print("落下");
                         }
                     }
                     break;
