@@ -1519,6 +1519,17 @@ public class Stage : MonoBehaviour
                     Climb1(Player.PlayerAngle.FRONT);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
                 }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
+                }
                 break;
             // ▼No.27    梯子（前）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_FRONT:
@@ -1526,6 +1537,17 @@ public class Stage : MonoBehaviour
                 {
                     Climb1(Player.PlayerAngle.FRONT);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
                 }
                 break;
             // ▼No.23    蔦（後）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1535,6 +1557,17 @@ public class Stage : MonoBehaviour
                     Climb1(Player.PlayerAngle.BACK);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
                 }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
+                }
                 break;
             // ▼No.28    梯子（後）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_BACK:
@@ -1542,6 +1575,17 @@ public class Stage : MonoBehaviour
                 {
                     Climb1(Player.PlayerAngle.BACK);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
                 }
                 break;
             // ▼No.24    蔦（左）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1551,6 +1595,17 @@ public class Stage : MonoBehaviour
                     Climb1(Player.PlayerAngle.LEFT);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
                 }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
+                }
                 break;
             // ▼No.29    梯子（左）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_LEFT:
@@ -1558,6 +1613,17 @@ public class Stage : MonoBehaviour
                 {
                     Climb1(Player.PlayerAngle.LEFT);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
                 }
                 break;
             // ▼No.25    蔦（右）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1567,6 +1633,17 @@ public class Stage : MonoBehaviour
                     Climb1(Player.PlayerAngle.RIGHT);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
                 }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().eraseFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
+                }
                 break;
             // ▼No.30    梯子（右）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case LADDER_RIGHT:
@@ -1574,6 +1651,17 @@ public class Stage : MonoBehaviour
                 {
                     Climb1(Player.PlayerAngle.RIGHT);
                     alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                }
+                else if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    alice.SetAnimation(Player.Motion.CLIMB_START, false);
+                }
+                else if (!gimmickObjectArray[posY, posX, posZ].GetComponent<Ladder>().breakFlag)
+                {
+                    if (action == Player.PlayerAction.RETURN)
+                    {
+                        alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                    }
                 }
                 break;
             // ▼No.31    木/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
