@@ -1936,8 +1936,7 @@ public class Stage : MonoBehaviour
                         {
                             alice.AutoMoveSetting(Player.MoveDirection.UP);
                         }
-
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount <= 1)
+                        else if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount < 1)
                         {
                             alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
