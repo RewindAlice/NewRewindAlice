@@ -1527,6 +1527,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.FRONT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1546,6 +1547,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.FRONT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1565,6 +1567,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.BACK);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1584,6 +1587,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.BACK);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1603,6 +1607,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.LEFT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1622,6 +1627,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.LEFT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1641,6 +1647,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.RIGHT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
@@ -1660,6 +1667,7 @@ public class Stage : MonoBehaviour
                 {
                     if (action == Player.PlayerAction.RETURN)
                     {
+                        Climb1(Player.PlayerAngle.RIGHT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
                     }
                 }
