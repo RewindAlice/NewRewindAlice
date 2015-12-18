@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeartSoldierTurnLeft : BaseGimmick
+public class HeartSoldierTurnRight: BaseGimmick
 {
 	// ★移動方向★
 	public enum MoveDirection
