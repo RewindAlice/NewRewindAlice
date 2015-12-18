@@ -103,7 +103,7 @@ GameObject:
   - 114: {fileID: 11489324}
   m_Layer: 0
   m_Name: hashigo_short
-  m_TagString: Untagged
+  m_TagString: Gimmick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,9 +229,10 @@ MonoBehaviour:
   startActionTurn: 0
   besideDicisionMovePossibleFlag: 0
   besideDownDicisionMovePossibleFlag: 0
-  growCount: 0
-  movePossibleFlag: 0
   moveCount: 0
+  breakFlag: 0
+  climbPossibleFlag: 0
+  drawFlag: 0
 --- !u!137 &13780150
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
