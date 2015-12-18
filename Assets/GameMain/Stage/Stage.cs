@@ -55,7 +55,7 @@ public class Stage : MonoBehaviour
     const int DOOR_GREEN = 44;                  // No.44    緑扉（扉）
     const int WARP_HOLE_ONE = 45;               // No.45    穴１
     const int WARP_HOLE_TWO = 46;               // No.46    穴２
-    const int WARP_HOLE_TRHEE = 47;             // No.47    穴３
+    const int WARP_HOLE_THREE = 47;             // No.47    穴３
     const int WARP_HOLE_FOUR = 48;              // No.48    穴４
     const int WARP_HOLE_FIVE = 49;              // No.49    穴５
     const int BRAMBLE = 50;                     // No.50    茨
@@ -650,7 +650,7 @@ public class Stage : MonoBehaviour
 			// ▼No.45~  穴//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case WARP_HOLE_ONE:     // ▼No.45    穴１///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case WARP_HOLE_TWO:     // ▼No.46    穴２///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			case WARP_HOLE_TRHEE:   // ▼No.47    穴３///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			case WARP_HOLE_THREE:   // ▼No.47    穴３///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case WARP_HOLE_FOUR:    // ▼No.48    穴４///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case WARP_HOLE_FIVE:    // ▼No.49    穴５///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickHole, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
@@ -1192,7 +1192,7 @@ public class Stage : MonoBehaviour
             case DOOR_GREEN_KEY:    // No.43    緑扉（鍵）
             case WARP_HOLE_ONE:     // No.45    穴１
             case WARP_HOLE_TWO:     // No.46    穴２
-            case WARP_HOLE_TRHEE:   // No.47    穴３
+            case WARP_HOLE_THREE:   // No.47    穴３
             case WARP_HOLE_FOUR:    // No.48    穴４
             case WARP_HOLE_FIVE:    // No.49    穴５
             case BRAMBLE:           // No.50    茨
@@ -1458,7 +1458,7 @@ public class Stage : MonoBehaviour
             case DOOR_GREEN_KEY:            // No.43    緑扉（鍵）
             case WARP_HOLE_ONE:             // No.45    穴１
             case WARP_HOLE_TWO:             // No.46    穴２
-            case WARP_HOLE_TRHEE:           // No.47    穴３
+            case WARP_HOLE_THREE:           // No.47    穴３
             case WARP_HOLE_FOUR:            // No.48    穴４
             case WARP_HOLE_FIVE:            // No.49    穴５
             case BRAMBLE:                   // No.50    茨
@@ -1939,7 +1939,7 @@ public class Stage : MonoBehaviour
                     break;
                 case WARP_HOLE_ONE:
                 case WARP_HOLE_TWO:
-                case WARP_HOLE_TRHEE:
+                case WARP_HOLE_THREE:
                 case WARP_HOLE_FOUR:
                 case WARP_HOLE_FIVE:
 
@@ -1980,10 +1980,10 @@ public class Stage : MonoBehaviour
                                                 }
                                             }
                                             break;
-                                        case WARP_HOLE_TRHEE:
+                                        case WARP_HOLE_THREE:
                                             if (alice.playerMode == Player.PlayerMode.SMALL)
                                             {
-                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_TRHEE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_THREE && ((y != posY - 1) || (x != posX) || (z != posZ)))
                                                 {
                                                     alice.transform.position = new Vector3(x, y + 0.5f, z);
                                                     alice.arrayPosX = x;
@@ -2552,7 +2552,7 @@ public class Stage : MonoBehaviour
         if (posY - 1 >= 0)
         {
             if ((gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_ONE) || (gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_TWO) ||
-                (gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_TRHEE) || (gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_FOUR) ||
+                (gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_THREE) || (gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_FOUR) ||
                 ((gimmickNumArray[posY - 1, posX, posZ] == WARP_HOLE_FIVE)))
             {
                 return true;
