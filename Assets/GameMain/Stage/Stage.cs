@@ -2496,7 +2496,11 @@ public class Stage : MonoBehaviour
             case LADDER_LEFT:
             case LADDER_RIGHT:
 			case ROCK:
-
+            case WARP_HOLE_ONE:
+            case WARP_HOLE_TWO:
+            case WARP_HOLE_THREE:
+            case WARP_HOLE_FOUR:
+            case WARP_HOLE_FIVE:
                 flag = true;
                 break;
 

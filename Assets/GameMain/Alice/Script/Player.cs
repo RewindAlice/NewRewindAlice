@@ -141,10 +141,13 @@ public class Player : MonoBehaviour
 
     public int countBig;    // 大きくなっているターン数
     public int countSmall;  // 小さくなっているターン数
+
     //------------------------
     //松村脩平追加部分
     //------------------------
     public bool invisibleFlag;
+
+    public bool nextFlag;
 
 	//------------------------
 	// 西尾竜太郎追加部分
@@ -207,7 +210,7 @@ public class Player : MonoBehaviour
         moveNextFlag = false;
         inputKeyFlag = false;
         stopCount = 0;
-
+        nextFlag = false;
         playerMode = PlayerMode.NORMAL;      // アリスの初期の状態を通常に
         playerAngle = PlayerAngle.FRONT;    // アリスの初期の向きを前に
 		pause = GameObject.Find("Pause");
@@ -502,15 +505,21 @@ public class Player : MonoBehaviour
             // 保存数が０より大きい（保存されている移動があれば）
             if (saveCount > 0)
             {
+                
                 // 巻き戻しの移動開始処理//////////////////////////////////////////////////////////////
                 moveFlag = true;                                    // 移動フラグを真に
-                moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 playerMode = saveMovePlayerMode[saveCount - 1];     // １つ前の状態を設定
+                nextFlag = false;
+                ModeChange();
+                moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
+                
+                Debug.Log(playerMode);
                 playerAngle = saveMovePlayerAngle[saveCount - 1];   // １つ前の向きを設定
                 moveDirection = saveMoveDirection[saveCount - 1];   // １つ前の移動方向を設定
                 inputKeyFlag = saveMoveInput[saveCount - 1];        // １つ前の入力を設定
                 ChangeAngle();                                      // アリスの向きを変更
-                ModeChange();                                       // 状態の切り替え
+                                                       // 状態の切り替え
+                Debug.Log(playerMode+"asdasd");
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
 
                 // プレイヤーの状態が通常なら////////////////////////////
@@ -754,21 +763,12 @@ public class Player : MonoBehaviour
             {
                 countBig--; // 大きくなっているカウントを減らす
 
-                // 大きくなっている
-                if (countBig == 0)
-                {
-                    playerMode = PlayerMode.NORMAL;
-                }
             }
 
             if (playerMode == PlayerMode.SMALL)
             {
                 countSmall--;
-
-                if (countSmall == 0)
-                {
-                    playerMode = PlayerMode.NORMAL;
-                }
+               
             }
         }
         // プレイヤーの行動が戻るなら////////////////////////////////////////
@@ -777,28 +777,10 @@ public class Player : MonoBehaviour
             MoveCountUp();
             turnCount--;
 
-            if (playerMode == PlayerMode.BIG)
-            {
-                if (countBig == 3)
-                {
-                    playerMode = PlayerMode.NORMAL;
-                }
-
-                countBig++;
-            }
-
-            if (playerMode == PlayerMode.SMALL)
-            {
-                if (countSmall == 3)
-                {
-                    playerMode = PlayerMode.NORMAL;
-                }
-
-                countSmall++;
-            }
+           
         }
 
-        ModeChange();   // 状態の切り替え
+        //ModeChange();   // 状態の切り替え
 
         moveFlag = false;                   // 移動フラグを偽に
         moveFinishFlag = true;              // 移動完了フラグを偽に
@@ -820,6 +802,11 @@ public class Player : MonoBehaviour
             //上るフラグのリセット
             climb1Flag = false;
             climb2Flag = false;
+            nextFlag = true;
+        }
+        else
+        {
+            nextFlag = false;
         }
         if (playerAction == PlayerAction.RETURN && gameOverFlag)
         {
@@ -940,6 +927,66 @@ public class Player : MonoBehaviour
     // ★状態の切り替え★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void ModeChange()
     {
+        // プレイヤーの行動が進めるなら
+        if (nextFlag)
+        {
+
+            // アリスが大きくなっていたら
+            if (playerMode == PlayerMode.BIG)
+            {
+                
+                // 大きくなっている
+                if (countBig == 0)
+                {
+                    playerMode = PlayerMode.NORMAL;
+                }
+            }
+
+            if (playerMode == PlayerMode.SMALL)
+            {
+               
+                if (countSmall == 0)
+                {
+                    playerMode = PlayerMode.NORMAL;
+                }
+            }
+        }
+        // プレイヤーの行動が戻るなら////////////////////////////////////////
+        else if (!nextFlag)
+        {
+            if (playerMode == PlayerMode.BIG)
+            {
+                countBig++;
+            }
+
+            if (playerMode == PlayerMode.SMALL)
+            {
+
+                countSmall++;
+            }
+          
+            if (playerMode == PlayerMode.BIG)
+            {
+                if (countBig == 4)
+                {
+                    playerMode = PlayerMode.NORMAL;
+                }
+
+
+                
+            }
+
+            if (playerMode == PlayerMode.SMALL)
+            {
+                if (countSmall == 4)
+                {
+                    playerMode = PlayerMode.NORMAL;
+                }
+
+                
+            }
+        }
+
         switch (playerMode)
         {
             case PlayerMode.NORMAL: transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); break;

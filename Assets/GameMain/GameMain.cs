@@ -362,6 +362,10 @@ public class GameMain : MonoBehaviour
                     turnCountGimmick++; // カウントを増やす
                     stage.ChangeArrayGimmickNext();//条件が一致した場合のみ処理を呼ぶ関数
 
+                    if (turnCountGimmick == 1)
+                    {
+                        alice.ModeChange();
+                    }
 
                     // カウントが６０になったら
                     if (turnCountGimmick == 60)
