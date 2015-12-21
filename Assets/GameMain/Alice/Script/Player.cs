@@ -201,6 +201,11 @@ public class Player : MonoBehaviour
     Vector3 angleArrowLeft;      // 左方向
     Vector3 angleArrowRight;     // 右方向
 
+
+    //移動用エフェクト
+    public GameObject[] moveEffect;
+    public GameObject Effect;
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -215,7 +220,7 @@ public class Player : MonoBehaviour
         playerAngle = PlayerAngle.FRONT;    // アリスの初期の向きを前に
 		pause = GameObject.Find("Pause");
         autoMoveFlag = false;
-
+        moveCount = 0;
         climb1Flag = false;
         climb2Flag = false;
 
@@ -394,12 +399,15 @@ public class Player : MonoBehaviour
             case PlayerAction.NEXT:
                 if (gameOverFlag == false)
                 {
+
+                    
                     MoveNextPosition();                 // アリスを進める処理
                     MoveFinishDecision(playerAction);   // 移動完了判定
                 }
                 break;
             // ▼戻るなら//////////////////////////////////////////////
             case PlayerAction.RETURN:
+                
                 MoveReturnPosition();               // アリスを戻す処理
                 MoveFinishDecision(playerAction);   // 移動完了判定
                 break;
@@ -480,6 +488,16 @@ public class Player : MonoBehaviour
             if (!moveNextFlag)
             {
                 // ◆通常移動開始処理//////////////////////////////////////////////////////////////
+
+                // タッチした画面座標からワールド座標へ変換
+                Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
+
+
+                pos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+
+                moveEffect[saveCount] = (GameObject)Instantiate(Effect, pos, Quaternion.identity);
+
+
                 moveFlag = true;                            // 移動フラグを真に
                 moveBeforePosition = transform.position;    // 移動前の座標に現在の座標を入れる
                 ChangeDirection(moveDirection);             // カメラの向きに対応した移動方向に変更
@@ -489,6 +507,16 @@ public class Player : MonoBehaviour
             else
             {
                 // ◆早送り移動開始処理////////////////////////////////////////////////////////////////
+
+                // タッチした画面座標からワールド座標へ変換
+                Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
+
+
+                pos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+
+                moveEffect[saveCount] = (GameObject)Instantiate(Effect, pos, Quaternion.identity);
+
+
                 moveFlag = true;                                    // 移動フラグを真に
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 playerMode = saveMovePlayerMode[saveCount];         // 保存されている状態を設定
@@ -505,7 +533,7 @@ public class Player : MonoBehaviour
             // 保存数が０より大きい（保存されている移動があれば）
             if (saveCount > 0)
             {
-                
+                Destroy(moveEffect[saveCount-1]);
                 // 巻き戻しの移動開始処理//////////////////////////////////////////////////////////////
                 moveFlag = true;                                    // 移動フラグを真に
                 playerMode = saveMovePlayerMode[saveCount - 1];     // １つ前の状態を設定

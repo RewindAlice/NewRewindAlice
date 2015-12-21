@@ -166,6 +166,8 @@ MonoBehaviour:
   arrowB: {fileID: 985040213}
   arrowX: {fileID: 470613472}
   arrowY: {fileID: 691523413}
+  moveEffect: []
+  Effect: {fileID: 135266, guid: 29b69232e2b7bb841945f53d86daf419, type: 2}
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
