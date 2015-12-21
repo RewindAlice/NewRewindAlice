@@ -2427,6 +2427,10 @@ public class Stage : MonoBehaviour
             case LADDER_BACK:
             case LADDER_LEFT:
             case LADDER_RIGHT:
+            case MUSHROOM_SMALL:            // No.33    キノコ（小さくなる）
+            case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
+            case POTION_SMALL:              // No.35    薬（小さくなる）
+            case POTION_BIG:                // No.36    薬（大きくなる）
                 flag = true;
                 break;
 
