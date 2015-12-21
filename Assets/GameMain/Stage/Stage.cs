@@ -1769,6 +1769,10 @@ public class Stage : MonoBehaviour
 				case DOOR_GREEN_KEY: // 鍵（緑）
 				case CHESHIRE_CAT: // チェシャ
                 case WATER:
+                case MUSHROOM_SMALL:            // No.33    キノコ（小さくなる）
+                case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
+                case POTION_SMALL:              // No.35    薬（小さくなる）
+                case POTION_BIG:                // No.36    薬（大きくなる）
                     if (action == Player.PlayerAction.NEXT)
                     {
                         alice.AutoMoveSetting(Player.MoveDirection.DOWN);
