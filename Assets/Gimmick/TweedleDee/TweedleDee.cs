@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TweedleDee :BaseGimmick
+public class TweedleDee : BaseGimmick
 {
     //ステージオブジェクト
     public GameObject player;
@@ -27,6 +27,7 @@ public class TweedleDee :BaseGimmick
 
     public bool moveFlag;             //動くかどうか
     public bool returnFlag;           //ターン数が戻るかどうか
+    public bool oncetimeTest;
 
     //キャラクターの向き
     public int direction;
@@ -52,7 +53,7 @@ public class TweedleDee :BaseGimmick
     public int arrayPosY;                           // 配列上での座標Ｙ
     public int arrayPosZ;                           // 配列上での座標Ｚ
     public Vector3 buttonInputPosition;  // ボタン入力時の座標
-
+    public int aliceMove;
     //過去の向きを保存
     public int[] beforeDirection;
     public int[] notMoveTrun;
@@ -60,7 +61,7 @@ public class TweedleDee :BaseGimmick
     //------------------------
     //初期化関数
     //------------------------
-	void Start () 
+    void Start()
     {
         //オブジェクトの検索
         player = GameObject.Find("Alice");
@@ -84,7 +85,7 @@ public class TweedleDee :BaseGimmick
         moveFlag = false;
         //時を戻したときの挙動かどうか
         returnFlag = false;
-        
+
         //過去の向きの保存用変数の初期化
         beforeDirection = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -93,11 +94,12 @@ public class TweedleDee :BaseGimmick
         notMoveTrun = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                           
+
         //初期の向きを代入
         beforeDirection[0] = direction;
         ChangeDirection();
-	}
+        oncetimeTest = false;
+    }
 
     //------------------------
     //座標・向きの初期化関数
@@ -120,10 +122,12 @@ public class TweedleDee :BaseGimmick
     {
         //リターンフラグの初期化
         returnFlag = false;
-
         //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
         if (timeCount < aliceMoveTime)
-        {     
+        {
+            //ここでダムとの激突を避ける
+            stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ),direction,true);
+
             int roopMax = 4;
             for (int i = 0; i < roopMax; i++)
             {
@@ -133,9 +137,9 @@ public class TweedleDee :BaseGimmick
                         if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
+
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
-
                             if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
                                 && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
                             {
@@ -167,10 +171,9 @@ public class TweedleDee :BaseGimmick
                     case 3:
                         if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
-                        {    
+                        {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
-
                             if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
                             {
                                 switch (playerScript.cameraAngle)
@@ -199,71 +202,72 @@ public class TweedleDee :BaseGimmick
                         }
                         break;
                     case 4:
-                        if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                        if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
-                            if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                switch (playerScript.cameraAngle)
+                                if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
                                 {
-                                    case PlayerCamera.CameraAngle.FRONT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.BACK:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.LEFT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
-                                        break;
-                                    case PlayerCamera.CameraAngle.RIGHT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
-                                        break;
-                                }
+                                    switch (playerScript.cameraAngle)
+                                    {
+                                        case PlayerCamera.CameraAngle.FRONT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.BACK:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.LEFT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                            break;
+                                        case PlayerCamera.CameraAngle.RIGHT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                            break;
+                                    }
 
-                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            }
-                            else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                moveFlag = false;
-                            }
+                                    GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                    playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
+                                }
+                                else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
+                                {
+                                    moveFlag = false;
+                                }
+                            
                         }
                         break;
                     case 2:
-                        if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                        if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
-                        { 
+                        {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
-
-                            if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                switch(playerScript.cameraAngle)
+                                if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
                                 {
-                                    case PlayerCamera.CameraAngle.FRONT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.BACK:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.LEFT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.RIGHT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
-                                        break;
+                                    switch (playerScript.cameraAngle)
+                                    {
+                                        case PlayerCamera.CameraAngle.FRONT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.BACK:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.LEFT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.RIGHT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                            break;
+                                    }
+
+                                    GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                    playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
+                                }
+                                else if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
+                                {
+                                    moveFlag = false;
                                 }
 
-                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            }
-                            else if((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                moveFlag = false;
-                            }
                         }
                         break;
                     default:
@@ -287,7 +291,7 @@ public class TweedleDee :BaseGimmick
                     }
 
                     //もし動けなかったら
-                    if(i == 3)
+                    if (i == 3)
                     {
                         notMoveTrun[timeCount + 1] = 1;
                     }
@@ -314,18 +318,18 @@ public class TweedleDee :BaseGimmick
     {
 
         returnFlag = true;
-    
+
         if (timeCount >= aliceMoveTime)
         {
-           if(notMoveTrun[timeCount] == 0)
-           {
-               moveFlag = true;
-               GetComponent<Animator>().SetBool("WalkMotion_Return", true);
-           }
+            if (notMoveTrun[timeCount] == 0)
+            {
+                moveFlag = true;
+                GetComponent<Animator>().SetBool("WalkMotion_Return", true);
+            }
 
-           //カウントを戻す
-           timeCount -= 1;
-        
+            //カウントを戻す
+            timeCount -= 1;
+
         }
 
         //待機フラグを初期化
@@ -336,13 +340,13 @@ public class TweedleDee :BaseGimmick
     }
 
     //-----------------
-	//アップデート関数
+    //アップデート関数
     //-----------------
-	void Update () 
+    void Update()
     {
         //動かす
         Move();
-	}
+    }
 
     //---------------
     //移動させる関数
@@ -357,7 +361,7 @@ public class TweedleDee :BaseGimmick
                 {
                     //動くスピードを設定
                     transform.Translate(Vector3.forward * SPEED);
-                    
+
                     //以下停止コード
                     switch (direction)
                     {
@@ -422,7 +426,7 @@ public class TweedleDee :BaseGimmick
 
             //ターン数が戻るとき
             case true:
-                       
+
                 if (moveFlag)
                 {
                     //動くスピードを設定
@@ -483,10 +487,10 @@ public class TweedleDee :BaseGimmick
                 {
                     moveFlag = false;
                 }
-                      
+
                 break;
         }
-   
+
     }
 
     //-------------------
@@ -499,15 +503,15 @@ public class TweedleDee :BaseGimmick
         //stageScript.DumGimmickDecision(arrayPosX, arrayPosY, arrayPosZ);
 
         //ターン数が戻った時の処理なら
-        if(returnFlag == true)
+        if (returnFlag == true)
         {
             //前回の向きの取得
             direction = beforeDirection[timeCount];
-            
+
             //向きの変更
             ChangeDirection();
-            
-           
+
+
         }
         //リターンフラグの初期化
         returnFlag = false;
@@ -520,7 +524,7 @@ public class TweedleDee :BaseGimmick
     //---------------------------
     public void ChangeArrayPosition(ArrayMove arrayMove)
     {
-       // GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
+        // GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
 
         switch (arrayMove)
         {
@@ -587,5 +591,4 @@ public class TweedleDee :BaseGimmick
             this.transform.localEulerAngles = enemyAngle4;
         }
     }
-
 }

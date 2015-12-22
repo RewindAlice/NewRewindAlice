@@ -159,6 +159,13 @@ public class Stage : MonoBehaviour
     public string[] scenarios;          //ステージ読み込み用変数
     private string filepath;            //テキスト名
     //
+
+    bool Twinstest = false;                                                        //DeeとDumが被ったら
+    Vector3 nextMovePosTwin;
+    public Vector3 Twins1;
+    public Vector3 Twins2;
+    public bool oncetime;
+
     
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -171,6 +178,10 @@ public class Stage : MonoBehaviour
         ModeChangeSaveNum = new int[]{0,0,0,0,0,0,0,0,0,0,
                                       0,0,0,0,0,0,0,0,0,0,
                                       0,0,0,0,0,0,0,0,0,0};
+        nextMovePosTwin = new Vector3(0, 0, 0);
+        Twins1 = new Vector3(0, 0, 0);
+        Twins2 = new Vector3(0, 0, 0);
+
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -696,7 +707,7 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = NONE_BLOCK;
                 moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDum, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickNumList.Add(TWEEDLEDUM);
                 moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDum>().Initialize(gimmickDirection, x, y, z);
                 break;
             // ▼No.56    トゥイードルディ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -704,7 +715,7 @@ public class Stage : MonoBehaviour
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
                 gimmickNumArray[y, x, z] = NONE_BLOCK;
                 moveGimmickObjectList.Add(GameObject.Instantiate(gimmickTweedleDee, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
-                moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
+                moveGimmickNumList.Add(TWEEDLEDEE);
                 moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<TweedleDee>().Initialize(gimmickDirection, x, y, z);
                 break;
             // ▼No.57    ハート兵（右回り）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2525,6 +2536,8 @@ public class Stage : MonoBehaviour
             case WARP_HOLE_THREE:
             case WARP_HOLE_FOUR:
             case WARP_HOLE_FIVE:
+            case POTION_BIG:
+            case POTION_SMALL:
                 flag = true;
                 break;
 
@@ -2731,6 +2744,7 @@ public class Stage : MonoBehaviour
             case LADDER_BACK:
             case LADDER_LEFT:
             case LADDER_RIGHT:
+
                 flag = true;
                 break;
 
@@ -2766,7 +2780,7 @@ public class Stage : MonoBehaviour
             case POTION_SMALL:
             case MUSHROOM_BIG:
             case MUSHROOM_SMALL:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
+                //if (gimmickObjectArray[posY, posX, posZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
                     flag = true;
                 break;
 
@@ -2834,6 +2848,232 @@ public class Stage : MonoBehaviour
                 }
             }
         }
-
     }
+
+    public bool TwinsTestFunc(Vector3 TwinsPos, int direction, bool dee)
+    {
+
+        int deeNum = 0;
+        int dumNum = 0;
+
+        // 移動系ギミックの判定////////////////////////////////////
+        for (int num = 0; num < moveGimmickObjectList.Count; num++)
+        {
+            // 配列の中にギミックがある場合
+            if (moveGimmickNumList[num] == TWEEDLEDEE)
+            {
+                deeNum = num;
+            }
+
+            // 配列の中にギミックがある場合
+            if (moveGimmickNumList[num] == TWEEDLEDUM)
+            {
+                dumNum = num;
+            }
+
+        }
+
+        bool testcode = false;
+        if (Twins1 == new Vector3(0, 0, 0))
+        {
+            Twins1 = TwinsPos;
+        }
+        else
+        {
+            Twins2 = TwinsPos;
+        }
+        if (oncetime != true)
+        {
+            switch (direction)
+            {
+                case 1:
+
+                    if ((moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ + 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ) && (dee))
+                    {
+                        moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 3;
+                        int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 4;
+                                break;
+                        }
+                    }
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ + 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ)
+                    {
+                        moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 3;
+                        int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 4;
+                                break;
+                        }
+                    }
+                    break;
+
+                case 3:
+                    //z-2
+                    //array.Z-2の座標にdee又はdumがいる時
+                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ - 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ)
+                    {
+                        moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 1;
+                        int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 4;
+                                break;
+                        }
+                    }
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ)
+                    {
+                        moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 1;
+                        int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 4;
+                                break;
+                        }
+                    }
+                    break;
+
+                case 4:
+                    //array.X-2の座標にdee又はdumがいる時
+                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX - 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX)
+                    {
+                        moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 2;
+                        int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 4;
+                                break;
+                        }
+                    }
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX)
+                    {
+                        moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 2;
+                        int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
+
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 4;
+                                break;
+                        }
+                    }
+                    break;
+
+                case 2:
+                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX + 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX)
+                    {
+                        moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 4;
+                        int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 4;
+                                break;
+                        }
+                    }
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX)
+                    {
+                        moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 4;
+                        int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
+
+                        switch (move)
+                        {
+                            case 1:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 3;
+                                break;
+                            case 3:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 1;
+                                break;
+                            case 4:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 2;
+                                break;
+                            case 2:
+                                moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 4;
+                                break;
+                        }
+                    }
+                    break;
+            }
+            oncetime = true;
+        }
+        else
+        {
+            oncetime = false;
+        }
+
+
+
+        return false;
+    }
+
 }

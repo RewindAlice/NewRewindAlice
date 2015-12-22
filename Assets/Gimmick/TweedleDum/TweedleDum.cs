@@ -27,6 +27,7 @@ public class TweedleDum : BaseGimmick
 
     public bool moveFlag;             //動くかどうか
     public bool returnFlag;           //ターン数が戻るかどうか
+    public bool oncetimeTest;
 
     //キャラクターの向き
 	public int direction;
@@ -52,6 +53,7 @@ public class TweedleDum : BaseGimmick
 	public int arrayPosY;                           // 配列上での座標Ｙ
 	public int arrayPosZ;                           // 配列上での座標Ｚ
 	public Vector3 buttonInputPosition;  // ボタン入力時の座標
+    public int aliceMove;
 
     //過去の向きを保存
     public int[] beforeDirection;
@@ -101,6 +103,8 @@ public class TweedleDum : BaseGimmick
         //初期の向きを代入
         beforeDirection[0] = direction;
 
+
+        oncetimeTest = false;
 	}
 
     //------------------------
@@ -122,173 +126,186 @@ public class TweedleDum : BaseGimmick
     //---------------------------------
 	public override void OnAliceMoveNext(int aliceMoveTime)
 	{
+
         //リターンフラグの初期化
         returnFlag = false;
 
-		//(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
-		if (timeCount < aliceMoveTime)
-		{
-			int roopMax = 4;
-			for (int i = 0; i < roopMax; i++)
-			{
+        //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
+        if (timeCount < aliceMoveTime)
+        {
+            stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction,false);
+            int roopMax = 4;
+            for (int i = 0; i < roopMax; i++)
+            {
 
-				switch (direction)
-				{
-					case 1:
+                switch (direction)
+                {
+                    case 1:
                         //横判定と横下判定
-                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, new Vector3(arrayPosX,arrayPosY,arrayPosZ),direction))
+                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
-                            //アリスと位置が被ったら
-                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) 
-                                &&(stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
-                            {
-                                switch (playerScript.cameraAngle)
+                                //アリスと位置が被ったら
+                                if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
+                                    && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
                                 {
-                                    case PlayerCamera.CameraAngle.FRONT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
-                                        break;
-                                    case PlayerCamera.CameraAngle.BACK:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.LEFT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.RIGHT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
-                                        break;
+                                    switch (playerScript.cameraAngle)
+                                    {
+                                        case PlayerCamera.CameraAngle.FRONT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                            break;
+                                        case PlayerCamera.CameraAngle.BACK:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.LEFT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.RIGHT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                            break;
+                                    }
+
+                                    GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                    playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
+                                    oncetimeTest = true;
+                                }
+                                else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
+                                    && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
+                                {
+                                    moveFlag = false;
                                 }
 
-                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            }
-                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ + 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) 
-                                && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, true)))
-                            {
-                                moveFlag = false;
-                            }
+
                         }
-						break;
-					case 3:
-                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ),direction)) 
+                        break;
+                    case 3:
+                        if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                         {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
-                            if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
-                            {
-                                switch (playerScript.cameraAngle)
+                                if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
                                 {
-                                    case PlayerCamera.CameraAngle.FRONT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.BACK:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
-                                        break;
-                                    case PlayerCamera.CameraAngle.LEFT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.RIGHT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
-                                        break;
-                                }
+                                    switch (playerScript.cameraAngle)
+                                    {
+                                        case PlayerCamera.CameraAngle.FRONT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.BACK:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                            break;
+                                        case PlayerCamera.CameraAngle.LEFT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.RIGHT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                            break;
+                                    }
 
-                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            }
-                            else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
-                                && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
-                            {
-                                moveFlag = false;
-                            }
+                                    GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                    playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
+                                    oncetimeTest = true;
+                                }
+                                else if ((new Vector3(arrayPosX, arrayPosY, arrayPosZ - 1) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ))
+                                    && (!stageScript.BesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, true)))
+                                {
+                                    moveFlag = false;
+                                }
+    
+
                         }
-						break;
-					case 4:
-                        if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                        break;
+                    case 4:
+                        if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
-                            if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                switch (playerScript.cameraAngle)
+                                if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
                                 {
-                                    case PlayerCamera.CameraAngle.FRONT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.BACK:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.LEFT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
-                                        break;
-                                    case PlayerCamera.CameraAngle.RIGHT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
-                                        break;
+                                    switch (playerScript.cameraAngle)
+                                    {
+                                        case PlayerCamera.CameraAngle.FRONT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.BACK:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.LEFT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                            break;
+                                        case PlayerCamera.CameraAngle.RIGHT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                            break;
+                                    }
+
+                                    GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                    playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
+                                    oncetimeTest = true;
+                                }
+                                else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
+                                {
+                                    moveFlag = false;
                                 }
 
-                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            }
-                            else if ((new Vector3(arrayPosX - 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX - 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                moveFlag = false;
-                            }
                         }
-						break;
-					case 2:
-                        if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction)) 
+                        break;
+                    case 2:
+                        if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                         {
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
-
-                            if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                switch (playerScript.cameraAngle)
+                 
+                                if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
                                 {
-                                    case PlayerCamera.CameraAngle.FRONT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.BACK:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.LEFT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
-                                        break;
-                                    case PlayerCamera.CameraAngle.RIGHT:
-                                        playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
-                                        break;
+                                    switch (playerScript.cameraAngle)
+                                    {
+                                        case PlayerCamera.CameraAngle.FRONT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.LEFT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.BACK:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.RIGHT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.LEFT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.FRONT);
+                                            break;
+                                        case PlayerCamera.CameraAngle.RIGHT:
+                                            playerScript.AutoMoveSetting(Player.MoveDirection.BACK);
+                                            break;
+                                    }
+
+                                    GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                    playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
+                                    oncetimeTest = true;
+                                }
+                                else if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
+                                {
+                                    moveFlag = false;
                                 }
 
-                                GetComponent<Animator>().SetBool("PushMotion_Next", true);
-                                playerScript.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            }
-                            else if ((new Vector3(arrayPosX + 1, arrayPosY, arrayPosZ) == new Vector3(playerScript.arrayPosX, playerScript.arrayPosY, playerScript.arrayPosZ)) && (!stageScript.BesideDecision(arrayPosX + 2, arrayPosY, arrayPosZ, true)))
-                            {
-                                moveFlag = false;
-                            }
+
                         }
-						break;
-					default:
-						break;
-				}
-				if (moveFlag == true)
-				{
-					break;
-				}
-				else
-				{
-					//右回転させる
-					direction++;
-                
-					//向きが一周したら最初の向きに戻す
-					if (direction == 5)
+                        break;
+                    default:
+                        break;
+                }
+                if (moveFlag == true)
+                {
+                    break;
+                }
+                else
+                {
+                    //右回転させる
+                    direction++;
+
+                    //向きが一周したら最初の向きに戻す
+                    if (direction == 5)
                     {
                         direction = 1;
                     }
@@ -298,25 +315,26 @@ public class TweedleDum : BaseGimmick
                     {
                         notMoveTrun[timeCount + 1] = 1;
                     }
-						
-				}
-			}
+
+                }
+            }
 
 
 
-			//仮の保存座標に現在座標を入れる
-			buttonInputPosition = this.transform.localPosition;
-			
-			
-			//カウントを進める
-			timeCount ++;
+            //仮の保存座標に現在座標を入れる
+            buttonInputPosition = this.transform.localPosition;
+
+
+            //カウントを進める
+            timeCount++;
 
             //向きを保存
             beforeDirection[timeCount] = direction;
             //向きの変更
             ChangeDirection();
-		}
-	}
+        }
+
+    }
 
     //----------------------------------
     //アリスが時を戻した時に呼ばれる関数
@@ -590,4 +608,5 @@ public class TweedleDum : BaseGimmick
             this.transform.localEulerAngles = enemyAngle4;
         }
     }
+
 }
