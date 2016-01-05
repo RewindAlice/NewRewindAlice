@@ -938,6 +938,18 @@ public class Stage : MonoBehaviour
         {
             filepath = "StageData/stage42";
         }
+        else if (stageNum == 43)
+        {
+            filepath = "StageData/stage43";
+        }
+        else if (stageNum == 44)
+        {
+            filepath = "StageData/stage44";
+        }
+        else if (stageNum == 45)
+        {
+            filepath = "StageData/stage45";
+        }
 
 
         ReadTextData(); //ステージ情報の読み込み

@@ -136,13 +136,38 @@ public class PlayerCamera : MonoBehaviour
                             case 22: PlayerPrefs.SetInt("Stage5_2Clear", 1); break;
                             case 23: PlayerPrefs.SetInt("Stage5_3Clear", 1); break;
                             case 24: PlayerPrefs.SetInt("Stage5_4Clear", 1); break;
-                        }
+
+
+                            case 25: PlayerPrefs.GetInt("EXStage1Clear", 1); break;
+                            case 26: PlayerPrefs.GetInt("EXStage2Clear", 1); break;
+                            case 27: PlayerPrefs.GetInt("EXStage3Clear", 1); break;
+                            case 28: PlayerPrefs.GetInt("EXStage4Clear", 1); break;
+                            case 29: PlayerPrefs.GetInt("EXStage5Clear", 1); break;
+                            case 30: PlayerPrefs.GetInt("EXStage6Clear", 1); break;
+                            case 31: PlayerPrefs.GetInt("EXStage7Clear", 1); break;
+                            case 32: PlayerPrefs.GetInt("EXStage8Clear", 1); break;
+                            case 33: PlayerPrefs.GetInt("EXStage9Clear", 1); break;
+                            case 34: PlayerPrefs.GetInt("EXStage10Clear", 1); break;
+                            case 35: PlayerPrefs.GetInt("EXStage11Clear", 1); break;
+                            case 36: PlayerPrefs.GetInt("EXStage12Clear", 1); break;
+                            case 37: PlayerPrefs.GetInt("EXStage13Clear", 1); break;
+                            case 38: PlayerPrefs.GetInt("EXStage14Clear", 1); break;
+                            case 39: PlayerPrefs.GetInt("EXStage15Clear", 1); break;
+                            case 40: PlayerPrefs.GetInt("EXStage16Clear", 1); break;
+                            case 41: PlayerPrefs.GetInt("EXStage17Clear", 1); break;
+                            case 42: PlayerPrefs.GetInt("EXStage18Clear", 1); break;
+                            case 43: PlayerPrefs.GetInt("EXStage19Clear", 1); break;
+                            case 44: PlayerPrefs.GetInt("EXStage20Clear", 1); break;
+                            case 45: PlayerPrefs.GetInt("EXStage21Clear", 1); break;
+                                                                        
+                                                                        
+                        }                                               
                         Singleton<SoundPlayer>.instance.BGMPlayerDelete();
                         CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-                    }
-                }
-			}
-		}
+                    }                                                   
+                }                                                       
+			}                                                           
+		}                                                               
     }
 
     // ★カメラの回転★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
