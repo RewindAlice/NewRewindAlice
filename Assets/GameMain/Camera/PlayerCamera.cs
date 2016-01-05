@@ -138,27 +138,27 @@ public class PlayerCamera : MonoBehaviour
                             case 24: PlayerPrefs.SetInt("Stage5_4Clear", 1); break;
 
 
-                            case 25: PlayerPrefs.GetInt("EXStage1Clear", 1); break;
-                            case 26: PlayerPrefs.GetInt("EXStage2Clear", 1); break;
-                            case 27: PlayerPrefs.GetInt("EXStage3Clear", 1); break;
-                            case 28: PlayerPrefs.GetInt("EXStage4Clear", 1); break;
-                            case 29: PlayerPrefs.GetInt("EXStage5Clear", 1); break;
-                            case 30: PlayerPrefs.GetInt("EXStage6Clear", 1); break;
-                            case 31: PlayerPrefs.GetInt("EXStage7Clear", 1); break;
-                            case 32: PlayerPrefs.GetInt("EXStage8Clear", 1); break;
-                            case 33: PlayerPrefs.GetInt("EXStage9Clear", 1); break;
-                            case 34: PlayerPrefs.GetInt("EXStage10Clear", 1); break;
-                            case 35: PlayerPrefs.GetInt("EXStage11Clear", 1); break;
-                            case 36: PlayerPrefs.GetInt("EXStage12Clear", 1); break;
-                            case 37: PlayerPrefs.GetInt("EXStage13Clear", 1); break;
-                            case 38: PlayerPrefs.GetInt("EXStage14Clear", 1); break;
-                            case 39: PlayerPrefs.GetInt("EXStage15Clear", 1); break;
-                            case 40: PlayerPrefs.GetInt("EXStage16Clear", 1); break;
-                            case 41: PlayerPrefs.GetInt("EXStage17Clear", 1); break;
-                            case 42: PlayerPrefs.GetInt("EXStage18Clear", 1); break;
-                            case 43: PlayerPrefs.GetInt("EXStage19Clear", 1); break;
-                            case 44: PlayerPrefs.GetInt("EXStage20Clear", 1); break;
-                            case 45: PlayerPrefs.GetInt("EXStage21Clear", 1); break;
+                            case 25: PlayerPrefs.SetInt("EXStage1Clear", 1); break;
+                            case 26: PlayerPrefs.SetInt("EXStage2Clear", 1); break;
+                            case 27: PlayerPrefs.SetInt("EXStage3Clear", 1); break;
+                            case 28: PlayerPrefs.SetInt("EXStage4Clear", 1); break;
+                            case 29: PlayerPrefs.SetInt("EXStage5Clear", 1); break;
+                            case 30: PlayerPrefs.SetInt("EXStage6Clear", 1); break;
+                            case 31: PlayerPrefs.SetInt("EXStage7Clear", 1); break;
+                            case 32: PlayerPrefs.SetInt("EXStage8Clear", 1); break;
+                            case 33: PlayerPrefs.SetInt("EXStage9Clear", 1); break;
+                            case 34: PlayerPrefs.SetInt("EXStage10Clear", 1); break;
+                            case 35: PlayerPrefs.SetInt("EXStage11Clear", 1); break;
+                            case 36: PlayerPrefs.SetInt("EXStage12Clear", 1); break;
+                            case 37: PlayerPrefs.SetInt("EXStage13Clear", 1); break;
+                            case 38: PlayerPrefs.SetInt("EXStage14Clear", 1); break;
+                            case 39: PlayerPrefs.SetInt("EXStage15Clear", 1); break;
+                            case 40: PlayerPrefs.SetInt("EXStage16Clear", 1); break;
+                            case 41: PlayerPrefs.SetInt("EXStage17Clear", 1); break;
+                            case 42: PlayerPrefs.SetInt("EXStage18Clear", 1); break;
+                            case 43: PlayerPrefs.SetInt("EXStage19Clear", 1); break;
+                            case 44: PlayerPrefs.SetInt("EXStage20Clear", 1); break;
+                            case 45: PlayerPrefs.SetInt("EXStage21Clear", 1); break;
                                                                         
                                                                         
                         }                                               
