@@ -1144,6 +1144,9 @@ MonoBehaviour:
   stageTextAsset: {fileID: 0}
   stageData: 
   scenarios: []
+  Twins1: {x: 0, y: 0, z: 0}
+  Twins2: {x: 0, y: 0, z: 0}
+  oncetime: 0
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
