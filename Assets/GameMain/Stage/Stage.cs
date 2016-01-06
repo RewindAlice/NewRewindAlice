@@ -3082,10 +3082,32 @@ public class Stage : MonoBehaviour
         {
             oncetime = false;
         }
-
-
-
         return false;
     }
+    //DEEとDUMが両方ともステージにいるか？
+    public bool findTwins()
+    {
+        bool twin1 = false;
+        bool twin2 = false;
+        for (int num = 0; num < moveGimmickObjectList.Count; num++)
+        {
+            // 配列の中にギミックがある場合
+            if (moveGimmickNumList[num] == TWEEDLEDEE)
+            {
+                twin1 = true;
+            }
+            if(moveGimmickNumList[num] == TWEEDLEDUM)
+            {
+                twin2 = true;
+            }
+            if((twin1)&&(twin2))
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
 }

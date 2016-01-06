@@ -125,9 +125,11 @@ public class TweedleDee : BaseGimmick
         //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
         if (timeCount < aliceMoveTime)
         {
-            //ここでダムとの激突を避ける
-            stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ),direction,true);
-
+            if (stageScript.findTwins())
+            {
+                //ここでダムとの激突を避ける
+                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, true);
+            }
             int roopMax = 4;
             for (int i = 0; i < roopMax; i++)
             {
