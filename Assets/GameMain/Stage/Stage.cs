@@ -1818,6 +1818,12 @@ public class Stage : MonoBehaviour
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
                         }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.FRONT);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
+                        }
                     }
                     else
                     {
@@ -1835,6 +1841,12 @@ public class Stage : MonoBehaviour
                             alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
+                        }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.FRONT);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
                         }
                     }
                     else
@@ -1855,6 +1867,12 @@ public class Stage : MonoBehaviour
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
                         }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.BACK);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
+                        }
                     }
                     else
                     {
@@ -1872,6 +1890,12 @@ public class Stage : MonoBehaviour
                             alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
+                        }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.BACK);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
                         }
                     }
                     else
@@ -1892,6 +1916,12 @@ public class Stage : MonoBehaviour
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
                         }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.LEFT);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
+                        }
                     }
                     else
                     {
@@ -1909,6 +1939,12 @@ public class Stage : MonoBehaviour
                             alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
+                        }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.LEFT);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
                         }
                     }
                     else
@@ -1929,6 +1965,12 @@ public class Stage : MonoBehaviour
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
                         }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.RIGHT);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
+                        }
                     }
                     else
                     {
@@ -1946,6 +1988,12 @@ public class Stage : MonoBehaviour
                             alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                             alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             print("落下");
+                        }
+                        if (action == Player.PlayerAction.RETURN)
+                        {
+                            Climb2(Player.PlayerAngle.RIGHT);
+                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+                            alice.SetAnimation(Player.Motion.CLIMB, true);
                         }
                     }
                     else
@@ -3082,10 +3130,32 @@ public class Stage : MonoBehaviour
         {
             oncetime = false;
         }
-
-
-
         return false;
     }
+    //DEEとDUMが両方ともステージにいるか？
+    public bool findTwins()
+    {
+        bool twin1 = false;
+        bool twin2 = false;
+        for (int num = 0; num < moveGimmickObjectList.Count; num++)
+        {
+            // 配列の中にギミックがある場合
+            if (moveGimmickNumList[num] == TWEEDLEDEE)
+            {
+                twin1 = true;
+            }
+            if(moveGimmickNumList[num] == TWEEDLEDUM)
+            {
+                twin2 = true;
+            }
+            if((twin1)&&(twin2))
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
 }
