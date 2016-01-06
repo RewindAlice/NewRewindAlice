@@ -136,6 +136,10 @@ public class StageSelect : MonoBehaviour
 			case 3: stage = STAGE.STAGE_3; break;
 			case 4: stage = STAGE.STAGE_4; break;
 			case 5: stage = STAGE.STAGE_5; break;
+            case 6: stage = STAGE.EX_STAGE_1; break;
+			case 7: stage = STAGE.EX_STAGE_2; break;
+			case 8: stage = STAGE.EX_STAGE_3; break;
+		
 		}
 
 		chapter = Chapter.CHAPTER_1;
@@ -1359,7 +1363,8 @@ public class StageSelect : MonoBehaviour
                 {
                     if (35 <= num && num <= 41)
                     {
-                        if (clearFlag[num] == true) { stamp[num].GetComponent<SpriteRenderer>().enabled = true; }
+                        if (clearFlag[num] == true) { 
+                            stamp[num].GetComponent<SpriteRenderer>().enabled = true; }
                         else { stamp[num].GetComponent<SpriteRenderer>().enabled = false; }
                     }
                     else
@@ -1514,6 +1519,8 @@ public class StageSelect : MonoBehaviour
 			case STAGE.STAGE_4: stageNum = 4; break;
 			case STAGE.STAGE_5: stageNum = 5; break;
             case STAGE.EX_STAGE_1: stageNum = 6; break;
+            case STAGE.EX_STAGE_2: stageNum = 7; break;
+            case STAGE.EX_STAGE_3: stageNum = 8; break;
 		}
 
 		PlayerPrefs.SetInt("STAGE_SELECT_STAGE_NUM", stageNum);
