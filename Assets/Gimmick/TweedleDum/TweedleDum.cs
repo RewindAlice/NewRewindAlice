@@ -133,7 +133,10 @@ public class TweedleDum : BaseGimmick
         //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
         if (timeCount < aliceMoveTime)
         {
-            stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction,false);
+            if (stageScript.findTwins())
+            {
+                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
+            }
             int roopMax = 4;
             for (int i = 0; i < roopMax; i++)
             {
