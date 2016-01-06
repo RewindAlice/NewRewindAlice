@@ -1028,8 +1028,8 @@ RectTransform:
   m_RootOrder: 12
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 551, y: 302}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 563, y: 301}
+  m_SizeDelta: {x: 128, y: 100}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &663006383
 MonoBehaviour:
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 38f6457b071662444bdf7527c4e257b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 010865cf59e05b24b911128791b2979f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1173,56 +1173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   androidMenuFlag: 0
---- !u!1 &767202404
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 767202406}
-  - 114: {fileID: 767202405}
-  m_Layer: 5
-  m_Name: TouchObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &767202405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 767202404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9581985db2c3549b7f62d7d7686261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchPosX: 0
-  touchPosY: 0
-  detachPosX: 0
-  detachPosY: 0
-  touchFlag: 0
-  Effect01: {fileID: 152020, guid: d5496b73d0d74c54cb8741a6d01fded4, type: 2}
---- !u!224 &767202406
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 767202404}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .635937512, y: .635937512, z: .635937512}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 640, y: 360.098267}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: .5, y: .5}
 --- !u!1 &768865436
 GameObject:
   m_ObjectHideFlags: 0
