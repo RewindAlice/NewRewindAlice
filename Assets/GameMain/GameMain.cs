@@ -317,6 +317,10 @@ public class GameMain : MonoBehaviour
                     alice.arrowDrawFlag = false;
                     alice.SetAnimation(Player.Motion.GAMEOVER, true);
                 }
+                else if (camera.rotationFlag)
+                {
+                    alice.arrowDrawFlag = false;
+                }
                 else
                 {
                     alice.arrowDrawFlag = true;
@@ -492,8 +496,6 @@ public class GameMain : MonoBehaviour
                 {
                     CameraTurnLeftMove();
                     print("カメラ左回転");// デバッグ用コメント
-
-                    alice.arrowDrawFlag = false;
                 }
 
                 if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
@@ -517,8 +519,6 @@ public class GameMain : MonoBehaviour
                 {
                     CameraTurnRightMove();
                     print("カメラ右回転");// デバッグ用コメント
-
-                    alice.arrowDrawFlag = false;
                 }
                 if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
                 {
