@@ -166,7 +166,37 @@ MonoBehaviour:
   arrowB: {fileID: 985040213}
   arrowX: {fileID: 470613472}
   arrowY: {fileID: 691523413}
-  moveEffect: []
+  moveEffect:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   Effect: {fileID: 135266, guid: 29b69232e2b7bb841945f53d86daf419, type: 2}
 --- !u!1 &134013359
 GameObject:
@@ -1189,6 +1219,9 @@ MonoBehaviour:
   stageTextAsset: {fileID: 0}
   stageData: 
   scenarios: []
+  Twins1: {x: 0, y: 0, z: 0}
+  Twins2: {x: 0, y: 0, z: 0}
+  oncetime: 0
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
