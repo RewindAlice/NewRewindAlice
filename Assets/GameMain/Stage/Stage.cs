@@ -397,12 +397,14 @@ public class Stage : MonoBehaviour
                 break;
             // ▼No.8     家ステージの本棚///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case ROOM_BLOCK_BOOKSHELF:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
-                gimmickNumArray[y, x, z] = ROCK;
-                gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);
-                gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+
+				pushGimmickObjectArray[y, x, z] = GameObject.Instantiate(roomBlockBookShelf, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+				pushGimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+				pushGimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
+				pushGimmickNumArray[y, x, z] = ROCK;
+				pushGimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);
+				pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);
                 break;
             // ▼No.9     赤い森ステージの足場ブロック（1段目）//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case REDFOREST_BLOCK_GROUND://///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1324,39 +1326,6 @@ public class Stage : MonoBehaviour
                     gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
                 }
                 break;
-			//case ROCK:  // No.62    岩////////////////////////////////////////////////////////////
-			//	// アリスが大きければ
-			//	if (alice.GetBig())
-			//	{
-			//		int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
-			//		int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
-
-			//		int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
-			//		int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
-			//		Debug.Log(pushDirectionZ);
-
-			//		// 押した先にギミックが無ければ移動可能
-			//		if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
-			//		{
-			//			flag = true;    // 移動できる
-			//			if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
-			//			((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
-			//			((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
-			//			((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
-			//			{
-			//				gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
-
-			//				GameObject objectTemp;
-			//				objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-			//				gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
-			//				gimmickObjectArray[posY, posX, posZ] = objectTemp;
-
-			//				gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
-			//				gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-			//			}
-			//		}
-			//	}
-			//	break;
 
 			case SOLDIER_HEART_RIGHT: // No.57    ハート兵(右回り)////////////////////////////////////////////////////////////
 				int heartPositionByAliceX_R = posX - alice.arrayPosX; // アリスから見た兵士の位置x
@@ -1866,7 +1835,6 @@ public class Stage : MonoBehaviour
 				case DOOR_YELLOW_KEY: // 鍵（黄）
 				case DOOR_GREEN_KEY: // 鍵（緑）
 				case CHESHIRE_CAT: // チェシャ
-                case WATER:
                 case MUSHROOM_SMALL:            // No.33    キノコ（小さくなる）
                 case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
                 case POTION_SMALL:              // No.35    薬（小さくなる）
@@ -1880,6 +1848,7 @@ public class Stage : MonoBehaviour
 					break;
 
 				case NONE_BLOCK:
+				case WATER:
 					switch (pushGimmickNumArray[posY - 1, posX, posZ])
 					{
 						case ROCK:
@@ -2295,6 +2264,7 @@ public class Stage : MonoBehaviour
         // ここにゴール処理を書く
 
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
+        Singleton<SoundPlayer>.instance.PlaySE("se004");
 
         
         // タッチした画面座標からワールド座標へ変換
@@ -2422,7 +2392,8 @@ public class Stage : MonoBehaviour
 								case ROCK:
 									if (y > 0)
 									{
-										if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+										if ((gimmickNumArray[y - 1, x, z] == NONE_BLOCK) ||
+											(gimmickNumArray[y - 1, x, z] == WATER))
 										{
 											pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
 											GameObject objectTemp;
@@ -2508,14 +2479,14 @@ public class Stage : MonoBehaviour
 							{
 								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
 								{
-									gimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+									pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
 									GameObject objectTemp;
-									objectTemp = gimmickObjectArray[y - 1, x, z];
-									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
-									gimmickObjectArray[y, x, z] = objectTemp;
+									objectTemp = pushGimmickObjectArray[y - 1, x, z];
+									pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+									pushGimmickObjectArray[y, x, z] = objectTemp;
 
-									gimmickNumArray[y - 1, x, z] = ROCK;
-									gimmickNumArray[y, x, z] = NONE_BLOCK;
+									pushGimmickNumArray[y - 1, x, z] = ROCK;
+									pushGimmickNumArray[y, x, z] = NONE_BLOCK;
 								}
 							}
 							break;

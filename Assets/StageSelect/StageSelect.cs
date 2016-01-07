@@ -246,7 +246,7 @@ public class StageSelect : MonoBehaviour
         exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         optionimage.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-        GameObject.Find("Button").GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+       // GameObject.Find("Button").GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         returnCount = 0;
 
@@ -265,516 +265,514 @@ public class StageSelect : MonoBehaviour
 	{
         Singleton<SoundPlayer>.instance.controllVol(value / 2);
         Singleton<SoundPlayer>.instance.update();
-        if (optionFlag == false)
+        returnCount++;
+
+        if (returnCount > 1200)
         {
-            returnCount++;
+            Application.LoadLevel("TitleScene");
+        }
 
-            if (returnCount > 1200)
-            {
-                Application.LoadLevel("TitleScene");
-            }
-
-            count++;
+        count++;
 
 
-            if (count >= 50 && drawFlag == false)
-            {
-                drawFlag = true;
-                book.GetComponent<Animator>().SetBool("FirstPageFlag", true);
-            }
+        if (count >= 50 && drawFlag == false)
+        {
+            drawFlag = true;
+            book.GetComponent<Animator>().SetBool("FirstPageFlag", true);
+        }
 
-            if (drawFlag == true)
-            {
-                drawCount++;
-            }
+        if (drawFlag == true)
+        {
+            drawCount++;
+        }
 
-            if (drawCount > 60)
-            {
-                //DrawStagePicture();
+        if (drawCount > 60)
+        {
+            //DrawStagePicture();
 
-            }
-            switch (stage)
-            {
-                case STAGE.STAGE_1:
-                    //前に表示していたページを消す
-                    if (stage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-
-                        }
-                    }
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        GameObject.Find("Button").GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                        stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                case STAGE.STAGE_2:
-                    //前に表示していたページを消す
-                    if (stage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-
-                        }
-                    }
-                    else if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-
-                        }
-                    }
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-
-                        stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                case STAGE.STAGE_3:
-                    //前に表示していたページを消す
-                    if (stage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (stage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                case STAGE.STAGE_4:
-                    //前に表示していたページを消す
-                    if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (stage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                case STAGE.STAGE_5:
-                    //前に表示していたページを消す
-                    if (stage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (exStage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                case STAGE.EX_STAGE_1:
-                    //前に表示していたページを消す
-                    if (stage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (exStage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-
-                    break;
-
-                case STAGE.EX_STAGE_2:
-                    //前に表示していたページを消す
-                    if (exStage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (exStage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                case STAGE.EX_STAGE_3:
-                    //前に表示していたページを消す
-                    if (exStage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (exStage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                    {
-                        if (drawCount > 0 && drawCount <= 25)
-                        {
-                            exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                        }
-                    }
-
-                    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                    {
-                        exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                    }
-                    break;
-
-                //case STAGE.EX_STAGE_4:
-                //    //前に表示していたページを消す
-                //    if (exStage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                //    {
-                //        if (drawCount > 0 && drawCount <= 25)
-                //        {
-                //            exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                //        }
-                //    }
-
-                //    if (exStage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                //    {
-                //        if (drawCount > 0 && drawCount <= 25)
-                //        {
-                //            exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                //        }
-                //    }
-
-                //    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                //    {
-                //        exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                //    }
-                //    break;
-
-                //case STAGE.EX_STAGE_5:
-                //    //前に表示していたページを消す
-                //    if (exStage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                //    {
-                //        if (drawCount > 0 && drawCount <= 25)
-                //        {
-                //            exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                //        }
-                //    }
-
-                //    if (exStage6Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                //    {
-                //        if (drawCount > 0 && drawCount <= 25)
-                //        {
-                //            exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                //        }
-                //    }
-
-                //    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                //    {
-                //        exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                //    }
-                //    break;
-
-                //case STAGE.EX_STAGE_6:
-                //    //前に表示していたページを消す
-                //    if (exStage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
-                //    {
-                //        if (drawCount > 0 && drawCount <= 25)
-                //        {
-                //            exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-                //        }
-                //    }
-                //    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
-                //    {
-                //        exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
-                //    }
-                //    break;
-
-
-            }
-            if (drawCount > 100)
-            {
-                icon.GetComponent<SpriteRenderer>().enabled = true;
-                SetIconPosition();
-                DrawStamp();
-            }
-            else
-            {
-                icon.GetComponent<SpriteRenderer>().enabled = false;
-
-                for (int num = 0; num < STAMP_NUM; num++)
+        }
+        switch (stage)
+        {
+            case STAGE.STAGE_1:
+                //前に表示していたページを消す
+                if (stage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
                 {
-                    stamp[num].GetComponent<SpriteRenderer>().enabled = false;
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+
+                    }
                 }
-            }
 
-            //SetData();
-            //ResetData();
-            if (!Android)
-            {
-                float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
-                float VerticalKeyInput = Input.GetAxis("VerticalKey");
-
-                if ((-0.3f < HorizontalKeyInput) && (HorizontalKeyInput < 0.3f) && (-0.3f < VerticalKeyInput) && (VerticalKeyInput < 0.3f))
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
                 {
-                    keyFlag = false;
+                    //GameObject.Find("Button").GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            case STAGE.STAGE_2:
+                //前に表示していたページを消す
+                if (stage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+
+                    }
+                }
+                else if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+
+                    stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            case STAGE.STAGE_3:
+                //前に表示していたページを消す
+                if (stage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (stage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
                 }
 
 
-
-                if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
                 {
-                    // 矢印左を押したら
-                    if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                    stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            case STAGE.STAGE_4:
+                //前に表示していたページを消す
+                if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (stage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            case STAGE.STAGE_5:
+                //前に表示していたページを消す
+                if (stage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            case STAGE.EX_STAGE_1:
+                //前に表示していたページを消す
+                if (stage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        stage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+
+                break;
+
+            case STAGE.EX_STAGE_2:
+                //前に表示していたページを消す
+                if (exStage1Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            case STAGE.EX_STAGE_3:
+                //前に表示していたページを消す
+                if (exStage2Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (exStage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+                {
+                    if (drawCount > 0 && drawCount <= 25)
+                    {
+                        exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+                    }
+                }
+
+                if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+                {
+                    exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+                }
+                break;
+
+            //case STAGE.EX_STAGE_4:
+            //    //前に表示していたページを消す
+            //    if (exStage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            //    {
+            //        if (drawCount > 0 && drawCount <= 25)
+            //        {
+            //            exStage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+            //        }
+            //    }
+
+            //    if (exStage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            //    {
+            //        if (drawCount > 0 && drawCount <= 25)
+            //        {
+            //            exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+            //        }
+            //    }
+
+            //    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+            //    {
+            //        exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+            //    }
+            //    break;
+
+            //case STAGE.EX_STAGE_5:
+            //    //前に表示していたページを消す
+            //    if (exStage4Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            //    {
+            //        if (drawCount > 0 && drawCount <= 25)
+            //        {
+            //            exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+            //        }
+            //    }
+
+            //    if (exStage6Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            //    {
+            //        if (drawCount > 0 && drawCount <= 25)
+            //        {
+            //            exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+            //        }
+            //    }
+
+            //    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+            //    {
+            //        exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+            //    }
+            //    break;
+
+            //case STAGE.EX_STAGE_6:
+            //    //前に表示していたページを消す
+            //    if (exStage5Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
+            //    {
+            //        if (drawCount > 0 && drawCount <= 25)
+            //        {
+            //            exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
+            //        }
+            //    }
+            //    if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
+            //    {
+            //        exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
+            //    }
+            //    break;
+
+
+        }
+        if (drawCount > 100)
+        {
+            icon.GetComponent<SpriteRenderer>().enabled = true;
+            SetIconPosition();
+            DrawStamp();
+        }
+        else
+        {
+            icon.GetComponent<SpriteRenderer>().enabled = false;
+
+            for (int num = 0; num < STAMP_NUM; num++)
+            {
+                stamp[num].GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
+
+        //SetData();
+        //ResetData();
+        if (!Android)
+        {
+            float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
+            float VerticalKeyInput = Input.GetAxis("VerticalKey");
+
+            if ((-0.3f < HorizontalKeyInput) && (HorizontalKeyInput < 0.3f) && (-0.3f < VerticalKeyInput) && (VerticalKeyInput < 0.3f))
+            {
+                keyFlag = false;
+            }
+
+
+
+            if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
+            {
+                // 矢印左を押したら
+                if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    TurnThePageReturn();
+                }
+                // 矢印右を押したら
+                if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    TurnThePageNext();
+                }
+
+                if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    SelectChapterUp();
+                }
+
+                if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.7f)))
+                {
+                    returnCount = 0;
+                    keyFlag = true;
+                    SelectChapterDown();
+                }
+
+                if(Input.GetKeyDown(KeyCode.Joystick1Button7))
+                {
+                    Option();
+                }
+                if ((Input.GetKeyDown(KeyCode.W)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
+                    (Input.GetKeyDown(KeyCode.Joystick1Button3)))
+                {
+                    returnCount = 0;
+                    Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                    BGMDeleter = true;
+
+                }
+                if (BGMDeleter)
+                {
+                    BGMTimer++;
+                }
+                //BGMが止まったら
+                if (BGMTimer > BGMFadeTime)
+                {
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    JumpSelectStage();
+                }
+            }
+        }
+        else
+        {
+
+            if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
+            {
+                //画面から指が離れたら
+                if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
+                {
+                    //ページ移動判定
+                    if (touchController.touchPosX - touchController.detachPosX < -60)
                     {
                         returnCount = 0;
                         keyFlag = true;
+                        //頁を戻す
                         TurnThePageReturn();
                     }
-                    // 矢印右を押したら
-                    if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                    if (touchController.touchPosX - touchController.detachPosX > +60)
                     {
                         returnCount = 0;
                         keyFlag = true;
+                        //頁を進める
                         TurnThePageNext();
                     }
 
-                    if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f)))
-                    {
-                        returnCount = 0;
-                        keyFlag = true;
-                        SelectChapterUp();
-                    }
 
-                    if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.7f)))
+                    //チャプター1選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 590) && (touchController.touchPosY < 645)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
                     {
-                        returnCount = 0;
-                        keyFlag = true;
-                        SelectChapterDown();
-                    }
-
-                    if(Input.GetKeyDown(KeyCode.Joystick1Button7))
-                    {
-                        Option();
-                    }
-                    if ((Input.GetKeyDown(KeyCode.W)) ||
-                        (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
-                        (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
-                        (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
-                        (Input.GetKeyDown(KeyCode.Joystick1Button3)))
-                    {
+                        chapter = Chapter.CHAPTER_1;
                         returnCount = 0;
                         Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                         BGMDeleter = true;
+                    }
 
-                    }
-                    if (BGMDeleter)
+                    //チャプター2選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 500) && (touchController.touchPosY < 550)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
                     {
-                        BGMTimer++;
+                        chapter = Chapter.CHAPTER_2;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
                     }
-                    //BGMが止まったら
-                    if (BGMTimer > BGMFadeTime)
+
+                    //チャプター3選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
                     {
-                        Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                        JumpSelectStage();
+                        chapter = Chapter.CHAPTER_3;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター4選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
+                    {
+                        chapter = Chapter.CHAPTER_4;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター5選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
+                    {
+                        chapter = Chapter.CHAPTER_5;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター6選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
+                    {
+                        chapter = Chapter.CHAPTER_6;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
+                    }
+
+                    //チャプター7選択
+                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                        ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
+                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
+                    {
+                        chapter = Chapter.CHAPTER_7;
+                        returnCount = 0;
+                        Singleton<SoundPlayer>.instance.stopBGM(1.0f);
+                        BGMDeleter = true;
                     }
                 }
+
+                if (BGMDeleter)
+                {
+                    BGMTimer++;
+                }
+                //BGMが止まったら
+                if (BGMTimer > BGMFadeTime)
+                {
+
+                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+                    JumpSelectStage();
+                }
+
             }
-            else
+
+
+            //タッチ判定の初期化
+            if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
             {
-
-                if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
-                {
-                    //画面から指が離れたら
-                    if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
-                    {
-                        //ページ移動判定
-                        if (touchController.touchPosX - touchController.detachPosX < -60)
-                        {
-                            returnCount = 0;
-                            keyFlag = true;
-                            //頁を戻す
-                            TurnThePageReturn();
-                        }
-                        if (touchController.touchPosX - touchController.detachPosX > +60)
-                        {
-                            returnCount = 0;
-                            keyFlag = true;
-                            //頁を進める
-                            TurnThePageNext();
-                        }
-
-
-                        //チャプター1選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                            ((touchController.touchPosY > 590) && (touchController.touchPosY < 645)) &&
-                            ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                            ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
-                        {
-                            chapter = Chapter.CHAPTER_1;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-
-                        //チャプター2選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                            ((touchController.touchPosY > 500) && (touchController.touchPosY < 550)) &&
-                            ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                            ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
-                        {
-                            chapter = Chapter.CHAPTER_2;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-
-                        //チャプター3選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                           ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
-                           ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                           ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
-                        {
-                            chapter = Chapter.CHAPTER_3;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-
-                        //チャプター4選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                            ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
-                            ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                            ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
-                        {
-                            chapter = Chapter.CHAPTER_4;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-
-                        //チャプター5選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                            ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
-                            ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                            ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
-                        {
-                            chapter = Chapter.CHAPTER_5;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-
-                        //チャプター6選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                            ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
-                            ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                            ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
-                        {
-                            chapter = Chapter.CHAPTER_6;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-
-                        //チャプター7選択
-                        if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
-                           ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
-                           ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
-                           ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
-                        {
-                            chapter = Chapter.CHAPTER_7;
-                            returnCount = 0;
-                            Singleton<SoundPlayer>.instance.stopBGM(1.0f);
-                            BGMDeleter = true;
-                        }
-                    }
-
-                    if (BGMDeleter)
-                    {
-                        BGMTimer++;
-                    }
-                    //BGMが止まったら
-                    if (BGMTimer > BGMFadeTime)
-                    {
-
-                        Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                        JumpSelectStage();
-                    }
-
-                }
-
-
-                //タッチ判定の初期化
-                if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
-                {
-                    Debug.Log("INITIALIZE");
-                    touchController.TouchPostionInitialize();
-                    keyFlag = false;
-                }
-
+                Debug.Log("INITIALIZE");
+                touchController.TouchPostionInitialize();
+                keyFlag = false;
             }
+
         }
+        
 		
 	}
 	// ページをめくる（次ページへ）
