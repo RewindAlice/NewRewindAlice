@@ -2264,7 +2264,6 @@ public class Stage : MonoBehaviour
         // ここにゴール処理を書く
 
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
-        Singleton<SoundPlayer>.instance.PlaySE("se004");
 
         
         // タッチした画面座標からワールド座標へ変換
@@ -2968,6 +2967,10 @@ public class Stage : MonoBehaviour
 							}
 						}
 
+						break;
+						
+					default:
+						flag = true;
 						break;
 				}
 				break;

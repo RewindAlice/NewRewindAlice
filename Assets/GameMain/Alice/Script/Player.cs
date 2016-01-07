@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
     const int SAVE_NUM = 50;        // 移動保存数
 
     // ★プレイヤー移動/////////////////////////////////
-    const float SPEED_W = 0.02f;    // 移動速度（横方向）
-    const float SPEED_H = 0.02f;    // 移動速度（縦方向）
+    const float SPEED_W = 0.04f;    // 移動速度（横方向）
+    const float SPEED_H = 0.04f;    // 移動速度（縦方向）
 
     // ★プレイヤーの向きに対応した角度//////////////////
     const int ANGLE_FRONT = 0;   // プレイヤーの向き（前）

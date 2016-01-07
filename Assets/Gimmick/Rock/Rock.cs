@@ -143,6 +143,8 @@ public class Rock : BaseGimmick
 
     public void GimmickPushMove(int x, int y, int z, int directionX, int directionZ)
     {
+		moveTimer = 0;
+		moveFlag = true;
         if (directionZ == -1)
         {
             moveMemory[turnNum] = MoveDirection.FRONT;
