@@ -56,7 +56,7 @@ public class TweedleDee : BaseGimmick
     public int aliceMove;
     //過去の向きを保存
     public int[] beforeDirection;
-    public int[] notMoveTrun;
+    public int[] notMoveTurn;
 
     //------------------------
     //初期化関数
@@ -91,7 +91,7 @@ public class TweedleDee : BaseGimmick
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        notMoveTrun = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        notMoveTurn = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -295,7 +295,7 @@ public class TweedleDee : BaseGimmick
                     //もし動けなかったら
                     if (i == 3)
                     {
-                        notMoveTrun[timeCount + 1] = 1;
+                        notMoveTurn[timeCount + 1] = 1;
                     }
                 }
             }
@@ -323,7 +323,7 @@ public class TweedleDee : BaseGimmick
 
         if (timeCount >= aliceMoveTime)
         {
-            if (notMoveTrun[timeCount] == 0)
+            if (notMoveTurn[timeCount] == 0)
             {
                 moveFlag = true;
                 GetComponent<Animator>().SetBool("WalkMotion_Return", true);
@@ -335,7 +335,7 @@ public class TweedleDee : BaseGimmick
         }
 
         //待機フラグを初期化
-        notMoveTrun[timeCount] = 0;
+        notMoveTurn[timeCount] = 0;
 
         //仮の保存座標に現在座標に入れる
         buttonInputPosition = this.transform.localPosition;

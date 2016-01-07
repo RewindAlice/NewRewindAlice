@@ -148,9 +148,12 @@ public class Stage : MonoBehaviour
     int turnNum;                                                                    // ステージのターン数
     private string guitxt = "";
 
+	public int[, ,] pushGimmickNumArray = new int[STAGE_Y, STAGE_X, STAGE_Z];                  // ステージの配置（押されるギミック番号）
+	GameObject[, ,] pushGimmickObjectArray = new GameObject[STAGE_Y, STAGE_X, STAGE_Z]; // ステージの配置（押されるオブジェクト）
+
     int[] ModeChangeSaveNum;                                                       //石が移動したときにもともと何があったかを保存する配列
     int[] ModeChangeSaveTurn;                                                      //上記のターンを保存する配列
-    int SaveTrunArrayController = 0;
+    int SaveTurnArrayController = 0;
     bool stoneFallController = false;
 
     public TextAsset stageTextAsset;    //テキスト読み込み用
@@ -182,6 +185,17 @@ public class Stage : MonoBehaviour
         Twins1 = new Vector3(0, 0, 0);
         Twins2 = new Vector3(0, 0, 0);
 
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 11; j++)
+			{
+				for (int k = 0; k < 11; k++)
+				{
+					pushGimmickNumArray[i, j, k] = 0;
+					pushGimmickObjectArray[i, j, k] = gimmickNone;
+				}
+			}
+		}
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -756,13 +770,15 @@ public class Stage : MonoBehaviour
                 break;
             // ▼No.62    岩/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case ROCK:///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                gimmickObjectArray[y, x, z] = GameObject.Instantiate(rock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
-                gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
-                gimmickNumArray[y, x, z] = gimmickPattern;
-                gimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);
-                gimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);
-                break;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
+
+				pushGimmickObjectArray[y, x, z] = GameObject.Instantiate(rock, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
+				pushGimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
+				pushGimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(270, 0, 0);
+				pushGimmickNumArray[y, x, z] = gimmickPattern;
+				pushGimmickObjectArray[y, x, z].GetComponent<Rock>().SetStartActionTurn(gimmickStartTurn);
+				pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Initialize(x, y, z);
+				break;
         }
     }
 
@@ -1194,7 +1210,7 @@ public class Stage : MonoBehaviour
         switch (gimmick)
         {
             // 移動できるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            case NONE_BLOCK:        // No.0     透明ブロック
+            // case NONE_BLOCK:        // No.0     透明ブロック
             case START_POINT:       // No.1     スタート地点
             case STAGE_GOOL:        // No.2     ゴール地点
             case IVY_FRONT:         // No.22    蔦（前）
@@ -1308,39 +1324,39 @@ public class Stage : MonoBehaviour
                     gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
                 }
                 break;
-            case ROCK:  // No.62    岩////////////////////////////////////////////////////////////
-                // アリスが大きければ
-                if (alice.GetBig())
-                {
-                    int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
-                    int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
+			//case ROCK:  // No.62    岩////////////////////////////////////////////////////////////
+			//	// アリスが大きければ
+			//	if (alice.GetBig())
+			//	{
+			//		int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
+			//		int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
 
-                    int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
-                    int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
-                    Debug.Log(pushDirectionZ);
+			//		int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
+			//		int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
+			//		Debug.Log(pushDirectionZ);
 
-                    // 押した先にギミックが無ければ移動可能
-                    if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
-                    {
-                        flag = true;    // 移動できる
-                        if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
-                        ((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
-                        ((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
-                        ((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
-                        {
-                            gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
+			//		// 押した先にギミックが無ければ移動可能
+			//		if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+			//		{
+			//			flag = true;    // 移動できる
+			//			if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
+			//			((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
+			//			((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
+			//			((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
+			//			{
+			//				gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
 
-                            GameObject objectTemp;
-                            objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-                            gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
-                            gimmickObjectArray[posY, posX, posZ] = objectTemp;
+			//				GameObject objectTemp;
+			//				objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+			//				gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
+			//				gimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-                            gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
-                            gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-                        }
-                    }
-                }
-                break;
+			//				gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+			//				gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+			//			}
+			//		}
+			//	}
+			//	break;
 
 			case SOLDIER_HEART_RIGHT: // No.57    ハート兵(右回り)////////////////////////////////////////////////////////////
 				int heartPositionByAliceX_R = posX - alice.arrayPosX; // アリスから見た兵士の位置x
@@ -1411,7 +1427,56 @@ public class Stage : MonoBehaviour
 					}
 				}
 				break;
+
+				// 押されるギミック
+			case NONE_BLOCK:
+				flag = true;
+
+				switch(pushGimmickNumArray[posY, posX, posZ])
+				{
+					// 岩
+					case ROCK:
+						// アリスが大きければ
+						if (alice.GetBig())
+						{
+							int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
+							int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
+
+							int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
+							int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
+
+							// 押した先にギミックが無ければ移動可能
+							if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+							{
+								//Debug.Log("rockmove");
+								flag = true;    // 移動できる
+								if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
+								((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
+								((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
+								((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
+								{
+									pushGimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
+
+									GameObject objectTemp;
+									objectTemp = pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+									pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = pushGimmickObjectArray[posY, posX, posZ];
+									pushGimmickObjectArray[posY, posX, posZ] = objectTemp;
+
+									pushGimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+									pushGimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+								}
+							}
+						}
+						// アリスが大きくなかったら
+						else 
+						{
+							flag = false;
+						}
+						break;
+				}
+				break;
         }
+
 
         // 移動系ギミックの判定////////////////////////////////////
         for (int num = 0; num < moveGimmickObjectList.Count; num++)
@@ -1445,7 +1510,7 @@ public class Stage : MonoBehaviour
         switch (gimmick)
         {
             // 移動できるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            case NONE_BLOCK:                // No.0     透明ブロック
+            //case NONE_BLOCK:                // No.0     透明ブロック
             case START_POINT:               // No.1     スタート地点
             case STAGE_GOOL:                // No.2     ゴール地点
             case WATER:                     // No.3     水
@@ -1514,6 +1579,15 @@ public class Stage : MonoBehaviour
 			case SOLDIER_HEART_LEFT: // No.58		ハート兵（左回り）///////////////////////////////////////////////////////////////////////////////////////
 				if (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().downFlag == true) { flag = true; }
 				break;
+
+			case NONE_BLOCK:
+				switch (pushGimmickNumArray[posY, posX, posZ])
+				{
+					case ROCK: // No.62    岩
+						flag = true;
+						break;
+				}
+				break;
         }
 
         return flag;
@@ -1535,6 +1609,7 @@ public class Stage : MonoBehaviour
             case STAGE_GOOL:
                 GoalCheck();
                 break;
+
             // ▼No.22    蔦（前）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case IVY_FRONT:
                 if (gimmickObjectArray[posY, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
@@ -1784,7 +1859,7 @@ public class Stage : MonoBehaviour
             switch(gimmickNumArray[posY - 1, posX, posZ])
             {
                 // 落下するもの
-                case NONE_BLOCK:
+                //case NONE_BLOCK:
                 case STAGE_GOOL:
 				case DOOR_RED_KEY: // 鍵（赤）
 				case DOOR_BLUE_KEY: // 鍵（青）
@@ -1802,11 +1877,23 @@ public class Stage : MonoBehaviour
                         alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                         print("落下");
                     }
+					break;
 
-                   
-                   
-                    break;
+				case NONE_BLOCK:
+					switch (pushGimmickNumArray[posY - 1, posX, posZ])
+					{
+						case ROCK:
+							break;
 
+						default:
+							alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+							alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+							print("落下");
+							break;
+							
+					}
+					break;
+                   
                 case IVY_FRONT:     // 蔦（前）
                     // 足元の蔦が消えていたら落下する
                     if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().GetGimmckCount() >= 1)
@@ -2240,7 +2327,7 @@ public class Stage : MonoBehaviour
         {
             go.transform.localEulerAngles = new Vector3(0, 90, 0);
         }
-        if (alice.GetDirection() == 4)
+        if(alice.GetDirection() == 4)
         {
             go.transform.localEulerAngles = new Vector3(0, 270, 0);
         }
@@ -2329,23 +2416,26 @@ public class Stage : MonoBehaviour
                             }
                             break;
 
-						// ▼岩なら
-						case ROCK:
-							if (y > 0)
+						case NONE_BLOCK:
+							switch (pushGimmickNumArray[y, x, z])
 							{
-								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
-								{
-									gimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
-									GameObject objectTemp;
-									objectTemp = gimmickObjectArray[y - 1, x, z];
-									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
-									gimmickObjectArray[y, x, z] = objectTemp;
+								case ROCK:
+									if (y > 0)
+									{
+										if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+										{
+											pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+											GameObject objectTemp;
+											objectTemp = pushGimmickObjectArray[y - 1, x, z];
+											pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+											pushGimmickObjectArray[y, x, z] = objectTemp;
 
-									gimmickNumArray[y - 1, x, z] = ROCK;
-									gimmickNumArray[y, x, z] = NONE_BLOCK;
-                                    stoneFallController = true;
-
-								}
+											pushGimmickNumArray[y - 1, x, z] = ROCK;
+											pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+											stoneFallController = true;
+										}
+									}
+									break;
 							}
 							break;
 
@@ -2487,7 +2577,7 @@ public class Stage : MonoBehaviour
         switch (gimmickNumArray[posY, posX, posZ])
         {
             //横にあるとき通れるオブジェクト
-            case NONE_BLOCK:      // 何も無し
+            //case NONE_BLOCK:      // 何も無し
             case START_POINT:     // スタート地点
             case STAGE_GOOL:      // ゴール地点
             case IVY_FRONT:
@@ -2534,6 +2624,14 @@ public class Stage : MonoBehaviour
                 flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
                 break;
 
+			case NONE_BLOCK:
+				switch (pushGimmickNumArray[posY, posX, posZ])
+				{
+					case ROCK:
+						flag = false;
+						break;
+				}
+				break;
         }
 
         
@@ -2626,6 +2724,15 @@ public class Stage : MonoBehaviour
             //case WARP_HOLE_FIVE:
             //    flag = false;
             //    break;
+
+			case NONE_BLOCK:
+				switch (pushGimmickNumArray[posY, posX, posZ])
+				{
+					case ROCK:
+						flag = false;
+						break;
+				}
+				break;
         }
         return flag;
     }
@@ -2662,6 +2769,13 @@ public class Stage : MonoBehaviour
 			switch (gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
 			{
 				case NONE_BLOCK:
+					switch (pushGimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
+					{
+						case ROCK:
+							return false;
+					}
+					return true;
+
 				case START_POINT:
 				case STAGE_GOOL:
 					return true;
@@ -2671,9 +2785,9 @@ public class Stage : MonoBehaviour
                 case MUSHROOM_BIG:
                 case MUSHROOM_SMALL:
                     //現在のターンを入れる
-                    ModeChangeSaveTurn[SaveTrunArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
-                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTrunArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-                    SaveTrunArrayController++;
+                    ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
+                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+                    SaveTurnArrayController++;
                     if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
                     {
                         return true;
@@ -2697,26 +2811,26 @@ public class Stage : MonoBehaviour
 		Debug.Log(posY);
 		Debug.Log(posZ);
 		GameObject objectTemp;
-		objectTemp = gimmickObjectArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ];
-		gimmickObjectArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = gimmickObjectArray[posY, posX, posZ];
-		gimmickObjectArray[posY, posX, posZ] = objectTemp;
+		objectTemp = pushGimmickObjectArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ];
+		pushGimmickObjectArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = pushGimmickObjectArray[posY, posX, posZ];
+		pushGimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-		gimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = NONE_BLOCK;
+		pushGimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = NONE_BLOCK;
 
 		switch (kind)
 		{
 			case 1:
-				gimmickNumArray[posY, posX, posZ] = ROCK;
+				pushGimmickNumArray[posY, posX, posZ] = ROCK;
                 int localSetTurn = (GameObject.Find("GameMain").GetComponent<GameMain>().turnNum)+1;
      
-            if (SaveTrunArrayController != 0)
+            if (SaveTurnArrayController != 0)
             {   //現在のターン数を入れる
-                if (localSetTurn == ModeChangeSaveTurn[SaveTrunArrayController - 1])
+                if (localSetTurn == ModeChangeSaveTurn[SaveTurnArrayController - 1])
                 {
-                    gimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = ModeChangeSaveNum[ModeChangeSaveTurn[SaveTrunArrayController - 1]];
-                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTrunArrayController - 1]] = 0;
-                    ModeChangeSaveTurn[SaveTrunArrayController - 1] = 0;
-                    SaveTrunArrayController--;
+                    gimmickNumArray[posY + moveDirectionY, posX - moveDirectionX, posZ - moveDirectionZ] = ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController - 1]];
+                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController - 1]] = 0;
+                    ModeChangeSaveTurn[SaveTurnArrayController - 1] = 0;
+                    SaveTurnArrayController--;
                 }
 
             }
@@ -2793,7 +2907,7 @@ public class Stage : MonoBehaviour
         switch (gimmickNumArray[posY, posX, posZ])
         {
             //横にあるとき通れるオブジェクト
-            case NONE_BLOCK:      // 何も無し
+            //case NONE_BLOCK:      // 何も無し
             case START_POINT:     // スタート地点
             case STAGE_GOOL:      // ゴール地点
             case IVY_FRONT:
@@ -2844,43 +2958,48 @@ public class Stage : MonoBehaviour
                     flag = true;
                 break;
 
-            case ROCK:
+			case NONE_BLOCK:      // 何も無し
+				switch (pushGimmickNumArray[posY, posX, posZ])
+				{
+					case ROCK:
 
-                int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
-                int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
+						int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
+						int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
 
-                int pushDirectionX = (int)mine.x - posX; // 押した方向x
-                int pushDirectionZ = (int)mine.z - posZ; //  押した方向z
-                //Debug.Log(pushDirectionX);
-                Debug.Log(pushDirectionZ);
-                //Debug.Log(alice.GetMoveDirection());
+						int pushDirectionX = (int)mine.x - posX; // 押した方向x
+						int pushDirectionZ = (int)mine.z - posZ; //  押した方向z
+						//Debug.Log(pushDirectionX);
+						Debug.Log(pushDirectionZ);
+						//Debug.Log(alice.GetMoveDirection());
 
-                // 押した先にギミックが無ければ移動可能
-                if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
-                {
-                    flag = true;
-                    Debug.Log("oseruyo-");
-                    //// 
-                    //int dum = gimmickObjectArray[(int)mine.y,(int)mine.x,(int)mine.z].GetComponent<TweedleDum>().direction;
+						// 押した先にギミックが無ければ移動可能
+						if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+						{
+							flag = true;
+							Debug.Log("oseruyo-");
+							//// 
+							//int dum = gimmickObjectArray[(int)mine.y,(int)mine.x,(int)mine.z].GetComponent<TweedleDum>().direction;
 
-                    if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (TwinDirection == 4)) ||
-                    ((pushDirectionX == -1) && (pushDirectionZ == 0) && (TwinDirection == 2)) ||
-                    ((pushDirectionX == 0) && (pushDirectionZ == 1) && (TwinDirection == 3)) ||
-                    ((pushDirectionX == 0) && (pushDirectionZ == -1) && (TwinDirection == 1)))
-                    {
-                        gimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().GimmickPushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
+							if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (TwinDirection == 4)) ||
+							((pushDirectionX == -1) && (pushDirectionZ == 0) && (TwinDirection == 2)) ||
+							((pushDirectionX == 0) && (pushDirectionZ == 1) && (TwinDirection == 3)) ||
+							((pushDirectionX == 0) && (pushDirectionZ == -1) && (TwinDirection == 1)))
+							{
+								pushGimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().GimmickPushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
 
-                        GameObject objectTemp;
-                        objectTemp = gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-                        gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = gimmickObjectArray[posY, posX, posZ];
-                        gimmickObjectArray[posY, posX, posZ] = objectTemp;
+								GameObject objectTemp;
+								objectTemp = pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+								pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = pushGimmickObjectArray[posY, posX, posZ];
+								pushGimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-                        gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
-                        gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-                    }
-                }
+								pushGimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+								pushGimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+							}
+						}
 
-                break;
+						break;
+				}
+				break;
         }
         return flag;
     }
@@ -3156,6 +3275,25 @@ public class Stage : MonoBehaviour
         return false;
 
     }
-
+	public void StartMove(int type)
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 11; j++)
+			{
+				for (int k = 0; k < 11; k++)
+				{
+					if (pushGimmickNumArray[i, j, k] == ROCK)
+					{
+						Debug.Log("yobareta");
+						Debug.Log(i);
+						Debug.Log(j);
+						Debug.Log(k);
+						pushGimmickObjectArray[i, j, k].GetComponent<Rock>().StartMove(type);
+					}
+				}
+			}
+		}
+	}
 
 }

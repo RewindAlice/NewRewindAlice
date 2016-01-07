@@ -40,9 +40,9 @@ public class SpadeSoldierTurnRight : BaseGimmick {
     //過去の向きを保存
     public int[] beforeDirection;
     //動いてないターン保存
-    public int[] notMoveTrun;
+    public int[] notMoveTurn;
     //回転しただけのターン保存
-    public int[] TrunTime;
+    public int[] TurnTime;
 
     public enum ArrayMove
     {
@@ -100,12 +100,12 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        notMoveTrun = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        notMoveTurn = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 
-        TrunTime = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        TurnTime = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
                            
@@ -267,7 +267,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                         //もし動けなかったら
                         if (i == 4)
                         {
-                            notMoveTrun[timeCount] = 1;
+                            notMoveTurn[timeCount] = 1;
                         }
                         //向きの変更
                         ChangeDirection();
@@ -277,7 +277,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                         //アリスが回転しただけなら
                         if(discoveryFlag && (i==0 || i==1 || i==2))
                         {
-                            TrunTime[timeCount] = 1;
+                            TurnTime[timeCount] = 1;
 
                             i = 4;
                         }
@@ -307,7 +307,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         {
             if (discoveryFlag == false)
             GetComponent<Animator>().SetBool("MoveReturn", true);
-            if (notMoveTrun[timeCount - 1] == 0)
+            if (notMoveTurn[timeCount - 1] == 0)
             {
                 moveFlag = true;
             }
@@ -356,7 +356,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         }
 
        
-        if (TrunTime[timeCount] == 1)
+        if (TurnTime[timeCount] == 1)
         {
             moveFlag = false;
             //向きを保存
@@ -367,9 +367,9 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         }
 
         //待機フラグを初期化
-        notMoveTrun[timeCount] = 0;
+        notMoveTurn[timeCount] = 0;
 
-        TrunTime[timeCount] = 0; 
+        TurnTime[timeCount] = 0; 
 
         //仮の保存座標に現在座標に入れる
         buttonInputPosition = this.transform.localPosition;

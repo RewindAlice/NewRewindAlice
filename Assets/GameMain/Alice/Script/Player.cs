@@ -152,6 +152,8 @@ public class Player : MonoBehaviour
 	//------------------------
 	// 西尾竜太郎追加部分
 	//------------------------
+
+	GameObject stage; // ステージ
 	// 所持している鍵の色
 	public bool getKeyColor_Red = false;		// 赤
 	public bool getKeyColor_Blue = false;	// 青
@@ -240,6 +242,7 @@ public class Player : MonoBehaviour
 		//------------------------
 		//西尾竜太郎追加部分
 		//------------------------
+		stage = GameObject.Find("Stage");
 		renderer = GetComponentInChildren<Renderer>();
 
         // アニメーション用フラグ
@@ -503,6 +506,7 @@ public class Player : MonoBehaviour
                 ChangeDirection(moveDirection);             // カメラの向きに対応した移動方向に変更
                 ChangeAngle();                              // アリスの向きを変更
                 playerAction = PlayerAction.NEXT;           // アリスの行動を進めるに
+				stage.GetComponent<Stage>().StartMove(1);
             }
             else
             {
@@ -525,6 +529,7 @@ public class Player : MonoBehaviour
                 inputKeyFlag = saveMoveInput[saveCount];            // １つ前の入力を設定
                 ChangeAngle();                                      // アリスの向きを変更
                 playerAction = PlayerAction.NEXT;                   // アリスの行動を進めるに
+				stage.GetComponent<Stage>().StartMove(2);
             }
         }
         // ◆巻き戻し移動開始処理///////////////////////////////////////////////////////////////////////
@@ -549,6 +554,7 @@ public class Player : MonoBehaviour
                                                        // 状態の切り替え
                 Debug.Log(playerMode+"asdasd");
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
+				stage.GetComponent<Stage>().StartMove(3);
 
                 // プレイヤーの状態が通常なら////////////////////////////
                 if (playerMode == PlayerMode.NORMAL)
