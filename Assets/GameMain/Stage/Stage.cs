@@ -1581,12 +1581,12 @@ public class Stage : MonoBehaviour
 				break;
 
 			case NONE_BLOCK:
-				switch (pushGimmickNumArray[posY, posX, posZ])
-				{
-					case ROCK: // No.62    岩
+				//switch (pushGimmickNumArray[posY, posX, posZ])
+				//{
+				//	case ROCK: // No.62    岩
 						flag = true;
-						break;
-				}
+				//		break;
+				//}
 				break;
         }
 
