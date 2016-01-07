@@ -2595,6 +2595,7 @@ public class Stage : MonoBehaviour
                 break;
 
 			case NONE_BLOCK:
+                flag = true;
 				switch (pushGimmickNumArray[posY, posX, posZ])
 				{
 					case ROCK:
@@ -2696,6 +2697,7 @@ public class Stage : MonoBehaviour
             //    break;
 
 			case NONE_BLOCK:
+                
 				switch (pushGimmickNumArray[posY, posX, posZ])
 				{
 					case ROCK:
