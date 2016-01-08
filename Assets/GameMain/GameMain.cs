@@ -371,8 +371,8 @@ public class GameMain : MonoBehaviour
                         alice.ModeChange();
                     }
 
-                    // カウントが６０になったら
-                    if (turnCountGimmick == 60)
+                    // カウントが３０になったら
+                    if (turnCountGimmick == 30)
                     {
                         //stage.FlowerDecision(alice);      // 足元との判定
                         stage.SearchRockFallAgain();
@@ -412,8 +412,8 @@ public class GameMain : MonoBehaviour
 
                     turnCountGimmick++; // カウントを増やす
 
-                    // カウントが６０になったら
-                    if (turnCountGimmick == 60)
+                    // カウントが３０になったら
+                    if (turnCountGimmick == 30)
                     {
                         turn = Turn.PLAYER; // ターンをプレイヤーに
                        
