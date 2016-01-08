@@ -168,12 +168,13 @@ public class Stage : MonoBehaviour
     public Vector3 Twins1;
     public Vector3 Twins2;
     public bool oncetime;
-
+    public bool goalFlag;
     
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+        goalFlag = false;
         ModeChangeSaveTurn = new int[] {0,0,0,0,0,0,0,0,0,0,
                                       0,0,0,0,0,0,0,0,0,0,
                                       0,0,0,0,0,0,0,0,0,0};
@@ -2262,9 +2263,9 @@ public class Stage : MonoBehaviour
     {
         print("ゴール到着");
         // ここにゴール処理を書く
-
+        goalFlag = true;
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
-
+        Singleton<SoundPlayer>.instance.PlaySE("se004");
         
         // タッチした画面座標からワールド座標へ変換
         Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);

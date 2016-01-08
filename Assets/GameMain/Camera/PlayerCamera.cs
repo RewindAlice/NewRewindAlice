@@ -103,7 +103,7 @@ public class PlayerCamera : MonoBehaviour
                 {
                     resultCounter++;
 
-                    if(resultCounter >90)
+                    if(resultCounter >150)
                     {
                         rotationFlag = false;
                         endRolling = false;

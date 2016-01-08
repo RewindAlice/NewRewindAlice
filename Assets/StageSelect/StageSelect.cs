@@ -773,36 +773,43 @@ public class StageSelect : MonoBehaviour
 				case STAGE.STAGE_1:
 					stage = STAGE.STAGE_2;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
 				case STAGE.STAGE_2:
 					stage = STAGE.STAGE_3;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
 				case STAGE.STAGE_3:
 					stage = STAGE.STAGE_4;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
 				case STAGE.STAGE_4:
 					stage = STAGE.STAGE_5;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
                 case STAGE.STAGE_5:
                     stage = STAGE.EX_STAGE_1;
                     chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
                     drawCount = 0;
                     break;
                 case STAGE.EX_STAGE_1:
                     stage = STAGE.EX_STAGE_2;
                     chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
                     drawCount = 0;
                     break;
                 case STAGE.EX_STAGE_2:
                     stage = STAGE.EX_STAGE_3;
                     chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
                     drawCount = 0;
                     break;
                 //case STAGE.EX_STAGE_3:
@@ -839,36 +846,43 @@ public class StageSelect : MonoBehaviour
 				case STAGE.STAGE_2:
 					stage = STAGE.STAGE_1;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
 				case STAGE.STAGE_3:
 					stage = STAGE.STAGE_2;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
 				case STAGE.STAGE_4:
 					stage = STAGE.STAGE_3;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
 				case STAGE.STAGE_5:
 					stage = STAGE.STAGE_4;
 					chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
 					drawCount = 0;
 					break;
                 case STAGE.EX_STAGE_1:
                     stage = STAGE.STAGE_5;
                     chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
                     drawCount = 0;
                     break;
                 case STAGE.EX_STAGE_2:
                     stage = STAGE.EX_STAGE_1;
                     chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
                     drawCount = 0;
                     break;
                 case STAGE.EX_STAGE_3:
                     stage = STAGE.EX_STAGE_2;
                     chapter = Chapter.CHAPTER_1;
+                    Singleton<SoundPlayer>.instance.PlaySE("se003");
                     drawCount = 0;
                     break;
                 //case STAGE.EX_STAGE_4:

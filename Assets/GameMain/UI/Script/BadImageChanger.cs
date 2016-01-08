@@ -11,6 +11,7 @@ public class BadImageChanger : MonoBehaviour {
     public Image image;
 
     public bool endFlag;
+    public bool endSeCheck;
 
 
     public GameObject alice;
@@ -22,6 +23,8 @@ public class BadImageChanger : MonoBehaviour {
         endFlag = false;
         alice = GameObject.Find("Alice");
         player = alice.GetComponent<Player>();
+        endSeCheck = false;
+
     }
 	
 	// Update is called once per frame
@@ -31,10 +34,21 @@ public class BadImageChanger : MonoBehaviour {
         
         if(endFlag == true)
         {
+            if ((endSeCheck == false) && (!GameObject.Find("Stage").GetComponent<Stage>().goalFlag))
+            {
+                Singleton<SoundPlayer>.instance.PlaySE("se007");
+                endSeCheck = true;
+            }
+
             image.sprite = peke;
         }
         else if(endFlag == false)
         {
+            if (endSeCheck)
+            {
+                endSeCheck = false;
+            }
+
             image.sprite = toumei;
         }
 	
