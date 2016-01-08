@@ -4,7 +4,7 @@ using System.Collections;
 public class Video : MonoBehaviour {
 
     private Renderer renderer;
-    //public MovieTexture movie;
+    public MovieTexture movie;
     public int count = 0;
     public bool flag = false;
 
@@ -15,8 +15,8 @@ public class Video : MonoBehaviour {
         flag = false;
         CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
         renderer = GetComponent<Renderer>();
-        //renderer.material.mainTexture = movie as MovieTexture;
-        //movie.Play();
+        renderer.material.mainTexture = movie as MovieTexture;
+        movie.Play();
         
     }
 
@@ -30,7 +30,7 @@ public class Video : MonoBehaviour {
             if ((count >= 420) && (flag == false))
             {
                 flag = true;
-                //movie.Stop();
+                movie.Stop();
                 PlayerPrefs.SetInt("STORY_NUM", 53);
                 CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
                 //Application.LoadLevel("StageSelectScene");

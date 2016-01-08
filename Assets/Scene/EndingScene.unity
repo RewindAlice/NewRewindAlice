@@ -166,7 +166,7 @@ MonoBehaviour:
   Ending04: {fileID: 21300000, guid: ae4ce64b43b1a3044bced565a3015f68, type: 3}
   image: {fileID: 0}
   count: 0
-  Android: 1
+  Android: 0
 --- !u!1 &880261677
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,9 +271,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93efaa99f2f0be43bc1ae8a3c8edfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movie: {fileID: 15200000, guid: 1ceda3ae36743084c995e63692e789bb, type: 3}
   count: 0
   flag: 1
-  Android: 1
+  Android: 0
 --- !u!82 &922164500
 AudioSource:
   m_ObjectHideFlags: 0

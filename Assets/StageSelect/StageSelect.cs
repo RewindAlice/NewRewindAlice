@@ -150,10 +150,66 @@ public class StageSelect : MonoBehaviour
 		drawCount = 0;
 		drawFlag = false;
 
-		// ファイルが存在する
-        //if (File.Exists(Application.temporaryCachePath + "/SaveClearData.txt")) { print("FILE"); }
-		//ReadFile(); // ファイルの読み込み
-
+        //----------------------
+		//クリアデータ初期化
+        //----------------------
+        //PlayerPrefs.SetInt("Story1_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage1_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage1_2Clear", 0);
+        //PlayerPrefs.SetInt("Stage1_3Clear", 0);
+        //PlayerPrefs.SetInt("Stage1_4Clear", 0);
+        //PlayerPrefs.SetInt("Stage1_5Clear", 0);
+        //PlayerPrefs.SetInt("Story1_2Clear", 0);
+        //PlayerPrefs.SetInt("Story2_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage2_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage2_2Clear", 0);
+        //PlayerPrefs.SetInt("Stage2_3Clear", 0);
+        //PlayerPrefs.SetInt("Stage2_4Clear", 0);
+        //PlayerPrefs.SetInt("Stage2_5Clear", 0);
+        //PlayerPrefs.SetInt("Story2_2Clear", 0);
+        //PlayerPrefs.SetInt("Story3_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage3_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage3_2Clear", 0);
+        //PlayerPrefs.SetInt("Stage3_3Clear", 0);
+        //PlayerPrefs.SetInt("Stage3_4Clear", 0);
+        //PlayerPrefs.SetInt("Stage3_5Clear", 0);
+        //PlayerPrefs.SetInt("Story3_2Clear", 0);
+        //PlayerPrefs.SetInt("Story4_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage4_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage4_2Clear", 0);
+        //PlayerPrefs.SetInt("Stage4_3Clear", 0);
+        //PlayerPrefs.SetInt("Stage4_4Clear", 0);
+        //PlayerPrefs.SetInt("Stage4_5Clear", 0);
+        //PlayerPrefs.SetInt("Story4_2Clear", 0);
+        //PlayerPrefs.SetInt("Story5_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage5_1Clear", 0);
+        //PlayerPrefs.SetInt("Stage5_2Clear", 0);
+        //PlayerPrefs.SetInt("Stage5_3Clear", 0);
+        //PlayerPrefs.SetInt("Stage5_4Clear", 0);
+        //PlayerPrefs.SetInt("Story5_2Clear", 0);
+        //PlayerPrefs.SetInt("Story5_3Clear", 0);
+        //PlayerPrefs.SetInt("EXStage1Clear", 0);
+        //PlayerPrefs.SetInt("EXStage2Clear", 0);
+        //PlayerPrefs.SetInt("EXStage3Clear", 0);
+        //PlayerPrefs.SetInt("EXStage4Clear", 0);
+        //PlayerPrefs.SetInt("EXStage5Clear", 0);
+        //PlayerPrefs.SetInt("EXStage6Clear", 0);
+        //PlayerPrefs.SetInt("EXStage7Clear", 0);
+        //PlayerPrefs.SetInt("EXStage8Clear", 0);
+        //PlayerPrefs.SetInt("EXStage9Clear", 0);
+        //PlayerPrefs.SetInt("EXStage10Clear", 0);
+        //PlayerPrefs.SetInt("EXStage11Clear", 0);
+        //PlayerPrefs.SetInt("EXStage12Clear", 0);
+        //PlayerPrefs.SetInt("EXStage13Clear", 0);
+        //PlayerPrefs.SetInt("EXStage14Clear", 0);
+        //PlayerPrefs.SetInt("EXStage15Clear", 0);
+        //PlayerPrefs.SetInt("EXStage16Clear", 0);
+        //PlayerPrefs.SetInt("EXStage17Clear", 0);
+        //PlayerPrefs.SetInt("EXStage18Clear", 0);
+        //PlayerPrefs.SetInt("EXStage19Clear", 0);
+        //PlayerPrefs.SetInt("EXStage20Clear", 0);
+        //PlayerPrefs.SetInt("EXStage21Clear", 0);
+        
         //クリアデータ保存
         clearFlagConvert[0] = PlayerPrefs.GetInt("Story1_1Clear", 0);
         clearFlagConvert[1] = PlayerPrefs.GetInt("Stage1_1Clear", 0);
