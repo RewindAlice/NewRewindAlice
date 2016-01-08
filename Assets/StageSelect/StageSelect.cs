@@ -139,7 +139,6 @@ public class StageSelect : MonoBehaviour
             case 6: stage = STAGE.EX_STAGE_1; break;
 			case 7: stage = STAGE.EX_STAGE_2; break;
 			case 8: stage = STAGE.EX_STAGE_3; break;
-		
 		}
 
 		chapter = Chapter.CHAPTER_1;
@@ -274,7 +273,6 @@ public class StageSelect : MonoBehaviour
 
         count++;
 
-
         if (count >= 50 && drawFlag == false)
         {
             drawFlag = true;
@@ -289,7 +287,6 @@ public class StageSelect : MonoBehaviour
         if (drawCount > 60)
         {
             //DrawStagePicture();
-
         }
         switch (stage)
         {
@@ -300,7 +297,6 @@ public class StageSelect : MonoBehaviour
                     if (drawCount > 0 && drawCount <= 25)
                     {
                         stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-
                     }
                 }
 
@@ -318,7 +314,6 @@ public class StageSelect : MonoBehaviour
                     if (drawCount > 0 && drawCount <= 25)
                     {
                         stage1Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-
                     }
                 }
                 else if (stage3Text.GetComponent<SpriteRenderer>().material.color.a != 0.0f)
@@ -326,13 +321,11 @@ public class StageSelect : MonoBehaviour
                     if (drawCount > 0 && drawCount <= 25)
                     {
                         stage3Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((25 - drawCount) / 10.0f) / 2);
-
                     }
                 }
 
                 if (drawCount > ChangeImageTime && drawCount < ChangeImageTime + 20)
                 {
-
                     stage2Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, ((drawCount - ChangeImageTime) / 10.0f) / 2);
                 }
                 break;
@@ -573,38 +566,34 @@ public class StageSelect : MonoBehaviour
             float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
             float VerticalKeyInput = Input.GetAxis("VerticalKey");
 
-            if ((-0.3f < HorizontalKeyInput) && (HorizontalKeyInput < 0.3f) && (-0.3f < VerticalKeyInput) && (VerticalKeyInput < 0.3f))
+            if ((-0.6f < HorizontalKeyInput) && (HorizontalKeyInput < 0.6f) && (-0.6f < VerticalKeyInput) && (VerticalKeyInput < 0.6f))
             {
                 keyFlag = false;
             }
 
-
-
             if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
             {
                 // 矢印左を押したら
-                if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                if ((Input.GetKeyDown(KeyCode.LeftArrow)) || ((HorizontalKeyInput < -0.9f)) && ((-0.9f < VerticalKeyInput) && (VerticalKeyInput < 0.9f)))
                 {
                     returnCount = 0;
                     keyFlag = true;
                     TurnThePageReturn();
                 }
                 // 矢印右を押したら
-                if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.8f) && (-0.5f < VerticalKeyInput) && (VerticalKeyInput < 0.5f)))
+                else if ((Input.GetKeyDown(KeyCode.RightArrow)) || ((HorizontalKeyInput > 0.9f)) && ((-0.9f < VerticalKeyInput) && (VerticalKeyInput < 0.9f)))
                 {
                     returnCount = 0;
                     keyFlag = true;
                     TurnThePageNext();
                 }
-
-                if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f)))
+                else if ((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.9f)))
                 {
                     returnCount = 0;
                     keyFlag = true;
                     SelectChapterUp();
                 }
-
-                if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.7f)))
+                else if ((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.9f)))
                 {
                     returnCount = 0;
                     keyFlag = true;
@@ -624,7 +613,6 @@ public class StageSelect : MonoBehaviour
                     returnCount = 0;
                     Singleton<SoundPlayer>.instance.stopBGM(1.0f);
                     BGMDeleter = true;
-
                 }
                 if (BGMDeleter)
                 {
@@ -640,7 +628,6 @@ public class StageSelect : MonoBehaviour
         }
         else
         {
-
             if ((selectFlag == false) && (keyFlag == false) && (drawCount > 100))
             {
                 //画面から指が離れたら
