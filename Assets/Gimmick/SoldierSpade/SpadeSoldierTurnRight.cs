@@ -570,8 +570,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
     //---------------------------
     public void ChangeArrayPosition(ArrayMove arrayMove)
     {
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 0;
-
+        
         switch (arrayMove)
         {
             case ArrayMove.PLUS_X: arrayPosX++; break;      // 配列上の座標Xに１プラス
@@ -581,7 +580,6 @@ public class SpadeSoldierTurnRight : BaseGimmick {
             case ArrayMove.PLUS_Z: arrayPosZ++; break;      // 配列上の座標Zに１プラス
             case ArrayMove.MINUS_Z: arrayPosZ--; break;     // 配列上の座標Zに１マイナス
         }
-        GameObject.Find("Stage").GetComponent<Stage>().gimmickNumArray[arrayPosY, arrayPosX, arrayPosZ] = 59;
 
     }
 
