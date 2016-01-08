@@ -86,8 +86,7 @@ public class ChangeText : MonoBehaviour {
         stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
         challengeFlag = PlayerPrefs.GetInt("CHALLENGE");
 
-        if (challengeFlag == 0)
-        {
+     
             //ステージの番号によって、取得するパスの変更(Story用)
             if (stageNumber == 1)
             {
@@ -248,16 +247,133 @@ public class ChangeText : MonoBehaviour {
                 talkNumber = 0;
                 filepath = "UI/IntoGame/CharacterTalk/stage5-4talk";
             }
-        }
-        else if (challengeFlag == 1)
-        {
-            if (stageNumber == 1)
+            else if (stageNumber == 25)
             {
-                limitTalk = 6;
+                limitTalk = 3;
                 talkNumber = 0;
-                filepath = "UI/IntoGame/CharacterTalk/stage1-1talk";
+                filepath = "UI/IntoGame/CharacterTalk/stage25talk";
             }
-        }
+            else if (stageNumber == 26)
+            {
+                limitTalk = 4;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage26talk";
+            }
+            else if (stageNumber == 27)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage27talk";
+            }
+            else if (stageNumber == 28)
+            {
+                limitTalk = 4;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage28talk";
+            }
+            else if (stageNumber == 29)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage29talk";
+            }
+            else if (stageNumber == 30)
+            {
+                limitTalk = 4;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage30talk";
+            }
+            else if (stageNumber == 31)
+            {
+                limitTalk = 4;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage31talk";
+            }
+            else if (stageNumber == 32)
+            {
+                limitTalk = 4;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage32talk";
+            }
+            else if (stageNumber == 33)
+            {
+                limitTalk = 4;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage33talk";
+            }
+            else if (stageNumber == 34)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage34talk";
+            }
+            else if (stageNumber == 35)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage35talk";
+            }
+            else if (stageNumber == 36)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage36talk";
+            }
+            else if (stageNumber == 37)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage37talk";
+            }
+            else if (stageNumber == 38)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage38talk";
+            }
+            else if (stageNumber == 39)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage39talk";
+            }
+            else if (stageNumber == 40)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage40talk";
+            }
+            else if (stageNumber == 41)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage41talk";
+            }
+            else if (stageNumber == 42)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage42talk";
+            }
+            else if (stageNumber == 43)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage43talk";
+            }
+            else if (stageNumber == 44)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage44talk";
+            }
+            else if (stageNumber == 45)
+            {
+                limitTalk = 3;
+                talkNumber = 0;
+                filepath = "UI/IntoGame/CharacterTalk/stage45talk";
+            }
+       
 
 
 
@@ -325,22 +441,19 @@ public class ChangeText : MonoBehaviour {
         }
         else
         {
-            if(stageNumber <25)
+      
+            if (timeCount % talkSpeed == 0)
             {
-                if (timeCount % talkSpeed == 0)
+                if (lineCount == limitTalk)
                 {
-                    if (lineCount == limitTalk)
-                    {
-                        lineCount = talkNumber;
-                    }
-
-                    SetNextLine(lineCount);
-                    lineCount++;
-
+                    lineCount = talkNumber;
                 }
-            }
-            
 
+                SetNextLine(lineCount);
+                lineCount++;
+
+            }
+      
         }
 
 
@@ -376,29 +489,24 @@ public class ChangeText : MonoBehaviour {
    
     void SetNextLine(int line)
     {
-        if(stageNumber <25)
-        {
+    
             currentText = scenarios[line];
             timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
             timeElapsed = Time.time;
             //currentLine++;
             lastUpdateCharacter = -1;
-        }
+     
         
     }
 
         //.txtを読み込むときにreadの部分で差し換えてください
     void ReadTextData()
     {
-        if(stageNumber < 25)
-        {
             // TextAssetとして、Resourcesフォルダからテキストデータをロードする
             stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
             // 文字列を代入
             stageData = stageTextAsset.text;
-            scenarios = stageData.Split("\n"[0]);
-        }
-       
+            scenarios = stageData.Split("\n"[0]); 
     }
 
     public void TutorialNext()

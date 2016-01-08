@@ -69,261 +69,283 @@ public class ChangeCharacter : MonoBehaviour {
         timeCount = 0;
         //ステージの番号を取得
         stageNumber = PlayerPrefs.GetInt("STAGE_NUM");
-        if (stageNumber == 1)
-        {
-            stageNumber = 111;
-        }
-        else if (stageNumber == 2)
-        {
-            stageNumber = 112;
-        }
-        else if (stageNumber == 3)
-        {
-            stageNumber = 113;
-        }
-        else if (stageNumber == 4)
-        {
-            stageNumber = 114;
-        }
-        else if (stageNumber == 5)
-        {
-            stageNumber = 115;
-        }
-        else if (stageNumber == 6)
-        {
-            stageNumber = 121;
-        }
-        else if (stageNumber == 7)
-        {
-            stageNumber = 122;
-        }
-        else if (stageNumber == 8)
-        {
-            stageNumber = 123;
-        }
-        else if (stageNumber == 9)
-        {
-            stageNumber = 124;
-        }
-        else if (stageNumber == 10)
-        {
-            stageNumber = 125;
-        }
-        else if (stageNumber == 11)
-        {
-            stageNumber = 131;
-        }
-        else if (stageNumber == 12)
-        {
-            stageNumber = 132;
-        }
-        else if (stageNumber == 13)
-        {
-            stageNumber = 133;
-        }
-        else if (stageNumber == 14)
-        {
-            stageNumber = 134;
-        }
-        else if (stageNumber == 15)
-        {
-            stageNumber = 135;
-        }
-
-        else if (stageNumber == 16)
-        {
-            stageNumber = 141;
-        }
-        else if (stageNumber == 17)
-        {
-            stageNumber = 142;
-        }
-        else if (stageNumber == 18)
-        {
-            stageNumber = 143;
-        }
-        else if (stageNumber == 19)
-        {
-            stageNumber = 144;
-        }
-        else if (stageNumber == 20)
-        {
-            stageNumber = 145;
-        }
-        else if (stageNumber == 21)
-        {
-            stageNumber = 151;
-        }
-        else if (stageNumber == 22)
-        {
-            stageNumber = 152;
-        }
-        else if (stageNumber == 23)
-        {
-            stageNumber = 153;
-        }
-        else if (stageNumber == 24)
-        {
-            stageNumber = 154;
-        }
-        else if (stageNumber == 25)
-        {
-            stageNumber = 201;
-        }
-
+        
        
         //ステージの番号によって、取得するパスの変更(Story用)
-        if (stageNumber == 111)
+        if (stageNumber == 1)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage1-1character";
         }
-        else if (stageNumber == 112)
+        else if (stageNumber == 2)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage1-2character";
         }
-        else if (stageNumber == 113)
+        else if (stageNumber == 3)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage1-3character";
         }
-        else if (stageNumber == 114)
+        else if (stageNumber == 4)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage1-4character";
         }
-        else if (stageNumber == 115)
+        else if (stageNumber == 5)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage1-5character";
         }
-        else if (stageNumber == 121)
+        else if (stageNumber == 6)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage2-1character";
         }
-        else if (stageNumber == 122)
+        else if (stageNumber == 7)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage2-2character";
         }
-        else if (stageNumber == 123)
+        else if (stageNumber == 8)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage2-3character";
         }
-        else if (stageNumber == 124)
+        else if (stageNumber == 9)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage2-4character";
         }
-        else if (stageNumber == 125)
+        else if (stageNumber == 10)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage2-5character";
         }
-        else if (stageNumber == 131)
+        else if (stageNumber == 11)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage3-1character";
         }
-        else if (stageNumber == 132)
+        else if (stageNumber == 12)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage3-2character";
         }
-        else if (stageNumber == 133)
+        else if (stageNumber == 13)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage3-3character";
         }
-        else if (stageNumber == 134)
+        else if (stageNumber == 14)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage3-4character";
         }
-        else if (stageNumber == 135)
+        else if (stageNumber == 15)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage3-5character";
         }
-        else if (stageNumber == 141)
+        else if (stageNumber == 16)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage4-1character";
         }
-        else if (stageNumber == 142)
+        else if (stageNumber == 17)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage4-2character"; 
         }
-        else if (stageNumber == 143)
+        else if (stageNumber == 18)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage4-3character";
         }
-        else if (stageNumber == 144)
+        else if (stageNumber == 19)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage4-4character";
         }
-        else if (stageNumber == 145)
+        else if (stageNumber == 20)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage4-5character";
         }
-        else if (stageNumber == 151)
+        else if (stageNumber == 21)
         {
             limitTalk = 2;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage5-1character";
         }
-        else if (stageNumber == 152)
+        else if (stageNumber == 22)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage5-2character";
         }
-        else if (stageNumber == 153)
+        else if (stageNumber == 23)
         {
             limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage5-3character";
         }
-        else if (stageNumber == 154)
+        else if (stageNumber == 24)
         {
             limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage5-4character";
         }
-
-        if (stageNumber == 201)
+        else if (stageNumber == 25)
         {
-            limitTalk = 6;
+            limitTalk = 3;
             talkNumber = 0;
-            filepath = "UI/IntoGame/CharacterImage/stage1-1character";
+            filepath = "UI/IntoGame/CharacterImage/stage25character";
         }
+        else if (stageNumber == 26)
+        {
+            limitTalk = 4;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage26character";
+        }
+        else if (stageNumber == 27)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage27character";
+        }
+        else if (stageNumber == 28)
+        {
+            limitTalk = 4;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage28character";
+        }
+        else if (stageNumber == 29)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage29character";
+        }
+        else if (stageNumber == 30)
+        {
+            limitTalk = 4;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage30character";
+        }
+        else if (stageNumber == 31)
+        {
+            limitTalk = 4;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage31character";
+        }
+        else if (stageNumber == 32)
+        {
+            limitTalk = 4;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage32character";
+        }
+        else if (stageNumber == 33)
+        {
+            limitTalk = 4;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage33character";
+        }
+        else if (stageNumber == 34)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage34character";
+        }
+        else if (stageNumber == 35)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage35character";
+        }
+        else if (stageNumber == 36)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage36character";
+        }
+        else if (stageNumber == 37)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage37character";
+        }
+        else if (stageNumber == 38)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage38character";
+        }
+        else if (stageNumber == 39)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage39character";
+        }
+        else if (stageNumber == 40)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage40character";
+        }
+        else if (stageNumber == 41)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage41character";
+        }
+        else if (stageNumber == 42)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage42character";
+        }
+        else if (stageNumber == 43)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage43character";
+        }
+        else if (stageNumber == 44)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage44character";
+        }
+        else if (stageNumber == 45)
+        {
+            limitTalk = 3;
+            talkNumber = 0;
+            filepath = "UI/IntoGame/CharacterImage/stage45character";
+        }
+       
+
+
+        
             
   
         talkSpeed = 600;
@@ -380,8 +402,7 @@ public class ChangeCharacter : MonoBehaviour {
 
         }
         
-        if(stageNumber < 25)
-        {
+
             if (timeCount % talkSpeed == 0)
             {
                 if (charaCount == limitTalk)
@@ -427,8 +448,6 @@ public class ChangeCharacter : MonoBehaviour {
 
 
 
-
-            }
         }
         
         
@@ -455,8 +474,7 @@ public class ChangeCharacter : MonoBehaviour {
     //.txtを読み込むときにreadの部分で差し換えてください
     void ReadTextData()
     {
-        if(stageNumber < 25)
-        {
+   
             // TextAssetとして、Resourcesフォルダからテキストデータをロードする
             stageTextAsset = Resources.Load(filepath, typeof(TextAsset)) as TextAsset;
             // 文字列を代入(絵の判定の場合)
@@ -464,7 +482,6 @@ public class ChangeCharacter : MonoBehaviour {
             string[] test02 = { "\r\n" };
             //.txt内の改行に合わせて改行する
             scenarios = stageData.Split(test02, System.StringSplitOptions.RemoveEmptyEntries);
-        }
-       
+      
     }
 }
