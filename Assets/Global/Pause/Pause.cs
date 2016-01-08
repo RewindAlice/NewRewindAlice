@@ -4,7 +4,6 @@ using System.Collections;
 
 public class Pause : MonoBehaviour
 {
-
     public bool pauseFlag = false;
     public bool keyFlag;
     public int selectMode = 0;
@@ -16,7 +15,6 @@ public class Pause : MonoBehaviour
     const int RETURN_GAME = 0;
     const int RESTART = 1;
     const int RETURN_SELECT = 2;
-
 
     public GameObject backGorund;
     public GameObject backButton;
@@ -103,26 +101,28 @@ public class Pause : MonoBehaviour
                 }
                 // 経過していないなら、選択してからのタイマーをプラス
                 else
+                {
                     selectTimer++;
+                }
             }
 
             // メニュー選択がされていない場合
             if (menuSelectFlag == false)
             {
-                if ((-0.3f < HorizontalKeyInput) && (HorizontalKeyInput < 0.3f) && (-0.3f < VerticalKeyInput) && (VerticalKeyInput < 0.3f))
+                if ((-0.6f < HorizontalKeyInput) && (HorizontalKeyInput < 0.6f) && (-0.6f < VerticalKeyInput) && (VerticalKeyInput < 0.6f))
                 {
                     keyFlag = false;
                 }
                 if (keyFlag == false)
                 {
                     // 上入力でメニューを上に
-                    if (((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.7f))) && (selectMode > RETURN_GAME))
+                    if (((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.9f))) && (selectMode > RETURN_GAME))
                     {
                         selectMode--;
                         keyFlag = true;
                     }
                     // 下入力でメニューを下に
-                    else if (((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > +0.7f))) && (selectMode < RETURN_SELECT))
+                    else if (((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.9f))) && (selectMode < RETURN_SELECT))
                     {
                         selectMode++;
                         keyFlag = true;
@@ -145,7 +145,7 @@ public class Pause : MonoBehaviour
         }
         else
         {
-			if (startTimer >= 80)
+			if (startTimer >= 30)
 			{
 				if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
 				{
@@ -172,12 +172,10 @@ public class Pause : MonoBehaviour
         else if (selectMode == RESTART)
         {
             pauseImageManager6.transform.localPosition = new Vector3(80, -10, 0);
-
         }
         else if (selectMode == RETURN_SELECT)
         {
             pauseImageManager6.transform.localPosition = new Vector3(80, -160, 0);
-
         }
     }
 

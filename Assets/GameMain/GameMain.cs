@@ -500,16 +500,13 @@ public class GameMain : MonoBehaviour
 
                 if (touchController.detachPosX != 0 && touchController.detachPosY != 0)
                 {
-                    
                     //右めくり
                     if (touchController.touchPosX - touchController.detachPosX < -180)
                     {
                         CameraTurnLeftMove();
                         touchController.TouchPostionInitialize();
-
                     }
                 }
-
             }
 
             if (tutorialFlag == false)
@@ -527,7 +524,6 @@ public class GameMain : MonoBehaviour
                     //右めくり
                     if (touchController.touchPosX - touchController.detachPosX > +180)
                     {
-                   
                         CameraTurnRightMove();
                         touchController.TouchPostionInitialize();
                     }
@@ -1080,7 +1076,6 @@ public class GameMain : MonoBehaviour
         Debug.Log("BACK" + alice.moveBackPossibleFlag);
         Debug.Log("LEFT" + alice.moveLeftPossibleFlag);
         Debug.Log("RIGHT" + alice.moveRightPossibleFlag);
-    
     }
 
     // ★アリスの登り判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
