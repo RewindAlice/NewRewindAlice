@@ -1008,12 +1008,12 @@ GameObject:
   - 222: {fileID: 663006384}
   - 114: {fileID: 663006383}
   m_Layer: 5
-  m_Name: menu
+  m_Name: AndroidMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &663006382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 010865cf59e05b24b911128791b2979f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b7e8ff4c53671e04db5a6b8ee7dd7053, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2051,6 +2051,8 @@ MonoBehaviour:
   stageData: 
   touchController: {fileID: 1371905275}
   pause: {fileID: 270288898}
+  clearFlag: 0
+  Android: 0
 --- !u!114 &1371905275
 MonoBehaviour:
   m_ObjectHideFlags: 0
