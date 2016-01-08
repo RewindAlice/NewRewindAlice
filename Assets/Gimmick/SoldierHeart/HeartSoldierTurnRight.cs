@@ -118,13 +118,13 @@ public class HeartSoldierTurnRight : BaseGimmick
 		switch (direction)
 		{
 			case 1:
-				directionRot = 180;
+				directionRot = 0;
 				break;
 			case 2:
 				directionRot = 90;
 				break;
 			case 3:
-				directionRot = 0;
+				directionRot = 180;
 				break;
 			case 4:
 				directionRot = 270;

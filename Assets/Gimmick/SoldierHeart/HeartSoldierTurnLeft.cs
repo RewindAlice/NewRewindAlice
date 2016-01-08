@@ -118,18 +118,18 @@ public class HeartSoldierTurnLeft: BaseGimmick
 		// 向きの調整
 		switch (direction)
 		{
-			case 1:
-				directionRot = 180;
-				break;
-			case 2:
-				directionRot = 90;
-				break;
-			case 3:
-				directionRot = 0;
-				break;
-			case 4:
-				directionRot = 270;
-				break;
+            case 1:
+                directionRot = 0;
+                break;
+            case 2:
+                directionRot = 90;
+                break;
+            case 3:
+                directionRot = 180;
+                break;
+            case 4:
+                directionRot = 270;
+                break;
 		}
 		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
 
@@ -160,7 +160,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
 		if (moveFlag)
 			Move();
 
-		Animation();
+		//Animation();
     }
 
     //---------------------------------
@@ -505,30 +505,30 @@ public class HeartSoldierTurnLeft: BaseGimmick
 			// 向きの調整
 			switch(direction)
 			{
-				//case 1:
-				//	directionRot = 0;
-				//	break;
-				//case 2:
-				//	directionRot = 90;
-				//	break;
-				//case 3:
-				//	directionRot = 180;
-				//	break;
-				//case 4:
-				//	directionRot = 270;
-				//	break;
-				case 1:
-					directionRot = 180;
-					break;
-				case 2:
-					directionRot = 90;
-					break;
-				case 3:
-					directionRot = 0;
-					break;
-				case 4:
-					directionRot = 270;
-					break;
+                case 1:
+                    directionRot = 0;
+                    break;
+                case 2:
+                    directionRot = 90;
+                    break;
+                case 3:
+                    directionRot = 180;
+                    break;
+                case 4:
+                    directionRot = 270;
+                    break;
+                //case 1:
+                //    directionRot = 180;
+                //    break;
+                //case 2:
+                //    directionRot = 90;
+                //    break;
+                //case 3:
+                //    directionRot = 0;
+                //    break;
+                //case 4:
+                //    directionRot = 270;
+                //    break;
 			}
 		}
 		moveTimer++;
