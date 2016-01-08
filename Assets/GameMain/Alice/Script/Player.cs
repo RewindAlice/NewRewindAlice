@@ -544,6 +544,9 @@ public class Player : MonoBehaviour
                 playerMode = saveMovePlayerMode[saveCount - 1];     // １つ前の状態を設定
                 nextFlag = false;
                 ModeChange();
+
+                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.RETURN);      // 足元との判定
+
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 
                 Debug.Log(playerMode);

@@ -432,7 +432,6 @@ public class GameMain : MonoBehaviour
                         if (stage.GetFootHole(alice) == true && PlayerAction.RETURN == action)
                         {
                             //処理しないでフラグを戻す
-                           
                             alice.moveFinishFlag = false;
                            // alice.arrowDrawFlag = false;
                         }
@@ -459,7 +458,7 @@ public class GameMain : MonoBehaviour
                                 }
                             }
                             stage.GimmickDecision(alice,Player.PlayerAction.RETURN);   // ギミックとの判定
-                            stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+                            //stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
                             
                                                         
                             print("ターン終了");// デバッグ用コメント
@@ -1027,12 +1026,7 @@ public class GameMain : MonoBehaviour
                     }
                   
                     touchController.TouchPostionInitialize();
-                    //巻き戻しを押した時、下に穴があった時には、しょりをする、左側の分は丹羽君
-                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.NONE || stage.GetFootHole(alice))
-                    {
-                        stage.FootDecision(alice,Player.PlayerAction.NEXT);
-                    }
-
+                   
                     action = PlayerAction.RETURN;   // 行動を戻るに
                     turn = Turn.GIMMICK;            // ターンをギミックに
                     turnCountGimmick = 0;           // カウントを０に
