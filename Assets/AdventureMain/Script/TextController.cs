@@ -355,10 +355,7 @@ public class TextController : MonoBehaviour
                             }
                             flagManager.sentenceEndFlag = false;
                         }
-
-                       
                     }
-
                 }
             }
         }
