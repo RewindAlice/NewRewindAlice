@@ -597,7 +597,7 @@ public class GameMain : MonoBehaviour
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
-                    Singleton<SoundPlayer>.instance.PlaySE("se002");
+                    Singleton<SoundPlayer>.instance.PlaySE("se009");
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -697,7 +697,7 @@ public class GameMain : MonoBehaviour
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
-                    Singleton<SoundPlayer>.instance.PlaySE("se002");
+                    Singleton<SoundPlayer>.instance.PlaySE("se009");
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -795,7 +795,7 @@ public class GameMain : MonoBehaviour
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
-                    Singleton<SoundPlayer>.instance.PlaySE("se002");
+                    Singleton<SoundPlayer>.instance.PlaySE("se009");
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -893,7 +893,7 @@ public class GameMain : MonoBehaviour
                 {
                     alice.arrowDrawFlag = false;
                     touchController.TouchPostionInitialize();
-                    Singleton<SoundPlayer>.instance.PlaySE("se002");
+                    Singleton<SoundPlayer>.instance.PlaySE("se009");
                     if (tutorialImageFlag == true)
                     {
                         if (tutorialCount == 60)
@@ -990,7 +990,7 @@ public class GameMain : MonoBehaviour
                     (tutorialTurn == 0))
                 {
                     alice.arrowDrawFlag = false;
-                    Singleton<SoundPlayer>.instance.PlaySE("se002");
+                    Singleton<SoundPlayer>.instance.PlaySE("se009");
                     touchController.TouchPostionInitialize();
                     action = PlayerAction.NEXT;     // 行動を進むに
                     turn = Turn.PLAYER;             // ターンをプレイヤーに
@@ -1031,7 +1031,7 @@ public class GameMain : MonoBehaviour
                     turn = Turn.GIMMICK;            // ターンをギミックに
                     turnCountGimmick = 0;           // カウントを０に
                     alice.moveReturnFlag = true;    // 巻き戻しフラグを真に
-                    Singleton<SoundPlayer>.instance.PlaySE("se002");
+                    Singleton<SoundPlayer>.instance.PlaySE("se009");
                     print("巻き戻し");// デバッグ用コメント
                 }
 
@@ -1052,7 +1052,7 @@ public class GameMain : MonoBehaviour
                         turnCountGimmick = 0;
                         alice.moveNextFlag = true;
                         alice.inputKeyFlag = true;
-                        Singleton<SoundPlayer>.instance.PlaySE("se002");
+                        Singleton<SoundPlayer>.instance.PlaySE("se009");
                         print("早送り");// デバッグ用コメント
                     }
                 }
