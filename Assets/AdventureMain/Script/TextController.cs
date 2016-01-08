@@ -267,16 +267,8 @@ public class TextController : MonoBehaviour
                             }
                             else
                             {
-                                if (BGMTimer > BGMFadeTime && clearFlag == false)
-                                {
-                                    clearFlag = true;
-                                    BGMTimer = 0;
-                                    BGMDeleter = false;
-                                    Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                                    PlayerPrefs.SetInt("STAMP_NUM", 1);
-                                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-
-                                }
+                                EndBgmfunc();
+                                
                             }
                         }
                     }
@@ -346,16 +338,7 @@ public class TextController : MonoBehaviour
                                 }
                                 else
                                 {
-                                    if (BGMTimer > BGMFadeTime && clearFlag == false)
-                                    {
-                                        clearFlag = true;
-                                        BGMTimer = 0;
-                                        BGMDeleter = false;
-                                        Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-                                        PlayerPrefs.SetInt("STAMP_NUM", 1);
-                                        CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-
-                                    }
+                                    EndBgmfunc();
                                 }
                             }
                         }
@@ -442,78 +425,75 @@ public class TextController : MonoBehaviour
         {
             PlayerPrefs.SetInt("Story1_1Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
-
 
         }
         else if (stageNum == 12 && crickNum == 7)
         {
             PlayerPrefs.SetInt("Story1_2Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
 
         }
         else if (stageNum == 21 && crickNum == 17)
         {
             PlayerPrefs.SetInt("Story2_1Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+ 
 
         }
         else if (stageNum == 22 && crickNum == 5)
         {
             PlayerPrefs.SetInt("Story2_2Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+    
 
         }
         else if (stageNum == 31 && crickNum == 12)
         {
             PlayerPrefs.SetInt("Story3_1Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+       
 
         }
         else if (stageNum == 32 && crickNum == 14)
         {
             PlayerPrefs.SetInt("Story3_2Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+      
 
         }
         else if (stageNum == 41 && crickNum == 5)
         {
             PlayerPrefs.SetInt("Story4_1Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+        
 
         }
         else if (stageNum == 42 && crickNum == 17)
         {
             PlayerPrefs.SetInt("Story4_2Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+      
 
         }
         else if (stageNum == 51 && crickNum == 7)
         {
             PlayerPrefs.SetInt("Story5_1Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+      
 
         }
         else if (stageNum == 52 && crickNum == 22)
         {
             PlayerPrefs.SetInt("Story5_2Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+       
 
         }
         else if (stageNum == 53 && crickNum == 33)
         {
             PlayerPrefs.SetInt("Story5_3Clear", 1);
             storyEndFlag = true;
-            EndBgmfunc();
+            
 
         }
 
@@ -525,6 +505,17 @@ public class TextController : MonoBehaviour
         if(BGMDeleter)
         {
             BGMTimer++;
+        }
+
+        if (BGMTimer > BGMFadeTime && clearFlag == false)
+        {
+            clearFlag = true;
+            BGMTimer = 0;
+            BGMDeleter = false;
+            Singleton<SoundPlayer>.instance.BGMPlayerDelete();
+            PlayerPrefs.SetInt("STAMP_NUM", 1);
+            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+
         }
 
         if(touchController.detachPosX != 0)
