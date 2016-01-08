@@ -203,8 +203,8 @@ public class PlayerCamera : MonoBehaviour
                     // 現在のカメラの角度が目的の角度と異なっていたら
                     if (currentRotationY != targetRotationY)
                     {
-                        currentRotationY++;                     // 現在の角度を増やす
-                        mapCamera.transform.Rotate(0, 0, -1);   // マップカメラを回転させる
+                        currentRotationY+=2;                     // 現在の角度を増やす
+                        mapCamera.transform.Rotate(0, 0, -2);   // マップカメラを回転させる
 
                         // 現在の角度が３６０度になったら角度を０に変える
                         if (currentRotationY == 360){ currentRotationY = 0; }
@@ -234,8 +234,8 @@ public class PlayerCamera : MonoBehaviour
                         // 現在の角度が０度になったら角度を３６０に変える
                         if (currentRotationY == 0){ currentRotationY = 360; }
 
-                        currentRotationY--;                     // 現在の角度を減らす
-                        mapCamera.transform.Rotate(0, 0, 1);    // マップカメラを回転させる
+                        currentRotationY-=2;                     // 現在の角度を減らす
+                        mapCamera.transform.Rotate(0, 0, 2);    // マップカメラを回転させる
                     }
                     break;
             }

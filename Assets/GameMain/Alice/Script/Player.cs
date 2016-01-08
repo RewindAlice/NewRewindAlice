@@ -684,8 +684,8 @@ public class Player : MonoBehaviour
                         break;
                     // ▼待機なら//////////////////////////////////////////////////////////////////
                     case MoveDirection.STOP:
-                        // 待機カウントが５０になったら
-                        if (stopCount == 50)
+                        // 待機カウントが２５になったら
+                        if (stopCount == 25)
                         {
                             MoveFinish(transform.localPosition, ArrayMove.NONE);    // 移動完了処理
                         }
@@ -769,8 +769,8 @@ public class Player : MonoBehaviour
                         break;
                     // ▼待機なら//////////////////////////////////////////////////////////////////
                     case MoveDirection.STOP:
-                        // 待機カウントが５０になったら
-                        if (stopCount == 50)
+                        // 待機カウントが２５になったら
+                        if (stopCount == 25)
                         {
                             MoveFinish(transform.localPosition, ArrayMove.NONE);    // 移動完了処理
                             MoveAgain();                                            // 再移動

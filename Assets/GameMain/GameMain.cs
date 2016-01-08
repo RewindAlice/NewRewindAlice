@@ -990,6 +990,7 @@ public class GameMain : MonoBehaviour
                     ((touchController.touchPosY + 30 > touchController.detachPosY) && (touchController.touchPosY - 30 < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                     (tutorialTurn == 0))
                 {
+                    alice.arrowDrawFlag = false;
                     Singleton<SoundPlayer>.instance.PlaySE("se002");
                     touchController.TouchPostionInitialize();
                     action = PlayerAction.NEXT;     // 行動を進むに
