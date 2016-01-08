@@ -45,8 +45,6 @@ public class Title : MonoBehaviour
 
             //タッチ座標の初期化
             touchController.TouchPostionInitialize();
-
-            Debug.Log("PUSH_BUTTON");   // デバッグ用コメント
         }
 
         //もし、手を離したときに、なにも無ければ初期化
