@@ -2600,7 +2600,7 @@ MonoBehaviour:
   stageData: 
   gameMain: {fileID: 2060863229}
   tutorialCount: 0
-  Android: 1
+  Android: 0
 --- !u!114 &1972864572
 MonoBehaviour:
   m_ObjectHideFlags: 0

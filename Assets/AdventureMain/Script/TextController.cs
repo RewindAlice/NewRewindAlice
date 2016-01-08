@@ -454,7 +454,7 @@ public class TextController : MonoBehaviour
        
 
         }
-        else if (stageNum == 32 && crickNum == 14)
+        else if (stageNum == 32 && crickNum == 15)
         {
             PlayerPrefs.SetInt("Story3_2Clear", 1);
             storyEndFlag = true;
@@ -513,9 +513,16 @@ public class TextController : MonoBehaviour
             BGMTimer = 0;
             BGMDeleter = false;
             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
-            PlayerPrefs.SetInt("STAMP_NUM", 1);
-            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-
+            if(stageNum == 52)
+            {
+                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("EndingScene"); });
+            }
+            else
+            {
+                PlayerPrefs.SetInt("STAMP_NUM", 1);
+                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+            }
+           
         }
 
         if(touchController.detachPosX != 0)

@@ -23,7 +23,7 @@ public class Video : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Android)
+        if (!Android)
         {
             count++;
 
@@ -33,7 +33,7 @@ public class Video : MonoBehaviour {
                 movie.Stop();
                 PlayerPrefs.SetInt("STORY_NUM", 53);
                 CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("AdventureMainScene"); });
-                //Application.LoadLevel("StageSelectScene");
+                
             }
         }
        
