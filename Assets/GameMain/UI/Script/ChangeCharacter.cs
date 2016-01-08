@@ -351,8 +351,7 @@ public class ChangeCharacter : MonoBehaviour {
         talkSpeed = 600;
         ReadTextData();
         //this.read();
-        if(stageNumber<25)
-        {
+     
             if (scenarios[charaCount] == "1")
             {
                 image.sprite = flower;
@@ -385,9 +384,7 @@ public class ChangeCharacter : MonoBehaviour {
             {
                 image.sprite = sisterAlice;
             }
-        }
-       
-
+        
         charaCount++;
       
 
