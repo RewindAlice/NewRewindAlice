@@ -672,19 +672,19 @@ public class SpadeSoldierBackAndForth : BaseGimmick
         {
             this.transform.localEulerAngles = enemyAngle1;
         }
-        if (direction == 2)
+        else if (direction == 2)
         {
             direction = 3;
             this.transform.localEulerAngles = enemyAngle3;
 
         }
-        if (direction == 3)
+        else if (direction == 3)
         {
             direction = 2;
             this.transform.localEulerAngles = enemyAngle2;
 
         }
-        if (direction == 4)
+        else if (direction == 4)
         {
             this.transform.localEulerAngles = enemyAngle4;
         }

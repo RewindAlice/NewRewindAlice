@@ -197,7 +197,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Effect: {fileID: 135266, guid: 29b69232e2b7bb841945f53d86daf419, type: 2}
+  Effect: {fileID: 138978, guid: 8b877ec7f108ae04b824a0961f862a11, type: 2}
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +782,7 @@ MonoBehaviour:
   peke: {fileID: 21300000, guid: 35a7b1bfae398fa48a00c7bf94175f32, type: 3}
   image: {fileID: 0}
   endFlag: 0
+  endSeCheck: 0
   alice: {fileID: 99142189}
   player: {fileID: 0}
 --- !u!114 &603801860
@@ -1222,6 +1223,7 @@ MonoBehaviour:
   Twins1: {x: 0, y: 0, z: 0}
   Twins2: {x: 0, y: 0, z: 0}
   oncetime: 0
+  goalFlag: 0
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
