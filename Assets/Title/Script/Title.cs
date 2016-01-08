@@ -38,15 +38,15 @@ public class Title : MonoBehaviour
             ((touchController.touchPosY > 0) && (touchController.touchPosY < 720)) &&
             ((touchController.detachPosX > 0) && (touchController.detachPosX < 1280)) &&
             ((touchController.detachPosY > 0) && (touchController.detachPosY < 720)))
-
         {
-
             //BGMを一秒で
             Singleton<SoundPlayer>.instance.stopBGM(1.0f);
             BGMDeleter = true;
 
             //タッチ座標の初期化
             touchController.TouchPostionInitialize();
+
+            Debug.Log("PUSH_BUTTON");   // デバッグ用コメント
         }
 
         //もし、手を離したときに、なにも無ければ初期化
@@ -65,7 +65,6 @@ public class Title : MonoBehaviour
             PlayerPrefs.SetInt("STAGE_SELECT_STAGE_NUM", 1);
             PlayerPrefs.SetInt("STAMP_NUM", 0);
             CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-            
         }
 
         if(BGMDeleter)
