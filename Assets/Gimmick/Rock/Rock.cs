@@ -181,6 +181,7 @@ public class Rock : BaseGimmick
 					else if (moveMemory[turnNum] == MoveDirection.LEFT) { transform.Translate(Vector3.left * 0.02f); }
 					else if (moveMemory[turnNum] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * 0.02f); }
 					else if (moveMemory[turnNum] == MoveDirection.DOWN) { transform.Translate(Vector3.back * 0.02f); }
+					else if (moveMemory[turnNum] == MoveDirection.UP) { transform.Translate(Vector3.back * -0.02f); }
 				}
 				else if (playerAction == PlayerAction.RETURN)
 				{
@@ -191,6 +192,7 @@ public class Rock : BaseGimmick
 						else if (moveMemory[turnNum+1] == MoveDirection.LEFT) { transform.Translate(Vector3.left * -0.02f); }
 						else if (moveMemory[turnNum+1] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * -0.02f); }
 						else if (moveMemory[turnNum+1] == MoveDirection.DOWN) { transform.Translate(Vector3.back * -0.02f); }
+						else if (moveMemory[turnNum + 1] == MoveDirection.UP) { transform.Translate(Vector3.back * 0.02f); }
 					}
 				}
 			}
@@ -248,6 +250,7 @@ public class Rock : BaseGimmick
 	// ★岩が上がる時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Rize()
 	{
+		Debug.Log("Rize");
 		moveMemory[turnNum + 1] = MoveDirection.UP;
 		fallFlag = true;
 	}
@@ -337,6 +340,7 @@ public class Rock : BaseGimmick
 			else if (moveMemory[turnNum] == MoveDirection.LEFT) { posX--; }
 			else if (moveMemory[turnNum] == MoveDirection.RIGHT) { posX++; }
 			else if (moveMemory[turnNum] == MoveDirection.DOWN) { posY--; }
+			else if (moveMemory[turnNum] == MoveDirection.UP) { posY++; }
 		}
 		else if (playerAction == PlayerAction.RETURN)
 		{
@@ -347,6 +351,7 @@ public class Rock : BaseGimmick
 				else if (moveMemory[turnNum+1] == MoveDirection.LEFT) { posX++; }
 				else if (moveMemory[turnNum+1] == MoveDirection.RIGHT) { posX--; }
 				else if (moveMemory[turnNum+1] == MoveDirection.DOWN) { posY++; }
+				else if (moveMemory[turnNum + 1] == MoveDirection.UP) { posY--; }
 			}
 		}
 

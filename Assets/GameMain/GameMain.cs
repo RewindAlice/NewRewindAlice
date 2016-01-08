@@ -327,76 +327,77 @@ public class GameMain : MonoBehaviour
                 }
                 break;
 
-            // ▼進むなら
-            case PlayerAction.NEXT:
-                // ターンがプレイヤーなら
-                if (turn == Turn.PLAYER)
-                {
-                    if (alice.gameOverFlag == false)
-                    {
+			// ▼進むなら
+			case PlayerAction.NEXT:
+				// ターンがプレイヤーなら
+				if (turn == Turn.PLAYER)
+				{
+					if (alice.gameOverFlag == false)
+					{
 
-                        // プレイヤーの移動
-                        if (alice.moveFlag == false && alice.moveFinishFlag == false) { InputPlayerMove(); }
+						// プレイヤーの移動
+						if (alice.moveFlag == false && alice.moveFinishFlag == false) { InputPlayerMove(); }
 
-                        // プレイヤーの移動が完了したら
-                        if (alice.moveFinishFlag == true)
-                        {
-                            stage.ChangeArrayGimmickNext();
-                            stage.GimmickDecision(alice, Player.PlayerAction.NEXT);   // ギミックとの判定
-                            stage.FootDecision(alice, Player.PlayerAction.NEXT);      // 足元との判定
-                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+						// プレイヤーの移動が完了したら
+						if (alice.moveFinishFlag == true)
+						{
+							stage.ChangeArrayGimmickNext();
+							stage.GimmickDecision(alice, Player.PlayerAction.NEXT);   // ギミックとの判定
+							stage.FootDecision(alice, Player.PlayerAction.NEXT);      // 足元との判定
+							alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
-                            if (!alice.autoMoveFlag)
-                            {
-                                turn = Turn.GIMMICK;                                // ターンをギミックに
-                                aliceActionNotifer.NotiferNext(alice.turnCount);    // ギミックを次の段階へ
+							if (!alice.autoMoveFlag)
+							{
+								turn = Turn.GIMMICK;                                // ターンをギミックに
+								aliceActionNotifer.NotiferNext(alice.turnCount);    // ギミックを次の段階へ
 
-                                if(alice.autoMoveFlag)
-                                {
-                                    turn = Turn.PLAYER;
-                                    AutoPlayerMove();
-                                }
-                            }
-                        }
-                    }
-                }
-                // ターンがギミックなら
-                else if (turn == Turn.GIMMICK)
-                {
-                    turnCountGimmick++; // カウントを増やす
-                    stage.ChangeArrayGimmickNext();//条件が一致した場合のみ処理を呼ぶ関数
+								if (alice.autoMoveFlag)
+								{
+									turn = Turn.PLAYER;
+									AutoPlayerMove();
+								}
+							}
+						}
+					}
+				}
+				// ターンがギミックなら
+				else if (turn == Turn.GIMMICK)
+				{
+					turnCountGimmick++; // カウントを増やす
+					//stage.ChangeArrayGimmickNext();//条件が一致した場合のみ処理を呼ぶ関数
 
-                    if (turnCountGimmick == 1)
-                    {
-                        alice.ModeChange();
-                    }
+					if (turnCountGimmick == 1)
+					{
+						alice.ModeChange();
+					}
 
-                    // カウントが３０になったら
-                    if (turnCountGimmick == 30)
-                    {
-                        //stage.FlowerDecision(alice);      // 足元との判定
-                        stage.SearchRockFallAgain();
-                        action = PlayerAction.NONE;   // 行動を無しに
-                        turn = Turn.NONE;       // ターンを無しに
-                        turnNum--;
+					// カウントが６０になったら
+					if (turnCountGimmick == 60)
+					{
+						//stage.ChangeArrayGimmickNext();//条件が一致した場合のみ処理を呼ぶ関数
+						//stage.FlowerDecision(alice);      // 足元との判定
+						stage.SearchRockFallAgain();
+						action = PlayerAction.NONE;   // 行動を無しに
+						turn = Turn.NONE;       // ターンを無しに
+						turnNum--;
 
-                        // ターン数が０になるかアリスが地面に着いていたら
-                        if(turnNum == 0 || alice.arrayPosY == 0)
-                        {
-                            alice.gameOverFlag = true;
-                        }
+						// ターン数が０になるかアリスが地面に着いていたら
+						if (turnNum == 0 || alice.arrayPosY == 0)
+						{
+							alice.gameOverFlag = true;
+						}
 
-                        watchHand.NextTurn();
-                        print("ターン終了");// デバッグ用コメント
-                        if (tutorialFlag == true)
-                        {
-                            waitingTime = 0;
-                            tutorialTurn++;
-                        }
-                        stage.FlowerFootDecision(alice);
-                    }
-                }
-                break;
+						watchHand.NextTurn();
+						print("ターン終了");// デバッグ用コメント
+						if (tutorialFlag == true)
+						{
+							waitingTime = 0;
+							tutorialTurn++;
+						}
+						stage.FlowerFootDecision(alice);
+					}
+				}
+				break;
 
             // ▼戻るなら
             case PlayerAction.RETURN:

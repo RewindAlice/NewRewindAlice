@@ -2373,18 +2373,47 @@ public class Stage : MonoBehaviour
                     switch (gimmickNumArray[y, x, z])
                     {
                         // ▼木なら
-                        case TREE:
-                            // 成長段階が２以下なら１つ上の配列を変更
-                            if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount <= 1)
-                            {
-                                gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
-                            }
-                            // 成長段階が３なら１つ上の配列を変更
-                            else if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 2)
-                            {
-                                gimmickNumArray[y + 1, x, z] = DUMMY_TREE;
-                            }
-                            break;
+						// ▼木なら
+						case TREE:
+							// 成長段階が２以下なら１つ上の配列を変更
+							if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount <= 1)
+							{
+								gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
+							}
+
+							// 成長段階が2なら木と重なっている場所の配列を変更
+							if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 1)
+							{
+								if (pushGimmickNumArray[y, x, z] == ROCK)
+								{
+									pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Rize();
+									GameObject objectTemp;
+									objectTemp = pushGimmickObjectArray[y + 1, x, z];
+									pushGimmickObjectArray[y + 1, x, z] = pushGimmickObjectArray[y, x, z];
+									pushGimmickObjectArray[y, x, z] = objectTemp;
+
+									pushGimmickNumArray[y + 1, x, z] = ROCK;
+									pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+								}
+							}
+							// 成長段階が3なら一つ上の配列を変更
+							if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 2)
+							{
+								Debug.Log("nextTree");
+								gimmickNumArray[y + 1, x, z] = DUMMY_TREE;
+								if (pushGimmickNumArray[y + 1, x, z] == ROCK)
+								{
+									pushGimmickObjectArray[y + 1, x, z].GetComponent<Rock>().Rize();
+									GameObject objectTemp;
+									objectTemp = pushGimmickObjectArray[y + 2, x, z];
+									pushGimmickObjectArray[y + 2, x, z] = pushGimmickObjectArray[y + 1, x, z];
+									pushGimmickObjectArray[y + 1, x, z] = objectTemp;
+
+									pushGimmickNumArray[y + 2, x, z] = ROCK;
+									pushGimmickNumArray[y + 1, x, z] = NONE_BLOCK;
+								}
+							}
+							break;
 
 						case NONE_BLOCK:
 							switch (pushGimmickNumArray[y, x, z])
@@ -2395,15 +2424,18 @@ public class Stage : MonoBehaviour
 										if ((gimmickNumArray[y - 1, x, z] == NONE_BLOCK) ||
 											(gimmickNumArray[y - 1, x, z] == WATER))
 										{
-											pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
-											GameObject objectTemp;
-											objectTemp = pushGimmickObjectArray[y - 1, x, z];
-											pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
-											pushGimmickObjectArray[y, x, z] = objectTemp;
+											if (pushGimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+											{
+												pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+												GameObject objectTemp;
+												objectTemp = pushGimmickObjectArray[y - 1, x, z];
+												pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+												pushGimmickObjectArray[y, x, z] = objectTemp;
 
-											pushGimmickNumArray[y - 1, x, z] = ROCK;
-											pushGimmickNumArray[y, x, z] = NONE_BLOCK;
-											stoneFallController = true;
+												pushGimmickNumArray[y - 1, x, z] = ROCK;
+												pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+												stoneFallController = true;
+											}
 										}
 									}
 									break;
@@ -2452,26 +2484,41 @@ public class Stage : MonoBehaviour
         }
     }
 
-    // ★一部ギミックの配列上の位置を変更（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void ChangeArrayGimmickReturn()
-    {
-        for (int x = 0; x < STAGE_X; x++)
-        {
-            for (int y = 0; y < STAGE_Y; y++)
-            {
-                for (int z = 0; z < STAGE_Z; z++)
-                {
-                    // ▽ギミックが
-                    switch (gimmickNumArray[y, x, z])
-                    {
-                        // ▼木なら
-                        case TREE:
-                            // 成長段階が２以下なら１つ上の配列を変更
-                            if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 3)
-                            {
-                                gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
-                            }
-                            break;
+	// ★一部ギミックの配列上の位置を変更（戻る）★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+	public void ChangeArrayGimmickReturn()
+	{
+		for (int x = 0; x < STAGE_X; x++)
+		{
+			for (int y = 0; y < STAGE_Y; y++)
+			{
+				for (int z = 0; z < STAGE_Z; z++)
+				{
+					// ▽ギミックが
+					switch (gimmickNumArray[y, x, z])
+					{
+						// ▼木なら
+						case TREE:
+							// 成長段階が２以下なら１つ上の配列を変更
+							if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 3)
+							{
+								gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
+							}
+
+							if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount >= 2)
+							{
+								//if (pushGimmickNumArray[y + 1, x, z] == ROCK)
+								//{
+								//	pushGimmickObjectArray[y + 1, x, z].GetComponent<Rock>().Fall();
+								//	GameObject objectTemp;
+								//	objectTemp = pushGimmickObjectArray[y, x, z];
+								//	pushGimmickObjectArray[y, x, z] = pushGimmickObjectArray[y + 1, x, z];
+								//	pushGimmickObjectArray[y + 1, x, z] = objectTemp;
+
+								//	pushGimmickNumArray[y, x, z] = ROCK;
+								//	pushGimmickNumArray[y + 1, x, z] = NONE_BLOCK;
+								//}
+							}
+							break;
 
 						// ▼岩なら
 						case ROCK:
@@ -2526,11 +2573,11 @@ public class Stage : MonoBehaviour
 								}
 							}
 							break;
-                    }
-                }
-            }
-        }
-    }
+					}
+				}
+			}
+		}
+	}
 
 
     //----------------------------------------------------------------------------
@@ -2746,31 +2793,38 @@ public class Stage : MonoBehaviour
 					{
 						case ROCK:
 							return false;
+						default:
+							return true;
 					}
-					return true;
+				case TREE:
+					{
+						if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<Tree>().growCount <= 1)
+							return true;
+						return false;
+					}
 
 				case START_POINT:
 				case STAGE_GOOL:
 					return true;
 
-                case POTION_BIG:
-                case POTION_SMALL:
-                case MUSHROOM_BIG:
-                case MUSHROOM_SMALL:
-                    //現在のターンを入れる
-                    ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
-                    ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-                    SaveTurnArrayController++;
-                    if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+				case POTION_BIG:
+				case POTION_SMALL:
+				case MUSHROOM_BIG:
+				case MUSHROOM_SMALL:
+					//現在のターンを入れる
+					ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
+					ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+					SaveTurnArrayController++;
+					if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 
-                default: break;
+				default: break;
 			}
 		}
 		return false;
