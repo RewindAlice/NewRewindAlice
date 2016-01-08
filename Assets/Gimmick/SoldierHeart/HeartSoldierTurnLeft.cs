@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeartSoldierTurnRight: BaseGimmick
+public class HeartSoldierTurnLeft: BaseGimmick
 {
 	// ★移動方向★
 	public enum MoveDirection
@@ -414,7 +414,7 @@ public class HeartSoldierTurnRight: BaseGimmick
 			{
 				if (moveMemory[turnNum] == MoveDirection.NONE)
 				{
-					directionRot += 1.767f;
+					directionRot -= 1.767f;
 					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
 				}
 			}
@@ -423,7 +423,7 @@ public class HeartSoldierTurnRight: BaseGimmick
 			{
 				if (moveMemory[turnNum] == MoveDirection.NONE)
 				{
-					directionRot -= 1.767f;
+					directionRot += 1.767f;
 					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
 				}
 			}
