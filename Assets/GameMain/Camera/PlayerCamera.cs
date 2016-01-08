@@ -248,7 +248,7 @@ public class PlayerCamera : MonoBehaviour
         {
             GameObject.Find("GameMain").GetComponent<GameMain>().waitingTime = 0;
             GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn++;
-            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2 &&GameObject.Find("GameMain").GetComponent<GameMain>().tutorialFlag == true)
             {
                 GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
             }
