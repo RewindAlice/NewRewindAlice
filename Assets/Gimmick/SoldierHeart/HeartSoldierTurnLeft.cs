@@ -280,6 +280,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
@@ -288,6 +289,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
@@ -297,6 +299,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
@@ -306,6 +309,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
