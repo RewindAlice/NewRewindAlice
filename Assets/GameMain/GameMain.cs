@@ -1027,7 +1027,8 @@ public class GameMain : MonoBehaviour
                     }
                   
                     touchController.TouchPostionInitialize();
-                   
+
+                    alice.arrowDrawFlag = false;
                     action = PlayerAction.RETURN;   // 行動を戻るに
                     turn = Turn.GIMMICK;            // ターンをギミックに
                     turnCountGimmick = 0;           // カウントを０に
@@ -1048,6 +1049,7 @@ public class GameMain : MonoBehaviour
                     touchController.TouchPostionInitialize();
                     if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)
                     {
+                        alice.arrowDrawFlag = false;
                         action = PlayerAction.NEXT; // 行動を進むに
                         turn = Turn.PLAYER;         // ターンをプレイヤーに
                         turnCountGimmick = 0;
