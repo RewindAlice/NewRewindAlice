@@ -241,6 +241,7 @@ public class Stage : MonoBehaviour
 
         // 文字列を代入
         stageData = stageTextAsset.text;
+
         string[] limmit = { "\r", "\n", "," };
         scenarios = stageData.Split(limmit, System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -3118,7 +3119,7 @@ public class Stage : MonoBehaviour
                                 break;
                         }
                     }
-                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ + 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ)
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ + 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ && (!dee))
                     {
                         moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 3;
                         int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
@@ -3143,7 +3144,7 @@ public class Stage : MonoBehaviour
                 case 3:
                     //z-2
                     //array.Z-2の座標にdee又はdumがいる時
-                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ - 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ)
+                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ - 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ && (dee))
                     {
                         moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 1;
                         int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
@@ -3163,7 +3164,7 @@ public class Stage : MonoBehaviour
                                 break;
                         }
                     }
-                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ)
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosZ - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosZ && (!dee))
                     {
                         moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 1;
                         int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
@@ -3187,7 +3188,7 @@ public class Stage : MonoBehaviour
 
                 case 4:
                     //array.X-2の座標にdee又はdumがいる時
-                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX - 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX)
+                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX - 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX && (dee))
                     {
                         moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 2;
                         int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
@@ -3207,7 +3208,7 @@ public class Stage : MonoBehaviour
                                 break;
                         }
                     }
-                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX)
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX && (!dee))
                     {
                         moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 2;
                         int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
@@ -3231,7 +3232,7 @@ public class Stage : MonoBehaviour
                     break;
 
                 case 2:
-                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX + 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX)
+                    if (moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX + 2 == moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX && (dee))
                     {
                         moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction = 4;
                         int move = moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction;
@@ -3251,7 +3252,7 @@ public class Stage : MonoBehaviour
                                 break;
                         }
                     }
-                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX)
+                    else if (moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().arrayPosX - 2 == moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().arrayPosX && (!dee))
                     {
                         moveGimmickObjectList[dumNum].GetComponent<TweedleDum>().direction = 4;
                         int move = moveGimmickObjectList[deeNum].GetComponent<TweedleDee>().direction;
