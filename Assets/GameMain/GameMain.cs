@@ -1008,8 +1008,8 @@ public class GameMain : MonoBehaviour
                 
                 // ▼巻き戻し処理
                 // Ｑキーが押された時、行動が無しなら///////////////////////////////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
-               ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+                if (((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4) || (TrigerInput > 0.007f))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+               ((Input.GetKeyDown(KeyCode.Q)) || (Input.GetKeyDown(KeyCode.Joystick1Button4) || (TrigerInput > 0.007f))) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                (tutorialTurn == 5 || tutorialTurn == 7) ||
                ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
                ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
