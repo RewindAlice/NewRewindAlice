@@ -528,6 +528,23 @@ public class Player : MonoBehaviour
                 moveDirection = saveMoveDirection[saveCount];       // 保存されている移動方向を設定
                 inputKeyFlag = saveMoveInput[saveCount];            // １つ前の入力を設定
                 ChangeAngle();                                      // アリスの向きを変更
+
+                if (inputKeyFlag)
+                {
+                    switch (moveDirection)
+                    {
+                        case MoveDirection.FRONT:
+                        case MoveDirection.BACK:
+                        case MoveDirection.LEFT:
+                        case MoveDirection.RIGHT:
+                            SetAnimation(Motion.WALK_NEXT, true);
+                            break;
+                        case MoveDirection.STOP:
+                            SetAnimation(Motion.STOP_NEXT, true);
+                            break;
+                    }
+                }
+
                 playerAction = PlayerAction.NEXT;                   // アリスの行動を進めるに
 				stage.GetComponent<Stage>().StartMove(2);
             }
