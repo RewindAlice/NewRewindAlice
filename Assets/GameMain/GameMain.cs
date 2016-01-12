@@ -61,6 +61,8 @@ public class GameMain : MonoBehaviour
 
     public TouchController touchController;      //Androidのタッチ用クラス
 
+
+ 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -68,7 +70,7 @@ public class GameMain : MonoBehaviour
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
         Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f, false, getVol);
-
+  
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -131,7 +133,7 @@ public class GameMain : MonoBehaviour
 				waitingTime++;
 				if (tutorialImageFlag == true)
 				{
-					if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 140) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
+					if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 250) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
 						stageNumber == 2 & (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
 					{
 						if (tutorialCount > 1 && tutorialCount < 11)
@@ -154,6 +156,7 @@ public class GameMain : MonoBehaviour
 
 				if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
 				{
+                   
 					tutorialImageFlag = true;
 					camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
 					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
@@ -579,7 +582,7 @@ public class GameMain : MonoBehaviour
                 if (((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == false) ||
                     ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
-                    ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                    ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.Joystick1Button3))) && (action == PlayerAction.NONE) && (alice.moveCount > 0)  && (tutorialFlag == true) &&
                      (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10) ||
                     ((touchController.touchPosX > 520) && (touchController.touchPosX < 705)) &&
                     ((touchController.touchPosY > 290) && (touchController.touchPosY < 530)) &&
@@ -873,9 +876,9 @@ public class GameMain : MonoBehaviour
                  // ▼画面右方向移動処理
                 // Ｄキーが押された時、行動が無しなら///////////////////////////////////////////////////////
                 if (((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == false) ||
-                     ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                     ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0)  && (tutorialFlag == true) &&
                     (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
-                    ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveRightPossibleFlag) && (tutorialFlag == true) &&
+                    ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.Joystick1Button1))) && (action == PlayerAction.NONE) && (alice.moveCount > 0)  && (tutorialFlag == true) &&
                     (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6) ||
                     ((touchController.touchPosX > 705) && (touchController.touchPosX < 915)) &&
                     ((touchController.touchPosY > 220) && (touchController.touchPosY < 450)) &&
@@ -1039,12 +1042,12 @@ public class GameMain : MonoBehaviour
 
                 // ▼早送り処理
                 // Ｅキーが押された時、行動が無しなら//////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.E)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) ||
+                if (((Input.GetKeyDown(KeyCode.E)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) && (tutorialFlag == false) ||
                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
                    ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
                    ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
                    ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
-                   ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE))
+                   ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE) && (tutorialFlag == false))
                 {
                     touchController.TouchPostionInitialize();
                     if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)
