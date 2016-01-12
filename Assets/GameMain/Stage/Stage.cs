@@ -1214,7 +1214,7 @@ public class Stage : MonoBehaviour
         switch (gimmick)
         {
             // 移動できるギミック////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // case NONE_BLOCK:        // No.0     透明ブロック
+            case NONE_BLOCK:        // No.0     透明ブロック
             case START_POINT:       // No.1     スタート地点
             case STAGE_GOOL:        // No.2     ゴール地点
             case IVY_FRONT:         // No.22    蔦（前）
@@ -1398,55 +1398,45 @@ public class Stage : MonoBehaviour
 					}
 				}
 				break;
+        }
 
-				// 押されるギミック
-			case NONE_BLOCK:
-				flag = true;
-
-				switch(pushGimmickNumArray[posY, posX, posZ])
+		switch (pushGimmickNumArray[posY, posX, posZ])
+		{
+			// 岩
+			case ROCK:
+				flag = false;
+				// アリスが大きければ
+				if (alice.GetBig())
 				{
-					// 岩
-					case ROCK:
-						// アリスが大きければ
-						if (alice.GetBig())
+					int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
+					int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
+
+					int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
+					int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
+
+					// 押した先にギミックが無ければ移動可能
+					if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+					{
+						flag = true;    // 移動できる
+						if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
+						((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
+						((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
+						((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
 						{
-							int rockPositionByAliceX = posX - alice.arrayPosX;  // アリスから見た岩の位置X
-							int rockPositionByAliceZ = posZ - alice.arrayPosZ;  // アリスから見た岩の位置Z
+							pushGimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
 
-							int pushDirectionX = alice.arrayPosX - posX;    // 押した方向X
-							int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
+							GameObject objectTemp;
+							objectTemp = pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+							pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = pushGimmickObjectArray[posY, posX, posZ];
+							pushGimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-							// 押した先にギミックが無ければ移動可能
-							if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
-							{
-								//Debug.Log("rockmove");
-								flag = true;    // 移動できる
-								if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
-								((pushDirectionX == -1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 4)) ||
-								((pushDirectionX == 0) && (pushDirectionZ == 1) && (alice.GetMoveDirection() == 2)) ||
-								((pushDirectionX == 0) && (pushDirectionZ == -1) && (alice.GetMoveDirection() == 1)))
-								{
-									pushGimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().PushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
-
-									GameObject objectTemp;
-									objectTemp = pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-									pushGimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = pushGimmickObjectArray[posY, posX, posZ];
-									pushGimmickObjectArray[posY, posX, posZ] = objectTemp;
-
-									pushGimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
-									pushGimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-								}
-							}
+							pushGimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] = ROCK;
+							pushGimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
 						}
-						// アリスが大きくなかったら
-						else 
-						{
-							flag = false;
-						}
-						break;
+					}
 				}
 				break;
-        }
+		}
 
 
         // 移動系ギミックの判定////////////////////////////////////
