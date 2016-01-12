@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Rock : BaseGimmick
 {
+    const float moves = 0.04f;
+
 	// ★移動方向★
 	public enum MoveDirection
 	{
@@ -176,23 +178,23 @@ public class Rock : BaseGimmick
 			{ 
 				if (playerAction == PlayerAction.NEXT)
 				{
-					if (moveMemory[turnNum] == MoveDirection.FRONT) { transform.Translate(Vector3.down * 0.02f); }
-					else if (moveMemory[turnNum] == MoveDirection.BACK) { transform.Translate(Vector3.up * 0.02f); }
-					else if (moveMemory[turnNum] == MoveDirection.LEFT) { transform.Translate(Vector3.left * 0.02f); }
-					else if (moveMemory[turnNum] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * 0.02f); }
-					else if (moveMemory[turnNum] == MoveDirection.DOWN) { transform.Translate(Vector3.back * 0.02f); }
-					else if (moveMemory[turnNum] == MoveDirection.UP) { transform.Translate(Vector3.back * -0.02f); }
+					if (moveMemory[turnNum] == MoveDirection.FRONT) { transform.Translate(Vector3.down * moves); }
+					else if (moveMemory[turnNum] == MoveDirection.BACK) { transform.Translate(Vector3.up * moves); }
+					else if (moveMemory[turnNum] == MoveDirection.LEFT) { transform.Translate(Vector3.left * moves); }
+					else if (moveMemory[turnNum] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * moves); }
+					else if (moveMemory[turnNum] == MoveDirection.DOWN) { transform.Translate(Vector3.back * moves); }
+					else if (moveMemory[turnNum] == MoveDirection.UP) { transform.Translate(Vector3.back * -moves); }
 				}
 				else if (playerAction == PlayerAction.RETURN)
 				{
 					if (turnNum > 0)
 					{
-						if (moveMemory[turnNum+1] == MoveDirection.FRONT) { transform.Translate(Vector3.down * -0.02f); }
-						else if (moveMemory[turnNum+1] == MoveDirection.BACK) { transform.Translate(Vector3.up * -0.02f); }
-						else if (moveMemory[turnNum+1] == MoveDirection.LEFT) { transform.Translate(Vector3.left * -0.02f); }
-						else if (moveMemory[turnNum+1] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * -0.02f); }
-						else if (moveMemory[turnNum+1] == MoveDirection.DOWN) { transform.Translate(Vector3.back * -0.02f); }
-						else if (moveMemory[turnNum + 1] == MoveDirection.UP) { transform.Translate(Vector3.back * 0.02f); }
+						if (moveMemory[turnNum+1] == MoveDirection.FRONT) { transform.Translate(Vector3.down * -moves); }
+						else if (moveMemory[turnNum+1] == MoveDirection.BACK) { transform.Translate(Vector3.up * -moves); }
+						else if (moveMemory[turnNum+1] == MoveDirection.LEFT) { transform.Translate(Vector3.left * -moves); }
+						else if (moveMemory[turnNum+1] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * -moves); }
+						else if (moveMemory[turnNum+1] == MoveDirection.DOWN) { transform.Translate(Vector3.back * -moves); }
+						else if (moveMemory[turnNum + 1] == MoveDirection.UP) { transform.Translate(Vector3.back * moves); }
 					}
 				}
 			}
@@ -206,7 +208,7 @@ public class Rock : BaseGimmick
 
 
 		// 移動終了処理
-		if ((moveTimer == 50) && (moveFlag))
+		if ((moveTimer == 25) && (moveFlag))
 		{
 			moveFlag = false;
 			moveTimer = 0;

@@ -23,7 +23,7 @@ public class TweedleDee : BaseGimmick
     }
 
     const float MOVE_SPEED = 1.0f;    // 移動速度
-    const float SPEED = 0.05f;        // 移動速度
+    const float SPEED = 0.04f;        // 移動速度
 
     public bool moveFlag;             //動くかどうか
     public bool returnFlag;           //ターン数が戻るかどうか

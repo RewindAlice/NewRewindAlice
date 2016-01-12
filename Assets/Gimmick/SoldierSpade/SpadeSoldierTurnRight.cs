@@ -4,7 +4,7 @@ using System.Collections;
 public class SpadeSoldierTurnRight : BaseGimmick {
 
     const float MOVE_SPEED = 1.0f;    // 移動速度
-    const float SPEED = 0.02f;        // 移動速度
+    const float SPEED = 0.04f;        // 移動速度
 
     //移動可能フラグ
     public bool moveFlag;

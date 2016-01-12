@@ -59,6 +59,10 @@ public class GameMain : MonoBehaviour
     public int waitingTime;
     public GameObject CharacterTaklText;
 
+    public int timer;
+    public bool playerControl;
+    public const int waitControlTime = 30;
+
     public TouchController touchController;      //Androidのタッチ用クラス
 
 
@@ -66,6 +70,7 @@ public class GameMain : MonoBehaviour
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+        playerControl = false;
         getVol = PlayerPrefs.GetFloat("VALUE");
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
@@ -76,6 +81,16 @@ public class GameMain : MonoBehaviour
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
+        //画面フェードがなくなるまで移動できなくする
+        if (waitControlTime < timer)
+        {
+            playerControl = true;
+        }
+        else
+        {
+            timer++;
+        }
+
         //音楽フェード
         Singleton<SoundPlayer>.instance.update();
         //-----------------------------------------------------
@@ -122,8 +137,11 @@ public class GameMain : MonoBehaviour
             }
 
 			MapCamera();    // マップカメラ
-			
-			PlayerMove();   // プレイヤーの移動
+            if (playerControl)
+            {
+                PlayerMove();   // プレイヤーの移動
+            }
+
             CameraTurn();   // カメラの回転
             GameAction();   // 行動を行う
 
