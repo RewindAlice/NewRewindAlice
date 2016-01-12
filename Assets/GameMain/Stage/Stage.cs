@@ -751,7 +751,7 @@ public class Stage : MonoBehaviour
             // ▼No.59    スペード兵（右回り）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case SOLDIER_SPADE_RIGHT:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
                 moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeRight, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
                 moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
                 moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnRight>().Initialize(gimmickDirection, x, y, z);
@@ -759,7 +759,7 @@ public class Stage : MonoBehaviour
             // ▼No.60    スペード兵（左回り）///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             case SOLDIER_SPADE_LEFT://///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickNone, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
-                gimmickNumArray[y, x, z] = gimmickPattern;
+                gimmickNumArray[y, x, z] = NONE_BLOCK;
                 moveGimmickObjectList.Add(GameObject.Instantiate(gimmickSoldierSpadeLeft, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject);
                 moveGimmickNumList.Add(SOLDIER_HEART_RIGHT);
                 moveGimmickObjectList[moveGimmickObjectList.Count - 1].GetComponent<SpadeSoldierTurnLeft>().Initialize(gimmickDirection, x, y, z);
