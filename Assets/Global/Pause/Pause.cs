@@ -30,8 +30,10 @@ public class Pause : MonoBehaviour
     public PauseImageManager pauseImageManager6;
     private PaseCharacterChanger changer;
 
+    public GameObject gameMain;
     void Start()
     {
+        gameMain = GameObject.Find("GameMain");
         keyFlag = false;
         pauseFlag = false;
         pauseImageManager1 = backGorund.GetComponent<PauseImageManager>();
@@ -86,13 +88,17 @@ public class Pause : MonoBehaviour
                             break;
                         case RESTART:
                             EscapePause();
-                            Application.LoadLevel("GameMainScene");
-                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
-                            break;
+                            if (gameMain.GetComponent<GameMain>().stageNumber < 3)
+                            {
+                                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
+                            }
+                            else
+                            {
+                                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+                            }
+                           break;
                         case RETURN_SELECT:
                             EscapePause();
-                            Application.LoadLevel("StageSelectScene");
-                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                             CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
                             break;
                         default:
