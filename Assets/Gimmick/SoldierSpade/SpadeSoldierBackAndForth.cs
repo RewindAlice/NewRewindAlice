@@ -576,7 +576,6 @@ public class SpadeSoldierBackAndForth : BaseGimmick
             case ArrayMove.MINUS_Z: arrayPosZ--; break;     // 配列上の座標Zに１マイナス
         }
 
-        
     }
 
     //---------------------------
