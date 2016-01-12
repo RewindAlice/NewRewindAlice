@@ -293,7 +293,6 @@ public class HeartSoldierTurnLeft: BaseGimmick
                         return true;
                     }
                     break;
-
                 case 3:
                     if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ - 1))
                     {
@@ -303,7 +302,6 @@ public class HeartSoldierTurnLeft: BaseGimmick
                         return true;
                     }
                     break;
-
                 case 4:
                     if ((playerArray.x == arrayPosX - 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
                     {
@@ -389,6 +387,8 @@ public class HeartSoldierTurnLeft: BaseGimmick
 		downTurn = turnNum;
 		downFlag = true;
 		GetComponent<Animator>().SetBool("downFlag", downFlag);
+
+        moveScript.SetAnimation(Player.Motion.PUSH_NEXT, true);
 	}
 	
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
