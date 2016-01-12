@@ -18,11 +18,11 @@ public class StageNumberFlame : MonoBehaviour {
         
         challengeFlag = PlayerPrefs.GetInt("CHALLENGE");
 
-        if(challengeFlag==0)
+        if(challengeFlag == 0)
         {
             image.sprite = storySprite;
         }
-        else if (challengeFlag == 0)
+        else if (challengeFlag > 0)
         {
             image.sprite = challengeSprite;
         }
