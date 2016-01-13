@@ -2797,12 +2797,15 @@ public class Stage : MonoBehaviour
 
 			case NONE_BLOCK:
                 flag = true;
-				switch (pushGimmickNumArray[posY, posX, posZ])
-				{
-					case ROCK:
-						flag = false;
-						break;
-				}
+                switch (pushGimmickNumArray[posY - 1, posX, posZ])
+                {
+                    case ROCK:
+                    case ROOM_BLOCK_BOOKSHELF:
+                        flag = true;
+                        break;
+
+                }
+
 				break;
         }
 
