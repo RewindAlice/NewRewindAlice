@@ -2861,12 +2861,13 @@ public class Stage : MonoBehaviour
 				case POTION_SMALL:
 				case MUSHROOM_BIG:
 				case MUSHROOM_SMALL:
-					//現在のターンを入れる
-					ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
-					ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-					SaveTurnArrayController++;
 					if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
 					{
+                        //現在のターンを入れる
+                        ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
+                        ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+                        SaveTurnArrayController++;
+
 						return true;
 					}
 					else
