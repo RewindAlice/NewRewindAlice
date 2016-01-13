@@ -248,13 +248,13 @@ public class ChangeText : MonoBehaviour {
         }
         else if (stageNumber == 25)
         {
-            limitTalk = 3;
+            limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterTalk/stage25talk";
         }
         else if (stageNumber == 26)
         {
-            limitTalk = 4;
+            limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterTalk/stage26talk";
         }
@@ -278,7 +278,7 @@ public class ChangeText : MonoBehaviour {
         }
         else if (stageNumber == 30)
         {
-            limitTalk = 4;
+            limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterTalk/stage30talk";
         }
@@ -296,13 +296,13 @@ public class ChangeText : MonoBehaviour {
         }
         else if (stageNumber == 33)
         {
-            limitTalk = 4;
+            limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterTalk/stage33talk";
         }
         else if (stageNumber == 34)
         {
-            limitTalk = 3;
+            limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterTalk/stage34talk";
         }

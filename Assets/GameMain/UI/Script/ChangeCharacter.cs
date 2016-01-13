@@ -218,13 +218,13 @@ public class ChangeCharacter : MonoBehaviour {
         }
         else if (stageNumber == 25)
         {
-            limitTalk = 3;
+            limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage25character";
         }
         else if (stageNumber == 26)
         {
-            limitTalk = 4;
+            limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage26character";
         }
@@ -248,7 +248,7 @@ public class ChangeCharacter : MonoBehaviour {
         }
         else if (stageNumber == 30)
         {
-            limitTalk = 4;
+            limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage30character";
         }
@@ -266,13 +266,13 @@ public class ChangeCharacter : MonoBehaviour {
         }
         else if (stageNumber == 33)
         {
-            limitTalk = 4;
+            limitTalk = 3;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage33character";
         }
         else if (stageNumber == 34)
         {
-            limitTalk = 3;
+            limitTalk = 4;
             talkNumber = 0;
             filepath = "UI/IntoGame/CharacterImage/stage34character";
         }
