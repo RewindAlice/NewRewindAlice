@@ -51,45 +51,45 @@ public class StageNumberLeft : MonoBehaviour {
                 image.sprite = fiveSprite;
             }
         }
-        else if(challengeFlag ==1)
+        else if(challengeFlag > 0)
         {
-            if (stageNumber / 10 == 0)
+            if (challengeFlag / 10 == 0)
             {
                 image.sprite = zeroSprite;
             }
-            else if (stageNumber / 10 == 1)
+            else if (challengeFlag / 10 == 1)
             {
                 image.sprite = oneSprite;
             }
-            else if (stageNumber / 10 == 2)
+            else if (challengeFlag / 10 == 2)
             {
                 image.sprite = twoSprite;
             }
-            else if (stageNumber / 10 == 3)
+            else if (challengeFlag / 10 == 3)
             {
                 image.sprite = threeSprite;
             }
-            else if (stageNumber / 10 == 4)
+            else if (challengeFlag / 10 == 4)
             {
                 image.sprite = fourSprite;
             }
-            else if (stageNumber / 10 == 5)
+            else if (challengeFlag / 10 == 5)
             {
                 image.sprite = fiveSprite;
             }
-            else if (stageNumber / 10 == 6)
+            else if (challengeFlag / 10 == 6)
             {
                 image.sprite = sixSprite;
             }
-            else if (stageNumber / 10 == 7)
+            else if (challengeFlag / 10 == 7)
             {
                 image.sprite = sevenSprite;
             }
-            else if (stageNumber / 10 == 8)
+            else if (challengeFlag / 10 == 8)
             {
                 image.sprite = eightSprite;
             }
-            else if (stageNumber / 10 == 9)
+            else if (challengeFlag / 10 == 9)
             {
                 image.sprite = nineSprite;
             }

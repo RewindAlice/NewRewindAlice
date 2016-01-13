@@ -344,10 +344,6 @@ public class ChangeCharacter : MonoBehaviour {
         }
        
 
-
-        
-            
-  
         talkSpeed = 600;
         ReadTextData();
         //this.read();

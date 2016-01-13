@@ -50,9 +50,9 @@ public class StageNumberRight : MonoBehaviour {
                 image.sprite = fiveSprite;
             }
         }
-        else if(challengeFlag == 1)
+        else if(challengeFlag > 0)
         {
-            stageNumber = stageNumber % 10;
+            stageNumber = challengeFlag % 10;
 
             if (stageNumber == 0)
             {

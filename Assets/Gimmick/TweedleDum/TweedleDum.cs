@@ -23,7 +23,7 @@ public class TweedleDum : BaseGimmick
     }
 
 	const float MOVE_SPEED = 1.0f;    // 移動速度
-	const float SPEED = 0.05f;        // 移動速度
+	const float SPEED = 0.04f;        // 移動速度
 
     public bool moveFlag;             //動くかどうか
     public bool returnFlag;           //ターン数が戻るかどうか
@@ -133,10 +133,10 @@ public class TweedleDum : BaseGimmick
         //(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
         if (timeCount < aliceMoveTime)
         {
-            if (stageScript.findTwins())
-            {
-                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
-            }
+            //if (stageScript.findTwins())
+            //{
+            //    stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
+            //}
             int roopMax = 4;
             for (int i = 0; i < roopMax; i++)
             {
@@ -148,6 +148,10 @@ public class TweedleDum : BaseGimmick
                         if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ + 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ + 1)))
                         {
+                            if (i == 0 && stageScript.findTwins())
+                            {
+                                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
+                            }
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
@@ -188,6 +192,10 @@ public class TweedleDum : BaseGimmick
                         if ((stageScript.TwinBesideDecision(arrayPosX, arrayPosY, arrayPosZ - 1, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX, arrayPosY, arrayPosZ - 1)))
                         {
+                            if (i == 0 && stageScript.findTwins())
+                            {
+                                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
+                            }
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
@@ -226,6 +234,10 @@ public class TweedleDum : BaseGimmick
                         if ((stageScript.TwinBesideDecision(arrayPosX - 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX - 1, arrayPosY, arrayPosZ)))
                         {
+                            if (i == 0 && stageScript.findTwins())
+                            {
+                                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
+                            }
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
 
@@ -262,6 +274,10 @@ public class TweedleDum : BaseGimmick
                         if ((stageScript.TwinBesideDecision(arrayPosX + 1, arrayPosY, arrayPosZ, new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction))
                             && (stageScript.BesideDownDecision(arrayPosX + 1, arrayPosY, arrayPosZ)))
                         {
+                            if (i == 0 && stageScript.findTwins())
+                            {
+                                stageScript.TwinsTestFunc(new Vector3(arrayPosX, arrayPosY, arrayPosZ), direction, false);
+                            }
                             moveFlag = true;
                             GetComponent<Animator>().SetBool("WalkMotion_Next", true);
                  

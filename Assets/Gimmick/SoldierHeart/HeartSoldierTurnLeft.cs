@@ -280,6 +280,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
@@ -288,24 +289,25 @@ public class HeartSoldierTurnLeft: BaseGimmick
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
-
                 case 3:
                     if ((playerArray.x == arrayPosX) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ - 1))
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
-
                 case 4:
                     if ((playerArray.x == arrayPosX - 1) && (playerArray.y == arrayPosY) && (playerArray.z == arrayPosZ))
                     {
                         moveScript.gameOverFlag = true;
 						captureFlag = true;
+                        GetComponent<Animator>().SetBool("captureFlag", captureFlag);
                         return true;
                     }
                     break;
@@ -385,6 +387,8 @@ public class HeartSoldierTurnLeft: BaseGimmick
 		downTurn = turnNum;
 		downFlag = true;
 		GetComponent<Animator>().SetBool("downFlag", downFlag);
+
+        moveScript.SetAnimation(Player.Motion.PUSH_NEXT, true);
 	}
 	
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -397,7 +401,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
 			if ((moveMemory[turnNum] == MoveDirection.LEFT) ||
 					(moveMemory[turnNum] == MoveDirection.RIGHT) ||
 					(moveMemory[turnNum] == MoveDirection.FRONT) ||
-					(moveMemory[turnNum] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * 0.01f); }
+					(moveMemory[turnNum] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * 0.04f); }
 			}
 
 			if (playerAction == PlayerAction.RETURN)
@@ -405,7 +409,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
 			if ((moveMemory[turnNum - 1] == MoveDirection.LEFT) ||
 					(moveMemory[turnNum - 1] == MoveDirection.RIGHT) ||
 					(moveMemory[turnNum - 1] == MoveDirection.FRONT) ||
-					(moveMemory[turnNum - 1] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * -0.01f); }
+					(moveMemory[turnNum - 1] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * -0.04f); }
 			}
 		}
 		else if ((!captureFlag)||(afterCaptureFlag))
