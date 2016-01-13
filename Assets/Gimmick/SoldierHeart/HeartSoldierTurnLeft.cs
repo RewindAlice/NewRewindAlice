@@ -445,7 +445,7 @@ public class HeartSoldierTurnLeft: BaseGimmick
 			{
 				if (moveMemory[turnNum] == MoveDirection.NONE)
 				{
-					directionRot -= 1.767f;
+					directionRot -= 1.767f *2;
 					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
 				}
 			}
