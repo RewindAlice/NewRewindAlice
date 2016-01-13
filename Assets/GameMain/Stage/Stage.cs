@@ -1244,6 +1244,7 @@ public class Stage : MonoBehaviour
             case BLUE_FLOWER:       // No.52    花２（青）
             case PURPLE_FLOWER:     // No.53    花３（紫）
             case CHESHIRE_CAT:      // No.54    チェシャ猫  
+            case 77:
                 flag = true;
                 break;
 
@@ -1388,13 +1389,13 @@ public class Stage : MonoBehaviour
 							(alice.GetMoveDirection() == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))
 						{
 							gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().PushMove(posX, posY, posZ, heartPushDirectionX_L, heartPushDirectionZ_L);
-							GameObject objectTemp;
-							objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L];
-							gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = gimmickObjectArray[posY, posX, posZ];
-							gimmickObjectArray[posY, posX, posZ] = objectTemp;
+                            //GameObject objectTemp;
+                            //objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L];
+                            //gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = gimmickObjectArray[posY, posX, posZ];
+                            //gimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-							gimmickNumArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = SOLDIER_HEART_LEFT;
-							gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+                            //gimmickNumArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = SOLDIER_HEART_LEFT;
+                            //gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
 						}
 					}
 				}
@@ -1514,6 +1515,7 @@ public class Stage : MonoBehaviour
             case BRAMBLE:                   // No.50    茨
             case CHESHIRE_CAT:              // No.54    チェシャ猫
             case ROCK:                      // No.62    岩
+            case 77:
                 flag = true;
                 break;
 
@@ -1539,7 +1541,7 @@ public class Stage : MonoBehaviour
 				break;
 
 			case SOLDIER_HEART_LEFT: // No.58		ハート兵（左回り）///////////////////////////////////////////////////////////////////////////////////////
-				if (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().downFlag == true) { flag = true; }
+				//if (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().downFlag == true) { flag = true; }
 				break;
 
 			case NONE_BLOCK:
@@ -1848,9 +1850,17 @@ public class Stage : MonoBehaviour
 							break;
 
 						default:
-							alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-							alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-							print("落下");
+                            if(gimmickNumArray[posY,posX,posZ] == 77)
+                            {
+
+                            }
+                            else
+                            {
+                                alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+                                alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+                                print("落下");
+                            }
+							
 							break;
 							
 					}
@@ -2467,20 +2477,32 @@ public class Stage : MonoBehaviour
 
 						// ▼ハート兵(左回転)なら
 						case SOLDIER_HEART_LEFT:
-							if (y > 0)
-							{
-								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
-								{
-									gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Fall();
-									GameObject objectTemp;
-									objectTemp = gimmickObjectArray[y - 1, x, z];
-									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
-									gimmickObjectArray[y, x, z] = objectTemp;
+                            if (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().downFlag == true)
+                            {
+                                switch (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().direction)
+                                {
+                                    case 1:
+                                        gimmickNumArray[y, x, z + 1] = 77;
+                                        Debug.Log("direction1 start");
+                                        break;
 
-									gimmickNumArray[y - 1, x, z] = SOLDIER_HEART_LEFT;
-									gimmickNumArray[y, x, z] = NONE_BLOCK;
-								}
-							}
+                                    case 2:
+                                        gimmickNumArray[y, x + 1, z] = 77;
+                                        Debug.Log("direction2 start");
+                                        break;
+
+                                    case 3:
+                                        gimmickNumArray[y, x, z - 1] = 77;
+                                        Debug.Log("direction1 start");
+                                        break;
+
+                                    case 4:
+                                        gimmickNumArray[y, x - 1, z] = 77;
+                                        Debug.Log("direction1 start");
+                                        break;
+
+                                }
+                            }
 							break;
                     }
                 }
@@ -2574,20 +2596,32 @@ public class Stage : MonoBehaviour
 
 						// ▼ハート兵(左回転)なら
 						case SOLDIER_HEART_LEFT:
-							if (y > 0)
-							{
-								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
-								{
-									gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().Fall();
-									GameObject objectTemp;
-									objectTemp = gimmickObjectArray[y - 1, x, z];
-									gimmickObjectArray[y - 1, x, z] = gimmickObjectArray[y, x, z];
-									gimmickObjectArray[y, x, z] = objectTemp;
+                            if (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().downFlag == true)
+                            {
+                                switch (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnRight>().direction)
+                                {
+                                    case 1:
+                                        gimmickNumArray[y, x, z + 1] = 0;
+                                        Debug.Log("direction1 back");
+                                        break;
 
-									gimmickNumArray[y - 1, x, z] = SOLDIER_HEART_LEFT;
-									gimmickNumArray[y, x, z] = NONE_BLOCK;
-								}
-							}
+                                    case 2:
+                                        gimmickNumArray[y, x + 1, z] = 0;
+                                        Debug.Log("direction2 back");
+                                        break;
+
+                                    case 3:
+                                        gimmickNumArray[y, x, z - 1] = 0;
+                                        Debug.Log("direction3 back");
+                                        break;
+
+                                    case 4:
+                                        gimmickNumArray[y, x - 1, z] = 0;
+                                        Debug.Log("direction4 back");
+                                        break;
+
+                                }
+                            }
 							break;
 					}
 				}
