@@ -65,6 +65,7 @@ public class GameMain : MonoBehaviour
 
     public TouchController touchController;      //Androidのタッチ用クラス
 
+    public bool firstInput;
 
  
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -75,6 +76,7 @@ public class GameMain : MonoBehaviour
 		pause = GameObject.Find("Pause");
         GameSetting();  // ゲームの設定
         Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f, false, getVol);
+        firstInput = false;
   
 	}
 
@@ -393,29 +395,34 @@ public class GameMain : MonoBehaviour
 					}
 
 					// カウントが６０になったら
-					if (turnCountGimmick == 60)
+					if (turnCountGimmick == 30)
 					{
 						//stage.ChangeArrayGimmickNext();//条件が一致した場合のみ処理を呼ぶ関数
 						//stage.FlowerDecision(alice);      // 足元との判定
 						stage.SearchRockFallAgain();
-						action = PlayerAction.NONE;   // 行動を無しに
-						turn = Turn.NONE;       // ターンを無しに
-						turnNum--;
+						
+                        if(turnCountGimmick >=30)
+                        {
+                            action = PlayerAction.NONE;   // 行動を無しに
+                            turn = Turn.NONE;       // ターンを無しに
+                            turnNum--;
 
-						// ターン数が０になるかアリスが地面に着いていたら
-						if (turnNum == 0 || alice.arrayPosY == 0)
-						{
-							alice.gameOverFlag = true;
-						}
+                            // ターン数が０になるかアリスが地面に着いていたら
+                            if (turnNum == 0 || alice.arrayPosY == 0)
+                            {
+                                alice.gameOverFlag = true;
+                            }
 
-						watchHand.NextTurn();
-						print("ターン終了");// デバッグ用コメント
-						if (tutorialFlag == true)
-						{
-							waitingTime = 0;
-							tutorialTurn++;
-						}
-						stage.FlowerFootDecision(alice);
+                            watchHand.NextTurn();
+                            //print("ターン終了");// デバッグ用コメント
+                            if (tutorialFlag == true)
+                            {
+                                waitingTime = 0;
+                                tutorialTurn++;
+                            }
+                            stage.FlowerFootDecision(alice);
+                        }
+                       
 					}
 				}
 				break;
@@ -427,9 +434,10 @@ public class GameMain : MonoBehaviour
                 {
                     if (turnCountGimmick == 0 && !alice.autoMoveFlag)
                     {
-                        
+
                         stage.ChangeArrayGimmickReturn();     // 一部ギミックの配列上の位置を変更
                         aliceActionNotifer.NotiferReturn(alice.turnCount);
+                        
                     }
 
                     turnCountGimmick++; // カウントを増やす
@@ -445,7 +453,7 @@ public class GameMain : MonoBehaviour
                 else if (turn == Turn.PLAYER)
                 {
                     // プレイヤーの巻き戻し
-                    if (alice.moveFlag == false && alice.moveFinishFlag == false) { InputPlayerMoveReturn(); }
+                    if (alice.moveFlag == false && alice.moveFinishFlag == false && firstInput == false) { InputPlayerMoveReturn(); firstInput = true; }
 
                     // プレイヤーの巻き戻しが完了したら
                     if (alice.moveFinishFlag == true)
@@ -459,31 +467,36 @@ public class GameMain : MonoBehaviour
                         }
                         else
                         {
-                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+                            //alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
                         }
-                       
+
                         if (!alice.autoMoveFlag)
                         {
-                            action = PlayerAction.NONE;     // 行動を無しに
-                            turn = Turn.NONE;               // ターンを無しに
-                            turnNum++;
-                            watchHand.BackTurn();
-                            if (tutorialFlag == true)
+                            if (stage.GimmickMoveMidst())
                             {
-                                waitingTime = 0;
-                                tutorialTurn++;
-
-                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+                                action = PlayerAction.NONE;     // 行動を無しに
+                                turn = Turn.NONE;               // ターンを無しに
+                                turnNum++;
+                                watchHand.BackTurn();
+                                firstInput = false;
+                                if (tutorialFlag == true)
                                 {
-                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
+                                    waitingTime = 0;
+                                    tutorialTurn++;
+
+                                    if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                    {
+                                        GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(3);
+                                    }
                                 }
+                                stage.GimmickDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+                                //stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+
+
+                                print("ターン終了");// デバッグ用コメント}
                             }
-                            stage.GimmickDecision(alice,Player.PlayerAction.RETURN);   // ギミックとの判定
-                            //stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
-                            
-                                                        
-                            print("ターン終了");// デバッグ用コメント
                         }
                     }
                 }
@@ -690,7 +703,7 @@ public class GameMain : MonoBehaviour
                             alice.SetAnimation(Player.Motion.CLIMB_START, false);
                             alice.SetAnimation(Player.Motion.CLIMB, false);
                             alice.SetAnimation(Player.Motion.WALK_NEXT, true);
-                            print("前移動");// デバッグ用コメント
+                            //print("前移動");// デバッグ用コメント
                         }
                     }
                 }
@@ -1055,7 +1068,7 @@ public class GameMain : MonoBehaviour
                     turnCountGimmick = 0;           // カウントを０に
                     alice.moveReturnFlag = true;    // 巻き戻しフラグを真に
                     Singleton<SoundPlayer>.instance.PlaySE("se009");
-                    print("巻き戻し");// デバッグ用コメント
+                    //print("巻き戻し");// デバッグ用コメント
                 }
 
                 // ▼早送り処理
@@ -1091,10 +1104,10 @@ public class GameMain : MonoBehaviour
         alice.moveBackPossibleFlag = stage.MovePossibleDecision(alice, Player.MoveDirection.BACK,camera.cameraAngle);       // 後移動可能判定
         alice.moveLeftPossibleFlag = stage.MovePossibleDecision(alice, Player.MoveDirection.LEFT, camera.cameraAngle);      // 左移動可能判定
         alice.moveRightPossibleFlag = stage.MovePossibleDecision(alice, Player.MoveDirection.RIGHT, camera.cameraAngle);    // 右移動可能判定
-        Debug.Log("FRONT" + alice.moveFrontPossibleFlag);
-        Debug.Log("BACK" + alice.moveBackPossibleFlag);
-        Debug.Log("LEFT" + alice.moveLeftPossibleFlag);
-        Debug.Log("RIGHT" + alice.moveRightPossibleFlag);
+        //Debug.Log("FRONT" + alice.moveFrontPossibleFlag);
+        //Debug.Log("BACK" + alice.moveBackPossibleFlag);
+        //Debug.Log("LEFT" + alice.moveLeftPossibleFlag);
+        //Debug.Log("RIGHT" + alice.moveRightPossibleFlag);
     }
 
     // ★アリスの登り判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓

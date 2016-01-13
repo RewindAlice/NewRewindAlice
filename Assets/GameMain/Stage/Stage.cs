@@ -3085,6 +3085,7 @@ public class Stage : MonoBehaviour
         }
         return flag;
     }
+
     public void SearchRockFallAgain()
     {
 
@@ -3097,14 +3098,36 @@ public class Stage : MonoBehaviour
                     // ▽ギミックが
                     switch (gimmickNumArray[y, x, z])
                     {
-                        // ▼岩なら
-                        case ROCK:
-                            if (stoneFallController)
+
+                        case NONE_BLOCK:
+                            switch (pushGimmickNumArray[y, x, z])
                             {
-                                gimmickObjectArray[y, x, z].GetComponent<Rock>().fallFunction();
-                                stoneFallController = false;
+                                case ROCK:
+                                    if (y > 0)
+                                    {
+                                        if ((gimmickNumArray[y - 1, x, z] == NONE_BLOCK) ||
+                                            (gimmickNumArray[y - 1, x, z] == WATER))
+                                        {
+                                            if (pushGimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+                                            {
+                                                pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+                                                GameObject objectTemp;
+                                                objectTemp = pushGimmickObjectArray[y - 1, x, z];
+                                                pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+                                                pushGimmickObjectArray[y, x, z] = objectTemp;
+
+                                                pushGimmickNumArray[y - 1, x, z] = ROCK;
+                                                pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+                                                stoneFallController = true;
+
+                                                GameObject.Find("GameMain").GetComponent<GameMain>().turnCountGimmick = 0;
+                                            }
+                                        }
+                                    }
+                                    break;
                             }
                             break;
+
                     }
                 }
             }
@@ -3404,5 +3427,27 @@ public class Stage : MonoBehaviour
 			}
 		}
 	}
+
+    public bool GimmickMoveMidst()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 11; j++)
+            {
+                for (int k = 0; k < 11; k++)
+                {
+                    if (pushGimmickNumArray[i, j, k] == ROCK || pushGimmickNumArray[i, j, k] == ROOM_BLOCK_BOOKSHELF)
+                    {
+                        if (pushGimmickObjectArray[i, j, k].GetComponent<Rock>().moveFlag == true)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
 
 }
