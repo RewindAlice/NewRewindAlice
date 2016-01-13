@@ -72,6 +72,10 @@ public class HeartSoldierTurnRight : BaseGimmick
 
 	public bool afterCaptureFlag;
 
+    public int captureTrun;
+
+
+
 	//------------------------
 	//初期化関数
 	//------------------------
@@ -133,6 +137,7 @@ public class HeartSoldierTurnRight : BaseGimmick
 		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
 
 		afterCaptureFlag = false;
+        captureTrun = 0;
 	}
 
 	//------------------------
@@ -163,51 +168,60 @@ public class HeartSoldierTurnRight : BaseGimmick
 		//(moveScript)プレイヤーの歩数と(timeCount)歩数を比べる
 		if (timeCount < aliceMoveTime)
 		{
-			//アリスを見つけたかのフラグ
-			bool flag;
+            if(downFlag == false)
+            {
+                //アリスを見つけたかのフラグ
+                bool flag;
 
-			//アリスを見つけたか判定
-			flag = CaptureDecision();
+                //アリスを見つけたか判定
+                flag = CaptureDecision();
+                if (flag == true)
+                {
+                    captureTrun = turnNum;
+                }
+                //アリスが見つかってなかったら向きを変える
+                if (flag == false)
+                {
+                    //右回転
+                    direction += 1;
+                    
 
-			//アリスが見つかってなかったら向きを変える
-			if (flag == false)
-			{
-				//右回転
-				direction += 1;
-				//ターン数を増やす
-				timeCount += 1;
+                    if (direction == 5)
+                    {
+                        direction = 1;
+                    }
 
-				if (direction == 5)
-				{
-					direction = 1;
-				}
+                    // 倒れていないなら回転させる
+                    //if(!downFlag)
+                    //	ChangeDirection();
 
-				// 倒れていないなら回転させる
-				//if(!downFlag)
-				//	ChangeDirection();
+                    // 倒れておらず、アリスを見つけていないなら回転させる
+                    if ((!downFlag) && (!captureFlag))
+                        ChangeDirection();
+                }
+            }
 
-				// 倒れておらず、アリスを見つけていないなら回転させる
-				if ((!downFlag) && (!captureFlag))
-					ChangeDirection();
-
-				// アリスの移動数が多かったら
-				if (moveCount < aliceMoveTime)
-				{
-					moveCount++;
-				}
-			}
+            //ターン数を増やす
+            timeCount += 1;
+            // アリスの移動数が多かったら
+            if (moveCount < aliceMoveTime)
+            {
+                moveCount++;
+            }
 			if (!stage.GetComponent<Stage>().CheckAutoMove())
 			{
 				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
 				playerAction = PlayerAction.NEXT;
 				moveFlag = true;
 			}
+
 		}
 		//回転後、アリスを見つけたか判定
-		if (!captureFlag)
+		if (!captureFlag && downFlag == false)
 		{
-			if (CaptureDecision()) { afterCaptureFlag = true; }
+            if (CaptureDecision()) { afterCaptureFlag = true; captureTrun = turnNum; }
 		}
+
 	}
 
 	//----------------------------------
@@ -217,22 +231,26 @@ public class HeartSoldierTurnRight : BaseGimmick
 	{
 		if (timeCount >= aliceMoveTime)
 		{
-			direction -= 1;
 			timeCount -= 1;
-			if (direction == 0)
-			{
-				direction = 4;
-			}
+            if(downFlag == false && captureFlag == false)
+            {
+                direction -= 1;
+                if (direction == 0)
+                {
+                    direction = 4;
+                }
 
-			// 倒れていないなら回転させる
-			if (!downFlag)
-				ChangeDirection();
+                // 倒れていないなら回転させる
+                if (!downFlag)
+                    ChangeDirection();
 
-			//if (captureFlag)
-			//{
-			//	captureFlag = false;
-			//	GetComponent<Animator>().SetBool("captureFlag", captureFlag);
-			//}
+                //if (captureFlag)
+                //{
+                //	captureFlag = false;
+                //	GetComponent<Animator>().SetBool("captureFlag", captureFlag);
+                //}
+            }
+           
 			if (!stage.GetComponent<Stage>().CheckAutoMove())
 			{
 				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定
@@ -242,10 +260,25 @@ public class HeartSoldierTurnRight : BaseGimmick
 		playerAction = PlayerAction.RETURN;
 		if (captureFlag)
 		{
+
 			captureFlag = false;
 			GetComponent<Animator>().SetBool("captureFlag", captureFlag);
 		}
-		afterCaptureFlag = false;
+        if(afterCaptureFlag == true)
+        {
+            
+
+            direction -= 1;
+            if (direction == 0)
+            {
+                direction = 4;
+            }
+            //afterCaptureFlag = false;
+        }
+       
+		
+
+        
 	}
 
 	//---------------------------
@@ -336,7 +369,7 @@ public class HeartSoldierTurnRight : BaseGimmick
 			//	this.transform.localEulerAngles = enemyAngle4;
 			//}
 			GetComponent<Animator>().SetBool("rotationFlag", true);
-			Debug.Log("rot");
+			//Debug.Log("rot");
 		}
 	}
 
@@ -395,7 +428,8 @@ public class HeartSoldierTurnRight : BaseGimmick
 				if ((moveMemory[turnNum] == MoveDirection.LEFT) ||
 						(moveMemory[turnNum] == MoveDirection.RIGHT) ||
 						(moveMemory[turnNum] == MoveDirection.FRONT) ||
-						(moveMemory[turnNum] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * 0.04f); }
+						(moveMemory[turnNum] == MoveDirection.BACK)) 
+                { transform.Translate(Vector3.forward * 0.02f); }
 			}
 
 			if (playerAction == PlayerAction.RETURN)
@@ -403,7 +437,7 @@ public class HeartSoldierTurnRight : BaseGimmick
 				if ((moveMemory[turnNum - 1] == MoveDirection.LEFT) ||
 						(moveMemory[turnNum - 1] == MoveDirection.RIGHT) ||
 						(moveMemory[turnNum - 1] == MoveDirection.FRONT) ||
-						(moveMemory[turnNum - 1] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * -0.04f); }
+						(moveMemory[turnNum - 1] == MoveDirection.BACK)) { transform.Translate(Vector3.forward * -0.02f); }
 			}
 		}
 		else if ((!captureFlag) || (afterCaptureFlag))
@@ -412,23 +446,35 @@ public class HeartSoldierTurnRight : BaseGimmick
 			{
 				if (moveMemory[turnNum] == MoveDirection.NONE)
 				{
-					directionRot += 1.767f;
+					directionRot += 1.767f*2;
 					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
 				}
 			}
 
 			else if (playerAction == PlayerAction.RETURN)
 			{
-				if (moveMemory[turnNum] == MoveDirection.NONE)
-				{
-					directionRot -= 1.767f;
-					transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
-				}
+                if (afterCaptureFlag == true)
+                {
+                    if (moveMemory[turnNum] == MoveDirection.NONE)
+                    {
+                        directionRot -= 1.767f * 2;
+                        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
+                    }
+                }
+                else if (!(captureTrun == turnNum-1))
+                {
+                    if (moveMemory[turnNum] == MoveDirection.NONE)
+                    {
+                        directionRot -= 1.767f * 2;
+                        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
+                    }
+                }
+
 			}
 		}
 
 		// 移動終了処理
-		if (moveTimer == 50)
+		if (moveTimer == 25)
 		{
 			moveFlag = false;
 			moveTimer = 0;
@@ -437,11 +483,11 @@ public class HeartSoldierTurnRight : BaseGimmick
 			// 兵士の座標を動かす
 			if (playerAction == PlayerAction.NEXT)
 			{
-				if (moveMemory[turnNum] == MoveDirection.FRONT) { arrayPosZ++; }
-				else if (moveMemory[turnNum] == MoveDirection.BACK) { arrayPosZ--; }
-				else if (moveMemory[turnNum] == MoveDirection.LEFT) { arrayPosX--; }
-				else if (moveMemory[turnNum] == MoveDirection.RIGHT) { arrayPosX++; }
-				else if (moveMemory[turnNum] == MoveDirection.DOWN) { arrayPosY--; }
+                //if (moveMemory[turnNum] == MoveDirection.FRONT) { arrayPosZ++; }
+                //else if (moveMemory[turnNum] == MoveDirection.BACK) { arrayPosZ--; }
+                //else if (moveMemory[turnNum] == MoveDirection.LEFT) { arrayPosX--; }
+                //else if (moveMemory[turnNum] == MoveDirection.RIGHT) { arrayPosX++; }
+                //else if (moveMemory[turnNum] == MoveDirection.DOWN) { arrayPosY--; }
 			}
 			else if (playerAction == PlayerAction.RETURN)
 			{
@@ -451,22 +497,25 @@ public class HeartSoldierTurnRight : BaseGimmick
 				//else if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { arrayPosX--; }
 				//else if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { arrayPosY++; }
 
-				if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { arrayPosZ--; }
-				else if (moveMemory[turnNum - 1] == MoveDirection.BACK) { arrayPosZ++; }
-				else if (moveMemory[turnNum - 1] == MoveDirection.LEFT) { arrayPosX++; }
-				else if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { arrayPosX--; }
-				else if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { arrayPosY++; }
+                //if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { arrayPosZ--; }
+                //else if (moveMemory[turnNum - 1] == MoveDirection.BACK) { arrayPosZ++; }
+                //else if (moveMemory[turnNum - 1] == MoveDirection.LEFT) { arrayPosX++; }
+                //else if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { arrayPosX--; }
+                //else if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { arrayPosY++; }
 			}
 
 			// 時間を戻したなら、Stageの方でも兵士を移動させる
 			if (playerAction == PlayerAction.RETURN)
 			{
-                if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, -1, 2); }
-                if (moveMemory[turnNum - 1] == MoveDirection.BACK) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, 1, 2); }
-                if (moveMemory[turnNum - 1] == MoveDirection.LEFT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 1, 0, 0, 2); }
-                if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, -1, 0, 0, 2); }
-                if (moveMemory[turnNum - 1] == MoveDirection.UP) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 1, 0, 2); }
-                if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, -1, 0, 2); }
+
+                afterCaptureFlag = false;
+
+                //if (moveMemory[turnNum - 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, -1, 2); }
+                //if (moveMemory[turnNum - 1] == MoveDirection.BACK) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 0, 1, 2); }
+                //if (moveMemory[turnNum - 1] == MoveDirection.LEFT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 1, 0, 0, 2); }
+                //if (moveMemory[turnNum - 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, -1, 0, 0, 2); }
+                //if (moveMemory[turnNum - 1] == MoveDirection.UP) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, 1, 0, 2); }
+                //if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, -1, 0, 2); }
 
 				// 落下、もしくは上昇なら続けて移動
 				if ((moveMemory[turnNum - 1] == MoveDirection.DOWN) || (moveMemory[turnNum - 1] == MoveDirection.UP))
@@ -493,12 +542,12 @@ public class HeartSoldierTurnRight : BaseGimmick
 				captureFlag = false;
 			}
 
-			if (turnNum <= downTurn)
-			{
-				downFlag = false;
-				downTurn = 100;
-				GetComponent<Animator>().SetBool("downFlag", downFlag);
-			}
+            if (turnNum <= downTurn)
+            {
+                downFlag = false;
+                downTurn = 100;
+                GetComponent<Animator>().SetBool("downFlag", downFlag);
+            }
 
 			// 向きの調整
 			switch (direction)
