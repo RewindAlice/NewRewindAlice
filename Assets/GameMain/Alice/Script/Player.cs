@@ -572,7 +572,7 @@ public class Player : MonoBehaviour
                                                        // 状態の切り替え
                 Debug.Log(playerMode+"asdasd");
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
-				stage.GetComponent<Stage>().StartMove(3);
+				if (moveDirection != MoveDirection.UP) stage.GetComponent<Stage>().StartMove(3);
 
                 // プレイヤーの状態が通常なら////////////////////////////
                 if (playerMode == PlayerMode.NORMAL)

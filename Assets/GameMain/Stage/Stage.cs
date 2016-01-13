@@ -170,7 +170,7 @@ public class Stage : MonoBehaviour
     public Vector3 Twins2;
     public bool oncetime;
     public bool goalFlag;
-    
+	public bool playerRizeFlag = false;
 
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
@@ -1760,6 +1760,7 @@ public class Stage : MonoBehaviour
                 {
                     if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
                     {
+						playerRizeFlag = true;
                         alice.AutoMoveSetting(Player.MoveDirection.UP);
                     }
                 }
@@ -1835,443 +1836,354 @@ public class Stage : MonoBehaviour
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
         int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
 
+		bool DontFallFlag = false;
         //alice.climb2Flag = false;
 
         // アリスが地面についていないなら
         if(posY >= 1)
         {
-            switch(gimmickNumArray[posY - 1, posX, posZ])
-            {
-                // 落下するもの
-                //case NONE_BLOCK:
-                case STAGE_GOOL:
-				case DOOR_RED_KEY: // 鍵（赤）
-				case DOOR_BLUE_KEY: // 鍵（青）
-				case DOOR_YELLOW_KEY: // 鍵（黄）
-				case DOOR_GREEN_KEY: // 鍵（緑）
-				case CHESHIRE_CAT: // チェシャ
-                case MUSHROOM_SMALL:            // No.33    キノコ（小さくなる）
-                case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
-                case POTION_SMALL:              // No.35    薬（小さくなる）
-                case POTION_BIG:                // No.36    薬（大きくなる）
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                        alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        print("落下");
-                    }
+			switch (pushGimmickNumArray[posY - 1, posX, posZ])
+			{
+				case ROCK:
+					DontFallFlag = true;
 					break;
 
-				case NONE_BLOCK:
-				case WATER:
-					switch (pushGimmickNumArray[posY - 1, posX, posZ])
-					{
-						case ROCK:
-							break;
+				//default:
+				//	alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+				//	alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+				//	print("落下");
+				//	break;
 
-						default:
-                            if(gimmickNumArray[posY,posX,posZ] == 77)
-                            {
+			}
 
-                            }
-                            else
-                            {
-                                alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                                print("落下");
-                            }
-							
-							break;
-							
-					}
-					break;
+			if (!DontFallFlag)
+			{
+				switch (gimmickNumArray[posY - 1, posX, posZ])
+				{
+					// 落下するもの
+					case NONE_BLOCK:
+					case WATER:
+					case STAGE_GOOL:
+					case DOOR_RED_KEY: // 鍵（赤）
+					case DOOR_BLUE_KEY: // 鍵（青）
+					case DOOR_YELLOW_KEY: // 鍵（黄）
+					case DOOR_GREEN_KEY: // 鍵（緑）
+					case CHESHIRE_CAT: // チェシャ
+					case MUSHROOM_SMALL:            // No.33    キノコ（小さくなる）
+					case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
+					case POTION_SMALL:              // No.35    薬（小さくなる）
+					case POTION_BIG:                // No.36    薬（大きくなる）
+						if (action == Player.PlayerAction.NEXT)
+						{
+							alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+							alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+							print("落下");
+						}
+						break;
 
-                case IVY_FRONT:     // 蔦（前）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 蔦が登れる状態なら蔦の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.FRONT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 蔦が枯れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.FRONT);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.FRONT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case LADDER_FRONT:  // 梯子（前）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 梯子が登れる状態なら梯子の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.FRONT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 梯子が壊れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.FRONT);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.FRONT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case IVY_BACK:      // 蔦（後）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 蔦が登れる状態なら蔦の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.BACK);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 蔦が枯れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.BACK);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.BACK);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case LADDER_BACK:   // 梯子（後）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 梯子が登れる状態なら梯子の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.BACK);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 梯子が壊れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.BACK);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.BACK);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case IVY_LEFT:      // 蔦（左）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 蔦が登れる状態なら蔦の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.LEFT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 蔦が枯れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.LEFT);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.LEFT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case LADDER_LEFT:   // 梯子（左）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 梯子が登れる状態なら梯子の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.LEFT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 梯子が壊れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.LEFT);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.LEFT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case IVY_RIGHT:     // 蔦（右）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 蔦が登れる状態なら蔦の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.RIGHT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 蔦が枯れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.RIGHT);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.RIGHT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case LADDER_RIGHT:  // 梯子（右）
-                    // ターンが進むの時
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 梯子が登れる状態なら梯子の方向を向いて登り状態に
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
-                        {
-                            Climb2(Player.PlayerAngle.RIGHT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                            alice.saveClimbMidst[alice.saveCount - 1] = true;
-                        }
-                        // 梯子が壊れていたら落下
-                        else
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                        }
-                    }
-                    // ターンが戻るの時
-                    else if (action == Player.PlayerAction.RETURN)
-                    {
-                        if (alice.saveClimbMidst[alice.saveCount - 1])
-                        {
-                            Climb2(Player.PlayerAngle.RIGHT);
-                            alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                        else
-                        {
-                            Climb2(Player.PlayerAngle.RIGHT);
-                            alice.SetAnimation(Player.Motion.CLIMB, true);
-                        }
-                    }
-                    break;
-                case TREE:  // ▼木//////////////////////////////////////////////////////////////////
-                    if (action == Player.PlayerAction.NEXT)
-                    {
-                        // 木の成長段階が１以下なら
-                        if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.UP);
-                        }
-                        else if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount < 1)
-                        {
-                            alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                            alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-                            print("落下");
-                        }
-                    }
-                    break;
-                case WARP_HOLE_ONE:
-                case WARP_HOLE_TWO:
-                case WARP_HOLE_THREE:
-                case WARP_HOLE_FOUR:
-                case WARP_HOLE_FIVE:
+					case IVY_FRONT:     // 蔦（前）
+						// 足元の蔦が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.FRONT);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.FRONT);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case LADDER_FRONT:  // 梯子（前）
+						// 足元の梯子が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ladder>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.FRONT);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.FRONT);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case IVY_BACK:      // 蔦（後）
+						// 足元の蔦が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.BACK);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.BACK);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case LADDER_BACK:   // 梯子（後）
+						// 足元の梯子が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ladder>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.BACK);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.BACK);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case IVY_LEFT:      // 蔦（左）
+						// 足元の蔦が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.LEFT);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.LEFT);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case LADDER_LEFT:   // 梯子（左）
+						// 足元の梯子が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ladder>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.LEFT);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.LEFT);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case IVY_RIGHT:     // 蔦（右）
+						// 足元の蔦が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ivy>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.RIGHT);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.RIGHT);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case LADDER_RIGHT:  // 梯子（右）
+						// 足元の梯子が消えていたら落下する
+						if (gimmickObjectArray[alice.arrayPosY - 1, alice.arrayPosX, alice.arrayPosZ].GetComponent<Ladder>().GetGimmckCount() >= 1)
+						{
+							if (action == Player.PlayerAction.NEXT)
+							{
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+							if (action == Player.PlayerAction.RETURN)
+							{
+								Climb2(Player.PlayerAngle.RIGHT);
+								alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+								alice.SetAnimation(Player.Motion.CLIMB, true);
+							}
+						}
+						else
+						{
+							Climb2(Player.PlayerAngle.RIGHT);
+							alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
+							alice.SetAnimation(Player.Motion.CLIMB, true);
+						}
+						break;
+					case TREE:  // ▼木//////////////////////////////////////////////////////////////////
+						if (action == Player.PlayerAction.NEXT)
+						{
+							// 木の成長段階が１以下なら
+							if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
+							{
+								playerRizeFlag = true;
+								alice.AutoMoveSetting(Player.MoveDirection.UP);
+							}
+							else if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount < 1)
+							{
+								alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+								alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+								print("落下");
+							}
+						}
+						break;
+					case WARP_HOLE_ONE:
+					case WARP_HOLE_TWO:
+					case WARP_HOLE_THREE:
+					case WARP_HOLE_FOUR:
+					case WARP_HOLE_FIVE:
 
-                    if(action == Player.PlayerAction.NEXT || action == Player.PlayerAction.RETURN)
-                    {
-                        for (int y = 0; y < STAGE_Y; y++)
-                        {
-                            for (int x = 0; x < STAGE_X; x++)
-                            {
-                                for (int z = 0; z < STAGE_Z; z++)
-                                {
-                                    switch (gimmickNumArray[posY - 1, posX, posZ])
-                                    {
-                                        case WARP_HOLE_ONE:
-                                            if (alice.playerMode == Player.PlayerMode.SMALL)
-                                            {
-                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_ONE && ((y != posY - 1) || (x != posX) || (z != posZ)))
-                                                {
-                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                    alice.arrayPosX = x;
-                                                    alice.arrayPosY = y + 1;
-                                                    alice.arrayPosZ = z;
-                                                    break;
-                                                }
-                                            }
+						if (action == Player.PlayerAction.NEXT || action == Player.PlayerAction.RETURN)
+						{
+							for (int y = 0; y < STAGE_Y; y++)
+							{
+								for (int x = 0; x < STAGE_X; x++)
+								{
+									for (int z = 0; z < STAGE_Z; z++)
+									{
+										switch (gimmickNumArray[posY - 1, posX, posZ])
+										{
+											case WARP_HOLE_ONE:
+												if (alice.playerMode == Player.PlayerMode.SMALL)
+												{
+													if (gimmickNumArray[y, x, z] == WARP_HOLE_ONE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+													{
+														alice.transform.position = new Vector3(x, y + 0.5f, z);
+														alice.arrayPosX = x;
+														alice.arrayPosY = y + 1;
+														alice.arrayPosZ = z;
+														break;
+													}
+												}
 
-                                            break;
-                                        case WARP_HOLE_TWO:
-                                            if (alice.playerMode == Player.PlayerMode.SMALL)
-                                            {
-                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_TWO && ((y != posY - 1) || (x != posX) || (z != posZ)))
-                                                {
-                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                    alice.arrayPosX = x;
-                                                    alice.arrayPosY = y + 1;
-                                                    alice.arrayPosZ = z;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        case WARP_HOLE_THREE:
-                                            if (alice.playerMode == Player.PlayerMode.SMALL)
-                                            {
-                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_THREE && ((y != posY - 1) || (x != posX) || (z != posZ)))
-                                                {
-                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                    alice.arrayPosX = x;
-                                                    alice.arrayPosY = y + 1;
-                                                    alice.arrayPosZ = z;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        case WARP_HOLE_FOUR:
-                                            if (alice.playerMode == Player.PlayerMode.SMALL)
-                                            {
-                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_FOUR && ((y != posY - 1) || (x != posX) || (z != posZ)))
-                                                {
-                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                    alice.arrayPosX = x;
-                                                    alice.arrayPosY = y + 1;
-                                                    alice.arrayPosZ = z;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        case WARP_HOLE_FIVE:
-                                            if (alice.playerMode == Player.PlayerMode.SMALL)
-                                            {
-                                                if (gimmickNumArray[y, x, z] == WARP_HOLE_FIVE && ((y != posY - 1) || (x != posX) || (z != posZ)))
-                                                {
-                                                    alice.transform.position = new Vector3(x, y + 0.5f, z);
-                                                    alice.arrayPosX = x;
-                                                    alice.arrayPosY = y + 1;
-                                                    alice.arrayPosZ = z;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                   
-                    break;
-
-            }
+												break;
+											case WARP_HOLE_TWO:
+												if (alice.playerMode == Player.PlayerMode.SMALL)
+												{
+													if (gimmickNumArray[y, x, z] == WARP_HOLE_TWO && ((y != posY - 1) || (x != posX) || (z != posZ)))
+													{
+														alice.transform.position = new Vector3(x, y + 0.5f, z);
+														alice.arrayPosX = x;
+														alice.arrayPosY = y + 1;
+														alice.arrayPosZ = z;
+														break;
+													}
+												}
+												break;
+											case WARP_HOLE_THREE:
+												if (alice.playerMode == Player.PlayerMode.SMALL)
+												{
+													if (gimmickNumArray[y, x, z] == WARP_HOLE_THREE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+													{
+														alice.transform.position = new Vector3(x, y + 0.5f, z);
+														alice.arrayPosX = x;
+														alice.arrayPosY = y + 1;
+														alice.arrayPosZ = z;
+														break;
+													}
+												}
+												break;
+											case WARP_HOLE_FOUR:
+												if (alice.playerMode == Player.PlayerMode.SMALL)
+												{
+													if (gimmickNumArray[y, x, z] == WARP_HOLE_FOUR && ((y != posY - 1) || (x != posX) || (z != posZ)))
+													{
+														alice.transform.position = new Vector3(x, y + 0.5f, z);
+														alice.arrayPosX = x;
+														alice.arrayPosY = y + 1;
+														alice.arrayPosZ = z;
+														break;
+													}
+												}
+												break;
+											case WARP_HOLE_FIVE:
+												if (alice.playerMode == Player.PlayerMode.SMALL)
+												{
+													if (gimmickNumArray[y, x, z] == WARP_HOLE_FIVE && ((y != posY - 1) || (x != posX) || (z != posZ)))
+													{
+														alice.transform.position = new Vector3(x, y + 0.5f, z);
+														alice.arrayPosX = x;
+														alice.arrayPosY = y + 1;
+														alice.arrayPosZ = z;
+														break;
+													}
+												}
+												break;
+										}
+									}
+								}
+							}
+						}
+						break;
+				}
+			}
         }
     }
 
@@ -2477,7 +2389,6 @@ public class Stage : MonoBehaviour
                     // ▽ギミックが
                     switch (gimmickNumArray[y, x, z])
                     {
-                        // ▼木なら
 						// ▼木なら
 						case TREE:
 							// 成長段階が２以下なら１つ上の配列を変更
@@ -2491,7 +2402,16 @@ public class Stage : MonoBehaviour
 							{
 								if (pushGimmickNumArray[y, x, z] == ROCK)
 								{
+									if ((alice.arrayPosX == x) &&
+										(alice.arrayPosZ == z))
+									{
+										playerRizeFlag = true;
+	
+										if(alice.arrayPosY == y + 1)
+											alice.AutoMoveSetting(Player.MoveDirection.UP);
+									}
 									pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Rize();
+
 									GameObject objectTemp;
 									objectTemp = pushGimmickObjectArray[y + 1, x, z];
 									pushGimmickObjectArray[y + 1, x, z] = pushGimmickObjectArray[y, x, z];
@@ -2508,6 +2428,13 @@ public class Stage : MonoBehaviour
 								gimmickNumArray[y + 1, x, z] = DUMMY_TREE;
 								if (pushGimmickNumArray[y + 1, x, z] == ROCK)
 								{
+									if ((alice.arrayPosY == y + 2) &&
+										(alice.arrayPosX == x) &&
+										(alice.arrayPosZ == z))
+									{
+										playerRizeFlag = true;
+										alice.AutoMoveSetting(Player.MoveDirection.UP);
+									}
 									pushGimmickObjectArray[y + 1, x, z].GetComponent<Rock>().Rize();
 									GameObject objectTemp;
 									objectTemp = pushGimmickObjectArray[y + 2, x, z];
@@ -2521,27 +2448,61 @@ public class Stage : MonoBehaviour
 							break;
 
 						case NONE_BLOCK:
+						case WATER:
+						case IVY_BLOCK:
+						case IVY_FRONT:
+						case IVY_BACK:
+						case IVY_LEFT:
+						case IVY_RIGHT:
+						case LADDER_BLOCK:
+						case LADDER_FRONT:
+						case LADDER_BACK:
+						case LADDER_LEFT:
+						case LADDER_RIGHT:
 							switch (pushGimmickNumArray[y, x, z])
 							{
 								case ROCK:
 									if (y > 0)
 									{
-										if ((gimmickNumArray[y - 1, x, z] == NONE_BLOCK) ||
-											(gimmickNumArray[y - 1, x, z] == WATER))
+										switch (gimmickNumArray[y - 1, x, z])
 										{
-											if (pushGimmickNumArray[y - 1, x, z] == NONE_BLOCK)
-											{
-												pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
-												GameObject objectTemp;
-												objectTemp = pushGimmickObjectArray[y - 1, x, z];
-												pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
-												pushGimmickObjectArray[y, x, z] = objectTemp;
 
-												pushGimmickNumArray[y - 1, x, z] = ROCK;
-												pushGimmickNumArray[y, x, z] = NONE_BLOCK;
-												stoneFallController = true;
-											}
+											case NONE_BLOCK:
+											case WATER:
+											case IVY_BLOCK:
+											case IVY_FRONT:
+											case IVY_BACK:
+											case IVY_LEFT:
+											case IVY_RIGHT:
+											case LADDER_BLOCK:
+											case LADDER_FRONT:
+											case LADDER_BACK:
+											case LADDER_LEFT:
+											case LADDER_RIGHT:
+											case TREE:
+
+												if (gimmickNumArray[y - 1, x, z] == TREE)
+												{
+													if (gimmickObjectArray[y - 1, x, z].GetComponent<Tree>().growCount > 0)
+														break;
+												}
+
+												if (pushGimmickNumArray[y - 1, x, z] == NONE_BLOCK)
+												{
+													Debug.Log("ROCKFALLCHECK");
+													pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+													GameObject objectTemp;
+													objectTemp = pushGimmickObjectArray[y - 1, x, z];
+													pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+													pushGimmickObjectArray[y, x, z] = objectTemp;
+
+													pushGimmickNumArray[y - 1, x, z] = ROCK;
+													pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+													//stoneFallController = true;
+												}
+												break;
 										}
+										break;
 									}
 									break;
 							}
@@ -2826,82 +2787,71 @@ public class Stage : MonoBehaviour
         return flag;
     }
 
-    // 移動系ギミック横下判定//////////////////////////////////////////////////////////
-    public bool BesideDownDecision(int posX, int posY, int posZ)
-    {
-        bool flag = false;
-      
-        switch (gimmickNumArray[posY - 1, posX, posZ])
-        {
+	// 移動系ギミック横下判定//////////////////////////////////////////////////////////
+	public bool BesideDownDecision(int posX, int posY, int posZ)
+	{
+		bool flag = false;
 
-            //進行方向下にあるとき通れるオブジェクト
-            case FOREST_BLOCK_GROUND:
-            case FOREST_BLOCK_GRASS:
-            case FOREST_BLOCK_ALLGRASS:
+		switch (gimmickNumArray[posY - 1, posX, posZ])
+		{
 
-            case ROOM_BLOCK_FLOOR:
-            case ROOM_BLOCK_BOOKSHELF:
+			//進行方向下にあるとき通れるオブジェクト
+			case FOREST_BLOCK_GROUND:
+			case FOREST_BLOCK_GRASS:
+			case FOREST_BLOCK_ALLGRASS:
 
-            case REDFOREST_BLOCK_GROUND:
-            case REDFOREST_BLOCK_GRASS:
-            case REDFOREST_BLOCK_ALLGRASS:
+			case ROOM_BLOCK_FLOOR:
+			case ROOM_BLOCK_BOOKSHELF:
 
-            case DARKFOREST_BLOCK_GROUND:
+			case REDFOREST_BLOCK_GROUND:
+			case REDFOREST_BLOCK_GRASS:
+			case REDFOREST_BLOCK_ALLGRASS:
 
-            case GARDEN_BLOCK_GROUND:
-            case GARDEN_BLOCK_FLOWER:
+			case DARKFOREST_BLOCK_GROUND:
 
-            case START_POINT:             // スタート地点
-            case STAGE_GOOL:              // ゴール地点
-            case IVY_BLOCK:
-            case IVY_FRONT:
-            case IVY_BACK:
-            case IVY_LEFT:
-            case IVY_RIGHT:
-            case LADDER_BLOCK:
-            case LADDER_FRONT:
-            case LADDER_BACK:
-            case LADDER_LEFT:
-            case LADDER_RIGHT:
+			case GARDEN_BLOCK_GROUND:
+			case GARDEN_BLOCK_FLOWER:
+
+			case START_POINT:             // スタート地点
+			case STAGE_GOOL:              // ゴール地点
+			case IVY_BLOCK:
+			case IVY_FRONT:
+			case IVY_BACK:
+			case IVY_LEFT:
+			case IVY_RIGHT:
+			case LADDER_BLOCK:
+			case LADDER_FRONT:
+			case LADDER_BACK:
+			case LADDER_LEFT:
+			case LADDER_RIGHT:
 			case ROCK:
-            case WARP_HOLE_ONE:
-            case WARP_HOLE_TWO:
-            case WARP_HOLE_THREE:
-            case WARP_HOLE_FOUR:
-            case WARP_HOLE_FIVE:
-            case POTION_BIG:
-            case POTION_SMALL:
-                flag = true;
-                break;
+			case WARP_HOLE_ONE:
+			case WARP_HOLE_TWO:
+			case WARP_HOLE_THREE:
+			case WARP_HOLE_FOUR:
+			case WARP_HOLE_FIVE:
+			case POTION_BIG:
+			case POTION_SMALL:
+				flag = true;
+				break;
 
-            //進行方向下にあるとき通れないオブジェクト
-            case WATER:             // 水
-                flag = false;
-                break;
-            // 木
-            case TREE:
-                if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount <= 2)
-                {
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                }
-                break;
-
-            //case NONE:              // 何も無し
-            //case WATER:             // 水
-            //case WARP_HOLE_ONE:
-            //case WARP_HOLE_TWO:
-            //case WARP_HOLE_THREE:
-            //case WARP_HOLE_FOUR:
-            //case WARP_HOLE_FIVE:
-            //    flag = false;
-            //    break;
+			//進行方向下にあるとき通れないオブジェクト
+			case WATER:             // 水
+				flag = false;
+				break;
+			// 木
+			case TREE:
+				if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount <= 2)
+				{
+					flag = true;
+				}
+				else
+				{
+					flag = false;
+				}
+				break;
 
 			case NONE_BLOCK:
-                
 				switch (pushGimmickNumArray[posY, posX, posZ])
 				{
 					case ROCK:
@@ -2909,9 +2859,9 @@ public class Stage : MonoBehaviour
 						break;
 				}
 				break;
-        }
-        return flag;
-    }
+		}
+		return flag;
+	}
 
 
     public bool GetFootHole(Player alice)
@@ -2961,19 +2911,27 @@ public class Stage : MonoBehaviour
 
 				case START_POINT:
 				case STAGE_GOOL:
+
+				case IVY_FRONT:
+				case IVY_BACK:
+				case IVY_LEFT:
+				case IVY_RIGHT:
+				case LADDER_FRONT:
+				case LADDER_BACK:
+				case LADDER_LEFT:
+				case LADDER_RIGHT:
 					return true;
 
 				case POTION_BIG:
 				case POTION_SMALL:
 				case MUSHROOM_BIG:
 				case MUSHROOM_SMALL:
+					//現在のターンを入れる
+					//ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
+					//ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
+					//SaveTurnArrayController++;
 					if (gimmickObjectArray[posY, posX - pushDirectionX, posZ - pushDirectionZ].GetComponent<ModeChange>().GetRendererEnabled() == false)
 					{
-                        //現在のターンを入れる
-                        ModeChangeSaveTurn[SaveTurnArrayController] = GameObject.Find("GameMain").GetComponent<GameMain>().turnNum;
-                        ModeChangeSaveNum[ModeChangeSaveTurn[SaveTurnArrayController]] = gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ];
-                        SaveTurnArrayController++;
-
 						return true;
 					}
 					else
@@ -3160,7 +3118,6 @@ public class Stage : MonoBehaviour
 						if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
 						{
 							flag = true;
-							Debug.Log("oseruyo-");
 							//// 
 							//int dum = gimmickObjectArray[(int)mine.y,(int)mine.x,(int)mine.z].GetComponent<TweedleDum>().direction;
 
@@ -3523,11 +3480,14 @@ public class Stage : MonoBehaviour
 				{
 					if (pushGimmickNumArray[i, j, k] == ROCK)
 					{
-						Debug.Log("yobareta");
-						Debug.Log(i);
-						Debug.Log(j);
-						Debug.Log(k);
-						pushGimmickObjectArray[i, j, k].GetComponent<Rock>().StartMove(type);
+						//Debug.Log("yobareta");
+						//Debug.Log(i);
+						//Debug.Log(j);
+						//Debug.Log(k);
+						if (playerRizeFlag)
+							playerRizeFlag = false;
+						else
+							pushGimmickObjectArray[i, j, k].GetComponent<Rock>().StartMove(type);
 					}
 				}
 			}
