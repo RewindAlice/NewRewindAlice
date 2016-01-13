@@ -124,6 +124,7 @@ public class Player : MonoBehaviour
     public PlayerAngle[] saveMovePlayerAngle = new PlayerAngle[SAVE_NUM];   // 保存用配列（アリスの向き）
     public MoveDirection[] saveMoveDirection = new MoveDirection[SAVE_NUM]; // 保存用配列（移動方向）
     public bool[] saveMoveInput = new bool[SAVE_NUM];                       // 保存用配列（キー入力）
+    public bool[] saveClimbMidst = new bool[SAVE_NUM];                      // 保存用配列（登り中）
     public int saveCount;                                                   // 現在の保存数
     public int moveCount;                                                   // 移動数
     public int turnCount;                                                   // ターン数
@@ -202,7 +203,6 @@ public class Player : MonoBehaviour
     Vector3 angleArrowBack;      // 後方向
     Vector3 angleArrowLeft;      // 左方向
     Vector3 angleArrowRight;     // 右方向
-
 
     //移動用エフェクト
     public GameObject[] moveEffect;
@@ -402,8 +402,6 @@ public class Player : MonoBehaviour
             case PlayerAction.NEXT:
                 if (gameOverFlag == false)
                 {
-
-                    
                     MoveNextPosition();                 // アリスを進める処理
                     MoveFinishDecision(playerAction);   // 移動完了判定
                 }
@@ -911,6 +909,7 @@ public class Player : MonoBehaviour
                     saveMovePlayerAngle[num] = PlayerAngle.NONE;    // プレイヤーの向きをリセット
                     saveMoveDirection[num] = MoveDirection.NONE;    // プレイヤーの移動方向をリセット
                     saveMoveInput[num] = false;
+                    saveClimbMidst[num] = false;
                 }
             }
 

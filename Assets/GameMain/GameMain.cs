@@ -492,7 +492,7 @@ public class GameMain : MonoBehaviour
                                     }
                                 }
                                 stage.GimmickDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
-                                //stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+                                stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
 
 
                                 print("ターン終了");// デバッグ用コメント}
