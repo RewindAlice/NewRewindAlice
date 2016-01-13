@@ -498,6 +498,11 @@ public class GameMain : MonoBehaviour
                                 print("ターン終了");// デバッグ用コメント}
                             }
                         }
+                        else
+                        {
+                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+                            firstInput = false;
+                        }
                     }
                 }
                 break;
