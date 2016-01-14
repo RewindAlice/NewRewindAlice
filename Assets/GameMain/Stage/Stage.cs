@@ -3091,25 +3091,25 @@ public class Stage : MonoBehaviour
 				case NONE_BLOCK:
 				case START_POINT:
 				case STAGE_GOOL:
-					flag = true;
+					return true;
 					break;
 				default:
 					break;
 			}
 		}
 
-		if (flag)
-		{
-			switch (gimmickNumArray[posY - 1, posX - pushDirectionX, posZ - pushDirectionZ])
-			{
-				case NONE_BLOCK:
-				case START_POINT:
-				case STAGE_GOOL:
-					return true;
-				default:
-					break;
-			}
-		}
+        //if (flag)
+        //{
+        //    switch (gimmickNumArray[posY - 1, posX - pushDirectionX, posZ - pushDirectionZ])
+        //    {
+        //        case NONE_BLOCK:
+        //        case START_POINT:
+        //        case STAGE_GOOL:
+        //            return true;
+        //        default:
+        //            break;
+        //    }
+        //}
 		return false;
 
 	}
