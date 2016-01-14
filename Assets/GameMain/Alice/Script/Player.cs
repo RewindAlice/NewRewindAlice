@@ -5,7 +5,7 @@ using System.Collections.Generic;   // listを使用するため
 public class Player : MonoBehaviour
 {
     // ★移動情報保存///////////////////////////////////
-    const int SAVE_NUM = 50;        // 移動保存数
+    const int SAVE_NUM = 60;        // 移動保存数
 
     // ★プレイヤー移動/////////////////////////////////
     const float SPEED_W = 0.04f;    // 移動速度（横方向）

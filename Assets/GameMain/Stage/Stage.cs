@@ -3596,14 +3596,13 @@ public class Stage : MonoBehaviour
 						//Debug.Log(i);
 						//Debug.Log(j);
 						//Debug.Log(k);
-						if (playerRizeFlag)
-							playerRizeFlag = false;
-						else
+						if (!playerRizeFlag)
 							pushGimmickObjectArray[i, j, k].GetComponent<Rock>().StartMove(type);
 					}
 				}
 			}
 		}
+		playerRizeFlag = false;
 	}
 
     public bool GimmickMoveMidst()
