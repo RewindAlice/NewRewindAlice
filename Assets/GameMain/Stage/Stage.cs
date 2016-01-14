@@ -1912,6 +1912,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.FRONT);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -1946,6 +1947,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.FRONT);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -1980,6 +1982,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.BACK);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -2014,6 +2017,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.BACK);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -2048,6 +2052,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.LEFT);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -2082,6 +2087,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.LEFT);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -2116,6 +2122,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.RIGHT);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -2150,6 +2157,7 @@ public class Stage : MonoBehaviour
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
                                 Climb2(Player.PlayerAngle.RIGHT);
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                                 alice.saveClimbMidst[alice.saveCount - 1] = true;
                             }
@@ -2174,7 +2182,6 @@ public class Stage : MonoBehaviour
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                         }
-                        break;
 						break;
 					case TREE:  // ▼木//////////////////////////////////////////////////////////////////
 						if (action == Player.PlayerAction.NEXT)

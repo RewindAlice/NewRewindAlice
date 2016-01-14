@@ -593,7 +593,10 @@ public class Player : MonoBehaviour
                             SetAnimation(Motion.WALK_RETURN, true);
                             break;
                         case MoveDirection.STOP:
-                            SetAnimation(Motion.STOP_RETURN, true);
+                            if (!saveClimbMidst[saveCount - 2] && ((saveCount - 2) >= 0))
+                            {
+                                SetAnimation(Motion.STOP_RETURN, true);
+                            }
                             break;
                     }
                 }
@@ -693,6 +696,11 @@ public class Player : MonoBehaviour
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
                         }
+                        else if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && (saveClimbMidst[saveCount - 2]) && (saveMoveDirection[saveCount - 1] == MoveDirection.STOP))
+                        {
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
+                        }
                         // アリスの座標Ｙが移動前から１減っているなら
                         else if (transform.localPosition.y <= moveBeforePosition.y - 1)
                         {
@@ -761,6 +769,11 @@ public class Player : MonoBehaviour
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
+                        }
+                        else if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && (saveClimbMidst[saveCount - 2]) && ((saveCount - 2) >= 0))
+                        {
+                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                            // 移動完了処理
                         }
                         // アリスの座標Ｙが移動前から１増えているなら
                         else if (transform.localPosition.y >= moveBeforePosition.y + 1)
