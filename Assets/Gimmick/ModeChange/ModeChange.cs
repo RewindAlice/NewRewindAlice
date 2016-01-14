@@ -9,7 +9,7 @@ public class ModeChange : BaseGimmick
     //protected int gimmickCount;                       // ギミック開始後のターン数
     //public bool besideDicisionMovePossibleFlag;       // 横判定用移動可能フラグ
     //public bool besideDownDicisionMovePossibleFlag;   // 横下判定用移動可能フラグ
-
+    public int movecount = 0;
     public int itemCode;
     const int setEffectTimer = 180;
     public int effectTimer = 0;
@@ -28,6 +28,7 @@ public class ModeChange : BaseGimmick
 
         renderer = GetComponentInChildren<Renderer>();
         touchCount = 0;
+        movecount = 0;
         drawFlag = true;    // ギミックの初期表示フラグを真に
     }
 
@@ -50,10 +51,14 @@ public class ModeChange : BaseGimmick
     // ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public override void OnAliceMoveNext(int aliceMove)
     {
-        // ギミックが有効でない（既に触れている）
-        if(!gimmickFlag)
+        if (movecount < aliceMove)
         {
-            touchCount++;   // 触れてからのターン数を増やす
+            // ギミックが有効でない（既に触れている）
+            if (!gimmickFlag)
+            {
+                touchCount++;   // 触れてからのターン数を増やす
+            }
+            movecount++;
         }
     }
 
@@ -63,16 +68,20 @@ public class ModeChange : BaseGimmick
         // ギミックが有効でない（既に触れている）
         if (!gimmickFlag)
         {
-            touchCount--;   // 触れてからのターン数を減らす
-
-            // 触れてからのターン数が－１なら
-            if(touchCount == 0)
+            if (movecount == aliceMove)
             {
-                gimmickCount = 0;
-                gimmickFlag = true;
-                drawFlag = true;
-                OutPutEffect();
+                touchCount--;   // 触れてからのターン数を減らす
+
+                // 触れてからのターン数が－１なら
+                if (touchCount == 0)
+                {
+                    gimmickCount = 0;
+                    gimmickFlag = true;
+                    drawFlag = true;
+                    OutPutEffect();
+                }
             }
+            movecount--;
         }
     }
 
