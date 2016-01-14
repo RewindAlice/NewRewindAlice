@@ -2181,7 +2181,7 @@ public class Stage : MonoBehaviour
 					case WARP_HOLE_FOUR:
 					case WARP_HOLE_FIVE:
 
-						if (action == Player.PlayerAction.NEXT || action == Player.PlayerAction.RETURN)
+						if (action == Player.PlayerAction.NEXT)
 						{
 							for (int y = 0; y < STAGE_Y; y++)
 							{

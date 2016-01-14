@@ -560,7 +560,7 @@ public class Player : MonoBehaviour
                 nextFlag = false;
                 ModeChange();
 
-                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.RETURN);      // 足元との判定
+                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.NEXT);      // 足元との判定
 
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 
