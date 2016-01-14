@@ -559,7 +559,7 @@ public class Player : MonoBehaviour
                 nextFlag = false;
                 ModeChange();
 
-                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.RETURN);      // 足元との判定
+                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.NEXT);      // 足元との判定
 
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 
@@ -773,7 +773,8 @@ public class Player : MonoBehaviour
                         else if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && (saveClimbMidst[saveCount - 2]) && ((saveCount - 2) >= 0))
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
-                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                            // 移動完了処理
+                            MoveFinish(position, ArrayMove.PLUS_Y);
+                            MoveAgain();// 移動完了処理
                         }
                         // アリスの座標Ｙが移動前から１増えているなら
                         else if (transform.localPosition.y >= moveBeforePosition.y + 1)
