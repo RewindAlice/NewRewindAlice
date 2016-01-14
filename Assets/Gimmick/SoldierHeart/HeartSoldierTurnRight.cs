@@ -260,7 +260,7 @@ public class HeartSoldierTurnRight : BaseGimmick
 		playerAction = PlayerAction.RETURN;
 		if (captureFlag)
 		{
-
+            //captureTrun = 0;
 			captureFlag = false;
 			GetComponent<Animator>().SetBool("captureFlag", captureFlag);
 		}
@@ -461,7 +461,7 @@ public class HeartSoldierTurnRight : BaseGimmick
                         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
                     }
                 }
-                else if (!(captureTrun == turnNum-1))
+                else if (!(captureTrun == turnNum-1) ||(turnNum == 1))
                 {
                     if (moveMemory[turnNum] == MoveDirection.NONE)
                     {
@@ -469,6 +469,7 @@ public class HeartSoldierTurnRight : BaseGimmick
                         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
                     }
                 }
+              
 
 			}
 		}
@@ -523,6 +524,11 @@ public class HeartSoldierTurnRight : BaseGimmick
 					moveFlag = true;
 				}
 				moveMemory[turnNum - 1] = MoveDirection.NONE;
+
+                if (captureFlag == false && (captureTrun == turnNum - 1))
+                {
+                    captureTrun = 0;
+                }
 			}
 
 			// 落下、もしくは上昇なら続けて移動
