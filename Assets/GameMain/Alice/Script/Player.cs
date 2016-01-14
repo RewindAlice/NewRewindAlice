@@ -557,6 +557,7 @@ public class Player : MonoBehaviour
                 moveFlag = true;                                    // 移動フラグを真に
                 playerMode = saveMovePlayerMode[saveCount - 1];     // １つ前の状態を設定
                 nextFlag = false;
+                if (autoMoveFlag == false)
                 ModeChange();
 
                 stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.NEXT);      // 足元との判定

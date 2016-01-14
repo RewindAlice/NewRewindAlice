@@ -65,10 +65,11 @@ public class ModeChange : BaseGimmick
     // ★アリスが戻った時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public override void OnAliceMoveReturn(int aliceMove)
     {
-        // ギミックが有効でない（既に触れている）
-        if (!gimmickFlag)
+        if (movecount == aliceMove)
         {
-            if (movecount == aliceMove)
+
+            // ギミックが有効でない（既に触れている）
+            if (!gimmickFlag)
             {
                 touchCount--;   // 触れてからのターン数を減らす
 

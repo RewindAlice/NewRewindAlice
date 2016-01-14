@@ -500,7 +500,7 @@ public class GameMain : MonoBehaviour
                         }
                         else
                         {
-                            //alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
                             firstInput = false;
                         }
                     }
