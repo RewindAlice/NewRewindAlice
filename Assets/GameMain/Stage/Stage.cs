@@ -1338,67 +1338,85 @@ public class Stage : MonoBehaviour
 				int heartPushDirectionX_R = alice.arrayPosX - posX; // 押した方向x
 				int heartPushDirectionZ_R = alice.arrayPosZ - posZ; //  押した方向z
 
-				// 押した先にギミックが無ければ移動可能
-				if (HeartGimmickDecision(posX, posY, posZ, heartPushDirectionX_R, heartPushDirectionZ_R))
-				{
-					if (((heartPushDirectionX_R == 1) && (heartPushDirectionZ_R == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 4)) ||
-					((heartPushDirectionX_R == -1) && (heartPushDirectionZ_R == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 2) ||
-					((heartPushDirectionX_R == 0) && (heartPushDirectionZ_R == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 3)) ||
-					((heartPushDirectionX_R == 0) && (heartPushDirectionZ_R == -1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 1))))
-					{
-						flag = true;
+                if(gimmickObjectArray[posY,posX,posZ].GetComponent<HeartSoldierTurnRight>().downFlag == true)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    // 押した先にギミックが無ければ移動可能
+                    if (HeartGimmickDecision(posX, posY, posZ, heartPushDirectionX_R, heartPushDirectionZ_R))
+                    {
+                        if (((heartPushDirectionX_R == 1) && (heartPushDirectionZ_R == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 4)) ||
+                        ((heartPushDirectionX_R == -1) && (heartPushDirectionZ_R == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 2) ||
+                        ((heartPushDirectionX_R == 0) && (heartPushDirectionZ_R == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 3)) ||
+                        ((heartPushDirectionX_R == 0) && (heartPushDirectionZ_R == -1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 1))))
+                        {
+                            flag = true;
 
-						if ((alice.GetMoveDirection() == 3) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 4) ||
-							(alice.GetMoveDirection() == 4) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 2) ||
-							(alice.GetMoveDirection() == 2) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 3) ||
-							(alice.GetMoveDirection() == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 1))
-						{
-							gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().PushMove(posX, posY, posZ, heartPushDirectionX_R, heartPushDirectionZ_R);
-                            //GameObject objectTemp;
-                            //objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX_R, posZ - heartPushDirectionZ_R];
-                            //gimmickObjectArray[posY, posX - heartPushDirectionX_R, posZ - heartPushDirectionZ_R] = gimmickObjectArray[posY, posX, posZ];
-                            //gimmickObjectArray[posY, posX, posZ] = objectTemp;
+                            if ((alice.GetMoveDirection() == 3) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 4) ||
+                                (alice.GetMoveDirection() == 4) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 2) ||
+                                (alice.GetMoveDirection() == 2) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 3) ||
+                                (alice.GetMoveDirection() == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().direction == 1))
+                            {
+                                gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnRight>().PushMove(posX, posY, posZ, heartPushDirectionX_R, heartPushDirectionZ_R);
+                                //GameObject objectTemp;
+                                //objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX_R, posZ - heartPushDirectionZ_R];
+                                //gimmickObjectArray[posY, posX - heartPushDirectionX_R, posZ - heartPushDirectionZ_R] = gimmickObjectArray[posY, posX, posZ];
+                                //gimmickObjectArray[posY, posX, posZ] = objectTemp;
 
-                            //gimmickNumArray[posY, posX - heartPushDirectionX_R, posZ - heartPushDirectionZ_R] = SOLDIER_HEART_RIGHT;
-                            //gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-						}
-					}
-				}
+                                //gimmickNumArray[posY, posX - heartPushDirectionX_R, posZ - heartPushDirectionZ_R] = SOLDIER_HEART_RIGHT;
+                                //gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+                            }
+                        }
+                    }
+                }
+
+				
 				break;
 
 			case SOLDIER_HEART_LEFT: // No.58    ハート兵(左回り)////////////////////////////////////////////////////////////
-				int heartPositionByAliceX_L = posX - alice.arrayPosX; // アリスから見た兵士の位置x
-				int heartPositionByAliceZ_L = posZ - alice.arrayPosZ;// アリスから見た兵士の位置z
 
-				int heartPushDirectionX_L = alice.arrayPosX - posX; // 押した方向x
-				int heartPushDirectionZ_L = alice.arrayPosZ - posZ; //  押した方向z
+                if (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().downFlag == true)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    int heartPositionByAliceX_L = posX - alice.arrayPosX; // アリスから見た兵士の位置x
+                    int heartPositionByAliceZ_L = posZ - alice.arrayPosZ;// アリスから見た兵士の位置z
 
-				// 押した先にギミックが無ければ移動可能
-				if (HeartGimmickDecision(posX, posY, posZ, heartPushDirectionX_L, heartPushDirectionZ_L))
-				{
-					if (((heartPushDirectionX_L == 1) && (heartPushDirectionZ_L == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 4)) ||
-					((heartPushDirectionX_L == -1) && (heartPushDirectionZ_L == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 2) ||
-					((heartPushDirectionX_L == 0) && (heartPushDirectionZ_L == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 3)) ||
-					((heartPushDirectionX_L == 0) && (heartPushDirectionZ_L == -1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))))
-					{
-						flag = true;
+                    int heartPushDirectionX_L = alice.arrayPosX - posX; // 押した方向x
+                    int heartPushDirectionZ_L = alice.arrayPosZ - posZ; //  押した方向z
 
-						if ((alice.GetMoveDirection() == 3) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 4) ||
-							(alice.GetMoveDirection() == 4) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 2) ||
-							(alice.GetMoveDirection() == 2) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 3) ||
-							(alice.GetMoveDirection() == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))
-						{
-							gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().PushMove(posX, posY, posZ, heartPushDirectionX_L, heartPushDirectionZ_L);
-                            //GameObject objectTemp;
-                            //objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L];
-                            //gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = gimmickObjectArray[posY, posX, posZ];
-                            //gimmickObjectArray[posY, posX, posZ] = objectTemp;
+                    // 押した先にギミックが無ければ移動可能
+                    if (HeartGimmickDecision(posX, posY, posZ, heartPushDirectionX_L, heartPushDirectionZ_L))
+                    {
+                        if (((heartPushDirectionX_L == 1) && (heartPushDirectionZ_L == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 4)) ||
+                        ((heartPushDirectionX_L == -1) && (heartPushDirectionZ_L == 0) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 2) ||
+                        ((heartPushDirectionX_L == 0) && (heartPushDirectionZ_L == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 3)) ||
+                        ((heartPushDirectionX_L == 0) && (heartPushDirectionZ_L == -1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))))
+                        {
+                            flag = true;
 
-                            //gimmickNumArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = SOLDIER_HEART_LEFT;
-                            //gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
-						}
-					}
-				}
+                            if ((alice.GetMoveDirection() == 3) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 4) ||
+                                (alice.GetMoveDirection() == 4) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 2) ||
+                                (alice.GetMoveDirection() == 2) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 3) ||
+                                (alice.GetMoveDirection() == 1) && (gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().direction == 1))
+                            {
+                                gimmickObjectArray[posY, posX, posZ].GetComponent<HeartSoldierTurnLeft>().PushMove(posX, posY, posZ, heartPushDirectionX_L, heartPushDirectionZ_L);
+                                //GameObject objectTemp;
+                                //objectTemp = gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L];
+                                //gimmickObjectArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = gimmickObjectArray[posY, posX, posZ];
+                                //gimmickObjectArray[posY, posX, posZ] = objectTemp;
+
+                                //gimmickNumArray[posY, posX - heartPushDirectionX_L, posZ - heartPushDirectionZ_L] = SOLDIER_HEART_LEFT;
+                                //gimmickNumArray[posY, posX, posZ] = NONE_BLOCK;
+                            }
+                        }
+                    }
+                }
+				
 				break;
         }
 
