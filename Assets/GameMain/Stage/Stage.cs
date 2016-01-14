@@ -2981,6 +2981,12 @@ public class Stage : MonoBehaviour
 			 ((pushDirectionZ == 1) && (posZ > 1)) ||
 			 ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2)))
 		{
+			// アリスとの判定
+			if ((alice.arrayPosY == posY) &&
+				(alice.arrayPosX == posX - pushDirectionX) &&
+				(alice.arrayPosZ == posZ - pushDirectionZ))
+				return false;
+
 			switch (gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
 			{
 				case NONE_BLOCK:
