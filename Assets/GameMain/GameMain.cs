@@ -462,7 +462,7 @@ public class GameMain : MonoBehaviour
                         if (stage.GetFootHole(alice) == true && PlayerAction.RETURN == action)
                         {
                             //処理しないでフラグを戻す
-                            alice.moveFinishFlag = false;
+                            //alice.moveFinishFlag = false;
                            // alice.arrowDrawFlag = false;
                         }
                         else
@@ -500,7 +500,7 @@ public class GameMain : MonoBehaviour
                         }
                         else
                         {
-                            alice.moveFinishFlag = false;   // 移動完了フラグを偽に
+                            //alice.moveFinishFlag = false;   // 移動完了フラグを偽に
                             firstInput = false;
                         }
                     }
@@ -1064,7 +1064,7 @@ public class GameMain : MonoBehaviour
                     {
                         alice.SetAnimation(Player.Motion.GAMEOVER, false);
                     }
-                  
+                    
                     touchController.TouchPostionInitialize();
 
                     alice.arrowDrawFlag = false;
