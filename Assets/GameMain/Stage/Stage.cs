@@ -1873,12 +1873,17 @@ public class Stage : MonoBehaviour
 					case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
 					case POTION_SMALL:              // No.35    薬（小さくなる）
 					case POTION_BIG:                // No.36    薬（大きくなる）
-						if (action == Player.PlayerAction.NEXT)
-						{
-							alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-							alice.SetAnimation(Player.Motion.DROP_NEXT, true);
-							print("落下");
-						}
+                        if (!(gimmickNumArray[posY, posX, posZ] == 77))
+                        {
+                            if (action == Player.PlayerAction.NEXT)
+                            {
+                                alice.AutoMoveSetting(Player.MoveDirection.DOWN);
+                                alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+                                print("落下");
+                            }
+                        }
+						
+						
 						break;
 
                     case IVY_FRONT:     // 蔦（前）
