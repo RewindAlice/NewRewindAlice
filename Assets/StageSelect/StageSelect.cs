@@ -303,7 +303,7 @@ public class StageSelect : MonoBehaviour
         exStage4Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         exStage5Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         exStage6Text.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-        optionimage.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        //optionimage.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
        // GameObject.Find("Button").GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         returnCount = 0;
