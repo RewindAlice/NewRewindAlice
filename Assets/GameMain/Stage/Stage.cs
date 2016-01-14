@@ -1901,7 +1901,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -1936,7 +1935,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -1971,7 +1969,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -2006,7 +2003,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -2041,7 +2037,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -2076,7 +2071,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -2111,7 +2105,6 @@ public class Stage : MonoBehaviour
                             else
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                             }
                         }
@@ -2155,7 +2148,6 @@ public class Stage : MonoBehaviour
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
                                 Climb2(Player.PlayerAngle.RIGHT);
-                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
