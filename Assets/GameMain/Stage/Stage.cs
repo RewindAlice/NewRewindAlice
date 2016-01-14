@@ -2662,7 +2662,7 @@ public class Stage : MonoBehaviour
 						case SOLDIER_HEART_LEFT:
                             if (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().downFlag == true)
                             {
-                                switch (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnRight>().direction)
+                                switch (gimmickObjectArray[y, x, z].GetComponent<HeartSoldierTurnLeft>().direction)
                                 {
                                     case 1:
                                         gimmickNumArray[y, x, z + 1] = 0;
