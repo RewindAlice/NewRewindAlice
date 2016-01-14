@@ -142,8 +142,7 @@ public class Player : MonoBehaviour
 
     public int countBig;    // 大きくなっているターン数
     public int countSmall;  // 小さくなっているターン数
-
-    //------------------------
+	//------------------------
     //松村脩平追加部分
     //------------------------
     public bool invisibleFlag;
@@ -560,7 +559,7 @@ public class Player : MonoBehaviour
                 nextFlag = false;
                 ModeChange();
 
-                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.NEXT);      // 足元との判定
+                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.RETURN);      // 足元との判定
 
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 
@@ -572,8 +571,9 @@ public class Player : MonoBehaviour
                                                        // 状態の切り替え
                 Debug.Log(playerMode+"asdasd");
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
-				if (moveDirection != MoveDirection.UP) stage.GetComponent<Stage>().StartMove(3);
-
+				if (moveDirection != MoveDirection.UP)
+					stage.GetComponent<Stage>().StartMove(3);
+				
                 // プレイヤーの状態が通常なら////////////////////////////
                 if (playerMode == PlayerMode.NORMAL)
                 {
@@ -593,10 +593,7 @@ public class Player : MonoBehaviour
                             SetAnimation(Motion.WALK_RETURN, true);
                             break;
                         case MoveDirection.STOP:
-                            if(!saveClimbMidst[saveCount - 2] && ((saveCount - 2) >= 0))
-                            {
-                                SetAnimation(Motion.STOP_RETURN, true);
-                            }
+                            SetAnimation(Motion.STOP_RETURN, true);
                             break;
                     }
                 }
@@ -696,11 +693,6 @@ public class Player : MonoBehaviour
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
                         }
-                        else if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && (saveClimbMidst[saveCount - 2]) && (saveMoveDirection[saveCount - 1] == MoveDirection.STOP))
-                        {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
-                            MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
-                        }
                         // アリスの座標Ｙが移動前から１減っているなら
                         else if (transform.localPosition.y <= moveBeforePosition.y - 1)
                         {
@@ -770,12 +762,6 @@ public class Player : MonoBehaviour
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
                         }
-                        else if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && (saveClimbMidst[saveCount - 2] && ((saveCount - 2) >= 0)))
-                        {
-                            Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
-                            MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
-                            MoveAgain();                                                                                                    // 再移動
-                        }
                         // アリスの座標Ｙが移動前から１増えているなら
                         else if (transform.localPosition.y >= moveBeforePosition.y + 1)
                         {
@@ -788,6 +774,7 @@ public class Player : MonoBehaviour
                     case MoveDirection.DOWN:
                         if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimb)
                         {
+							stage.GetComponent<Stage>().StartMove(3);
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
                         }
