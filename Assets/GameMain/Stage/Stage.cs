@@ -1435,7 +1435,7 @@ public class Stage : MonoBehaviour
 					int pushDirectionZ = alice.arrayPosZ - posZ;    // 押した方向Z
 
 					// 押した先にギミックが無ければ移動可能
-					if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ))
+					if (RockGimmickDecision(posX, posY, posZ, pushDirectionX, pushDirectionZ) && alice.autoMoveFlag == false)
 					{
 						flag = true;    // 移動できる
 						if (((pushDirectionX == 1) && (pushDirectionZ == 0) && (alice.GetMoveDirection() == 3)) ||
