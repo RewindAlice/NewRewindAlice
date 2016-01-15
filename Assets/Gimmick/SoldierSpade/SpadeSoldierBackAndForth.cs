@@ -5,7 +5,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
 {
 
     const float MOVE_SPEED = 1.0f;    // 移動速度
-    const float SPEED = 0.02f;        // 移動速度
+    const float SPEED = 0.04f;        // 移動速度
 
     //移動可能フラグ
     public bool moveFlag;
@@ -126,7 +126,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
         {
             returnAnimationCount++;
 
-            if (returnAnimationCount == 50)
+            if (returnAnimationCount == 26)
             {
                 returnAnimationCount = 0;
                 returnAnimationFlag = false;
@@ -453,7 +453,7 @@ public class SpadeSoldierBackAndForth : BaseGimmick
                     if (discoveryFlag == true)
                     {
                         foundCount++;
-                        if (foundCount == 40)
+                        if (foundCount == 25)
                         {
                             discoveryFlag = false;
                             foundCount = 0;

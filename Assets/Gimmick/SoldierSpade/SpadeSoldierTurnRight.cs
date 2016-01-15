@@ -135,7 +135,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
         {
             returnAnimationCount++;
 
-            if (returnAnimationCount == 50)
+            if (returnAnimationCount == 26)
             {
                 returnAnimationCount = 0;
                 returnAnimationFlag = false;
@@ -456,7 +456,7 @@ public class SpadeSoldierTurnRight : BaseGimmick {
                     if (discoveryFlag == true)
                     {
                         foundCount++;
-                        if (foundCount == 40)
+                        if (foundCount == 25)
                         {
                             discoveryFlag =false;
                             foundCount = 0;
