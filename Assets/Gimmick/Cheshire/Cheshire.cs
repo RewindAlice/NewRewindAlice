@@ -92,7 +92,7 @@ public class Cheshire : BaseGimmick
 
 			animationTimer++;
 
-			if (animationTimer == 100)
+			if (animationTimer == 30   )
 			{
 				animationFlag = false;
 				animationTimer = 0;
@@ -108,7 +108,7 @@ public class Cheshire : BaseGimmick
 
 			animationTimer++;
 
-			if (animationTimer == 100)
+			if (animationTimer == 30)
 			{
 				returnAnimationFlag = false;
 				animationTimer = 0;
