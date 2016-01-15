@@ -704,7 +704,11 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.FRONT;
                             alice.inputKeyFlag = true;
-                            if(alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.FRONT)
+                            if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 22) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 27))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 23) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 28))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 24) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 29))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 25) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 30))))
                             {
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             }
@@ -806,7 +810,11 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.BACK;
                             alice.inputKeyFlag = true;
-                            if (alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.BACK)
+                            if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 22) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 27))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 23) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 28))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 24) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 29))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 25) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 30))))
                             {
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             }
@@ -908,7 +916,11 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.LEFT;
                             alice.inputKeyFlag = true;
-                            if (alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.LEFT)
+                            if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 22) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 27))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 23) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 28))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 24) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 29))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 25) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 30))))
                             {
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             }
@@ -1010,7 +1022,11 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.RIGHT;
                             alice.inputKeyFlag = true;
-                            if (alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.RIGHT)
+                            if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 22) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 27))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 23) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 28))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 24) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 29))) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && ((stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 25) || (stage.gimmickNumArray[alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosZ] == 30))))
                             {
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             }
