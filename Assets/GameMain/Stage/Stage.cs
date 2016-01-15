@@ -2986,7 +2986,7 @@ public class Stage : MonoBehaviour
 				break;
 			// 木
 			case TREE:
-				if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount <= 2)
+				if (gimmickObjectArray[posY -1, posX, posZ].GetComponent<Tree>().growCount <= 2)
 				{
 					flag = true;
 				}
@@ -3241,8 +3241,10 @@ public class Stage : MonoBehaviour
                 break;
 
             case TREE:
-            case DUMMY_TREE:
                 flag = gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().GetBesideDicisionMovePossibleFlag();   // 木の横判定用移動可能フラグを取得
+                break;
+            case DUMMY_TREE:
+                flag = false;
                 break;
             case POTION_BIG:
             case POTION_SMALL:
