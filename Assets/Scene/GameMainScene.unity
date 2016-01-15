@@ -268,7 +268,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Effect: {fileID: 138978, guid: 8b877ec7f108ae04b824a0961f862a11, type: 2}
+  Effect: {fileID: 104918, guid: 8b877ec7f108ae04b824a0961f862a11, type: 2}
+  climbMidstFlag: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0

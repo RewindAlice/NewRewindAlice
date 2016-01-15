@@ -1882,6 +1882,7 @@ public class Stage : MonoBehaviour
 					// 落下するもの
 					case NONE_BLOCK:
 					case WATER:
+                    case START_POINT:
 					case STAGE_GOOL:
 					case DOOR_RED_KEY: // 鍵（赤）
 					case DOOR_BLUE_KEY: // 鍵（青）
@@ -1904,7 +1905,7 @@ public class Stage : MonoBehaviour
 						
 						
 						break;
-                    case START_POINT:               // No.1     スタート地点
+                    
                     case FOREST_BLOCK_GROUND:       // No.4     森ステージの足場ブロック（1段目）
                     case FOREST_BLOCK_GRASS:        // No.5     森ステージの足場ブロック（2段目）
                     case FOREST_BLOCK_ALLGRASS:     // No.6     森ステージの足場ブロック（3段目以降）
