@@ -597,10 +597,15 @@ public class Player : MonoBehaviour
                             SetAnimation(Motion.WALK_RETURN, true);
                             break;
                         case MoveDirection.STOP:
-                            if (!saveClimbMidst[saveCount - 2] && ((saveCount - 2) >= 0))
+                            int number = turnCount - 2;
+                            if (number > 0)
                             {
-                                SetAnimation(Motion.STOP_RETURN, true);
+                                if (!saveClimbMidst[number])
+                                {
+                                    SetAnimation(Motion.STOP_RETURN, true);
+                                }
                             }
+                           
                             break;
                     }
                 }
