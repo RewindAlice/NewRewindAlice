@@ -1863,8 +1863,9 @@ public class Stage : MonoBehaviour
         {
 			switch (pushGimmickNumArray[posY - 1, posX, posZ])
 			{
-				case ROCK:
-					DontFallFlag = true;
+                case ROCK: 
+                        alice.climbMidstFlag = false;
+                    	DontFallFlag = true;
 					break;
 
 				//default:

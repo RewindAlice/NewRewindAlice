@@ -712,6 +712,11 @@ public class GameMain : MonoBehaviour
                             {
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             }
+                            else if((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && (stage.BesideDownDecision(alice.arrayPosX, alice.arrayPosY, alice.arrayPosZ + 1))))
+                            {
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+                            }
                             //alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START, false);
                             alice.SetAnimation(Player.Motion.CLIMB, false);
