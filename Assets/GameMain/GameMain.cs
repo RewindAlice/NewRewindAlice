@@ -704,6 +704,10 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.FRONT;
                             alice.inputKeyFlag = true;
+                            if(alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.FRONT)
+                            {
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+                            }
                             //alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START, false);
                             alice.SetAnimation(Player.Motion.CLIMB, false);
@@ -802,6 +806,10 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.BACK;
                             alice.inputKeyFlag = true;
+                            if (alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.BACK)
+                            {
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+                            }
                             //alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START, false);
                             alice.SetAnimation(Player.Motion.CLIMB, false);
@@ -900,6 +908,10 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.LEFT;
                             alice.inputKeyFlag = true;
+                            if (alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.LEFT)
+                            {
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+                            }
                             //alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START, false);
                             alice.SetAnimation(Player.Motion.CLIMB, false);
@@ -998,6 +1010,10 @@ public class GameMain : MonoBehaviour
                             waitingTime = 0;
                             alice.moveDirection = Player.MoveDirection.RIGHT;
                             alice.inputKeyFlag = true;
+                            if (alice.climbMidstFlag && alice.playerAngle == Player.PlayerAngle.RIGHT)
+                            {
+                                alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
+                            }
                             //alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                             alice.SetAnimation(Player.Motion.CLIMB_START, false);
                             alice.SetAnimation(Player.Motion.CLIMB, false);

@@ -632,6 +632,8 @@ public class Player : MonoBehaviour
     // ★移動完了判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public void MoveFinishDecision(PlayerAction action)
     {
+        int number = turnCount - 2;
+
         // ▽行動が
         switch (action)
         {
@@ -702,7 +704,6 @@ public class Player : MonoBehaviour
                         }
                         else if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && autoMoveFlag && climbMidstFlag)
                         {
-                            int number = turnCount - 2;
                             if(number > 0 )
                             {
                                  if((saveClimbMidst[turnCount - 2]))
@@ -737,6 +738,10 @@ public class Player : MonoBehaviour
                 {
                     // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.FRONT:
+                        if(number > 0 && saveClimbMidst[number])
+                        {
+                            climbMidstFlag = true;
+                        }
                         // アリスの座標Ｚが移動前から１減っているなら
                         if (transform.localPosition.z <= moveBeforePosition.z - 1)
                         {
@@ -747,6 +752,10 @@ public class Player : MonoBehaviour
                         break;
                     // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.BACK:
+                        if (number > 0 && saveClimbMidst[number])
+                        {
+                            climbMidstFlag = true;
+                        }
                         // アリスの座標Ｚが移動前から１増えているなら
                         if (transform.localPosition.z >= moveBeforePosition.z + 1)
                         {
@@ -757,6 +766,10 @@ public class Player : MonoBehaviour
                         break;
                     // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.LEFT:
+                        if (number > 0 && saveClimbMidst[number])
+                        {
+                            climbMidstFlag = true;
+                        }
                         // アリスの座標Ｘが移動前から１増えているなら
                         if (transform.localPosition.x >= moveBeforePosition.x + 1)
                         {
@@ -767,6 +780,10 @@ public class Player : MonoBehaviour
                         break;
                     // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.RIGHT:
+                        if (number > 0 && saveClimbMidst[number])
+                        {
+                            climbMidstFlag = true;
+                        }
                         // アリスの座標Ｘが移動前から１減っているなら
                         if (transform.localPosition.x <= moveBeforePosition.x - 1)
                         {
@@ -777,7 +794,6 @@ public class Player : MonoBehaviour
                         break;
                     // ▼上なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.UP:
-                        int number = turnCount - 2;
                         if(number > 0)
                         {
                             if (saveMoveDirection[saveCount] == MoveDirection.DOWN && saveClimbMidst[turnCount - 2])

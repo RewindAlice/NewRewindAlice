@@ -1932,6 +1932,7 @@ public class Stage : MonoBehaviour
                    
                     case ROCK:                      // No.62    岩
                     case 77:
+                        alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 0.5f, alice.GetComponent<Player>().arrayPosZ);
                         alice.climbMidstFlag = false;
                         break;
                     
