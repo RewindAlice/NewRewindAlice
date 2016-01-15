@@ -265,7 +265,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Motion_Open1
-  m_Speed: 2
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110181872}
@@ -283,7 +283,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Motion_Close2
-  m_Speed: -2
+  m_Speed: -4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110181628}
@@ -301,7 +301,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Open1
-  m_Speed: 1
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110156398}
@@ -320,7 +320,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Motion_Open2
-  m_Speed: 2
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110189048}
@@ -338,7 +338,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Open
-  m_Speed: 1
+  m_Speed: -4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110183996}
@@ -357,7 +357,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Close
-  m_Speed: 1
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110123902}
@@ -376,7 +376,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Motion_Close1
-  m_Speed: -2
+  m_Speed: -4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110126436}
