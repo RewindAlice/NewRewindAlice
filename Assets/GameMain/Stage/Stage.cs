@@ -1602,6 +1602,7 @@ public class Stage : MonoBehaviour
                     {
                         Climb1(Player.PlayerAngle.FRONT);
                         alice.SetAnimation(Player.Motion.CLIMB_START, true);
+                        
                     }
                 }
                 // ターンが戻るの時
@@ -1903,6 +1904,36 @@ public class Stage : MonoBehaviour
 						
 						
 						break;
+                    case START_POINT:               // No.1     スタート地点
+                    case FOREST_BLOCK_GROUND:       // No.4     森ステージの足場ブロック（1段目）
+                    case FOREST_BLOCK_GRASS:        // No.5     森ステージの足場ブロック（2段目）
+                    case FOREST_BLOCK_ALLGRASS:     // No.6     森ステージの足場ブロック（3段目以降）
+                    case ROOM_BLOCK_FLOOR:          // No.7     家ステージの足場ブロック（1段目）
+                    case ROOM_BLOCK_BOOKSHELF:      // No.8     家ステージの本棚
+                    case REDFOREST_BLOCK_GROUND:    // No.9     赤い森ステージの足場ブロック（1段目）
+                    case REDFOREST_BLOCK_GRASS:     // No.10    赤い森ステージの足場ブロック（2段目）
+                    case REDFOREST_BLOCK_ALLGRASS:  // No.11    赤い森ステージの足場ブロック（3段目以降）
+                    case DARKFOREST_BLOCK_GROUND:   // No.12    暗い森ステージの足場ブロック（全段）
+                    case GARDEN_BLOCK_GROUND:       // No.13    庭園ステージの足場ブロック（1段目）
+                    case GARDEN_BLOCK_FLOWER:       // No.14    庭園ステージの足場ブロック（2段目以降）
+                    case IVY_BLOCK:                 // No.21    蔦ブロック
+                   
+                    case LADDER_BLOCK:              // No.26    梯子ブロック
+                   
+                    case DUMMY_TREE:                // No.32    木（成長後判定用）
+                   
+                    //case WARP_HOLE_ONE:             // No.45    穴１
+                    //case WARP_HOLE_TWO:             // No.46    穴２
+                    //case WARP_HOLE_THREE:           // No.47    穴３
+                    //case WARP_HOLE_FOUR:            // No.48    穴４
+                    //case WARP_HOLE_FIVE:            // No.49    穴５
+                    case BRAMBLE:                   // No.50    茨
+                   
+                    case ROCK:                      // No.62    岩
+                    case 77:
+                        alice.climbMidstFlag = false;
+                        break;
+                    
 
                     case IVY_FRONT:     // 蔦（前）
                         // ターンが進むの時
@@ -1911,6 +1942,7 @@ public class Stage : MonoBehaviour
                             // 蔦が登れる状態なら蔦の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.FRONT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -1946,6 +1978,7 @@ public class Stage : MonoBehaviour
                             // 梯子が登れる状態なら梯子の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.FRONT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -1981,6 +2014,7 @@ public class Stage : MonoBehaviour
                             // 蔦が登れる状態なら蔦の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.BACK);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -2016,6 +2050,7 @@ public class Stage : MonoBehaviour
                             // 梯子が登れる状態なら梯子の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.BACK);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -2051,6 +2086,7 @@ public class Stage : MonoBehaviour
                             // 蔦が登れる状態なら蔦の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.LEFT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -2086,6 +2122,7 @@ public class Stage : MonoBehaviour
                             // 梯子が登れる状態なら梯子の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.LEFT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -2121,6 +2158,7 @@ public class Stage : MonoBehaviour
                             // 蔦が登れる状態なら蔦の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ivy>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.RIGHT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -2156,6 +2194,7 @@ public class Stage : MonoBehaviour
                             // 梯子が登れる状態なら梯子の方向を向いて登り状態に
                             if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Ladder>().climbPossibleFlag)
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.RIGHT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
@@ -2207,7 +2246,8 @@ public class Stage : MonoBehaviour
 					case WARP_HOLE_FIVE:
 
 						if (action == Player.PlayerAction.NEXT)
-						{
+                        {
+                            alice.climbMidstFlag = false;
 							for (int y = 0; y < STAGE_Y; y++)
 							{
 								for (int x = 0; x < STAGE_X; x++)
