@@ -241,6 +241,7 @@ public class Rock : BaseGimmick
 
             if(!autoFlag == true)
             {
+                transform.position = new Vector3(posX, posY - 0.5f, posZ);
                 moveFlag = false;
                 //moveTimer = 0;
             }
