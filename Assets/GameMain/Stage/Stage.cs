@@ -146,7 +146,7 @@ public class Stage : MonoBehaviour
     List<int> moveGimmickNumList = new List<int>();                                 // 移動系ギミック（数字）
     GameObject[, ,] gimmickObjectArray = new GameObject[STAGE_Y, STAGE_X, STAGE_Z]; // ステージの配置（オブジェクト）
     List<GameObject> moveGimmickObjectList = new List<GameObject>();                // 移動系ギミック（オブジェクト）
-    int turnNum;                                                                    // ステージのターン数
+    public int turnNum;                                                                    // ステージのターン数
     private string guitxt = "";
 
 	public int[, ,] pushGimmickNumArray = new int[STAGE_Y, STAGE_X, STAGE_Z];                  // ステージの配置（押されるギミック番号）
@@ -2739,7 +2739,7 @@ public class Stage : MonoBehaviour
 						// ▼木なら
 						case TREE:
 							// 成長段階が２以下なら１つ上の配列を変更
-							if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 3)
+                            if (gimmickObjectArray[y, x, z].GetComponent<Tree>().growCount == 3 && gimmickObjectArray[y, x, z].GetComponent<Tree>().startActionTurn + 2 == alice.turnCount)
 							{
 								gimmickNumArray[y + 1, x, z] = NONE_BLOCK;
 							}
