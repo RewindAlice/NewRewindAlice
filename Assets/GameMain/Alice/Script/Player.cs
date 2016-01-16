@@ -791,6 +791,10 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｚが移動前から１減っているなら
                         if (transform.localPosition.z <= moveBeforePosition.z - 1)
                         {
+                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            {
+                                stage.GetComponent<Stage>().StartMove(3);
+                            }
                             Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z - 1); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Z);                                                                        // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
@@ -805,6 +809,10 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｚが移動前から１増えているなら
                         if (transform.localPosition.z >= moveBeforePosition.z + 1)
                         {
+                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            {
+                                stage.GetComponent<Stage>().StartMove(3);
+                            }
                             Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z + 1); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Z);                                                                         // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
@@ -819,6 +827,10 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｘが移動前から１増えているなら
                         if (transform.localPosition.x >= moveBeforePosition.x + 1)
                         {
+                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            {
+                                stage.GetComponent<Stage>().StartMove(3);
+                            }
                             Vector3 position = new Vector3(moveBeforePosition.x + 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_X);                                                                         // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
@@ -833,6 +845,10 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｘが移動前から１減っているなら
                         if (transform.localPosition.x <= moveBeforePosition.x - 1)
                         {
+                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            {
+                                stage.GetComponent<Stage>().StartMove(3);
+                            }
                             Vector3 position = new Vector3(moveBeforePosition.x - 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_X);                                                                        // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
