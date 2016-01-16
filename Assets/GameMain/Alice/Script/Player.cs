@@ -410,7 +410,6 @@ public class Player : MonoBehaviour
                 break;
             // ▼戻るなら//////////////////////////////////////////////
             case PlayerAction.RETURN:
-                
                 MoveReturnPosition();               // アリスを戻す処理
                 MoveFinishDecision(playerAction);   // 移動完了判定
                 break;
@@ -595,6 +594,48 @@ public class Player : MonoBehaviour
                         case MoveDirection.LEFT:
                         case MoveDirection.RIGHT:
                             SetAnimation(Motion.WALK_RETURN, true);
+                            // 蔦、梯子登り中
+                            if(climbMidstFlag)
+                            {
+                                print("蔦のぼり中");
+                                Debug.Log(playerAngle);
+                                Debug.Log(moveDirection);
+
+                                if(arrayPosY > 0)
+                                {
+                                    switch(stage.GetComponent<Stage>().gimmickNumArray[arrayPosY - 1, arrayPosX, arrayPosZ])
+                                    {
+                                        case 22:    // 蔦（前）
+                                        case 27:    // 梯子（前）
+                                            if(moveDirection != MoveDirection.FRONT)
+                                            {
+                                                transform.position = new Vector3(arrayPosX, arrayPosY - 0.5f, arrayPosZ);
+                                            }
+                                            break;
+                                        case 23:    // 蔦（後）
+                                        case 28:    // 梯子（後）
+                                            if (moveDirection != MoveDirection.BACK)
+                                            {
+                                                transform.position = new Vector3(arrayPosX, arrayPosY - 0.5f, arrayPosZ);
+                                            }
+                                            break;
+                                        case 24:    // 蔦（左）
+                                        case 29:    // 梯子（左）
+                                            if (moveDirection != MoveDirection.LEFT)
+                                            {
+                                                transform.position = new Vector3(arrayPosX, arrayPosY - 0.5f, arrayPosZ);
+                                            }
+                                            break;
+                                        case 25:    // 蔦（右）
+                                        case 30:    // 梯子（右）
+                                            if (moveDirection != MoveDirection.RIGHT)
+                                            {
+                                                transform.position = new Vector3(arrayPosX, arrayPosY - 0.5f, arrayPosZ);
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
                             break;
                         case MoveDirection.STOP:
                             int number = turnCount - 2;
