@@ -209,6 +209,11 @@ public class Player : MonoBehaviour
 
     public bool climbMidstFlag;
 
+    //扉のテスト用
+    public bool testerDoor;
+    public bool testerDoor2;
+    public bool testerDoor3;
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -230,6 +235,10 @@ public class Player : MonoBehaviour
 
         countBig = 0;       // 大きくなっているターン数を０に
         countSmall = 0;     // 小さくなっているターン数を０に
+
+        testerDoor = false;
+        testerDoor2 = false;
+        testerDoor3 = false;
 
         ModeChange();
 
@@ -555,14 +564,36 @@ public class Player : MonoBehaviour
             if (saveCount > 0)
             {
                 Destroy(moveEffect[saveCount-1]);
+                testerDoor = false;
+                testerDoor2 = false;
+                testerDoor3 = false;
+
                 // 巻き戻しの移動開始処理//////////////////////////////////////////////////////////////
                 moveFlag = true;                                    // 移動フラグを真に
                 playerMode = saveMovePlayerMode[saveCount - 1];     // １つ前の状態を設定
                 nextFlag = false;
                 if (autoMoveFlag == false)
                 ModeChange();
+                //テストプログラム
+                if (stage.GetComponent<Stage>().wapAndDoorFlag)
+                {
+                    testerDoor = true;
+                }
+                if (stage.GetComponent<Stage>().wapAndDoorFlag2)
+                {
+                    testerDoor2 = true;
+                }
+                if (stage.GetComponent<Stage>().wapAndDoorFlag5)
+                {
+                    testerDoor3 = true;
+                }
 
                 stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.NEXT);      // 足元との判定
+
+                //変更の無効化
+                stage.GetComponent<Stage>().wapAndDoorFlag = testerDoor;
+                stage.GetComponent<Stage>().wapAndDoorFlag2 = testerDoor2;
+                stage.GetComponent<Stage>().wapAndDoorFlag5 = testerDoor3;
 
                 moveBeforePosition = transform.position;            // 移動前の座標に現在の座標を入れる
                 

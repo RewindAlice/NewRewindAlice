@@ -172,9 +172,23 @@ public class Stage : MonoBehaviour
     public bool goalFlag;
 	public bool playerRizeFlag = false;
 
+    //扉判定
+    public bool wapAndDoorFlag;
+    public bool wapAndDoorFlag2;
+    public bool wapAndDoorFlag3;
+    public bool wapAndDoorFlag4;
+    public bool wapAndDoorFlag5;
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+        wapAndDoorFlag = false;
+        wapAndDoorFlag2 = false;
+        wapAndDoorFlag3 = false;
+        wapAndDoorFlag4 = false;
+        wapAndDoorFlag5 = false;
+
+
         goalFlag = false;
         ModeChangeSaveTurn = new int[] {0,0,0,0,0,0,0,0,0,0,
                                       0,0,0,0,0,0,0,0,0,0,
@@ -1064,6 +1078,30 @@ public class Stage : MonoBehaviour
         return direction;   // 向きを返す
     }
 
+    //扉とワープホールの判定
+    public void DoorDicsion(Player alice)
+    {
+        if ((gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_BLUE) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_BLUE) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_BLUE) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_BLUE) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_YELLOW) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_YELLOW) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_YELLOW) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_YELLOW) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_RED) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_RED) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_RED) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_RED) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_GREEN) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_GREEN) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_GREEN) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_GREEN))
+        {
+            wapAndDoorFlag = true;
+        }
+    }
+
     // ★移動可能判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
     public bool MovePossibleDecision(Player alice, Player.MoveDirection direction, PlayerCamera.CameraAngle cameraAngle)
     {
@@ -1305,29 +1343,44 @@ public class Stage : MonoBehaviour
             case DOOR_RED: // No.38    赤扉（扉）////////////////////////////////////////
                 if (alice.getKeyColor_Red)
                 {
-                    flag = true;    // 移動できる
-                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    if (!wapAndDoorFlag4)
+                    {
+                        flag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
                 }
                 break;
             case DOOR_BLUE: // No.40    青扉（扉）///////////////////////////////////////
                 if (alice.getKeyColor_Blue)
                 {
-                    flag = true;    // 移動できる
-                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    if (!wapAndDoorFlag4)
+                    {
+                        flag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+
                 }
                 break;
             case DOOR_YELLOW: // No.42    黄扉（扉）/////////////////////////////////////
                 if (alice.getKeyColor_Yellow)
                 {
-                    flag = true;    // 移動できる
-                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    if (!wapAndDoorFlag4)
+                    {
+                        flag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+
                 }
                 break;
             case DOOR_GREEN: // No.44    緑扉（扉）//////////////////////////////////////
                 if (alice.getKeyColor_Green)
                 {
-                    flag = true;    // 移動できる
-                    gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    if (!wapAndDoorFlag4)
+                    {
+                        flag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+
                 }
                 break;
 
@@ -2251,6 +2304,7 @@ public class Stage : MonoBehaviour
 
 						if (action == Player.PlayerAction.NEXT)
                         {
+                            wapAndDoorFlag5 = false;
                             alice.climbMidstFlag = false;
 							for (int y = 0; y < STAGE_Y; y++)
 							{
@@ -2269,6 +2323,11 @@ public class Stage : MonoBehaviour
 														alice.arrayPosX = x;
 														alice.arrayPosY = y + 1;
 														alice.arrayPosZ = z;
+                                                        if ((wapAndDoorFlag) && (!wapAndDoorFlag3))
+                                                        {
+                                                            wapAndDoorFlag2 = true;
+                                                        }
+                                                        DoorDicsion(alice);
 														break;
 													}
 												}
@@ -2283,6 +2342,11 @@ public class Stage : MonoBehaviour
 														alice.arrayPosX = x;
 														alice.arrayPosY = y + 1;
 														alice.arrayPosZ = z;
+                                                        if ((wapAndDoorFlag) && (!wapAndDoorFlag3))
+                                                        {
+                                                            wapAndDoorFlag2 = true;
+                                                        }
+                                                        DoorDicsion(alice);
 														break;
 													}
 												}
@@ -2296,6 +2360,11 @@ public class Stage : MonoBehaviour
 														alice.arrayPosX = x;
 														alice.arrayPosY = y + 1;
 														alice.arrayPosZ = z;
+                                                        if ((wapAndDoorFlag) && (!wapAndDoorFlag3))
+                                                        {
+                                                            wapAndDoorFlag2 = true;
+                                                        }
+                                                        DoorDicsion(alice);
 														break;
 													}
 												}
@@ -2309,6 +2378,11 @@ public class Stage : MonoBehaviour
 														alice.arrayPosX = x;
 														alice.arrayPosY = y + 1;
 														alice.arrayPosZ = z;
+                                                        if ((wapAndDoorFlag) && (!wapAndDoorFlag3))
+                                                        {
+                                                            wapAndDoorFlag2 = true;
+                                                        }
+                                                        DoorDicsion(alice);
 														break;
 													}
 												}
@@ -2322,6 +2396,11 @@ public class Stage : MonoBehaviour
 														alice.arrayPosX = x;
 														alice.arrayPosY = y + 1;
 														alice.arrayPosZ = z;
+                                                        if ((wapAndDoorFlag) && (!wapAndDoorFlag3))
+                                                        {
+                                                            wapAndDoorFlag2 = true;
+                                                        }
+                                                        DoorDicsion(alice);
 														break;
 													}
 												}
@@ -3688,5 +3767,24 @@ public class Stage : MonoBehaviour
         }
 
         return flag;
+    }
+    //戻る時に最初に足元を見る
+    public void realTimeFootDecision(Player alice)
+    {
+        int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
+        int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
+        int posZ = alice.arrayPosZ; // アリスの配列上の座標Ｚを取得
+
+        switch (gimmickNumArray[posY - 1, posX, posZ])
+        {
+            case WARP_HOLE_ONE:
+            case WARP_HOLE_TWO:
+            case WARP_HOLE_THREE:
+            case WARP_HOLE_FOUR:
+            case WARP_HOLE_FIVE:
+                wapAndDoorFlag5 = true;
+                break;
+        }
+
     }
 }

@@ -66,6 +66,10 @@ public class GameMain : MonoBehaviour
     public TouchController touchController;      //Androidのタッチ用クラス
 
     public bool firstInput;
+    //扉
+    public bool doorFlag;
+    public bool normalReturnFlag;
+
 
  
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -77,7 +81,9 @@ public class GameMain : MonoBehaviour
         GameSetting();  // ゲームの設定
         Singleton<SoundPlayer>.instance.playBGM("Gbgm01", 2.0f, false, getVol);
         firstInput = false;
-  
+
+        doorFlag = false;
+        normalReturnFlag = false;
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -355,6 +361,12 @@ public class GameMain : MonoBehaviour
 				// ターンがプレイヤーなら
 				if (turn == Turn.PLAYER)
 				{
+                    if ((stage.wapAndDoorFlag) && (stage.wapAndDoorFlag3) && (stage.wapAndDoorFlag5))
+                    {
+                        stage.wapAndDoorFlag3 = false;
+                        stage.wapAndDoorFlag5 = false;
+                    }
+
 					if (alice.gameOverFlag == false)
 					{
 
@@ -475,6 +487,12 @@ public class GameMain : MonoBehaviour
                         {
                             if (stage.GimmickMoveMidst())
                             {
+                                normalReturnFlag = false;
+                                if (!stage.wapAndDoorFlag)
+                                {
+                                    normalReturnFlag = true;
+                                }
+
                                 alice.moveFinishFlag = false;   // 移動完了フラグを偽に
                                 action = PlayerAction.NONE;     // 行動を無しに
                                 turn = Turn.NONE;               // ターンを無しに
@@ -493,6 +511,24 @@ public class GameMain : MonoBehaviour
                                 }
                                 stage.GimmickDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
                                 stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+                                if (stage.wapAndDoorFlag5)
+                                {
+                                    if (stage.wapAndDoorFlag2 == false)
+                                    {
+                                        stage.wapAndDoorFlag = false;
+                                        if (!normalReturnFlag)
+                                        {
+                                            stage.wapAndDoorFlag4 = true;
+
+                                        }
+                                        stage.wapAndDoorFlag3 = false;
+                                    }
+                                    if (stage.wapAndDoorFlag2)
+                                    {
+                                        stage.wapAndDoorFlag2 = false;
+                                        stage.wapAndDoorFlag3 = true;
+                                    }
+                                }
 
 
                                 print("ターン終了");// デバッグ用コメント}
@@ -1127,6 +1163,11 @@ public class GameMain : MonoBehaviour
                ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                (tutorialTurn == 5 || tutorialTurn == 7))
                 {
+                    if ((alice.arrayPosY != 0) && (!alice.gameOverFlag))
+                    {
+                        stage.realTimeFootDecision(alice);
+                    }
+
                     // ゲームオーバーだったらアニメーションを戻す
                     if (alice.gameOverFlag)
                     {

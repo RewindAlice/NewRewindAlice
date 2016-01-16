@@ -7,17 +7,32 @@ public class Door : BaseGimmick
 	public bool openFlag;
 	public int openTimingTurn;
 	public int turnNum;
+    public bool testflag;
+
+    public GameObject stage;
 
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start()
 	{
+        stage = GameObject.Find("Stage");
 		openFlag = false;
 		openTimingTurn = 0;
 		turnNum = 0;
 	}
 
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-	void Update() { if (openTimingTurn > turnNum) { CloseDoor(); } }
+	void Update() { 
+        //もしアリスが穴を通っていたら
+        if (GameObject.Find("Stage").GetComponent<Stage>().wapAndDoorFlag){}
+        else
+        {
+            if (openTimingTurn > turnNum)
+            {
+                CloseDoor();
+                GameObject.Find("Stage").GetComponent<Stage>().wapAndDoorFlag4 = false;
+            }
+        }
+    }
 
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public override void OnAliceMoveNext(int aliceMove)
@@ -42,7 +57,7 @@ public class Door : BaseGimmick
 	{
 		if (!openFlag)
 		{
-			openTimingTurn = turnNum + 1;
+			openTimingTurn = turnNum;
 			openFlag = true;
 			gimmickFlag = true;
             GetComponent<Animator>().SetBool("OpenMotionFlag_Next", true);
@@ -53,9 +68,10 @@ public class Door : BaseGimmick
 	// ★扉を閉じる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void CloseDoor()
 	{
+        stage.GetComponent<Stage>().wapAndDoorFlag = false;
 			openTimingTurn = 0;
-			openFlag = false;
-            GetComponent<Animator>().SetBool("OpenMotionFlag_Next", false);
+            openFlag = false;
             GetComponent<Animator>().SetBool("OpenMotionFlag_Return", true);
+            GetComponent<Animator>().SetBool("OpenMotionFlag_Next", false);
 	}
 }
