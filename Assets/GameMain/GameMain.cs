@@ -705,6 +705,10 @@ public class GameMain : MonoBehaviour
                             alice.moveDirection = Player.MoveDirection.FRONT;
                             alice.inputKeyFlag = true;
                             if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT)) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX + 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX - 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX + 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
@@ -816,6 +820,10 @@ public class GameMain : MonoBehaviour
                             alice.moveDirection = Player.MoveDirection.BACK;
                             alice.inputKeyFlag = true;
                             if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT)) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX - 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX + 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX - 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
@@ -927,6 +935,10 @@ public class GameMain : MonoBehaviour
                             alice.moveDirection = Player.MoveDirection.LEFT;
                             alice.inputKeyFlag = true;
                             if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT)) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX + 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX - 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX + 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
@@ -1038,6 +1050,10 @@ public class GameMain : MonoBehaviour
                             alice.moveDirection = Player.MoveDirection.RIGHT;
                             alice.inputKeyFlag = true;
                             if ((alice.climbMidstFlag) &&
+                                ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.RIGHT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.LEFT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.LEFT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT)) ||
+                                ((alice.playerAngle == Player.PlayerAngle.RIGHT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK)) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX - 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.FRONT) && (alice.cameraAngle == PlayerCamera.CameraAngle.BACK) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX + 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
                                 ((alice.playerAngle == Player.PlayerAngle.BACK) && (alice.cameraAngle == PlayerCamera.CameraAngle.FRONT) && (!stage.ClimbMidstBesideDecision(alice.GetComponent<Player>().arrayPosX - 1, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ))) ||
