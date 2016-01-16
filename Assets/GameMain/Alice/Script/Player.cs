@@ -641,7 +641,7 @@ public class Player : MonoBehaviour
                             int number = turnCount - 2;
                             if (number > 0)
                             {
-                                if (!saveClimbMidst[number])
+                                if (!saveClimbMidst[saveCount-2])
                                 {
                                     SetAnimation(Motion.STOP_RETURN, true);
                                 }
@@ -752,7 +752,7 @@ public class Player : MonoBehaviour
                         {
                             if(number > 0 )
                             {
-                                 if((saveClimbMidst[turnCount - 2]))
+                                 if((saveClimbMidst[saveCount - 2]))
                                  {
                                      Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                                      MoveFinish(position, ArrayMove.MINUS_Y);              
@@ -784,7 +784,7 @@ public class Player : MonoBehaviour
                 {
                     // ▼前なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.FRONT:
-                        if(number > 0 && saveClimbMidst[number])
+                        if(number > 0 && saveClimbMidst[saveCount -2])
                         {
                             climbMidstFlag = true;
                         }
@@ -802,7 +802,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.BACK:
-                        if (number > 0 && saveClimbMidst[number])
+                        if (number > 0 && saveClimbMidst[saveCount-2])
                         {
                             climbMidstFlag = true;
                         }
@@ -820,7 +820,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.LEFT:
-                        if (number > 0 && saveClimbMidst[number])
+                        if (number > 0 && saveClimbMidst[saveCount -2])
                         {
                             climbMidstFlag = true;
                         }
@@ -838,7 +838,7 @@ public class Player : MonoBehaviour
                         break;
                     // ▼右なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.RIGHT:
-                        if (number > 0 && saveClimbMidst[number])
+                        if (number > 0 && saveClimbMidst[saveCount-2])
                         {
                             climbMidstFlag = true;
                         }
@@ -858,7 +858,7 @@ public class Player : MonoBehaviour
                     case MoveDirection.UP:
                         if(number > 0)
                         {
-                            if (saveMoveDirection[saveCount] == MoveDirection.DOWN && saveClimbMidst[turnCount - 2])
+                            if (saveMoveDirection[saveCount] == MoveDirection.DOWN && saveClimbMidst[saveCount - 2])
                             {
                                 climbMidstFlag = true;
                             }
