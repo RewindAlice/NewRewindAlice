@@ -3673,4 +3673,20 @@ public class Stage : MonoBehaviour
         return true;
     }
 
+    public bool ClimbMidstBesideDecision(int posX, int posY, int posZ)
+    {
+        bool flag = false;
+
+        // ギミックの種類
+        switch (gimmickNumArray[posY, posX, posZ])
+        {
+            case NONE_BLOCK:
+            case START_POINT:
+            case STAGE_GOOL:
+                flag = true;
+                break;
+        }
+
+        return flag;
+    }
 }
