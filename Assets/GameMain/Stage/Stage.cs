@@ -700,7 +700,46 @@ public class Stage : MonoBehaviour
 				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickHole, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
 				gimmickObjectArray[y, x, z].transform.localEulerAngles = new Vector3(-90.0f, 0, 0);
 				gimmickNumArray[y, x, z] = gimmickPattern;
-				break;
+
+                if (field == 2)
+                {
+                    switch (x % 2)
+                    {
+                        case 0:
+                            switch (z % 2)
+                            {
+                                case 0:
+                                    // 家ステージの足場ブロック（白）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(2);
+                                    break;
+                                case 1:
+                                    // 家ステージの足場ブロック（黒）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(1);
+                                    break;
+                            }
+                            break;
+                        case 1:
+                            switch (z % 2)
+                            {
+                                case 0:
+                                    // 家ステージの足場ブロック（黒）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(1);
+                                    break;
+                                case 1:
+                                    // 家ステージの足場ブロック（白）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(2);
+                                    break;
+                            }
+                            break;
+                    }
+				
+                }
+                else
+                {
+                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(3);
+                }
+              
+                break;
 			// ▼No.50    茨/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case BRAMBLE:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickBramble, new Vector3(x, y - 0.5f, z), Quaternion.identity) as GameObject;
