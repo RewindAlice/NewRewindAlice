@@ -3226,39 +3226,98 @@ public class Stage : MonoBehaviour
 	// ★ハートとギミックの判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public bool HeartGimmickDecision(int posX, int posY, int posZ, int pushDirectionX, int pushDirectionZ)
 	{
-		bool flag = false;
+        bool flag = false;
 
-		// 移動先とその下がステージを超えておらず、何もなければ押して通れる
-		if (((pushDirectionX == 1) && (posX > 1)) ||
-			 ((pushDirectionX == -1) && (posX < STAGE_X - 2)) ||
-			 ((pushDirectionZ == 1) && (posZ > 1)) ||
-			 ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2)))
-		{
-			switch (gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
-			{
-				case NONE_BLOCK:
-				case START_POINT:
-				case STAGE_GOOL:
-					return true;
-					break;
-				default:
-					break;
-			}
-		}
+        // 移動先とその下がステージを超えておらず、何もなければ押して通れる
+        if (((pushDirectionX == 1) && (posX > 1)) ||
+             ((pushDirectionX == -1) && (posX < STAGE_X - 2)) ||
+             ((pushDirectionZ == 1) && (posZ > 1)) ||
+             ((pushDirectionZ == -1) && (posZ < STAGE_Z - 2)))
+        {
+            switch (gimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ])
+            {
+                case NONE_BLOCK:
+                case START_POINT:
+                case STAGE_GOOL:
+                    flag = true;
+                    break;
+                default:
+                    break;
+            }
 
-        //if (flag)
-        //{
-        //    switch (gimmickNumArray[posY - 1, posX - pushDirectionX, posZ - pushDirectionZ])
-        //    {
-        //        case NONE_BLOCK:
-        //        case START_POINT:
-        //        case STAGE_GOOL:
-        //            return true;
-        //        default:
-        //            break;
-        //    }
-        //}
-		return false;
+            if (flag)
+            {
+                //一つ奥の下の検索
+                switch (gimmickNumArray[posY - 1, posX - pushDirectionX, posZ - pushDirectionZ])
+                {
+                    case NONE_BLOCK:
+                    case START_POINT:
+                    case STAGE_GOOL:
+                        if (pushGimmickNumArray[posY - 1, posX - pushDirectionX, posZ - pushDirectionZ] == ROCK)
+                        {
+                            flag = true;
+                        }
+                        else
+                        {
+                            //二つ奥の下の検索
+                            switch (gimmickNumArray[posY - 1, posX - (pushDirectionX * 2), posZ - (pushDirectionZ * 2)])
+                            {
+                                case NONE_BLOCK:
+                                case START_POINT:
+                                case STAGE_GOOL:
+                                    flag = false;
+                                    if (pushGimmickNumArray[posY - 1, posX - (pushDirectionX * 2), posZ - (pushDirectionZ * 2)] == ROCK)
+                                    {
+                                        flag = true;
+                                    }
+                                    break;
+
+                                //ブロック
+                                case FOREST_BLOCK_GROUND:          // No.4     森ステージの足場ブロック（1段目）
+                                case FOREST_BLOCK_GRASS:           // No.5     森ステージの足場ブロック（2段目）
+                                case FOREST_BLOCK_ALLGRASS:       // No.6     森ステージの足場ブロック（3段目以降）
+                                case ROOM_BLOCK_FLOOR:            // No.7     家ステージの足場ブロック（1段目）
+                                case ROOM_BLOCK_BOOKSHELF:        // No.8     家ステージの本棚
+                                case REDFOREST_BLOCK_GROUND:      // No.9     赤い森ステージの足場ブロック（1段目）
+                                case REDFOREST_BLOCK_GRASS:      // No.10    赤い森ステージの足場ブロック（2段目）
+                                case REDFOREST_BLOCK_ALLGRASS:    // No.11    赤い森ステージの足場ブロック（3段目以降）
+                                case DARKFOREST_BLOCK_GROUND:     // No.12    暗い森ステージの足場ブロック（全段）
+                                case GARDEN_BLOCK_GROUND:        // No.13    庭園ステージの足場ブロック（1段目）
+                                case GARDEN_BLOCK_FLOWER:         // No.14    庭園ステージの足場ブロック（2段目以降）
+                                case IVY_BLOCK:                  // No.21    蔦ブロック
+                                case LADDER_BLOCK:               // No.26    梯子ブロック
+                                    flag = true;
+                                    break;
+                            }
+                        }
+
+
+
+                        break;
+                    //ブロック
+                    case FOREST_BLOCK_GROUND:          // No.4     森ステージの足場ブロック（1段目）
+                    case FOREST_BLOCK_GRASS:           // No.5     森ステージの足場ブロック（2段目）
+                    case FOREST_BLOCK_ALLGRASS:       // No.6     森ステージの足場ブロック（3段目以降）
+                    case ROOM_BLOCK_FLOOR:            // No.7     家ステージの足場ブロック（1段目）
+                    case ROOM_BLOCK_BOOKSHELF:        // No.8     家ステージの本棚
+                    case REDFOREST_BLOCK_GROUND:      // No.9     赤い森ステージの足場ブロック（1段目）
+                    case REDFOREST_BLOCK_GRASS:      // No.10    赤い森ステージの足場ブロック（2段目）
+                    case REDFOREST_BLOCK_ALLGRASS:    // No.11    赤い森ステージの足場ブロック（3段目以降）
+                    case DARKFOREST_BLOCK_GROUND:     // No.12    暗い森ステージの足場ブロック（全段）
+                    case GARDEN_BLOCK_GROUND:        // No.13    庭園ステージの足場ブロック（1段目）
+                    case GARDEN_BLOCK_FLOWER:         // No.14    庭園ステージの足場ブロック（2段目以降）
+                    case IVY_BLOCK:                  // No.21    蔦ブロック
+                    case LADDER_BLOCK:               // No.26    梯子ブロック
+                        flag = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
+        return flag;
 
 	}
 
