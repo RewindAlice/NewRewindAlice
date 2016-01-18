@@ -711,10 +711,12 @@ public class Stage : MonoBehaviour
                                 case 0:
                                     // 家ステージの足場ブロック（白）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(2);
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().EffectChange(1);
                                     break;
                                 case 1:
                                     // 家ステージの足場ブロック（黒）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(1);
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().EffectChange(1);
                                     break;
                             }
                             break;
@@ -724,10 +726,12 @@ public class Stage : MonoBehaviour
                                 case 0:
                                     // 家ステージの足場ブロック（黒）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(1);
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().EffectChange(1);
                                     break;
                                 case 1:
                                     // 家ステージの足場ブロック（白）////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(2);
+                                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().EffectChange(1);
                                     break;
                             }
                             break;
@@ -737,6 +741,7 @@ public class Stage : MonoBehaviour
                 else
                 {
                     gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().MatelialChange(3);
+                    gimmickObjectArray[y, x, z].GetComponent<BlockMaterialChanger>().EffectChange(2);
                 }
               
                 break;
