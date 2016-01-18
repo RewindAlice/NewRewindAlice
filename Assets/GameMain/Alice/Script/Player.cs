@@ -895,10 +895,11 @@ public class Player : MonoBehaviour
                             }
                         }
                        
-                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimb)
+                        if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) && animationFlagClimbStart)
                         {
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                             // 移動完了処理
+                            MoveAgain();   
                         }
                         else if ((transform.localPosition.y >= moveBeforePosition.y + 0.5f) &&  climbMidstFlag)
                         {
@@ -934,6 +935,7 @@ public class Player : MonoBehaviour
 							stage.GetComponent<Stage>().StartMove(3);
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
+                            MoveAgain();
                         }
                         // アリスの座標Ｙが移動前から１減っているなら
                         else if (transform.localPosition.y <= moveBeforePosition.y - 1)
