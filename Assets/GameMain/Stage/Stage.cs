@@ -2574,7 +2574,10 @@ public class Stage : MonoBehaviour
         goalFlag = true;
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
         Singleton<SoundPlayer>.instance.PlaySE("se004");
-        
+
+		// 全ての扉を開く
+		openAllDoor();
+
         // タッチした画面座標からワールド座標へ変換
         Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
 
@@ -3935,6 +3938,26 @@ public class Stage : MonoBehaviour
                 wapAndDoorFlag5 = true;
                 break;
         }
-
     }
+
+	// 全ての扉を開く
+	public void openAllDoor()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 11; j++)
+			{
+				for (int k = 0; k < 11; k++)
+				{
+					if ((gimmickNumArray[i, j, k] == DOOR_RED) ||
+						(gimmickNumArray[i, j, k] == DOOR_BLUE) ||
+						(gimmickNumArray[i, j, k] == DOOR_YELLOW) ||
+						(gimmickNumArray[i, j, k] == DOOR_GREEN))
+					{
+						gimmickObjectArray[i, j, k].GetComponent<Door>().OpenDoor();
+					}
+				}
+			}
+		}
+	}
 }
