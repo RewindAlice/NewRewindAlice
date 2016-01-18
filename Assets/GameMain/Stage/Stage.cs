@@ -3879,6 +3879,12 @@ public class Stage : MonoBehaviour
             case POTION_BIG:
             case POTION_SMALL:
             case MUSHROOM_BIG:
+            case MUSHROOM_SMALL:
+            case DOOR_RED_KEY:
+            case DOOR_BLUE_KEY:
+            case DOOR_GREEN_KEY:
+            case DOOR_YELLOW_KEY:
+            case CHESHIRE_CAT:
                 flag = true;
                 break;
         }
