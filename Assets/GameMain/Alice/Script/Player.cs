@@ -470,6 +470,8 @@ public class Player : MonoBehaviour
             case MoveDirection.LEFT:
             // ▼右なら////////////////////////////////////////////////////////////
             case MoveDirection.RIGHT:
+                SetAnimation(Player.Motion.CLIMB_START, false);
+                SetAnimation(Player.Motion.CLIMB, false);
                 transform.Translate(Vector3.back * SPEED_W);    // プレイヤーを移動
                 break;
             // ▼上なら////////////////////////////////////////////////////////////

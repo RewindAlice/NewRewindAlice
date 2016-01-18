@@ -3876,9 +3876,32 @@ public class Stage : MonoBehaviour
             case NONE_BLOCK:
             case START_POINT:
             case STAGE_GOOL:
+            case POTION_BIG:
+            case POTION_SMALL:
+            case MUSHROOM_BIG:
                 flag = true;
                 break;
         }
+
+        switch (pushGimmickNumArray[posY, posX, posZ])
+        {
+            case ROCK:
+                flag = false;
+                break;
+        }
+
+        for (int num = 0; num < moveGimmickObjectList.Count; num++)
+        {
+            if ((posX == (int)moveGimmickObjectList[num].transform.position.x) && (posY == (int)(moveGimmickObjectList[num].transform.position.y + 0.5f)) && (posZ == (int)moveGimmickObjectList[num].transform.position.z))
+            {
+                if(moveGimmickNumList[num] != NONE_BLOCK)
+                {
+                    flag = false;
+                }
+            }
+        }
+
+
 
         return flag;
     }
