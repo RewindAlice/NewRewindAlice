@@ -786,10 +786,9 @@ public class Player : MonoBehaviour
                                  if((saveClimbMidst[saveCount - 2]))
                                  {
                                      Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
-                                     MoveFinish(position, ArrayMove.MINUS_Y);              
+                                     MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
                                  }
                             }
-                                                                                                  // 移動完了処理
                         }
                         // アリスの座標Ｙが移動前から１減っているなら
                         else if (transform.localPosition.y <= moveBeforePosition.y - 1)

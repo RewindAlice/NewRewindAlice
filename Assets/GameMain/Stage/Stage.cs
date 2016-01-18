@@ -1986,6 +1986,10 @@ public class Stage : MonoBehaviour
 					case MUSHROOM_BIG:              // No.34    キノコ（大きくなる）
 					case POTION_SMALL:              // No.35    薬（小さくなる）
 					case POTION_BIG:                // No.36    薬（大きくなる）
+                        if(posY - 1 == 0)
+                        {
+                            alice.climbMidstFlag = false;
+                        }
                         if (!(gimmickNumArray[posY, posX, posZ] == 77))
                         {
                             if (action == Player.PlayerAction.NEXT)
@@ -1994,9 +1998,7 @@ public class Stage : MonoBehaviour
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
                                 print("落下");
                             }
-                        }
-						
-						
+                        }					
 						break;
                     
                     case FOREST_BLOCK_GROUND:       // No.4     森ステージの足場ブロック（1段目）
