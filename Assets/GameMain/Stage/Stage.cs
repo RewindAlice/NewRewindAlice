@@ -2055,12 +2055,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.FRONT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.FRONT);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2091,12 +2093,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.FRONT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.FRONT);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2127,12 +2131,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.BACK);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.BACK);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2163,12 +2169,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.BACK);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.BACK);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2199,12 +2207,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.LEFT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.LEFT);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2235,12 +2245,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.LEFT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.LEFT);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2271,12 +2283,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.RIGHT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.RIGHT);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
@@ -2307,12 +2321,14 @@ public class Stage : MonoBehaviour
                         {
                             if (alice.saveClimbMidst[alice.saveCount - 1])
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.RIGHT);
                                 alice.transform.position = new Vector3(alice.GetComponent<Player>().arrayPosX, alice.GetComponent<Player>().arrayPosY - 1, alice.GetComponent<Player>().arrayPosZ);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
                             else
                             {
+                                alice.climbMidstFlag = true;
                                 Climb2(Player.PlayerAngle.RIGHT);
                                 alice.SetAnimation(Player.Motion.CLIMB, true);
                             }
