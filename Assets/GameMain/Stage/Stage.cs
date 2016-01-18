@@ -1128,21 +1128,42 @@ public class Stage : MonoBehaviour
         if ((gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_BLUE) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_BLUE) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_BLUE) ||
-            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_BLUE) ||
-            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_YELLOW) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_BLUE))
+        {
+            if (alice.getKeyColor_Blue)
+            {
+                wapAndDoorFlag = true;
+            }
+        }
+        if ((gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_YELLOW) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_YELLOW) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_YELLOW) ||
-            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_YELLOW) ||
-            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_RED) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_YELLOW))
+        {
+            if (alice.getKeyColor_Yellow)
+            {
+                wapAndDoorFlag = true;
+            }
+        }
+        if ((gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_RED) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_RED) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_RED) ||
-            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_RED) ||
-            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_GREEN) ||
+            (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_RED))
+        {
+            if (alice.getKeyColor_Red)
+            {
+                wapAndDoorFlag = true;
+            }
+        }
+        if ((gimmickNumArray[alice.arrayPosY, alice.arrayPosX - 1, alice.arrayPosZ] == DOOR_GREEN) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX + 1, alice.arrayPosZ] == DOOR_GREEN) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ + 1] == DOOR_GREEN) ||
             (gimmickNumArray[alice.arrayPosY, alice.arrayPosX, alice.arrayPosZ - 1] == DOOR_GREEN))
         {
-            wapAndDoorFlag = true;
+            if (alice.getKeyColor_Green)
+            {
+                wapAndDoorFlag = true;
+            }
         }
     }
 
