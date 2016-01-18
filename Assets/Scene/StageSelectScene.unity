@@ -44,7 +44,7 @@ LevelGameManager:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -68,7 +68,8 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightmapSnapshot: {fileID: 112000000, guid: 908dbb336b89e7c4a97204325d86ed6a,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -366,7 +367,7 @@ Light:
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
-  m_Intensity: 1
+  m_Intensity: .600000024
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -394,8 +395,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1031022155}
-  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381676, w: .875426054}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -588,7 +589,7 @@ MonoBehaviour:
   exStage4Text: {fileID: 1744795749}
   exStage5Text: {fileID: 1379507061}
   exStage6Text: {fileID: 54928909}
-  selectIcon: {fileID: 119392, guid: d76eed27bfcfbf9408e672e47b6fc1a1, type: 2}
+  selectIcon: {fileID: 195292, guid: 6d268c84947fd6846ac125227abd819b, type: 2}
   stampAlice: {fileID: 169790, guid: 863daad59372c58479e224470f379c23, type: 2}
   stampRabbit: {fileID: 131058, guid: 35a8d837aa6d8dc4c99ccdfddbe126ec, type: 2}
   stampSister: {fileID: 163190, guid: 689edf542757d7a41a6cb8a199aa1e30, type: 2}
@@ -1264,10 +1265,10 @@ Camera:
   m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: .000269263983
-    y: 0
-    width: .999461472
-    height: 1
+    x: 0
+    y: .000136435032
+    width: 1
+    height: .99972713
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60

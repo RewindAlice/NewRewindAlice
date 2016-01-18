@@ -684,14 +684,13 @@ public class StageSelect : MonoBehaviour
         }
         if (drawCount > 100)
         {
-            icon.GetComponent<SpriteRenderer>().enabled = true;
+            icon.GetComponentInChildren<Renderer>().enabled = true;
             SetIconPosition();
             DrawStamp();
         }
         else
         {
-            icon.GetComponent<SpriteRenderer>().enabled = false;
-
+            icon.GetComponentInChildren<Renderer>().enabled = false;
             for (int num = 0; num < STAMP_NUM; num++)
             {
                 stamp[num].GetComponent<SpriteRenderer>().enabled = false;
@@ -1272,7 +1271,8 @@ public class StageSelect : MonoBehaviour
 	void CreateIcon()
 	{
 		icon = GameObject.Instantiate(selectIcon, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-		icon.transform.localEulerAngles = new Vector3(0, 90, 0);
+		icon.transform.localEulerAngles = new Vector3(0, 270, 0);
+        icon.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 	}
 
 	void CreateStamp()
@@ -1561,13 +1561,13 @@ public class StageSelect : MonoBehaviour
 	{
 		switch (chapter)
 		{
-			case Chapter.CHAPTER_1: icon.transform.position = new Vector3(-1, STAMP_Y1, -1.5f); break;
-			case Chapter.CHAPTER_2: icon.transform.position = new Vector3(-1, STAMP_Y2, -1.5f); break;
-			case Chapter.CHAPTER_3: icon.transform.position = new Vector3(-1, STAMP_Y3, -1.5f); break;
-			case Chapter.CHAPTER_4: icon.transform.position = new Vector3(-1, STAMP_Y4, -1.5f); break;
-			case Chapter.CHAPTER_5: icon.transform.position = new Vector3(-1, STAMP_Y5, -1.5f); break;
-			case Chapter.CHAPTER_6: icon.transform.position = new Vector3(-1, STAMP_Y6, -1.5f); break;
-			case Chapter.CHAPTER_7: icon.transform.position = new Vector3(-1, STAMP_Y7, -1.5f); break;
+			case Chapter.CHAPTER_1: icon.transform.position = new Vector3(-1.5f, STAMP_Y1 -0.5f, -1.0f); break;
+            case Chapter.CHAPTER_2: icon.transform.position = new Vector3(-1.5f, STAMP_Y2 -0.5f, -1.0f); break;
+            case Chapter.CHAPTER_3: icon.transform.position = new Vector3(-1.5f, STAMP_Y3 - 0.3f, -1.0f); break;
+            case Chapter.CHAPTER_4: icon.transform.position = new Vector3(-1.5f, STAMP_Y4 - 0.25f, -1.0f); break;
+            case Chapter.CHAPTER_5: icon.transform.position = new Vector3(-1.5f, STAMP_Y5 - 0.3f, -1.0f); break;
+            case Chapter.CHAPTER_6: icon.transform.position = new Vector3(-1.5f, STAMP_Y6-0.05f , -1.0f); break;
+            case Chapter.CHAPTER_7: icon.transform.position = new Vector3(-1.5f, STAMP_Y7+0.05f, -1.0f); break;
 		}
 	}
 
