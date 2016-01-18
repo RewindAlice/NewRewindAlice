@@ -17,6 +17,7 @@ public class Title : MonoBehaviour
         BGMTimer = 0.0f;
             
         getVol = PlayerPrefs.GetFloat("VALUE",1);
+        PlayerPrefs.SetFloat("VALUE",getVol);
         BGMDeleter = false;
         CameraFade.StartAlphaFade(Color.black, true, 1.0f, 0.5f);
         Singleton<SoundPlayer>.instance.playBGM("bgm001", 1.0f,false,getVol);
