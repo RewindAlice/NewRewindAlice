@@ -1121,7 +1121,7 @@ MonoBehaviour:
   gimmickDoor_Yellow: {fileID: 152608, guid: 443f4abc9c6552d4fbc7a038b8d973aa, type: 2}
   gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
-  gimmickHole: {fileID: 0}
+  gimmickHole: {fileID: 181442, guid: 002e44bd9da0abc4ca22a35f3b054fcc, type: 2}
   gimmickBramble: {fileID: 194816, guid: 059ed2bb35cb4a740a48b6d581421cb9, type: 2}
   gimmickRedFlower: {fileID: 193118, guid: 3be130c6eac9e3a46969170ba339db93, type: 2}
   gimmickBuleFlower: {fileID: 141934, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}

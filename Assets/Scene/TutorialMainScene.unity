@@ -198,7 +198,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Effect: {fileID: 138978, guid: 8b877ec7f108ae04b824a0961f862a11, type: 2}
+  Effect: {fileID: 104918, guid: 8b877ec7f108ae04b824a0961f862a11, type: 2}
+  climbMidstFlag: 0
+  testerDoor: 0
+  testerDoor2: 0
+  testerDoor3: 0
 --- !u!1 &134013359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,7 +1196,7 @@ MonoBehaviour:
   gimmickDoor_Yellow: {fileID: 152608, guid: 443f4abc9c6552d4fbc7a038b8d973aa, type: 2}
   gimmickKey_Green: {fileID: 173378, guid: c52e039f4f9743d479fc9f0aea3d26a2, type: 2}
   gimmickDoor_Green: {fileID: 165154, guid: df57c8a48f040dc4a8c7a037709585a4, type: 2}
-  gimmickHole: {fileID: 171968, guid: c9c8fa47da4b0544c860d0b4e7f35499, type: 2}
+  gimmickHole: {fileID: 181442, guid: 002e44bd9da0abc4ca22a35f3b054fcc, type: 2}
   gimmickBramble: {fileID: 194816, guid: 059ed2bb35cb4a740a48b6d581421cb9, type: 2}
   gimmickRedFlower: {fileID: 193118, guid: 3be130c6eac9e3a46969170ba339db93, type: 2}
   gimmickBuleFlower: {fileID: 141934, guid: 1214e5d3ab4d3684c9024429ef9c3861, type: 2}
@@ -1218,6 +1222,7 @@ MonoBehaviour:
   fieldStage4: {fileID: 157086, guid: 2fd59ad4cfb37cc4ab8a7cabbbad447b, type: 2}
   fieldStage5: {fileID: 145482, guid: ebd0cca12a055ca47b2330fe3074bbcc, type: 2}
   Effect01: {fileID: 152020, guid: d5496b73d0d74c54cb8741a6d01fded4, type: 2}
+  turnNum: 0
   stageTextAsset: {fileID: 0}
   stageData: 
   scenarios: []
@@ -1226,6 +1231,11 @@ MonoBehaviour:
   oncetime: 0
   goalFlag: 0
   playerRizeFlag: 0
+  wapAndDoorFlag: 0
+  wapAndDoorFlag2: 0
+  wapAndDoorFlag3: 0
+  wapAndDoorFlag4: 0
+  wapAndDoorFlag5: 0
 --- !u!4 &782921796
 Transform:
   m_ObjectHideFlags: 0
@@ -2778,6 +2788,8 @@ MonoBehaviour:
   playerControl: 0
   touchController: {fileID: 2060863232}
   firstInput: 0
+  doorFlag: 0
+  normalReturnFlag: 0
 --- !u!4 &2060863231
 Transform:
   m_ObjectHideFlags: 0
