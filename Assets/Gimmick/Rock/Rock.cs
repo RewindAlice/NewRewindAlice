@@ -328,7 +328,7 @@ public class Rock : BaseGimmick
                 moveFlag = true;
 		    moveTimer = 0;
 				// 現在の行動より後の動きを消去
-				for (int i = turnNum+1 ; i < 100; i++)
+				for (int i = turnNum ; i < 100; i++)
 				{
 					moveMemory[i] = MoveDirection.NONE;
 				}
