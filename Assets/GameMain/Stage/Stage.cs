@@ -3126,8 +3126,8 @@ public class Stage : MonoBehaviour
 			case GARDEN_BLOCK_GROUND:
 			case GARDEN_BLOCK_FLOWER:
 
-			case START_POINT:             // スタート地点
-			case STAGE_GOOL:              // ゴール地点
+            //case START_POINT:             // スタート地点
+            //case STAGE_GOOL:              // ゴール地点
 			case IVY_BLOCK:
 			case IVY_FRONT:
 			case IVY_BACK:
