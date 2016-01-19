@@ -34,16 +34,19 @@ public class Rock : BaseGimmick
 	public int moveTimer;
 	public int moveCount = 0;
 	public MoveDirection[] moveMemory = new MoveDirection[100]; // 保存用配列(移動方向)
+    public bool[] pushMemory = new bool[100]; // 保存用配列(移動方向)
 	private MoveDirection moveDirection = 0; // 移動方向
 	public PlayerAction playerAction; // アリスの行動
 	public GameObject gameMain; // ゲームメイン
 	public GameObject stage; // ステージ
     public GameObject alice;
 	public int turnNum;
-	public bool fallFlag;
+    public bool fallFlag;
+    public bool rizeFlag;
 
     public bool autoFlag;
 
+    public bool gimmickPushFlag;
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start()
 	{
@@ -54,7 +57,9 @@ public class Rock : BaseGimmick
 		moveFlag = false;
 		turnNum = 0;
 		fallFlag = false;
+        rizeFlag = false;
         autoFlag = false;
+        gimmickPushFlag = false;
 		for(int i = 0; i <100; i++)
 		{
 			moveMemory[i] = MoveDirection.NONE;
@@ -80,41 +85,41 @@ public class Rock : BaseGimmick
 	// ★アリスが進んだ時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public override void OnAliceMoveNext(int aliceMove)
 	{
-		// ギミックの開始ターンとアリスの移動数が同じになったら
-		if (startActionTurn == aliceMove)
-		{
-			gimmickFlag = true; // ギミックを有効にする
-		}
+        //// ギミックの開始ターンとアリスの移動数が同じになったら
+        //if (startActionTurn == aliceMove)
+        //{
+        //    gimmickFlag = true; // ギミックを有効にする
+        //}
 
-        fallFunction();
+        //fallFunction();
 
-		// アリスの移動数が多かったら
-		if (moveCount < aliceMove)
-		{
-			moveCount++;
-		}
+        //// アリスの移動数が多かったら
+        //if (moveCount < aliceMove)
+        //{
+        //    moveCount++;
+        //}
 	}
 
 	// ★アリスが戻った時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public override void OnAliceMoveReturn(int aliceMove)
  	{
 		// ギミックの開始ターンがアリスの移動数より大きかったら
-		if (startActionTurn > aliceMove)
-		{
-			gimmickFlag = false;    // ギミックを無効にする
-		}
-        backs();
+    //    if (startActionTurn > aliceMove)
+    //    {
+    //        gimmickFlag = false;    // ギミックを無効にする
+    //    }
+    //    backs();
 
-		// ギミックが有効なら
-		if (gimmickFlag)
-		{
-			if (moveCount == aliceMove)
-			{
-				gimmickCount--;
-			}
-			moveCount--;
-		}
-	}
+    //    // ギミックが有効なら
+    //    if (gimmickFlag)
+    //    {
+    //        if (moveCount == aliceMove)
+    //        {
+    //            gimmickCount--;
+    //        }
+    //        moveCount--;
+    //    }
+    }
 
 	// ★岩が押されたときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void PushMove(int x, int y, int z, int directionX, int directionZ)
@@ -147,8 +152,9 @@ public class Rock : BaseGimmick
 
     public void GimmickPushMove(int x, int y, int z, int directionX, int directionZ)
     {
-		moveTimer = 0;
-		moveFlag = true;
+        moveTimer = 0;
+        moveFlag = true;
+        pushMemory[turnNum - 1] = true;
         if (directionZ == -1)
         {
             moveMemory[turnNum] = MoveDirection.FRONT;
@@ -174,6 +180,21 @@ public class Rock : BaseGimmick
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Move()
 	{
+        if(rizeFlag)
+        {
+            rizeFlag = false;
+            moveMemory[turnNum] = MoveDirection.UP;
+            moveFlag = true; moveTimer = 0;
+        }
+
+        if(fallFlag)
+        {
+            fallFlag = false;
+            moveMemory[turnNum] = MoveDirection.DOWN;
+            moveFlag = true;
+            moveTimer = 0;
+        }
+
 		if (moveFlag)
 		{
 			if(moveTimer >= 0)
@@ -189,20 +210,20 @@ public class Rock : BaseGimmick
 				}
 				else if (playerAction == PlayerAction.RETURN)
 				{
-					if (turnNum > 0)
-					{
-						if (moveMemory[turnNum+1] == MoveDirection.FRONT) { transform.Translate(Vector3.down * -moves); }
-						else if (moveMemory[turnNum+1] == MoveDirection.BACK) { transform.Translate(Vector3.up * -moves); }
-						else if (moveMemory[turnNum+1] == MoveDirection.LEFT) { transform.Translate(Vector3.left * -moves); }
-						else if (moveMemory[turnNum+1] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * -moves); }
-						else if (moveMemory[turnNum+1] == MoveDirection.DOWN) { transform.Translate(Vector3.back * -moves); }
-						else if (moveMemory[turnNum + 1] == MoveDirection.UP) { transform.Translate(Vector3.back * moves); }
-					}
+                    if (turnNum > 0)
+                    {
+                        if (moveMemory[turnNum] == MoveDirection.FRONT) { transform.Translate(Vector3.down * -moves); }
+                        else if (moveMemory[turnNum] == MoveDirection.BACK) { transform.Translate(Vector3.up * -moves); }
+                        else if (moveMemory[turnNum] == MoveDirection.LEFT) { transform.Translate(Vector3.left * -moves); }
+                        else if (moveMemory[turnNum] == MoveDirection.RIGHT) { transform.Translate(Vector3.right * -moves); }
+                        else if (moveMemory[turnNum] == MoveDirection.DOWN) { transform.Translate(Vector3.back * -moves); }
+                        else if (moveMemory[turnNum] == MoveDirection.UP) { transform.Translate(Vector3.back * moves); }
+                    }
 				}
 			}
 			// 座標移動
-			if (moveTimer == 1)
-				ArrayMove();
+			//if (moveTimer == 1)
+			
 
 			fallFlag = false;
 			moveTimer++;
@@ -211,36 +232,39 @@ public class Rock : BaseGimmick
 
 		// 移動終了処理
 		if ((moveTimer == 25) && (moveFlag))
-		{
+        {
+            ArrayMove();
             autoFlag = false;
 			if ((playerAction == PlayerAction.RETURN) && (turnNum > 0)) 
 			{
-				if ((moveMemory[turnNum+1] == MoveDirection.DOWN) || (moveMemory[turnNum+1] == MoveDirection.UP))
-				{
-					moveFlag = true;
-					moveTimer = 0;
-					fallFlag = false;
+                if ((moveMemory[turnNum] == MoveDirection.DOWN) || (moveMemory[turnNum] == MoveDirection.UP))
+                {
+                    moveFlag = true;
+                    moveTimer = 0;
+                    fallFlag = false;
                     autoFlag = true;
-                            
-					turnNum--;
-				}
-				//moveMemory[turnNum - 1] = MoveDirection.NONE;
+
+                    turnNum--;
+                }
+                
             }
             // 落下、もしくは上昇なら続けて移動
             else if ((playerAction == PlayerAction.NEXT) && (turnNum > 0))
 			{
-				if ((moveMemory[turnNum+1] == MoveDirection.DOWN) || (moveMemory[turnNum+1] == MoveDirection.UP))
-				{
-					moveFlag = true;
-					moveTimer = 0;
-					//Debug.Log("fall");
-					fallFlag = false;
-                    autoFlag = true;
-				}
+                //if ((moveMemory[turnNum+1] == MoveDirection.DOWN) || (moveMemory[turnNum+1] == MoveDirection.UP))
+                //{
+                //    moveFlag = true;
+                //    moveTimer = 0;
+                //    //Debug.Log("fall");
+                //    fallFlag = false;
+                //    autoFlag = true;
+                //}
 			}
 
             if(!autoFlag == true)
             {
+                if (playerAction == PlayerAction.NEXT) { turnNum++; };
+                if (turnNum>0 && pushMemory[turnNum - 1] == true && playerAction == PlayerAction.RETURN) { turnNum--; };
                 transform.position = new Vector3(posX, posY - 0.5f, posZ);
                 moveFlag = false;
                 //moveTimer = 0;
@@ -252,7 +276,7 @@ public class Rock : BaseGimmick
 	// ★岩が落ちるときに呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Fall() 
 	{ 
-		moveMemory[turnNum + 1] = MoveDirection.DOWN;
+		//moveMemory[turnNum + 1] = MoveDirection.DOWN;
 		fallFlag = true;
 	}
 
@@ -260,35 +284,35 @@ public class Rock : BaseGimmick
 	public void Rize()
 	{
 		//Debug.Log("Rize");
-		moveMemory[turnNum + 1] = MoveDirection.UP;
-		fallFlag = true;
+		//moveMemory[turnNum + 1] = MoveDirection.UP;
+		rizeFlag = true;
 	}
 
     public void fallFunction()
     {
 
-		if (!stage.GetComponent<Stage>().CheckAutoMove())
-		{
-			if (turnNum > 0)
-			{
-				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
-				//playerAction = PlayerAction.NEXT;
-				//moveFlag = true;
-			}
-		}
+        //if (!stage.GetComponent<Stage>().CheckAutoMove())
+        //{
+        //    if (turnNum > 0)
+        //    {
+        //        moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
+        //        //playerAction = PlayerAction.NEXT;
+        //        //moveFlag = true;
+        //    }
+        //}
     }
 
     public void backs()
     {
-		if (!stage.GetComponent<Stage>().CheckAutoMove())
-		{
-			if (turnNum > 0)
-			{
-				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定
-				//playerAction = PlayerAction.RETURN;
-				//moveFlag = true;
-			}
-		}
+        //if (!stage.GetComponent<Stage>().CheckAutoMove())
+        //{
+        //    if (turnNum > 0)
+        //    {
+        //        moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定
+        //        //playerAction = PlayerAction.RETURN;
+        //        //moveFlag = true;
+        //    }
+        //}
     }
 
 	// ★移動開始時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -296,13 +320,13 @@ public class Rock : BaseGimmick
 	{
 		//Debug.Log("type");
 		//Debug.Log(type);
-		moveFlag = true;
-		moveTimer = 0;
+		
 		switch(type)
 		{
  			case 1:
 				playerAction = PlayerAction.NEXT;
-
+                moveFlag = true;
+		    moveTimer = 0;
 				// 現在の行動より後の動きを消去
 				for (int i = turnNum+1 ; i < 100; i++)
 				{
@@ -312,10 +336,19 @@ public class Rock : BaseGimmick
 				break;
 			case 2:
 				playerAction = PlayerAction.NEXT;
+                moveFlag = true;
+		    moveTimer = 0;
 				break;
 			case 3:
 				playerAction = PlayerAction.RETURN;
-				moveTimer = 0;
+                if (!autoFlag)
+                {
+                    turnNum--;
+                    moveFlag = true;
+                    moveTimer = 0;
+                }
+                
+				//moveTimer = 0;
 				break;
 			default:
 				//Debug.Log("岩おかしい");
@@ -324,18 +357,17 @@ public class Rock : BaseGimmick
 		
 				
 		// 岩の内部ターンの経過
-		if (playerAction == PlayerAction.NEXT) { turnNum++; }
-		else if (playerAction == PlayerAction.RETURN) { turnNum--; }
+		//else if (playerAction == PlayerAction.RETURN) { turnNum--; }
 	}
 
 	public void FallCheck()
 	{
-		if(fallFlag)
-		{
-			moveFlag = true;
-			moveTimer = 0;
-			turnNum++;
-		}
+        //if(fallFlag)
+        //{
+        //    moveFlag = true;
+        //    moveTimer = 0;
+        //    turnNum++;
+        //}
 	}
 
 	// 座標を動かす
@@ -353,30 +385,30 @@ public class Rock : BaseGimmick
 		}
 		else if (playerAction == PlayerAction.RETURN)
 		{
-			if (turnNum > 0)
-			{
-				if (moveMemory[turnNum+1] == MoveDirection.FRONT) { posZ--; }
-				else if (moveMemory[turnNum+1] == MoveDirection.BACK) { posZ++; }
-				else if (moveMemory[turnNum+1] == MoveDirection.LEFT) { posX++; }
-				else if (moveMemory[turnNum+1] == MoveDirection.RIGHT) { posX--; }
-				else if (moveMemory[turnNum+1] == MoveDirection.DOWN) { posY++; }
-				else if (moveMemory[turnNum + 1] == MoveDirection.UP) { posY--; }
-			}
+            if (turnNum > 0)
+            {
+                if (moveMemory[turnNum] == MoveDirection.FRONT) { posZ--; }
+                else if (moveMemory[turnNum] == MoveDirection.BACK) { posZ++; }
+                else if (moveMemory[turnNum] == MoveDirection.LEFT) { posX++; }
+                else if (moveMemory[turnNum] == MoveDirection.RIGHT) { posX--; }
+                else if (moveMemory[turnNum] == MoveDirection.DOWN) { posY++; }
+                else if (moveMemory[turnNum] == MoveDirection.UP) { posY--; }
+            }
 		}
 
 		// 時間を戻したなら、Stageの方でも岩を移動させる
 		if (playerAction == PlayerAction.RETURN)
 		{
-			if (turnNum > 0)
-			{
-				if (moveMemory[turnNum + 1] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 0, -1, 1); }
-				if (moveMemory[turnNum + 1] == MoveDirection.BACK) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 0, 1, 1); }
-				if (moveMemory[turnNum + 1] == MoveDirection.LEFT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 1, 0, 0, 1); }
-				if (moveMemory[turnNum + 1] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, -1, 0, 0, 1); }
-				if (moveMemory[turnNum + 1] == MoveDirection.UP) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 1, 0, 1); }
-				if (moveMemory[turnNum + 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, -1, 0, 1); }
-				//Debug.Log("RockArrayReturn");
-			}
+            if (turnNum > 0)
+            {
+                if (moveMemory[turnNum] == MoveDirection.FRONT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 0, -1, 1); }
+                if (moveMemory[turnNum] == MoveDirection.BACK) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 0, 1, 1); }
+                if (moveMemory[turnNum] == MoveDirection.LEFT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 1, 0, 0, 1); }
+                if (moveMemory[turnNum] == MoveDirection.RIGHT) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, -1, 0, 0, 1); }
+                if (moveMemory[turnNum] == MoveDirection.UP) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, 1, 0, 1); }
+                if (moveMemory[turnNum] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(posX, posY, posZ, 0, -1, 0, 1); }
+                //Debug.Log("RockArrayReturn");
+            }
 		}
 		fallFlag = false;
 	}

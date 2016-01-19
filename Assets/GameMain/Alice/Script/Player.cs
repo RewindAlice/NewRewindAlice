@@ -209,6 +209,8 @@ public class Player : MonoBehaviour
 
     public bool climbMidstFlag;
 
+    public bool firstRetrun;
+
     //扉のテスト用
     public bool testerDoor;
     public bool testerDoor2;
@@ -217,6 +219,7 @@ public class Player : MonoBehaviour
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
+        firstRetrun = false;
         climbMidstFlag = false;
         moveFlag = false;
         moveFinishFlag = false;
@@ -588,7 +591,7 @@ public class Player : MonoBehaviour
                     testerDoor3 = true;
                 }
 
-                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.NEXT);      // 足元との判定
+                stage.GetComponent<Stage>().FootDecision(this, Player.PlayerAction.RETURN, 0);      // 足元との判定
 
                 //変更の無効化
                 stage.GetComponent<Stage>().wapAndDoorFlag = testerDoor;
@@ -605,8 +608,12 @@ public class Player : MonoBehaviour
                                                        // 状態の切り替え
                 Debug.Log(playerMode+"asdasd");
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
-				if (moveDirection != MoveDirection.UP)
-					stage.GetComponent<Stage>().StartMove(3);
+                if (firstRetrun == false || saveMoveInput[saveCount - 1])
+                {
+                    stage.GetComponent<Stage>().StartMove(3);
+                    firstRetrun = true;
+                }
+				
 				
                 // プレイヤーの状態が通常なら////////////////////////////
                 if (playerMode == PlayerMode.NORMAL)
@@ -768,6 +775,7 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｙが移動前から１増えているなら
                         else if (transform.localPosition.y >= moveBeforePosition.y + 1)
                         {
+
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y + 1, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Y);                                                                         // 移動完了処理
                         }
@@ -821,14 +829,17 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｚが移動前から１減っているなら
                         if (transform.localPosition.z <= moveBeforePosition.z - 1)
                         {
-                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
-                            {
-                                stage.GetComponent<Stage>().StartMove(3);
-                            }
+                            //if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            //{
+                            //    stage.GetComponent<Stage>().StartMove(3);
+                            //}
                             Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z - 1); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Z);                                                                        // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
                         }
+
+                       
+                  
                         break;
                     // ▼後なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.BACK:
@@ -839,14 +850,16 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｚが移動前から１増えているなら
                         if (transform.localPosition.z >= moveBeforePosition.z + 1)
                         {
-                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
-                            {
-                                stage.GetComponent<Stage>().StartMove(3);
-                            }
+                            //if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            //{
+                            //    stage.GetComponent<Stage>().StartMove(3);
+                            //}
                             Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, moveBeforePosition.z + 1); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_Z);                                                                         // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
                         }
+
+                       
                         break;
                     // ▼左なら//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     case MoveDirection.LEFT:
@@ -857,10 +870,10 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｘが移動前から１増えているなら
                         if (transform.localPosition.x >= moveBeforePosition.x + 1)
                         {
-                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
-                            {
-                                stage.GetComponent<Stage>().StartMove(3);
-                            }
+                            //if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            //{
+                            //    stage.GetComponent<Stage>().StartMove(3);
+                            //}
                             Vector3 position = new Vector3(moveBeforePosition.x + 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.PLUS_X);                                                                         // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
@@ -875,10 +888,10 @@ public class Player : MonoBehaviour
                         // アリスの座標Ｘが移動前から１減っているなら
                         if (transform.localPosition.x <= moveBeforePosition.x - 1)
                         {
-                            if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
-                            {
-                                stage.GetComponent<Stage>().StartMove(3);
-                            }
+                            //if (saveMoveDirection[saveCount + 1] == MoveDirection.UP)
+                            //{
+                            //    stage.GetComponent<Stage>().StartMove(3);
+                            //}
                             Vector3 position = new Vector3(moveBeforePosition.x - 1, transform.localPosition.y, transform.localPosition.z); // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_X);                                                                        // 移動完了処理
                             MoveAgain();                                                                                                    // 再移動
@@ -931,7 +944,7 @@ public class Player : MonoBehaviour
                     case MoveDirection.DOWN:
                         if ((transform.localPosition.y <= moveBeforePosition.y - 0.5f) && animationFlagClimb)
                         {
-							stage.GetComponent<Stage>().StartMove(3);
+							//stage.GetComponent<Stage>().StartMove(3);
                             Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
                             MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
                             MoveAgain();
@@ -1132,6 +1145,12 @@ public class Player : MonoBehaviour
                 autoMoveFlag = true;
                 moveDirection = direction;
                 moveReturnFlag = true;
+            }
+            else
+            {
+               
+                    firstRetrun = false;
+                
             }
         }
     }

@@ -378,7 +378,7 @@ public class GameMain : MonoBehaviour
 						{
 							stage.ChangeArrayGimmickNext();
 							stage.GimmickDecision(alice, Player.PlayerAction.NEXT);   // ギミックとの判定
-							stage.FootDecision(alice, Player.PlayerAction.NEXT);      // 足元との判定
+							stage.FootDecision(alice, Player.PlayerAction.NEXT,0);      // 足元との判定
 							alice.moveFinishFlag = false;   // 移動完了フラグを偽に
 
 							if (!alice.autoMoveFlag)
@@ -510,7 +510,7 @@ public class GameMain : MonoBehaviour
                                     }
                                 }
                                 stage.GimmickDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
-                                stage.FootDecision(alice, Player.PlayerAction.RETURN);   // ギミックとの判定
+                                stage.FootDecision(alice, Player.PlayerAction.RETURN,1);   // ギミックとの判定
                                 if (stage.wapAndDoorFlag5)
                                 {
                                     if (stage.wapAndDoorFlag2 == false)

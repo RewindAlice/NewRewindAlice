@@ -1897,6 +1897,7 @@ public class Stage : MonoBehaviour
                 {
                     if (gimmickObjectArray[posY, posX, posZ].GetComponent<Tree>().growCount == 1)
                     {
+                        StartMove(2);
 						playerRizeFlag = true;
                         alice.AutoMoveSetting(Player.MoveDirection.UP);
                     }
@@ -1967,7 +1968,7 @@ public class Stage : MonoBehaviour
     }
 
     // ★足元との判定★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-    public void FootDecision(Player alice,Player.PlayerAction action)
+    public void FootDecision(Player alice,Player.PlayerAction action ,int i)
     {
         int posX = alice.arrayPosX; // アリスの配列上の座標Ｘを取得
         int posY = alice.arrayPosY; // アリスの配列上の座標Ｙを取得
@@ -2368,6 +2369,7 @@ public class Stage : MonoBehaviour
 							// 木の成長段階が１以下なら
 							if (gimmickObjectArray[posY - 1, posX, posZ].GetComponent<Tree>().growCount == 2)
 							{
+                                StartMove(2);
 								playerRizeFlag = true;
 								alice.AutoMoveSetting(Player.MoveDirection.UP);
 							}
@@ -2385,7 +2387,7 @@ public class Stage : MonoBehaviour
 					case WARP_HOLE_FOUR:
 					case WARP_HOLE_FIVE:
 
-						if (action == Player.PlayerAction.NEXT)
+                        if (action == Player.PlayerAction.NEXT || action == Player.PlayerAction.RETURN && i == 0)
                         {
                             wapAndDoorFlag5 = false;
                             alice.climbMidstFlag = false;
@@ -2804,16 +2806,16 @@ public class Stage : MonoBehaviour
 
 												if (pushGimmickNumArray[y - 1, x, z] == NONE_BLOCK)
 												{
-													Debug.Log("ROCKFALLCHECK");
-													pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
-													GameObject objectTemp;
-													objectTemp = pushGimmickObjectArray[y - 1, x, z];
-													pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
-													pushGimmickObjectArray[y, x, z] = objectTemp;
+                                                    Debug.Log("ROCKFALLCHECK");
+                                                    pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+                                                    GameObject objectTemp;
+                                                    objectTemp = pushGimmickObjectArray[y - 1, x, z];
+                                                    pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+                                                    pushGimmickObjectArray[y, x, z] = objectTemp;
 
-													pushGimmickNumArray[y - 1, x, z] = ROCK;
-													pushGimmickNumArray[y, x, z] = NONE_BLOCK;
-													//stoneFallController = true;
+                                                    pushGimmickNumArray[y - 1, x, z] = ROCK;
+                                                    pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+                                                    //stoneFallController = true;
 												}
 												break;
 										}
@@ -2931,14 +2933,14 @@ public class Stage : MonoBehaviour
 							{
 								if (gimmickNumArray[y - 1, x, z] == NONE_BLOCK)
 								{
-									pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
-									GameObject objectTemp;
-									objectTemp = pushGimmickObjectArray[y - 1, x, z];
-									pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
-									pushGimmickObjectArray[y, x, z] = objectTemp;
+                                    pushGimmickObjectArray[y, x, z].GetComponent<Rock>().Fall();
+                                    GameObject objectTemp;
+                                    objectTemp = pushGimmickObjectArray[y - 1, x, z];
+                                    pushGimmickObjectArray[y - 1, x, z] = pushGimmickObjectArray[y, x, z];
+                                    pushGimmickObjectArray[y, x, z] = objectTemp;
 
-									pushGimmickNumArray[y - 1, x, z] = ROCK;
-									pushGimmickNumArray[y, x, z] = NONE_BLOCK;
+                                    pushGimmickNumArray[y - 1, x, z] = ROCK;
+                                    pushGimmickNumArray[y, x, z] = NONE_BLOCK;
 								}
 							}
 							break;
