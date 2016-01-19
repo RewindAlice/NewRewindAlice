@@ -320,7 +320,7 @@ public class TextController : MonoBehaviour
                             if (((touchController.touchPosX > 1) && (touchController.touchPosX < 1152)) &&
                                 ((touchController.touchPosY > 1) && (touchController.touchPosY < 620)) &&
                                 ((touchController.detachPosX > 1) && (touchController.detachPosX < 1152)) &&
-                                ((touchController.detachPosY > 1) && (touchController.detachPosY < 620))||
+                                ((touchController.detachPosY > 1) && (touchController.detachPosY < 620))&&
                                 currentLine <= scenarios.Length )
                             {
                                 seManager.SEStop();
@@ -348,7 +348,7 @@ public class TextController : MonoBehaviour
                             if (((touchController.touchPosX > 1) && (touchController.touchPosX < 1152)) &&
                                 ((touchController.touchPosY > 1) && (touchController.touchPosY < 620)) &&
                                 ((touchController.detachPosX > 1) && (touchController.detachPosX < 1152)) &&
-                                ((touchController.detachPosY > 1) && (touchController.detachPosY < 620)) ||
+                                ((touchController.detachPosY > 1) && (touchController.detachPosY < 620)) &&
                                 currentLine <= scenarios.Length)
                             {
                                 timeUntilDisplay = 0;
