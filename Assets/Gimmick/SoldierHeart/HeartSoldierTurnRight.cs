@@ -519,11 +519,18 @@ public class HeartSoldierTurnRight : BaseGimmick
                 //if (moveMemory[turnNum - 1] == MoveDirection.DOWN) { stage.GetComponent<Stage>().GimmickReturn(arrayPosX, arrayPosY, arrayPosZ, 0, -1, 0, 2); }
 
 				// 落下、もしくは上昇なら続けて移動
-				if ((moveMemory[turnNum - 1] == MoveDirection.DOWN) || (moveMemory[turnNum - 1] == MoveDirection.UP))
-				{
-					moveFlag = true;
-				}
-				moveMemory[turnNum - 1] = MoveDirection.NONE;
+                if (turnNum > 0)
+                {
+                    if ((moveMemory[turnNum - 1] == MoveDirection.DOWN) || (moveMemory[turnNum - 1] == MoveDirection.UP))
+                    {
+                        moveFlag = true;
+                    }
+                  
+                        moveMemory[turnNum - 1] = MoveDirection.NONE;
+                  
+                }
+				
+				
 
                 if (captureFlag == false && (captureTrun == turnNum - 1))
                 {

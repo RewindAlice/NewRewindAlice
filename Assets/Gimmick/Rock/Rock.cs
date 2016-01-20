@@ -77,7 +77,7 @@ public class Rock : BaseGimmick
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Update()
 	{
-		FallCheck();
+		//FallCheck();
 
 		Move();
 	}
@@ -180,21 +180,6 @@ public class Rock : BaseGimmick
 	// ★自動移動する★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	public void Move()
 	{
-        if(rizeFlag)
-        {
-            rizeFlag = false;
-            moveMemory[turnNum] = MoveDirection.UP;
-            moveFlag = true; moveTimer = 0;
-        }
-
-        if(fallFlag)
-        {
-            fallFlag = false;
-            moveMemory[turnNum] = MoveDirection.DOWN;
-            moveFlag = true;
-            moveTimer = 0;
-        }
-
 		if (moveFlag)
 		{
 			if(moveTimer >= 0)
@@ -225,7 +210,7 @@ public class Rock : BaseGimmick
 			//if (moveTimer == 1)
 			
 
-			fallFlag = false;
+			//fallFlag = false;
 			moveTimer++;
 		}
 
@@ -269,7 +254,19 @@ public class Rock : BaseGimmick
                 moveFlag = false;
                 //moveTimer = 0;
             }
-            
+
+            if (rizeFlag)
+            {
+                rizeFlag = false;
+               
+            }
+
+            if (fallFlag)
+            {
+                fallFlag = false;
+                
+            }
+
             
 		}
 	}
@@ -278,6 +275,9 @@ public class Rock : BaseGimmick
 	{ 
 		//moveMemory[turnNum + 1] = MoveDirection.DOWN;
 		fallFlag = true;
+        moveMemory[turnNum] = MoveDirection.DOWN;
+        moveFlag = true;
+        moveTimer = 0;
 	}
 
 	// ★岩が上がる時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -286,6 +286,9 @@ public class Rock : BaseGimmick
 		//Debug.Log("Rize");
 		//moveMemory[turnNum + 1] = MoveDirection.UP;
 		rizeFlag = true;
+        moveMemory[turnNum] = MoveDirection.UP;
+        moveFlag = true;
+        moveTimer = 0;
 	}
 
     public void fallFunction()
@@ -324,14 +327,19 @@ public class Rock : BaseGimmick
 		switch(type)
 		{
  			case 1:
-				playerAction = PlayerAction.NEXT;
-                moveFlag = true;
-		    moveTimer = 0;
-				// 現在の行動より後の動きを消去
-				for (int i = turnNum ; i < 100; i++)
-				{
-					moveMemory[i] = MoveDirection.NONE;
-				}
+
+                if (!rizeFlag && !fallFlag)
+                {
+                    playerAction = PlayerAction.NEXT;
+                    moveFlag = true;
+                    moveTimer = 0;
+                    // 現在の行動より後の動きを消去
+                    for (int i = turnNum; i < 100; i++)
+                    {
+                        moveMemory[i] = MoveDirection.NONE;
+                    }
+                }
+				
 
 				break;
 			case 2:
