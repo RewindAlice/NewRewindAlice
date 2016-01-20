@@ -389,10 +389,12 @@ public class TextController : MonoBehaviour
                             ((touchController.detachPosY > 220) && (touchController.detachPosY < 310)))
                      {
                          touchController.TouchPostionInitialize();
-                         pause.GetComponent<StoryPause>().EscapePause();
+                         pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, -100, 0);
+                         pause.GetComponent<StoryPause>().selectMode = 1;
                          CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
-                         pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, -100, 0);
+                         pause.GetComponent<StoryPause>().EscapePause();
+
                      }
                      else
                      {
