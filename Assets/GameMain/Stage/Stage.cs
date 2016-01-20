@@ -3488,7 +3488,6 @@ public class Stage : MonoBehaviour
 				switch (pushGimmickNumArray[posY, posX, posZ])
 				{
 					case ROCK:
-
 						int rockPositionByAliceX = posX - alice.arrayPosX; // アリスから見た岩の位置x
 						int rockPositionByAliceZ = posZ - alice.arrayPosZ;// アリスから見た岩の位置z
 
@@ -3510,6 +3509,22 @@ public class Stage : MonoBehaviour
 							((pushDirectionX == 0) && (pushDirectionZ == 1) && (TwinDirection == 3)) ||
 							((pushDirectionX == 0) && (pushDirectionZ == -1) && (TwinDirection == 1)))
 							{
+                                for (int num = 0; num < moveGimmickObjectList.Count; num++)
+                                {
+                                    if ((mine.x == moveGimmickObjectList[num].transform.position.x) && (mine.y == (moveGimmickObjectList[num].transform.position.y + 0.5f)) && (mine.z == moveGimmickObjectList[num].transform.position.z))
+                                    {
+                                        switch (moveGimmickNumList[num])
+                                        {
+                                            case TWEEDLEDEE:
+                                                moveGimmickObjectList[num].GetComponent<TweedleDee>().GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                                break;
+                                            case TWEEDLEDUM:
+                                                moveGimmickObjectList[num].GetComponent<TweedleDum>().GetComponent<Animator>().SetBool("PushMotion_Next", true);
+                                                break;
+                                        }
+                                    }
+                                }
+
 								pushGimmickObjectArray[posY, posX, posZ].GetComponent<Rock>().GimmickPushMove(posX, posY, posZ, pushDirectionX, pushDirectionZ);
 
 								GameObject objectTemp;
