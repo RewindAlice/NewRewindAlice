@@ -654,12 +654,12 @@ public class GameMain : MonoBehaviour
                     if (((touchController.touchPosX > 1) && (touchController.touchPosX < 1280)) &&
                         ((touchController.touchPosY > 1) && (touchController.touchPosY < 720)) &&
                         ((touchController.detachPosX > 1) && (touchController.detachPosX < 1280)) &&
-                        ((touchController.detachPosY > 1) && (touchController.detachPosY < 720)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                        ((touchController.detachPosY > 1) && (touchController.detachPosY < 720)) &&  (tutorialFlag == true) &&
                         (stageNumber == 1) && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7) ||
                          ((touchController.touchPosX > 1) && (touchController.touchPosX < 1280)) &&
                         ((touchController.touchPosY > 1) && (touchController.touchPosY < 720)) &&
                         ((touchController.detachPosX > 1) && (touchController.detachPosX < 1280)) &&
-                        ((touchController.detachPosY > 1) && (touchController.detachPosY < 720)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
+                        ((touchController.detachPosY > 1) && (touchController.detachPosY < 720)) &&(tutorialFlag == true) &&
                          (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10))
                     {
                         alice.arrowDrawFlag = false;
