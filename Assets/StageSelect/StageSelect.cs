@@ -791,9 +791,9 @@ public class StageSelect : MonoBehaviour
 
 
                     //チャプター1選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 590) && (touchController.touchPosY < 645)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 590) && (touchController.detachPosY < 645)))
                     {
                         chapter = Chapter.CHAPTER_1;
@@ -803,9 +803,9 @@ public class StageSelect : MonoBehaviour
                     }
 
                     //チャプター2選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 500) && (touchController.touchPosY < 550)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 500) && (touchController.detachPosY < 550)))
                     {
                         chapter = Chapter.CHAPTER_2;
@@ -815,9 +815,9 @@ public class StageSelect : MonoBehaviour
                     }
 
                     //チャプター3選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 420) && (touchController.touchPosY < 465)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 420) && (touchController.detachPosY < 465)))
                     {
                         chapter = Chapter.CHAPTER_3;
@@ -827,9 +827,9 @@ public class StageSelect : MonoBehaviour
                     }
 
                     //チャプター4選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 335) && (touchController.touchPosY < 380)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 335) && (touchController.detachPosY < 380)))
                     {
                         chapter = Chapter.CHAPTER_4;
@@ -839,9 +839,9 @@ public class StageSelect : MonoBehaviour
                     }
 
                     //チャプター5選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 250) && (touchController.touchPosY < 290)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 250) && (touchController.detachPosY < 290)))
                     {
                         chapter = Chapter.CHAPTER_5;
@@ -851,9 +851,9 @@ public class StageSelect : MonoBehaviour
                     }
 
                     //チャプター6選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 165) && (touchController.touchPosY < 210)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 165) && (touchController.detachPosY < 210)))
                     {
                         chapter = Chapter.CHAPTER_6;
@@ -863,9 +863,9 @@ public class StageSelect : MonoBehaviour
                     }
 
                     //チャプター7選択
-                    if (((touchController.touchPosX > 800) && (touchController.touchPosX < 1025)) &&
+                    if (((touchController.touchPosX > 760) && (touchController.touchPosX < 1065)) &&
                         ((touchController.touchPosY > 80) && (touchController.touchPosY < 120)) &&
-                        ((touchController.detachPosX > 800) && (touchController.detachPosX < 1025)) &&
+                        ((touchController.detachPosX > 760) && (touchController.detachPosX < 1065)) &&
                         ((touchController.detachPosY > 80) && (touchController.detachPosY < 120)))
                     {
                         chapter = Chapter.CHAPTER_7;
