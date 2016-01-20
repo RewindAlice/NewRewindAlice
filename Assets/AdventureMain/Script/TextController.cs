@@ -321,6 +321,11 @@ public class TextController : MonoBehaviour
                                 ((touchController.touchPosY > 1) && (touchController.touchPosY < 620)) &&
                                 ((touchController.detachPosX > 1) && (touchController.detachPosX < 1152)) &&
                                 ((touchController.detachPosY > 1) && (touchController.detachPosY < 620))&&
+                                currentLine <= scenarios.Length ||
+                                ((touchController.touchPosX > 1) && (touchController.touchPosX < 1280)) &&
+                                ((touchController.touchPosY > 1) && (touchController.touchPosY < 620)) &&
+                                ((touchController.detachPosX > 1) && (touchController.detachPosX < 1280)) &&
+                                ((touchController.detachPosY > 1) && (touchController.detachPosY < 620))&&
                                 currentLine <= scenarios.Length )
                             {
                                 seManager.SEStop();
@@ -344,10 +349,14 @@ public class TextController : MonoBehaviour
                         }
                         else
                         {
-                            // 完了してないなら文字をすべて表示する
                             if (((touchController.touchPosX > 1) && (touchController.touchPosX < 1152)) &&
                                 ((touchController.touchPosY > 1) && (touchController.touchPosY < 620)) &&
                                 ((touchController.detachPosX > 1) && (touchController.detachPosX < 1152)) &&
+                                ((touchController.detachPosY > 1) && (touchController.detachPosY < 620)) &&
+                                currentLine <= scenarios.Length ||
+                                ((touchController.touchPosX > 1) && (touchController.touchPosX < 1280)) &&
+                                ((touchController.touchPosY > 1) && (touchController.touchPosY < 620)) &&
+                                ((touchController.detachPosX > 1) && (touchController.detachPosX < 1280)) &&
                                 ((touchController.detachPosY > 1) && (touchController.detachPosY < 620)) &&
                                 currentLine <= scenarios.Length)
                             {
