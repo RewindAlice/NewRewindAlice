@@ -529,7 +529,7 @@ public class GameMain : MonoBehaviour
                                         stage.wapAndDoorFlag3 = true;
                                     }
                                 }
-
+                                stage.normalModeDoorBackFlag = false;
 
                                 print("ターン終了");// デバッグ用コメント}
                             }
@@ -1230,6 +1230,7 @@ public class GameMain : MonoBehaviour
                     turn = Turn.GIMMICK;            // ターンをギミックに
                     turnCountGimmick = 0;           // カウントを０に
                     alice.moveReturnFlag = true;    // 巻き戻しフラグを真に
+                    stage.normalModeDoorBackFlag = true;
                     Singleton<SoundPlayer>.instance.PlaySE("se009");
                     //print("巻き戻し");// デバッグ用コメント
                 }

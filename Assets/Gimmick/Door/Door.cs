@@ -8,12 +8,14 @@ public class Door : BaseGimmick
 	public int openTimingTurn;
 	public int turnNum;
     public bool testflag;
+    public bool firstOpenDoorFlag;
 
     public GameObject stage;
 
 	// ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start()
 	{
+        firstOpenDoorFlag = false;
         stage = GameObject.Find("Stage");
 		openFlag = false;
 		openTimingTurn = 0;
@@ -41,6 +43,12 @@ public class Door : BaseGimmick
 		if (startActionTurn == aliceMove) { gimmickFlag = true; }  // ギミックを有効にする
 
 		turnNum++;
+        if (firstOpenDoorFlag)
+        {
+            openTimingTurn++;
+            firstOpenDoorFlag = false;
+        }
+
 	}
 
 	// ★アリスが戻った時に呼ばれる関数★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -48,7 +56,6 @@ public class Door : BaseGimmick
 	{
 		// ギミックの開始ターンがアリスの移動数より大きかったら
 		if (startActionTurn > aliceMove) { gimmickFlag = false; } // ギミックを無効にする
-		
 		turnNum--;
 	}
 
@@ -62,6 +69,7 @@ public class Door : BaseGimmick
 			gimmickFlag = true;
             GetComponent<Animator>().SetBool("OpenMotionFlag_Next", true);
             GetComponent<Animator>().SetBool("OpenMotionFlag_Return", false);
+            firstOpenDoorFlag = true;
 		}
 	}
 
@@ -73,5 +81,6 @@ public class Door : BaseGimmick
             openFlag = false;
             GetComponent<Animator>().SetBool("OpenMotionFlag_Return", true);
             GetComponent<Animator>().SetBool("OpenMotionFlag_Next", false);
+            firstOpenDoorFlag = false;
 	}
 }

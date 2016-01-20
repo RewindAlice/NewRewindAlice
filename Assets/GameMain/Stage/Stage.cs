@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;   // 動的配列で使用
 
@@ -179,6 +180,10 @@ public class Stage : MonoBehaviour
     public bool wapAndDoorFlag4;
     public bool wapAndDoorFlag5;
 
+    //通常扉
+    public bool normalModeDoorBackFlag;
+
+
     // ★初期化★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 	void Start ()
     {
@@ -187,6 +192,8 @@ public class Stage : MonoBehaviour
         wapAndDoorFlag3 = false;
         wapAndDoorFlag4 = false;
         wapAndDoorFlag5 = false;
+
+        normalModeDoorBackFlag = false;
 
 
         goalFlag = false;
@@ -1410,8 +1417,11 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        flag = true;    // 移動できる
-                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        if (!normalModeDoorBackFlag)
+                        {
+                            flag = true;    // 移動できる
+                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        }
                     }
                 }
                 break;
@@ -1420,8 +1430,11 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        flag = true;    // 移動できる
-                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        if (!normalModeDoorBackFlag)
+                        {
+                            flag = true;    // 移動できる
+                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        }
                     }
 
                 }
@@ -1431,8 +1444,11 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        flag = true;    // 移動できる
-                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        if (!normalModeDoorBackFlag)
+                        {
+                            flag = true;    // 移動できる
+                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        }
                     }
 
                 }
@@ -1442,8 +1458,11 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        flag = true;    // 移動できる
-                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        if (!normalModeDoorBackFlag)
+                        {
+                            flag = true;    // 移動できる
+                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                        }
                     }
 
                 }
