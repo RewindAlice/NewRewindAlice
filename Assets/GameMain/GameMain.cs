@@ -649,8 +649,9 @@ public class GameMain : MonoBehaviour
                 float TrigerInput = 0.0f;
                 TrigerInput = Input.GetAxis("Triger");
 
-
-                if (((touchController.touchPosX > 1) && (touchController.touchPosX < 1280)) &&
+                if (tutorialImageFlag == true)
+                {
+                    if (((touchController.touchPosX > 1) && (touchController.touchPosX < 1280)) &&
                         ((touchController.touchPosY > 1) && (touchController.touchPosY < 720)) &&
                         ((touchController.detachPosX > 1) && (touchController.detachPosX < 1280)) &&
                         ((touchController.detachPosY > 1) && (touchController.detachPosY < 720)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
@@ -660,40 +661,42 @@ public class GameMain : MonoBehaviour
                         ((touchController.detachPosX > 1) && (touchController.detachPosX < 1280)) &&
                         ((touchController.detachPosY > 1) && (touchController.detachPosY < 720)) && (action == PlayerAction.NONE) && (alice.moveCount > 0) && (alice.moveFrontPossibleFlag) && (tutorialFlag == true) &&
                          (stageNumber == 2) && (tutorialTurn == 1 || tutorialTurn == 2 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 8 || tutorialTurn == 9 || tutorialTurn == 10))
-                {
-                    alice.arrowDrawFlag = false;
-                    touchController.TouchPostionInitialize();
-                    if (tutorialCount == 60)
                     {
-                        tutorialImageFlag = false;
-                        waitingTime = 0;
-                        tutorialTurn++;
-                        tutorialCount = 0;
-                        if (stageNumber == 1)
+                        alice.arrowDrawFlag = false;
+                        touchController.TouchPostionInitialize();
+                        if (tutorialCount == 60)
                         {
-                            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 5)
+                            tutorialImageFlag = false;
+                            waitingTime = 0;
+                            tutorialTurn++;
+                            tutorialCount = 0;
+                            if (stageNumber == 1)
                             {
-                                GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(5);
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 5)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(5);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(7);
+                                }
                             }
-                            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 8)
+                            else if (stageNumber == 2)
                             {
-                                GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(7);
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(1);
+                                }
+                                if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 4)
+                                {
+                                    GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(2);
+                                }
                             }
-                        }
-                        else if (stageNumber == 2)
-                        {
-                            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 2)
-                            {
-                                GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(1);
-                            }
-                            if (GameObject.Find("GameMain").GetComponent<GameMain>().tutorialTurn == 4)
-                            {
-                                GameObject.Find("CharacterTaklText").GetComponent<ChangeText>().TutorialNextNumber(2);
-                            }
-                        }
 
+                        }
                     }
                 }
+                
 
                 // ▼画面奥方向移動処理
                 // Ｗキーが押された時、行動が無しなら////////////////////////////////////////////////////////////////////////////////////////
