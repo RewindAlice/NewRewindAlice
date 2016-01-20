@@ -2096,6 +2096,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2134,6 +2143,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2172,6 +2190,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2210,6 +2237,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2248,6 +2284,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2286,6 +2331,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2324,6 +2378,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時
@@ -2362,6 +2425,15 @@ public class Stage : MonoBehaviour
                             {
                                 alice.AutoMoveSetting(Player.MoveDirection.DOWN);
                                 alice.SetAnimation(Player.Motion.DROP_NEXT, true);
+
+                                if (alice.saveCount > 0)
+                                {
+                                    if (alice.saveMoveDirection[alice.saveCount - 1] == Player.MoveDirection.UP)
+                                    {
+                                        alice.climbMidstFlag = true;
+                                        alice.saveClimbMidst[alice.saveCount - 1] = true;
+                                    }
+                                }
                             }
                         }
                         // ターンが戻るの時

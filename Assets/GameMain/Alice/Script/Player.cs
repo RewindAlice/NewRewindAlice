@@ -791,11 +791,16 @@ public class Player : MonoBehaviour
                         {
                             if(number > 0 )
                             {
-                                 if((saveClimbMidst[saveCount - 2]))
-                                 {
-                                     Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
-                                     MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
-                                 }
+                                if ((saveClimbMidst[saveCount - 1]))
+                                {
+                                    Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                                    MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
+                                }
+                                else if((saveClimbMidst[saveCount - 2]))
+                                {
+                                    Vector3 position = new Vector3(transform.localPosition.x, moveBeforePosition.y - 0.5f, transform.localPosition.z);  // 移動後の座標を設定
+                                    MoveFinish(position, ArrayMove.MINUS_Y);                                                                            // 移動完了処理
+                                }
                             }
                         }
                         // アリスの座標Ｙが移動前から１減っているなら
@@ -901,7 +906,11 @@ public class Player : MonoBehaviour
                     case MoveDirection.UP:
                         if(number > 0)
                         {
-                            if (saveMoveDirection[saveCount] == MoveDirection.DOWN && saveClimbMidst[saveCount - 2])
+                            if (saveMoveDirection[saveCount] == MoveDirection.DOWN && saveClimbMidst[saveCount - 1])
+                            {
+                                climbMidstFlag = true;
+                            }
+                            else if (saveMoveDirection[saveCount] == MoveDirection.DOWN && saveClimbMidst[saveCount - 2])
                             {
                                 climbMidstFlag = true;
                             }
