@@ -206,12 +206,17 @@ public class Rock : BaseGimmick
                     }
 				}
 			}
+            
 			// 座標移動
-			//if (moveTimer == 1)
-			
+			if (moveTimer == 1)
+                if (moveMemory[turnNum] == MoveDirection.NONE)
+                {
+                    moveTimer = 24;
+                }
 
 			//fallFlag = false;
 			moveTimer++;
+            
 		}
 
 
