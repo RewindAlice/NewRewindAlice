@@ -3641,6 +3641,16 @@ public class Stage : MonoBehaviour
 				}
 				break;
         }
+
+        if ((posX == alice.arrayPosX) &&
+            (posY == alice.arrayPosY) &&
+            (posZ == alice.arrayPosZ))
+        {
+            if (pushGimmickNumArray[posY + posY - (int)mine.y, posX + posX - (int)mine.x, posZ + posZ - (int)mine.z] == ROCK)
+            {
+                flag = false;
+            }
+        }
         return flag;
     }
 
