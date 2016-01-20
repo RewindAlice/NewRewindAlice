@@ -1,4 +1,4 @@
-﻿//
+﻿
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;   // 動的配列で使用
@@ -655,6 +655,7 @@ public class Stage : MonoBehaviour
 				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
 				gimmickNumArray[y, x, z] = gimmickPattern;
 				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<Door>().doorDirection = gimmickDirection;
 				break;
 			// ▼No.39    青扉（鍵）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case DOOR_BLUE_KEY://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -669,7 +670,8 @@ public class Stage : MonoBehaviour
 				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
 				gimmickNumArray[y, x, z] = gimmickPattern;
 				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
-				break;
+                gimmickObjectArray[y, x, z].GetComponent<Door>().doorDirection = gimmickDirection;
+                break;
 			// ▼No.41    黄扉（鍵）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case DOOR_YELLOW_KEY:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				gimmickObjectArray[y, x, z] = GameObject.Instantiate(gimmickKey_Yellow, new Vector3(x, y - 0.35f, z - 0.2f), Quaternion.identity) as GameObject;
@@ -683,6 +685,8 @@ public class Stage : MonoBehaviour
 				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
 				gimmickNumArray[y, x, z] = gimmickPattern;
 				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<Door>().doorDirection = gimmickDirection;
+
 				break;
 			// ▼No.43    緑扉（鍵）/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case DOOR_GREEN_KEY://///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -697,6 +701,7 @@ public class Stage : MonoBehaviour
 				gimmickObjectArray[y, x, z].transform.localEulerAngles = getGimmickDirection(gimmickDirection);
 				gimmickNumArray[y, x, z] = gimmickPattern;
 				gimmickObjectArray[y, x, z].GetComponent<Door>().SetStartActionTurn(gimmickStartTurn);
+                gimmickObjectArray[y, x, z].GetComponent<Door>().doorDirection = gimmickDirection;
 				break;
 			// ▼No.45~  穴//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case WARP_HOLE_ONE:     // ▼No.45    穴１///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1417,11 +1422,7 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        if (!normalModeDoorBackFlag)
-                        {
-                            flag = true;    // 移動できる
-                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-                        }
+                        flag = DoorDirectionFind(posX, posY, posZ);                       
                     }
                 }
                 break;
@@ -1430,11 +1431,7 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        if (!normalModeDoorBackFlag)
-                        {
-                            flag = true;    // 移動できる
-                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-                        }
+                        flag = DoorDirectionFind(posX, posY, posZ);
                     }
 
                 }
@@ -1444,11 +1441,7 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        if (!normalModeDoorBackFlag)
-                        {
-                            flag = true;    // 移動できる
-                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-                        }
+                        flag = DoorDirectionFind(posX, posY, posZ);
                     }
 
                 }
@@ -1458,11 +1451,7 @@ public class Stage : MonoBehaviour
                 {
                     if (!wapAndDoorFlag4)
                     {
-                        if (!normalModeDoorBackFlag)
-                        {
-                            flag = true;    // 移動できる
-                            gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
-                        }
+                        flag = DoorDirectionFind(posX, posY, posZ);
                     }
 
                 }
@@ -4104,4 +4093,47 @@ public class Stage : MonoBehaviour
 			}
 		}
 	}
+
+    public bool DoorDirectionFind(int posX,int posY,int posZ)
+    {
+        bool openFlag = false;
+        if (!normalModeDoorBackFlag)
+        {
+            switch (gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().doorDirection)
+            {
+                case 1:
+                    if ((alice.arrayPosX == posX) && (alice.arrayPosZ == posZ + 1))
+                    {
+                        openFlag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+                    break;
+
+                case 2:
+                    if ((alice.arrayPosX == posX + 1) && (alice.arrayPosZ == posZ))
+                    {
+                        openFlag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+                    break;
+
+                case 3:
+                    if ((alice.arrayPosX == posX) && (alice.arrayPosZ == posZ - 1))
+                    {
+                        openFlag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+                    break;
+
+                case 4:
+                    if ((alice.arrayPosX == posX - 1) && (alice.arrayPosZ == posZ))
+                    {
+                        openFlag = true;    // 移動できる
+                        gimmickObjectArray[posY, posX, posZ].GetComponent<Door>().OpenDoor();
+                    }
+                    break;
+            }
+        }
+        return openFlag;
+    }
 }

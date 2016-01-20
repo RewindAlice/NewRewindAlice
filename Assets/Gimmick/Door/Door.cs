@@ -9,6 +9,7 @@ public class Door : BaseGimmick
 	public int turnNum;
     public bool testflag;
     public bool firstOpenDoorFlag;
+    public int doorDirection; 
 
     public GameObject stage;
 
@@ -20,6 +21,7 @@ public class Door : BaseGimmick
 		openFlag = false;
 		openTimingTurn = 0;
 		turnNum = 0;
+
 	}
 
 	// ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
