@@ -1201,12 +1201,12 @@ public class GameMain : MonoBehaviour
                ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
                ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
                ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
-               ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
+               ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == false) ||
                    ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
                ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
                ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
                ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
-               ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
+               ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE) && (alice.saveCount > 0) && (tutorialFlag == true) && (stageNumber == 2) &&
                (tutorialTurn == 5 || tutorialTurn == 7))
                 {
                     if ((alice.arrayPosY != 0) && (!alice.gameOverFlag))
@@ -1231,28 +1231,28 @@ public class GameMain : MonoBehaviour
                     //print("巻き戻し");// デバッグ用コメント
                 }
 
-                // ▼早送り処理
-                // Ｅキーが押された時、行動が無しなら//////////////////////////////
-                if (((Input.GetKeyDown(KeyCode.E)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) && (tutorialFlag == false) ||
-                   ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
-                   ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
-                   ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
-                   ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
-                   ((touchController.touchPosX > touchController.detachPosX) && (touchController.touchPosY > touchController.detachPosY)) && (action == PlayerAction.NONE) && (tutorialFlag == false))
-                {
-                    touchController.TouchPostionInitialize();
-                    if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)
-                    {
-                        alice.arrowDrawFlag = false;
-                        action = PlayerAction.NEXT; // 行動を進むに
-                        turn = Turn.PLAYER;         // ターンをプレイヤーに
-                        turnCountGimmick = 0;
-                        alice.moveNextFlag = true;
-                        alice.inputKeyFlag = true;
-                        Singleton<SoundPlayer>.instance.PlaySE("se009");
-                        print("早送り");// デバッグ用コメント
-                    }
-                }
+                //// ▼早送り処理
+                //// Ｅキーが押された時、行動が無しなら//////////////////////////////
+                //if (((Input.GetKeyDown(KeyCode.E)) || (Input.GetKeyDown(KeyCode.Joystick1Button5))) && (action == PlayerAction.NONE) && (tutorialFlag == false) ||
+                //   ((touchController.touchPosX > 1010) && (touchController.touchPosX < 1280)) &&
+                //   ((touchController.touchPosY > 0) && (touchController.touchPosY < 320)) &&
+                //   ((touchController.detachPosX > 1010) && (touchController.detachPosX < 1280)) &&
+                //   ((touchController.detachPosY > 0) && (touchController.detachPosY < 320)) &&
+                //   ((touchController.touchPosX < touchController.detachPosX) && (touchController.touchPosY < touchController.detachPosY)) && (action == PlayerAction.NONE) && (tutorialFlag == false))
+                //{
+                //    touchController.TouchPostionInitialize();
+                //    if (alice.saveMoveDirection[alice.saveCount] != Player.MoveDirection.NONE)
+                //    {
+                //        alice.arrowDrawFlag = false;
+                //        action = PlayerAction.NEXT; // 行動を進むに
+                //        turn = Turn.PLAYER;         // ターンをプレイヤーに
+                //        turnCountGimmick = 0;
+                //        alice.moveNextFlag = true;
+                //        alice.inputKeyFlag = true;
+                //        Singleton<SoundPlayer>.instance.PlaySE("se009");
+                //        print("早送り");// デバッグ用コメント
+                //    }
+                //}
             }
         }
     }
