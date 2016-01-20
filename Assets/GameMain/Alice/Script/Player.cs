@@ -608,7 +608,7 @@ public class Player : MonoBehaviour
                                                        // 状態の切り替え
                 Debug.Log(playerMode+"asdasd");
                 playerAction = PlayerAction.RETURN;                 // アリスの行動を戻るに
-                if (firstRetrun == false || saveMoveInput[saveCount - 1] || autoMoveFlag == true)
+                if (firstRetrun == false || saveMoveInput[saveCount - 1] && !(saveMoveDirection[saveCount - 1] == MoveDirection.STOP) || saveMoveDirection[saveCount - 1] == MoveDirection.DOWN)
                 {
                     stage.GetComponent<Stage>().StartMove(3);
                     firstRetrun = true;
