@@ -213,12 +213,12 @@ public class HeartSoldierTurnLeft: BaseGimmick
             {
                 moveCount++;
             }
-			if (!stage.GetComponent<Stage>().CheckAutoMove())
-			{
+            //if (!stage.GetComponent<Stage>().CheckAutoMove())
+            //{
 				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
 				playerAction = PlayerAction.NEXT;
 				moveFlag = true;
-			}
+			//}
         }
 
         //回転後、アリスを見つけたか判定
