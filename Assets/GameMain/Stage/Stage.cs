@@ -3328,6 +3328,11 @@ public class Stage : MonoBehaviour
                 case START_POINT:
                 case STAGE_GOOL:
                     flag = true;
+
+                    if (pushGimmickNumArray[posY, posX - pushDirectionX, posZ - pushDirectionZ] == ROCK)
+                    {
+                        flag = false;
+                    }
                     break;
                 default:
                     break;
