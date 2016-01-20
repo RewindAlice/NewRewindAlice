@@ -208,12 +208,12 @@ public class HeartSoldierTurnRight : BaseGimmick
             {
                 moveCount++;
             }
-			if (!stage.GetComponent<Stage>().CheckAutoMove())
-			{
+			//if (!stage.GetComponent<Stage>().CheckAutoMove())
+			//{
 				moveDirection = moveMemory[turnNum];      // 保存されている移動方向を設定		
 				playerAction = PlayerAction.NEXT;
 				moveFlag = true;
-			}
+			//}
 
 		}
 		//回転後、アリスを見つけたか判定
@@ -461,7 +461,7 @@ public class HeartSoldierTurnRight : BaseGimmick
                         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, directionRot, transform.localEulerAngles.z);
                     }
                 }
-                else if (!(captureTrun == turnNum-1) ||(turnNum == 1))
+                else if ((turnNum == 1) ||!(captureTrun == turnNum-1) )
                 {
                     if (moveMemory[turnNum] == MoveDirection.NONE)
                     {
@@ -551,9 +551,13 @@ public class HeartSoldierTurnRight : BaseGimmick
 			if (playerAction == PlayerAction.NEXT) { turnNum++; }
 			else if (playerAction == PlayerAction.RETURN)
 			{
-				turnNum--;
-				captureFlag = false;
-			}
+                if(!alice.GetComponent<Player>().GetAutoMove())
+                {
+                    turnNum--;
+                    captureFlag = false;
+
+                }
+            }
 
             if (turnNum <= downTurn)
             {
