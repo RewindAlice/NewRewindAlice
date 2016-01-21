@@ -296,16 +296,19 @@ public class TextController : MonoBehaviour
                    ((touchController.detachPosX > 1152) && (touchController.detachPosX < 1280)) &&
                    ((touchController.detachPosY > 620) && (touchController.detachPosY < 720)))
                 {
-                    touchController.TouchPostionInitialize();
-                    pause.GetComponent<StoryPause>().text.stopText = true;//ストーリーのテキストを止める
-                    pause.GetComponent<StoryPause>().name.stopText = true;//名前のテキストを止める
-                    pause.GetComponent<StoryPause>().pauseImageManager1.GetComponent<Image>().enabled = true;
-                    pause.GetComponent<StoryPause>().pauseImageManager2.GetComponent<Image>().enabled = true;
-                    //pauseImageManager3.GetComponent<Image>().enabled = true;
-                    pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = true;
-                    pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = true;
-                    pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = true;
-                    pause.GetComponent<StoryPause>().Initialize();
+                    if (!pause.GetComponent<StoryPause>().notStoryPauseFlag)
+                    {
+                        touchController.TouchPostionInitialize();
+                        pause.GetComponent<StoryPause>().text.stopText = true;//ストーリーのテキストを止める
+                        pause.GetComponent<StoryPause>().name.stopText = true;//名前のテキストを止める
+                        pause.GetComponent<StoryPause>().pauseImageManager1.GetComponent<Image>().enabled = true;
+                        pause.GetComponent<StoryPause>().pauseImageManager2.GetComponent<Image>().enabled = true;
+                        //pauseImageManager3.GetComponent<Image>().enabled = true;
+                        pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = true;
+                        pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = true;
+                        pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = true;
+                        pause.GetComponent<StoryPause>().Initialize();
+                    }
 
                 }
                 else
@@ -400,6 +403,7 @@ public class TextController : MonoBehaviour
                          touchController.TouchPostionInitialize();
                          pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, -100, 0);
                          pause.GetComponent<StoryPause>().selectMode = 1;
+                         
                          CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
                          pause.GetComponent<StoryPause>().EscapePause();
@@ -523,10 +527,12 @@ public class TextController : MonoBehaviour
             Singleton<SoundPlayer>.instance.BGMPlayerDelete();
             if(stageNum == 52)
             {
+                GameObject.Find("Pause").GetComponent<StoryPause>().notStoryPauseFlag = true;
                 CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("EndingScene"); });
             }
             else
             {
+                GameObject.Find("Pause").GetComponent<StoryPause>().notStoryPauseFlag = true;
                 PlayerPrefs.SetInt("STAMP_NUM", 1);
                 CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
             }

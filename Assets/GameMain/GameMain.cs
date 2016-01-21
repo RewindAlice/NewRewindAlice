@@ -126,7 +126,7 @@ public class GameMain : MonoBehaviour
 
 		if (pause.GetComponent<Pause>().pauseFlag == false)
 		{
-
+            if((!stage.goalFlag)||(GameObject.Find("Pause").GetComponent<Pause>().notPauseFlag == false))
             //pause起動
             if (((touchController.touchPosX > 0) && (touchController.touchPosX < 320)) &&
                ((touchController.touchPosY > 500) && (touchController.touchPosY < 720)) &&

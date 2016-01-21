@@ -2674,6 +2674,7 @@ public class Stage : MonoBehaviour
     {
         print("ゴール到着");
         // ここにゴール処理を書く
+        GameObject.Find("Pause").GetComponent<Pause>().notPauseFlag = true;
         goalFlag = true;
         GameObject.Find("Camera").GetComponent<PlayerCamera>().clearFlag = true;
         Singleton<SoundPlayer>.instance.PlaySE("se004");

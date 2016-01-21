@@ -31,11 +31,18 @@ public class Pause : MonoBehaviour
     private PaseCharacterChanger changer;
 
     public GameObject gameMain;
+
+    public bool notPauseFlag;
+    public int fadeCount;
+
     void Start()
     {
         gameMain = GameObject.Find("GameMain");
         keyFlag = false;
         pauseFlag = false;
+        fadeCount = 0;
+        notPauseFlag = true;
+
         pauseImageManager1 = backGorund.GetComponent<PauseImageManager>();
         pauseImageManager2 = backButton.GetComponent<PauseImageManager>();
         pauseImageManager3 = returnButton.GetComponent<PauseImageManager>();
@@ -50,127 +57,154 @@ public class Pause : MonoBehaviour
     {
         float HorizontalKeyInput = Input.GetAxis("HorizontalKey");
 		float VerticalKeyInput = Input.GetAxis("VerticalKey");
-        if (pauseFlag)
+        if(!notPauseFlag)
         {
-            if (menuSelectFlag == false)
+            if (pauseFlag)
             {
-                if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
+                if (menuSelectFlag == false)
                 {
-                    pauseImageManager1.GetComponent<Image>().enabled = false;
-                    pauseImageManager2.GetComponent<Image>().enabled = false;
-                    pauseImageManager3.GetComponent<Image>().enabled = false;
-                    pauseImageManager4.GetComponent<Image>().enabled = false;
-                    pauseImageManager5.GetComponent<Image>().enabled = false;
-                    pauseImageManager6.GetComponent<Image>().enabled = false;
-                    EscapePause();
-                    changer.CharacterChange();
-                    pauseFlag = false;
-                }
-            }
-            // メニューが選択されている場合
-            else if (menuSelectFlag)
-            {
-                // 一定の時間が経過しているなら、選択中のメニューを返す
-                if (selectTimer > 15)
-                {
-                    switch (selectMode)
+                    if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
                     {
-                        case RETURN_GAME:
-                            pauseImageManager1.GetComponent<Image>().enabled = false;
-                            pauseImageManager2.GetComponent<Image>().enabled = false;
-                            pauseImageManager3.GetComponent<Image>().enabled = false;
-                            pauseImageManager4.GetComponent<Image>().enabled = false;
-                            pauseImageManager5.GetComponent<Image>().enabled = false;
-                            pauseImageManager6.GetComponent<Image>().enabled = false;
-                            EscapePause();
+                        pauseImageManager1.GetComponent<Image>().enabled = false;
+                        pauseImageManager2.GetComponent<Image>().enabled = false;
+                        pauseImageManager3.GetComponent<Image>().enabled = false;
+                        pauseImageManager4.GetComponent<Image>().enabled = false;
+                        pauseImageManager5.GetComponent<Image>().enabled = false;
+                        pauseImageManager6.GetComponent<Image>().enabled = false;
+                        EscapePause();
+                        changer.CharacterChange();
+                        pauseFlag = false;
+                    }
+                }
+                // メニューが選択されている場合
+                else if (menuSelectFlag)
+                {
+                    // 一定の時間が経過しているなら、選択中のメニューを返す
+                    if (selectTimer > 15)
+                    {
+                        switch (selectMode)
+                        {
+                            case RETURN_GAME:
+                                pauseImageManager1.GetComponent<Image>().enabled = false;
+                                pauseImageManager2.GetComponent<Image>().enabled = false;
+                                pauseImageManager3.GetComponent<Image>().enabled = false;
+                                pauseImageManager4.GetComponent<Image>().enabled = false;
+                                pauseImageManager5.GetComponent<Image>().enabled = false;
+                                pauseImageManager6.GetComponent<Image>().enabled = false;
+                                EscapePause();
 
-                            pauseFlag = false;
-                            break;
-                        case RESTART:
-                            EscapePause();
-                            if (gameMain.GetComponent<GameMain>().stageNumber < 3)
-                            {
-                                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
-                            }
-                            else
-                            {
-                                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
-                            }
-                           break;
-                        case RETURN_SELECT:
-                            EscapePause();
-                            CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
-                            break;
-                        default:
-                            break;
+                                pauseFlag = false;
+                                break;
+                            case RESTART:
+                                EscapePause();
+                                if (gameMain.GetComponent<GameMain>().stageNumber < 3)
+                                {
+                                    notPauseFlag = true;
+                                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("TutorialMainScene"); });
+                                }
+                                else
+                                {
+                                    notPauseFlag = true;
+                                    CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("GameMainScene"); });
+                                }
+                               break;
+                            case RETURN_SELECT:
+
+                                EscapePause();
+                                notPauseFlag = true;
+                                CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    // 経過していないなら、選択してからのタイマーをプラス
+                    else
+                    {
+                        selectTimer++;
                     }
                 }
-                // 経過していないなら、選択してからのタイマーをプラス
-                else
+
+                // メニュー選択がされていない場合
+                if (menuSelectFlag == false)
                 {
-                    selectTimer++;
+                    if ((-0.6f < HorizontalKeyInput) && (HorizontalKeyInput < 0.6f) && (-0.6f < VerticalKeyInput) && (VerticalKeyInput < 0.6f))
+                    {
+                        keyFlag = false;
+                    }
+                    if (keyFlag == false)
+                    {
+                        // 上入力でメニューを上に
+                        if (((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.9f))) && (selectMode > RETURN_GAME))
+                        {
+                            selectMode--;
+                            keyFlag = true;
+                        }
+                        // 下入力でメニューを下に
+                        else if (((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.9f))) && (selectMode < RETURN_SELECT))
+                        {
+                            selectMode++;
+                            keyFlag = true;
+                        }
+                        // 決定キーでメニューを選択
+                        else if ((Input.GetKeyDown(KeyCode.Space)) ||
+								    (Input.GetKeyDown(KeyCode.W)) ||
+                                    (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
+                                    (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
+                                    (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
+                                    (Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
+                                    (Input.GetKeyDown(KeyCode.Joystick1Button7)))
+                        {
+                            menuSelectFlag = true;
+                            //SOUND_Play(Sound_PauseMenu);
+                        }
+                    }
                 }
+                timer++; // タイマーをプラス
+            }
+            else
+            {
+			    if (startTimer >= 30)
+			    {
+				    if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
+				    {
+					    pauseImageManager1.GetComponent<Image>().enabled = true;
+					    pauseImageManager2.GetComponent<Image>().enabled = true;
+					    pauseImageManager3.GetComponent<Image>().enabled = true;
+					    pauseImageManager4.GetComponent<Image>().enabled = true;
+					    pauseImageManager5.GetComponent<Image>().enabled = true;
+					    pauseImageManager6.GetComponent<Image>().enabled = true;
+					    Initialize();
+				    }
+			    }
+			    else
+			    {
+				    startTimer++;
+			    }
+
             }
 
-            // メニュー選択がされていない場合
-            if (menuSelectFlag == false)
-            {
-                if ((-0.6f < HorizontalKeyInput) && (HorizontalKeyInput < 0.6f) && (-0.6f < VerticalKeyInput) && (VerticalKeyInput < 0.6f))
-                {
-                    keyFlag = false;
-                }
-                if (keyFlag == false)
-                {
-                    // 上入力でメニューを上に
-                    if (((Input.GetKeyDown(KeyCode.UpArrow)) || ((VerticalKeyInput < -0.9f))) && (selectMode > RETURN_GAME))
-                    {
-                        selectMode--;
-                        keyFlag = true;
-                    }
-                    // 下入力でメニューを下に
-                    else if (((Input.GetKeyDown(KeyCode.DownArrow)) || ((VerticalKeyInput > 0.9f))) && (selectMode < RETURN_SELECT))
-                    {
-                        selectMode++;
-                        keyFlag = true;
-                    }
-                    // 決定キーでメニューを選択
-                    else if ((Input.GetKeyDown(KeyCode.Space)) ||
-								(Input.GetKeyDown(KeyCode.W)) ||
-                                (Input.GetKeyDown(KeyCode.Joystick1Button0)) ||
-                                (Input.GetKeyDown(KeyCode.Joystick1Button1)) ||
-                                (Input.GetKeyDown(KeyCode.Joystick1Button2)) ||
-                                (Input.GetKeyDown(KeyCode.Joystick1Button3)) ||
-                                (Input.GetKeyDown(KeyCode.Joystick1Button7)))
-                    {
-                        menuSelectFlag = true;
-                        //SOUND_Play(Sound_PauseMenu);
-                    }
-                }
-            }
-            timer++; // タイマーをプラス
         }
-        else
+        else 
         {
-			if (startTimer >= 30)
-			{
-				if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Joystick1Button7)))
-				{
-					pauseImageManager1.GetComponent<Image>().enabled = true;
-					pauseImageManager2.GetComponent<Image>().enabled = true;
-					pauseImageManager3.GetComponent<Image>().enabled = true;
-					pauseImageManager4.GetComponent<Image>().enabled = true;
-					pauseImageManager5.GetComponent<Image>().enabled = true;
-					pauseImageManager6.GetComponent<Image>().enabled = true;
-					Initialize();
-				}
-			}
-			else
-			{
-				startTimer++;
-			}
+            if(fadeCount <= 60)
+            {
+                fadeCount++;
+                if(fadeCount ==60) notPauseFlag = false;
+            }
+            if(fadeCount > 60)
+            {
+                pauseImageManager1.GetComponent<Image>().enabled = false;
+                pauseImageManager2.GetComponent<Image>().enabled = false;
+                pauseImageManager3.GetComponent<Image>().enabled = false;
+                pauseImageManager4.GetComponent<Image>().enabled = false;
+                pauseImageManager5.GetComponent<Image>().enabled = false;
+                pauseImageManager6.GetComponent<Image>().enabled = false;
+                EscapePause();
+                pauseFlag = false;
 
+            }
         }
-
         if (selectMode == RETURN_GAME)
         {
             pauseImageManager6.transform.localPosition = new Vector3(80, 140, 0);
