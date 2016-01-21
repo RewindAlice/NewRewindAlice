@@ -804,6 +804,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_1;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
@@ -816,6 +817,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_2;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
@@ -828,6 +830,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_3;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
@@ -840,6 +843,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_4;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
@@ -852,6 +856,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_5;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
@@ -864,6 +869,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_6;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
@@ -876,6 +882,7 @@ public class StageSelect : MonoBehaviour
 						{
 							chapter = Chapter.CHAPTER_7;
 							returnCount = 0;
+                            enterFlag = true;
 							Singleton<SoundPlayer>.instance.stopBGM(1.0f);
 							BGMDeleter = true;
 						}
