@@ -373,9 +373,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: .000662088394
+    y: .000136435032
     width: 1
-    height: .998675823
+    height: .99972713
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
@@ -490,6 +490,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 5615d93fc6b8fef4e9c53b1f6f83edca, type: 2}
+    - target: {fileID: 13732060, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d78ac7638a9c9b47b0259effb571ee4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
   m_IsPrefabParent: 0

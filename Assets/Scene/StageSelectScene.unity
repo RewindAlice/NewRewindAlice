@@ -577,6 +577,7 @@ MonoBehaviour:
   chapter: 0
   startFlag: 0
   resetFlag: 0
+  enterFlag: 0
   book: {fileID: 2073965937}
   stage1Text: {fileID: 583183629}
   stage2Text: {fileID: 1035602244}
