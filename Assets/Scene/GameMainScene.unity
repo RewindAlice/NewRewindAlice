@@ -1363,6 +1363,8 @@ MonoBehaviour:
   pauseImageManager5: {fileID: 0}
   pauseImageManager6: {fileID: 0}
   gameMain: {fileID: 0}
+  notPauseFlag: 0
+  fadeCount: 0
 --- !u!114 &976129166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,14 +1424,14 @@ RectTransform:
   m_GameObject: {fileID: 980834258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1639375434}
   m_RootOrder: 6
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: -127}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &980834260
 MonoBehaviour:
@@ -1455,7 +1457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 542451de466ed134aab980027c5dff38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61ec7fe17a06afb48b05dc236ff5c457, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

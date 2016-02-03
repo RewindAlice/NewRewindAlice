@@ -2,7 +2,7 @@
 
 // Skipping shader variants that would not be included into build of current scene.
 
-Shader "Custom/AliceA" {
+Shader "Unlit/AliceA" {
 Properties {
  _MainTex ("Base (RGB) Trans (A)", 2D) = "white" { }
  _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
@@ -23,7 +23,7 @@ SubShader {
  //        d3d9 : 2 math, 2 texture
  Pass {
   Tags { "QUEUE"="AlphaTest" "IGNOREPROJECTOR"="true" "RenderType"="TransparentCutout" }
-  Cull Off
+  Cull off
   GpuProgramID 36113
 Program "vp" {
 SubProgram "opengl " {
