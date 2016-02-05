@@ -383,6 +383,7 @@ public class TextController : MonoBehaviour
                          ((touchController.detachPosX > 250) && (touchController.detachPosX < 750)) &&
                          ((touchController.detachPosY > 500) && (touchController.detachPosY < 595)))
                      {
+
                          touchController.TouchPostionInitialize();
                          pause.GetComponent<StoryPause>().pauseImageManager1.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager2.GetComponent<Image>().enabled = false;
@@ -390,6 +391,9 @@ public class TextController : MonoBehaviour
                          pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                         //イメージをチェンジする
+                         pause.GetComponent<Pause>().changer.CharacterChange();
+
                          pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, 180, 0);
                          pause.GetComponent<StoryPause>().EscapePause();
 
@@ -403,7 +407,7 @@ public class TextController : MonoBehaviour
                          touchController.TouchPostionInitialize();
                          pause.GetComponent<StoryPause>().pauseImageManager6.transform.localPosition = new Vector3(180, -100, 0);
                          pause.GetComponent<StoryPause>().selectMode = 1;
-                         
+                         Singleton<SoundPlayer>.instance.stopBGM(0.7f);
                          CameraFade.StartAlphaFade(Color.black, false, 1.0f, 0.5f, () => { Application.LoadLevel("StageSelectScene"); });
 
                          pause.GetComponent<StoryPause>().EscapePause();
@@ -418,6 +422,9 @@ public class TextController : MonoBehaviour
                          pause.GetComponent<StoryPause>().pauseImageManager4.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager5.GetComponent<Image>().enabled = false;
                          pause.GetComponent<StoryPause>().pauseImageManager6.GetComponent<Image>().enabled = false;
+                         //イメージをチェンジする
+                         pause.GetComponent<Pause>().changer.CharacterChange();
+
                          pause.GetComponent<StoryPause>().EscapePause();
                      }
                  }

@@ -1287,7 +1287,7 @@ Prefab:
     - target: {fileID: 13732060, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4d78ac7638a9c9b47b0259effb571ee4, type: 2}
+      objectReference: {fileID: 2100000, guid: b45810c4c0378da4d825d2028b831c9a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
   m_IsPrefabParent: 0
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  Android: 0
+  Android: 1
 --- !u!1 &1118691831
 GameObject:
   m_ObjectHideFlags: 0

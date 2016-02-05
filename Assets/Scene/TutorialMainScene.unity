@@ -431,7 +431,7 @@ MonoBehaviour:
   exSprite_six_S: {fileID: 21300000, guid: 5abad9aa77b0a0442b99641315a00f7d, type: 3}
   exSprite_seven_S: {fileID: 21300000, guid: bd1793b34e0c31d4f820fcd0309d91b3, type: 3}
   exSprite_eight_S: {fileID: 21300000, guid: 4ec919ee58a99564abfd9d5eeadc2d71, type: 3}
-  Android: 0
+  Android: 1
 --- !u!114 &364307942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,7 +1362,7 @@ Prefab:
     - target: {fileID: 13732060, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4d78ac7638a9c9b47b0259effb571ee4, type: 2}
+      objectReference: {fileID: 2100000, guid: b45810c4c0378da4d825d2028b831c9a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8012e5d948e790479dec9db92fb2815, type: 2}
   m_IsPrefabParent: 0
@@ -1438,6 +1438,8 @@ MonoBehaviour:
   pauseImageManager5: {fileID: 0}
   pauseImageManager6: {fileID: 0}
   gameMain: {fileID: 0}
+  notPauseFlag: 0
+  fadeCount: 0
 --- !u!114 &976129166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,7 +1601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  Android: 0
+  Android: 1
 --- !u!1 &1263835432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,7 +2621,7 @@ MonoBehaviour:
   stageData: 
   gameMain: {fileID: 2060863229}
   tutorialCount: 0
-  Android: 0
+  Android: 1
 --- !u!114 &1972864572
 MonoBehaviour:
   m_ObjectHideFlags: 0

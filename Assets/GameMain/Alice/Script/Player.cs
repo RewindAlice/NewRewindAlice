@@ -684,6 +684,10 @@ public class Player : MonoBehaviour
                                     SetAnimation(Motion.STOP_RETURN, true);
                                 }
                             }
+                            else
+                            {
+                                SetAnimation(Motion.STOP_RETURN, true);
+                            }
                            
                             break;
                     }

@@ -325,7 +325,7 @@ public class StageSelect : MonoBehaviour
         Singleton<SoundPlayer>.instance.update();
         returnCount++;
 
-        if (returnCount > 1200)
+        if (returnCount > 1800)
         {
             Application.LoadLevel("TitleScene");
         }

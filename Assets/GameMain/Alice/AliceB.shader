@@ -6,7 +6,7 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags { "RenderType"="Opaque" "IGNOREPROJECTOR"="true"}
 		LOD 200
 		Cull Off
 		CGPROGRAM
@@ -37,5 +37,5 @@
 		}
 		ENDCG
 	} 
-	FallBack "Unlit/Texture"
+	FallBack "Standard"
 }
