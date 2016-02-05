@@ -84,6 +84,8 @@ public class GameMain : MonoBehaviour
 
         doorFlag = false;
         normalReturnFlag = false;
+
+
 	}
 
     // ★更新★〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -126,78 +128,79 @@ public class GameMain : MonoBehaviour
 
 		if (pause.GetComponent<Pause>().pauseFlag == false)
 		{
-            if((!stage.goalFlag)||(GameObject.Find("Pause").GetComponent<Pause>().notPauseFlag == false))
-            //pause起動
-            if (((touchController.touchPosX > 0) && (touchController.touchPosX < 320)) &&
-               ((touchController.touchPosY > 500) && (touchController.touchPosY < 720)) &&
-               ((touchController.detachPosX > 0) && (touchController.detachPosX < 320)) &&
-               ((touchController.detachPosY > 500) && (touchController.detachPosY < 720)) && tutorialFlag == false)
+            if((!stage.goalFlag)&&(GameObject.Find("Pause").GetComponent<Pause>().notPauseFlag == false))
             {
-                touchController.TouchPostionInitialize();
-                //pause.GetComponent<Pause>().pauseFlag = true;
-                pause.GetComponent<Pause>().pauseImageManager1.GetComponent<Image>().enabled = true;
-                pause.GetComponent<Pause>().pauseImageManager2.GetComponent<Image>().enabled = true;
-                pause.GetComponent<Pause>().pauseImageManager3.GetComponent<Image>().enabled = true;
-                pause.GetComponent<Pause>().pauseImageManager4.GetComponent<Image>().enabled = true;
-                pause.GetComponent<Pause>().pauseImageManager5.GetComponent<Image>().enabled = true;
-                pause.GetComponent<Pause>().pauseImageManager6.GetComponent<Image>().enabled = true;
-                pause.GetComponent<Pause>().Initialize();
-            }
+                //pause起動
+                if (((touchController.touchPosX > 0) && (touchController.touchPosX < 320)) &&
+                   ((touchController.touchPosY > 500) && (touchController.touchPosY < 720)) &&
+                   ((touchController.detachPosX > 0) && (touchController.detachPosX < 320)) &&
+                   ((touchController.detachPosY > 500) && (touchController.detachPosY < 720)) && tutorialFlag == false)
+                {
+                    touchController.TouchPostionInitialize();
+                    //pause.GetComponent<Pause>().pauseFlag = true;
+                    pause.GetComponent<Pause>().pauseImageManager1.GetComponent<Image>().enabled = true;
+                    pause.GetComponent<Pause>().pauseImageManager2.GetComponent<Image>().enabled = true;
+                    pause.GetComponent<Pause>().pauseImageManager3.GetComponent<Image>().enabled = true;
+                    pause.GetComponent<Pause>().pauseImageManager4.GetComponent<Image>().enabled = true;
+                    pause.GetComponent<Pause>().pauseImageManager5.GetComponent<Image>().enabled = true;
+                    pause.GetComponent<Pause>().pauseImageManager6.GetComponent<Image>().enabled = true;
+                    pause.GetComponent<Pause>().Initialize();
+                }
+			    MapCamera();    // マップカメラ
+                if (playerControl)
+                {
+                    PlayerMove();   // プレイヤーの移動
+                }
 
-			MapCamera();    // マップカメラ
-            if (playerControl)
-            {
-                PlayerMove();   // プレイヤーの移動
-            }
+                CameraTurn();   // カメラの回転
+                GameAction();   // 行動を行う
 
-            CameraTurn();   // カメラの回転
-            GameAction();   // 行動を行う
+			    if ((stageNumber == 1) ||
+				    (stageNumber == 2))
+			    {
+				    waitingTime++;
+				    if (tutorialImageFlag == true)
+				    {
+					    if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 250) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
+						    stageNumber == 2 & (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+					    {
+						    if (tutorialCount > 1 && tutorialCount < 11)
+							    ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
 
-			if ((stageNumber == 1) ||
-				(stageNumber == 2))
-			{
-				waitingTime++;
-				if (tutorialImageFlag == true)
-				{
-					if (stageNumber == 1 && ((tutorialTurn == 2 && waitingTime > 250) || tutorialTurn == 4 || (tutorialTurn == 6 && waitingTime > 120) || tutorialTurn == 7) ||
-						stageNumber == 2 & (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
-					{
-						if (tutorialCount > 1 && tutorialCount < 11)
-							ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, tutorialCount / 10.0f);
+						    if (tutorialCount < 60)
+						    {
+							    tutorialCount++;
+						    }
+					    }
 
-						if (tutorialCount < 60)
-						{
-							tutorialCount++;
-						}
-					}
+				    }
+				    else if (tutorialImageFlag == false)
+				    {
+					    ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
-				}
-				else if (tutorialImageFlag == false)
-				{
-					ImageUI.GetComponent<Image>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+					    camera.GetComponent<PlayerCamera>().mapCameraFlag = true;
+					    camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+				    }
 
-					camera.GetComponent<PlayerCamera>().mapCameraFlag = true;
-					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
-				}
-
-				if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
-				{
+				    if (stageNumber == 1 && (tutorialTurn == 2 || tutorialTurn == 4 || tutorialTurn == 6 || tutorialTurn == 7))
+				    {
                    
-					tutorialImageFlag = true;
-					camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
-					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
-				}
-				else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
-				{
-					tutorialImageFlag = true;
-					camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
-					camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
-				}
-			}
+					    tutorialImageFlag = true;
+					    camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
+					    camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+				    }
+				    else if (stageNumber == 2 && (tutorialTurn == 1 || tutorialTurn == 3 || tutorialTurn == 4 || tutorialTurn == 6))
+				    {
+					    tutorialImageFlag = true;
+					    camera.GetComponent<PlayerCamera>().mapCameraFlag = false;
+					    camera.GetComponent<PlayerCamera>().SwitchingMapCamera();
+				    }
+			    }
 
-            if (touchController.detachPosX != 0)
-            {
-                touchController.TouchPostionInitialize();
+                if (touchController.detachPosX != 0)
+                {
+                    touchController.TouchPostionInitialize();
+                }
             }
 
 		}
